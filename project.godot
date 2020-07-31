@@ -1,0 +1,42 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[  ]
+_global_script_class_icons={
+
+}
+
+[application]
+
+config/name="Levrault-dialogue-editor"
+run/main_scene="res://src/Main/DialogueEditor.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+Events="*res://src/Autoload/Events.gd"
+
+[debug]
+
+gdscript/warnings/unused_argument=false
+gdscript/warnings/return_value_discarded=false
+
+[display]
+
+window/size/width=1600
+window/size/height=900
+
+[locale]
+
+test="en"
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
