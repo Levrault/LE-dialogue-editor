@@ -1,0 +1,176 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Node/DialogueNode.gd" type="Script" id=1]
+[ext_resource path="res://assets/dialogue_node.tres" type="Theme" id=2]
+
+[node name="DialogueNode" type="GraphNode"]
+margin_left = 3.56763
+margin_top = -1.18921
+margin_right = 349.568
+margin_bottom = 545.811
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 2 )
+title = "Dialogue"
+show_close = true
+resizable = true
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 0.67451, 0.258824, 0.258824, 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Container" type="VBoxContainer" parent="."]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 330.0
+margin_bottom = 541.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 11
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameContainer" type="VBoxContainer" parent="Container"]
+margin_right = 314.0
+margin_bottom = 38.0
+
+[node name="Label" type="Label" parent="Container/NameContainer"]
+margin_right = 314.0
+margin_bottom = 14.0
+text = "Name"
+
+[node name="Name" type="TextEdit" parent="Container/NameContainer"]
+margin_top = 18.0
+margin_right = 314.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 10, 20 )
+
+[node name="PortraitContainer" type="VBoxContainer" parent="Container"]
+margin_top = 49.0
+margin_right = 314.0
+margin_bottom = 87.0
+
+[node name="Label" type="Label" parent="Container/PortraitContainer"]
+margin_right = 314.0
+margin_bottom = 14.0
+text = "Portait"
+
+[node name="Portrait" type="TextEdit" parent="Container/PortraitContainer"]
+margin_top = 18.0
+margin_right = 314.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 10, 20 )
+
+[node name="DialogContainer" type="VBoxContainer" parent="Container"]
+margin_top = 98.0
+margin_right = 314.0
+margin_bottom = 364.0
+size_flags_vertical = 3
+custom_constants/separation = 10
+
+[node name="Label" type="Label" parent="Container/DialogContainer"]
+margin_right = 314.0
+margin_bottom = 14.0
+text = "Dialogue"
+
+[node name="EnContainer" type="VBoxContainer" parent="Container/DialogContainer"]
+margin_top = 24.0
+margin_right = 314.0
+margin_bottom = 138.0
+custom_constants/separation = 0
+
+[node name="Label" type="Label" parent="Container/DialogContainer/EnContainer"]
+margin_right = 314.0
+margin_bottom = 14.0
+text = "en"
+
+[node name="En" type="TextEdit" parent="Container/DialogContainer/EnContainer"]
+margin_top = 14.0
+margin_right = 314.0
+margin_bottom = 114.0
+rect_min_size = Vector2( 10, 100 )
+size_flags_vertical = 3
+
+[node name="FrContainer" type="VBoxContainer" parent="Container/DialogContainer"]
+margin_top = 148.0
+margin_right = 314.0
+margin_bottom = 266.0
+
+[node name="Label" type="Label" parent="Container/DialogContainer/FrContainer"]
+margin_right = 314.0
+margin_bottom = 14.0
+text = "fr"
+
+[node name="Fr" type="TextEdit" parent="Container/DialogContainer/FrContainer"]
+margin_top = 18.0
+margin_right = 314.0
+margin_bottom = 118.0
+rect_min_size = Vector2( 10, 100 )
+size_flags_vertical = 3
+
+[node name="ConditionsContainer" type="HBoxContainer" parent="Container"]
+margin_top = 375.0
+margin_right = 314.0
+margin_bottom = 415.0
+
+[node name="ConditionsButton" type="CheckButton" parent="Container/ConditionsContainer"]
+margin_right = 274.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+text = "Conditions"
+
+[node name="ToolButton" type="Button" parent="Container/ConditionsContainer"]
+margin_left = 278.0
+margin_right = 314.0
+margin_bottom = 40.0
+size_flags_horizontal = 0
+text = "Edit"
+
+[node name="ChoicesContainer" type="HBoxContainer" parent="Container"]
+margin_top = 426.0
+margin_right = 314.0
+margin_bottom = 466.0
+
+[node name="ChoicesButton" type="CheckButton" parent="Container/ChoicesContainer"]
+margin_right = 274.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+text = "Choices"
+
+[node name="ToolButton" type="Button" parent="Container/ChoicesContainer"]
+margin_left = 278.0
+margin_right = 314.0
+margin_bottom = 40.0
+size_flags_horizontal = 0
+text = "Edit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SignalsContainer" type="HBoxContainer" parent="Container"]
+margin_top = 477.0
+margin_right = 314.0
+margin_bottom = 517.0
+
+[node name="SignalsButton" type="CheckButton" parent="Container/SignalsContainer"]
+margin_right = 274.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+text = "Signals"
+
+[node name="ToolButton" type="Button" parent="Container/SignalsContainer"]
+margin_left = 278.0
+margin_right = 314.0
+margin_bottom = 40.0
+size_flags_horizontal = 0
+text = "Edit"
+__meta__ = {
+"_edit_use_anchors_": false
+}

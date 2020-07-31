@@ -56,6 +56,8 @@ margin_right = 1600.0
 margin_bottom = 895.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+scroll_offset = Vector2( -221.296, -120.192 )
+zoom = 1.25
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false

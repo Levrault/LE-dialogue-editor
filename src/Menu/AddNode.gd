@@ -1,6 +1,6 @@
 extends ToolButton
 
-var dialog_node := preload("res://src/Node/DialogNode.tscn")
+var dialog_node := preload("res://src/Node/DialogueNode.tscn")
 
 
 func _ready() -> void:
