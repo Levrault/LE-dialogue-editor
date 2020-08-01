@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/Menu/AddChoices.gd" type="Script" id=1]
+[ext_resource path="res://src/Menu/AddNode.gd" type="Script" id=2]
+
+[sub_resource type="InputEventAction" id=1]
+action = "add_node"
+
+[sub_resource type="ShortCut" id=2]
+shortcut = SubResource( 1 )
+
+[sub_resource type="InputEventAction" id=3]
+action = "add_choice"
+
+[sub_resource type="ShortCut" id=4]
+shortcut = SubResource( 3 )
+
+[node name="Menu" type="HBoxContainer"]
+margin_right = 209.0
+margin_bottom = 22.0
+size_flags_horizontal = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="File" type="MenuButton" parent="."]
+margin_right = 35.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "File"
+
+[node name="AddNode" type="ToolButton" parent="."]
+margin_left = 39.0
+margin_right = 114.0
+margin_bottom = 22.0
+size_flags_vertical = 3
+shortcut = SubResource( 2 )
+text = "Add Node"
+script = ExtResource( 2 )
+
+[node name="AddChoices" type="ToolButton" parent="."]
+margin_left = 118.0
+margin_right = 209.0
+margin_bottom = 22.0
+size_flags_vertical = 3
+shortcut = SubResource( 4 )
+text = "Add Choices"
+script = ExtResource( 1 )

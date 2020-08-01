@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Popup/ChoicesWindows.gd" type="Script" id=1]
+
+[node name="ConditionsWindows" type="WindowDialog"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -374.0
+margin_top = -307.5
+margin_right = 374.0
+margin_bottom = 307.5
+window_title = "Edit Choices"
+resizable = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+margin_right = 708.0
+margin_bottom = 575.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+margin_right = 708.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 50.0
+margin_bottom = 14.0
+text = "Choices"
+
+[node name="TextEdit" type="TextEdit" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 54.0
+margin_right = 708.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}

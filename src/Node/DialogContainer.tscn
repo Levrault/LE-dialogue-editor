@@ -1,0 +1,51 @@
+[gd_scene format=2]
+
+[node name="TextContainer" type="VBoxContainer"]
+margin_top = 98.0
+margin_right = 314.0
+margin_bottom = 364.0
+size_flags_vertical = 3
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_right = 314.0
+margin_bottom = 14.0
+text = "Text"
+
+[node name="EnContainer" type="VBoxContainer" parent="."]
+margin_top = 24.0
+margin_right = 314.0
+margin_bottom = 138.0
+custom_constants/separation = 0
+
+[node name="Label" type="Label" parent="EnContainer"]
+margin_right = 314.0
+margin_bottom = 14.0
+text = "en"
+
+[node name="En" type="TextEdit" parent="EnContainer"]
+margin_top = 14.0
+margin_right = 314.0
+margin_bottom = 114.0
+rect_min_size = Vector2( 10, 100 )
+size_flags_vertical = 3
+
+[node name="FrContainer" type="VBoxContainer" parent="."]
+margin_top = 148.0
+margin_right = 314.0
+margin_bottom = 266.0
+
+[node name="Label" type="Label" parent="FrContainer"]
+margin_right = 314.0
+margin_bottom = 14.0
+text = "fr"
+
+[node name="Fr" type="TextEdit" parent="FrContainer"]
+margin_top = 18.0
+margin_right = 314.0
+margin_bottom = 118.0
+rect_min_size = Vector2( 10, 100 )
+size_flags_vertical = 3

@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Node/DialogContainer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Node/ChoicesNode.gd" type="Script" id=2]
+
+[node name="ChoiceNode" type="GraphNode"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1302.0
+margin_bottom = -584.0
+title = "Choice"
+show_close = true
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 0.647059, 0.211765, 0.211765, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 0.647059, 0.211765, 0.211765, 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextContainer" parent="." instance=ExtResource( 1 )]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 282.0
+margin_bottom = 290.0
