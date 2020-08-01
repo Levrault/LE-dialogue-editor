@@ -1,0 +1,46 @@
+{
+  "001": {
+    "name": "Luc-Frédéric",
+    "portrait": "Luc",
+    "text": {
+      "en": "",
+      "fr": "Hello ma petite maman, bienvenue dans le premier prototype du jeu de Margot. Appuie sur F ou Y pour continuer"
+    },
+    "next": "002"
+  },
+  "002": {
+    "name": "Luc-Frédéric",
+    "portrait": "Luc",
+    "text": {
+      "en": "",
+      "fr": "Comme tu peux le voir, le jeu n'a pas beaucoup de fonctionnalité et risque d'avoir des instabilités. Mais c'est normal car c'est une version de test."
+    },
+    "next": "003"
+  },
+  "003": {
+    "name": "Monsieur Renard",
+    "portrait": "Fox",
+    "text": {
+      "en": "",
+      "fr": "Oui il se peut que moi, monsieur Renard, change de comportement au fur et à mesure que le développement avance."
+    },
+    "next": "004"
+  },
+  "004": {
+    "name": "Luc-Frédéric",
+    "portrait": "Luc",
+    "text": {
+      "en": "",
+      "fr": "Tout d'abord, les personnages parleront directement à Margot via cette boîte de dialogue. Et le personnage de Margot, répondra comme moi via cette même boîte."
+    },
+    "next": "005"
+  },
+  "005": {
+    "name": "Luc-Frédéric",
+    "portrait": "Luc",
+    "text": {
+      "en": "",
+      "fr": "Bon, je te laisse regarder les instructions que je t'ai donné et découvrir le reste du jeu par toi-même"
+    }
+  }
+}

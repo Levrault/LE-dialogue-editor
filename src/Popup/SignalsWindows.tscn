@@ -1,16 +1,17 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://src/Popup/ChoicesWindows.gd" type="Script" id=1]
+[ext_resource path="res://src/Popup/ConditionsWindows.gd" type="Script" id=1]
 
-[node name="ConditionsWindows" type="WindowDialog"]
+
+[node name="SignalWindows" type="WindowDialog"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -374.0
-margin_top = -307.5
-margin_right = 374.0
-margin_bottom = 307.5
+margin_left = -400.0
+margin_top = -225.0
+margin_right = 400.0
+margin_bottom = 225.0
 window_title = "Edit Choices"
 resizable = true
 script = ExtResource( 1 )
@@ -34,8 +35,8 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
-margin_right = 708.0
-margin_bottom = 575.0
+margin_right = 760.0
+margin_bottom = 410.0
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false

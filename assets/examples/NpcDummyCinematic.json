@@ -1,0 +1,19 @@
+{
+  "001": {
+    "name": "NPCDummy",
+    "portrait": "NPCDummy",
+    "text": {
+      "en": "YOU HAVE NO POWER HERE! I'M CONTROLLED BY THE CINEMATIC",
+      "fr": "TU N'AS AUCUN POUVOIR ICI! JE SUIS CONTROLLER PAR LA CINEMATIQUE"
+    },
+    "next": "002"
+  },
+  "002": {
+    "name": "NPCDummy",
+    "portrait": "NPCDummy",
+    "text": {
+      "en": "AHAHAHAHAHA",
+      "fr": "AHAHAHAHAHA"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 extends ToolButton
 
-var dialog_node := preload("res://src/Node/ChoicesNode.tscn")
+var dialog_node := preload("res://src/Nodes/Choice/ChoiceNode.tscn")
 
 
 func _ready() -> void:
@@ -8,4 +8,4 @@ func _ready() -> void:
 
 
 func _on_Pressed() -> void:
-	Events.emit_signal("dialog_node_created", dialog_node.instance())
+	Events.emit_signal("graph_node_added", dialog_node.instance())

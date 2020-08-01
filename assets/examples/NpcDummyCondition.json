@@ -1,0 +1,42 @@
+{
+  "001": {
+    "conditions": {
+      "has_already_been_meet": true
+    },
+    "name": "NPCDummy",
+    "portrait": "NPCDummy",
+    "text": {
+      "en": "Why some conditionals stuff, I was able to answer this",
+      "fr": "Avec des conditions, j'ai pu te répondre ça"
+    },
+    "next": "003"
+  },
+  "002": {
+    "name": "NPCDummy",
+    "portrait": "NPCDummy",
+    "text": {
+      "en": "We have never meet before!",
+      "fr": "Nous ne nous sommes jamais rencontré!"
+    }
+  },
+  "003": {
+    "name": "NPCDummy",
+    "portrait": "NPCDummy",
+    "text": {
+      "en": "Test after conditional!",
+      "fr": "Test apres condition!"
+    }
+  },
+  "004": {
+    "conditions": {
+      "has_already_been_meet": true,
+      "should_not_match": true
+    },
+    "name": "NPCDummy",
+    "portrait": "NPCDummy",
+    "text": {
+      "en": "Should not match",
+      "fr": "Ne devrait pas marcher"
+    }
+  }
+}

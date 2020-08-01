@@ -1,0 +1,33 @@
+{
+  "001": {
+    "name": "NPCDummy",
+    "portrait": "NPCDummy",
+    "signals": {
+      "notification_started": {
+        "String": "dialogue generate event"
+      },
+      "camera_offset_changed": {
+        "Vector2": {
+          "x": 200,
+          "y": -400
+        }
+      }
+    },
+    "text": {
+      "en": "Emit signals npc_dialogue_signal_test_started and camera_offset_changed",
+      "fr": "Émet les signals npc_dialogue_signal_test_started et camera_offset_changed"
+    },
+    "next": "002"
+  },
+  "002": {
+    "name": "NPCDummy",
+    "portrait": "NPCDummy",
+    "signals": {
+      "camera_offset_resetted": null
+    },
+    "text": {
+      "en": "Emit signals camera_offset_changed",
+      "fr": "Émet les signals camera_offset_changed"
+    }
+  }
+}

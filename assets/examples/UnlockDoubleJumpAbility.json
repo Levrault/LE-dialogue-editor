@@ -1,0 +1,11 @@
+{
+  "001": {
+    "name": "Player",
+    "portrait": "Player",
+    "text": {
+      "en": "I can now double jump",
+      "fr": "Je peux maintenant sauter une deuxieme fois"
+    },
+    "timer": 2
+  }
+}

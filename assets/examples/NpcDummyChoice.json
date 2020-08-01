@@ -1,0 +1,98 @@
+{
+  "001": {
+    "name": "NPCDummy",
+    "portrait": "NPCDummy",
+    "text": {
+      "en": "Ready to do some sweet choices?",
+      "fr": "T'es prêt à faire ton choix?"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Yes",
+          "fr": "Oui"
+        },
+        "next": "002"
+      },
+      {
+        "text": {
+          "en": "No",
+          "fr": "No"
+        },
+        "next": "003"
+      }
+    ]
+  },
+  "002": {
+    "name": "NPCDummy",
+    "portrait": "NPCDummy",
+    "text": {
+      "en": "Awesome",
+      "fr": "Magnifique"
+    },
+    "next": "004"
+  },
+  "003": {
+    "name": "NPCDummy",
+    "portrait": "NPCDummy",
+    "text": {
+      "en": "Alright then",
+      "fr": "D'accord dans ce cas"
+    }
+  },
+  "004": {
+    "name": "Player",
+    "portrait": "Player",
+    "text": {
+      "en": "Why I'm doign this?",
+      "fr": "Pourquoi je fais ça"
+    },
+    "next": "005"
+  },
+  "005": {
+    "name": "NPCDummy",
+    "portrait": "NPCDummy",
+    "text": {
+      "en": "Sens of adventure?",
+      "fr": "Sens de l'aventure?"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Yes",
+          "fr": "Oui"
+        },
+        "next": "006"
+      },
+      {
+        "text": {
+          "en": "No",
+          "fr": "Non"
+        },
+        "next": "006"
+      },
+      {
+        "text": {
+          "en": "Maybe",
+          "fr": "Peut-être"
+        },
+        "next": "006"
+      },
+      {
+        "text": {
+          "en": "Response D",
+          "fr": "La réponse D"
+        },
+        "next": "006"
+      }
+    ]
+  },
+  "006": {
+    "name": "Player",
+    "portrait": "Player",
+    "text": {
+      "en": "Why I keep anwsering",
+      "fr": "Mais pourquoi je lui répond encore"
+    }
+  }
+}

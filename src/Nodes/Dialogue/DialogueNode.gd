@@ -1,7 +1,8 @@
 extends DialogueEditorNode
 
-onready var container := $Container
+const TYPE = Editor.Type.dialogue
 
+onready var container := $Container
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.doubleclick:

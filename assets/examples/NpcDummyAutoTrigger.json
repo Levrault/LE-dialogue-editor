@@ -1,0 +1,19 @@
+{
+  "001": {
+    "name": "NPCDummy",
+    "portrait": "NPCDummy",
+    "text": {
+      "en": "Auto trigger text",
+      "fr": "Text auto déclenché"
+    },
+    "next": "002"
+  },
+  "002": {
+    "name": "NPCDummy",
+    "portrait": "NPCDummy",
+    "text": {
+      "en": "Auto trigger text 2",
+      "fr": "Text auto déclenché 2"
+    }
+  }
+}
