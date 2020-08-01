@@ -21,9 +21,10 @@ func _on_graph_node_added(node: GraphNode) -> void:
 
 	# generate signal to add a new entry inside the json
 	if node.TYPE == Editor.Type.choice:
+		Events.emit_signal("choice_node_created", {uuid = node.uuid, values = node.values})
 		return
 
-	Events.emit_signal("dialogue_node_created", node.uuid)
+	Events.emit_signal("dialogue_node_created", {uuid = node.uuid, values = node.values})
 
 
 func _on_Menu_popup_displayed(name: String) -> void:

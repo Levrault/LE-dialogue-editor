@@ -2,6 +2,15 @@ extends DialogueEditorNode
 
 const TYPE = Editor.Type.dialogue
 
+var values := {
+	"name": "",
+	"portrait": "",
+	"text": {
+		"en": "",
+		"fr": ""
+	}
+}
+
 onready var container := $Container
 
 func _gui_input(event: InputEvent) -> void:

@@ -12,9 +12,12 @@ var dialogue_raw_default := {
 	}
 }
 
+var choices_node := {}
+
 
 func _ready() -> void:
 	Events.connect("dialogue_node_created", self, "_on_Dialogue_node_created")
+	Events.connect("choice_node_created", self, "_on_Choice_node_created")
 
 	# Dialogue to dialogue
 	Events.connect("dialogue_to_dialogue_relation_created", self, "_on_Dialogue_to_dialogue_relation_created")
@@ -35,10 +38,10 @@ func get_dialogue_template_string() -> Dictionary:
 		"name": "	[color=#2196f3]name[/color]: %name%,\n",
 		"portrait": "	[color=#2196f3]portrait[/color]: %portrait%,\n",
 		"text": "	[color=#2196f3]text[/color]: {\n",
-		"choices": "choices",
 		"en": "		en: %en%\n",
 		"fr": "		fr: %fr%\n",
 		"line": "	},\n",
+		"choices": "choices",
 		"next": "	[color=#009688]next[/color]: %next%\n",
 		"line2": "}\n",
 	}
@@ -57,8 +60,13 @@ func get_choice_template_string() -> Dictionary:
 	return template
 
 
-func _on_Dialogue_node_created(uuid: String) -> void:
-	json_raw[uuid] = dialogue_raw_default.duplicate()
+func _on_Dialogue_node_created(data: Dictionary) -> void:
+	json_raw[data.uuid] = data.values
+
+
+func _on_Choice_node_created(data: Dictionary) -> void:
+	choices_node[data.uuid] = data.values
+	print(choices_node)
 
 
 func _on_Dialogue_to_dialogue_relation_created(from, to) -> void:
@@ -71,7 +79,10 @@ func _on_Dialogue_to_dialogue_relation_delete(from, to) -> void:
 
 
 func _on_Dialogue_to_choice_relation_created(from, to) -> void:
-	pass
+	if not json_raw[from].has("choices"):
+		json_raw[from]["choices"] = []
+	json_raw[from]["choices"].append(choices_node[to])
+	print(json_raw[from]["choices"])
 
 
 func _on_Dialogue_to_choice_relation_deleted(from, to) -> void:
