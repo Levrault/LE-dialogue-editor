@@ -1,14 +1,9 @@
 extends FileDialog
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass  # Replace with function body.
+	connect("confirmed", self, "_on_Confirmed")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
+func _on_Confirmed() -> void:
+	print_debug("json will be save inside %s" % current_path)
