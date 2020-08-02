@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://src/Nodes/Fieldset.gd" type="Script" id=2]
+[ext_resource path="res://src/Nodes/Fields/Fieldset.gd" type="Script" id=2]
 
 [node name="Text" type="VBoxContainer"]
 margin_top = 98.0

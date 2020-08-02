@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/Nodes/Choice/ChoiceNode.gd" type="Script" id=1]
-[ext_resource path="res://src/Nodes/TextContainer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Nodes/Fields/Text.tscn" type="PackedScene" id=2]
 
 [node name="ChoiceNode" type="GraphNode"]
 anchor_right = 1.0
