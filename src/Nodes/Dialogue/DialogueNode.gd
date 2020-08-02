@@ -2,16 +2,10 @@ extends DialogueEditorNode
 
 const TYPE = Editor.Type.dialogue
 
-var values := {
-	"name": "",
-	"portrait": "",
-	"text": {
-		"en": "",
-		"fr": ""
-	}
-}
+var values := {"name": "", "portrait": "", "text": {"en": "", "fr": ""}}
 
 onready var container := $Container
+
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.doubleclick:
@@ -19,7 +13,7 @@ func _gui_input(event: InputEvent) -> void:
 			rect_size = COLLAPSED_SIZE
 		else:
 			rect_size = _initial_rect_size
-			_is_collapsed = !_is_collapsed
+			_is_collapsed = ! _is_collapsed
 		return
 
 

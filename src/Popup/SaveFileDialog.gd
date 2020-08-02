@@ -1,4 +1,4 @@
-extends Node
+extends FileDialog
 
 # Declare member variables here. Examples:
 # var a = 2

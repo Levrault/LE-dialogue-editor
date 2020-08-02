@@ -1,16 +1,8 @@
 extends Node
 
-var json_raw := {
-}
+var json_raw := {}
 
-var dialogue_raw_default := {
-	"name": "",
-	"portrait": "",
-	"text": {
-		"en": "",
-		"fr": ""
-	}
-}
+var dialogue_raw_default := {"name": "", "portrait": "", "text": {"en": "", "fr": ""}}
 
 var choices_node := {}
 
@@ -20,16 +12,28 @@ func _ready() -> void:
 	Events.connect("choice_node_created", self, "_on_Choice_node_created")
 
 	# Dialogue to dialogue
-	Events.connect("dialogue_to_dialogue_relation_created", self, "_on_Dialogue_to_dialogue_relation_created")
-	Events.connect("dialogue_to_dialogue_relation_deleted", self, "on_Dialogue_to_dialogue_relation_deleted")
+	Events.connect(
+		"dialogue_to_dialogue_relation_created", self, "_on_Dialogue_to_dialogue_relation_created"
+	)
+	Events.connect(
+		"dialogue_to_dialogue_relation_deleted", self, "on_Dialogue_to_dialogue_relation_deleted"
+	)
 
 	# Dialogue to choice
-	Events.connect("dialogue_to_choice_relation_created", self, "_on_Dialogue_to_choice_relation_created")
-	Events.connect("dialogue_to_choice_relation_deleted", self, "_on_Dialogue_to_choice_relation_deleted")
+	Events.connect(
+		"dialogue_to_choice_relation_created", self, "_on_Dialogue_to_choice_relation_created"
+	)
+	Events.connect(
+		"dialogue_to_choice_relation_deleted", self, "_on_Dialogue_to_choice_relation_deleted"
+	)
 
 	# Choice to dialogue
-	Events.connect("choice_to_dialogue_relation_created", self, "_on_Choice_to_dialogue_relation_created")
-	Events.connect("choice_to_dialogue_relation_deleted", self, "_on_Choice_to_dialogue_relation_deleted")
+	Events.connect(
+		"choice_to_dialogue_relation_created", self, "_on_Choice_to_dialogue_relation_created"
+	)
+	Events.connect(
+		"choice_to_dialogue_relation_deleted", self, "_on_Choice_to_dialogue_relation_deleted"
+	)
 
 
 func get_dialogue_template_string() -> Dictionary:

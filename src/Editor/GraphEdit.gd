@@ -34,4 +34,3 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		connect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("choice_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
 		return
-

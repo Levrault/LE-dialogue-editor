@@ -22,9 +22,9 @@ func _on_About_to_show() -> void:
 			var choices_string := ""
 			for choice in Json.json_raw[uuid].choices:
 				var choice_template = Json.get_choice_template_string()
-				choice_template.en = choice_template.en.replace("%en%",  choice.text.en)
-				choice_template.fr = choice_template.fr.replace("%fr%",  choice.text.fr)
-				choice_template.next = choice_template.next.replace("%next%",  choice.next)
+				choice_template.en = choice_template.en.replace("%en%", choice.text.en)
+				choice_template.fr = choice_template.fr.replace("%fr%", choice.text.fr)
+				choice_template.next = choice_template.next.replace("%next%", choice.next)
 
 				for key in choice_template:
 					choices_string += choice_template[key]
@@ -40,4 +40,3 @@ func _on_About_to_show() -> void:
 		for key in template:
 			print(template[key])
 			json.bbcode_text += template[key]
-

@@ -12,8 +12,6 @@ func _ready():
 
 
 func _on_Item_pressed(id: int) -> void:
-
 	var action := get_popup().get_item_text(id)
 	if action == SAVE:
 		Events.emit_signal("menu_popup_displayed", "SaveFileDialog")
-

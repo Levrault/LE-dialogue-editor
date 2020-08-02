@@ -14,7 +14,8 @@ func _ready() -> void:
 	connect("close_request", self, "_on_Close_request")
 	connect("resize_request", self, "_on_Resize_request")
 
-func set_uuid(id : String) -> void:
+
+func set_uuid(id: String) -> void:
 	uuid = id
 	title += id
 
