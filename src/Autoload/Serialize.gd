@@ -1,14 +1,16 @@
 extends Node
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+
+func save(path: String) -> void:
+	var file = File.new()
+	file.open("%s.json" % path, File.WRITE)
+	file.store_string(Json.to_string())
+	file.close()
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass  # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func load(path: String):
+	var file = File.new()
+	file.open(path, File.READ)
+	var content = file.get_as_text()
+	file.close()
+	return content
