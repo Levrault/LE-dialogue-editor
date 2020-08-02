@@ -41,7 +41,7 @@ func get_dialogue_template_string() -> Dictionary:
 		"en": "		en: %en%\n",
 		"fr": "		fr: %fr%\n",
 		"line": "	},\n",
-		"choices": "choices",
+		"choices": "	[color=#03a9f4]choices[/color]:[\n %choices% \n		]\n",
 		"next": "	[color=#009688]next[/color]: %next%\n",
 		"line2": "}\n",
 	}
@@ -50,12 +50,12 @@ func get_dialogue_template_string() -> Dictionary:
 
 func get_choice_template_string() -> Dictionary:
 	var template := {
-		"choices": "	[color=#03a9f4]choices[/color]:[\n",
-		"text": "		[color=#2196f3]text[/color]: {\n",
-		"en": "			en: %en%\n",
-		"fr": "			fr: %fr%\n",
-		"line": "		},\n",
-		"next": "		[color=#009688]next[/color]: %next%\n",
+		"line_open": "		{\n",
+		"text": "			[color=#2196f3]text[/color]: {\n",
+		"en": "				en: %en%\n",
+		"fr": "				fr: %fr%\n",
+		"line_close": "			},\n",
+		"next": "			[color=#009688]next[/color]: %next%\n",
 	}
 	return template
 
@@ -90,7 +90,7 @@ func _on_Dialogue_to_choice_relation_deleted(from, to) -> void:
 
 
 func _on_Choice_to_dialogue_relation_created(from, to) -> void:
-	pass
+	choices_node[from].next = to
 
 
 func _on_Choice_to_dialogue_relation_deleted(from, to) -> void:

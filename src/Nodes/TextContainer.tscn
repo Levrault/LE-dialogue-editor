@@ -1,11 +1,14 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
 
-[node name="TextContainer" type="VBoxContainer"]
+[ext_resource path="res://src/Nodes/Fieldset.gd" type="Script" id=2]
+
+[node name="Text" type="VBoxContainer"]
 margin_top = 98.0
 margin_right = 314.0
 margin_bottom = 364.0
 size_flags_vertical = 3
 custom_constants/separation = 10
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

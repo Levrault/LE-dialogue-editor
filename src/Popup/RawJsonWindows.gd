@@ -19,18 +19,16 @@ func _on_About_to_show() -> void:
 		template.fr = template.fr.replace("%fr%", Json.json_raw[uuid].text.fr)
 
 		if Json.json_raw[uuid].has("choices"):
-			var choices := ""
 			var choices_string := ""
 			for choice in Json.json_raw[uuid].choices:
-				print(choice)
 				var choice_template = Json.get_choice_template_string()
-				choice_template.en = choice_template.en.replace("%en%",  choice.en)
-				choice_template.fr = choice_template.fr.replace("%fr%",  choice.fr)
+				choice_template.en = choice_template.en.replace("%en%",  choice.text.en)
+				choice_template.fr = choice_template.fr.replace("%fr%",  choice.text.fr)
 				choice_template.next = choice_template.next.replace("%next%",  choice.next)
 
 				for key in choice_template:
 					choices_string += choice_template[key]
-			template.choices = choices_string
+			template.choices = template.choices.replace("%choices%", choices_string)
 		else:
 			template.erase("choices")
 

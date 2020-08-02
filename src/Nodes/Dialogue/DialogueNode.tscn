@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Nodes/Dialogue/DialogueNode.gd" type="Script" id=1]
 [ext_resource path="res://src/Nodes/ConditionsContainer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Nodes/SignalsContainer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/Nodes/TextContainer.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Nodes/Field.gd" type="Script" id=5]
 
 [node name="DialogueNode" type="GraphNode"]
 margin_left = 4.0
@@ -52,6 +53,7 @@ margin_top = 18.0
 margin_right = 314.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 10, 20 )
+script = ExtResource( 5 )
 
 [node name="PortraitContainer" type="VBoxContainer" parent="Container"]
 margin_top = 49.0
@@ -68,8 +70,9 @@ margin_top = 18.0
 margin_right = 314.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 10, 20 )
+script = ExtResource( 5 )
 
-[node name="TextContainer" parent="Container" instance=ExtResource( 4 )]
+[node name="Text" parent="Container" instance=ExtResource( 4 )]
 
 [node name="ConditionsContainer" parent="Container" instance=ExtResource( 2 )]
 margin_top = 375.0
