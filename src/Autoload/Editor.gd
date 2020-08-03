@@ -1,3 +1,3 @@
 extends Node
 
-enum Type { start, dialogue, choice }
+enum Type { start, dialogue, choice, condition }
