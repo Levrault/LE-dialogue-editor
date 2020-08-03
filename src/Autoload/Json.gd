@@ -24,26 +24,28 @@ const BBCODE_CHOICE_TEMPLATE := {
 
 # single quote to escape double quote
 const DIALOGUE_STRING_TEMPLATE = {
-	"uuid": '"%uuid%": {\n',
-	"name": '  "name": "%name%",\n',
-	"portrait": '  "portrait": "%portrait%",\n',
-	"text": '  "text": {\n',
-	"en": '    "en": "%en%",\n',
-	"fr": '    "fr": "%fr%",\n',
-	"line": "  },\n",
-	"choices": '  "choices":[\n %choices% \n  ]\n',
-	"next": '  "next": "%next%"\n',
-	"line2": "},\n",
+	"uuid": '  "%uuid%": {\n',
+	"name": '    "name": "%name%",\n',
+	"portrait": '    "portrait": "%portrait%",\n',
+	"text": '    "text": {\n',
+	"en": '      "en": "%en%",\n',
+	"fr": '      "fr": "%fr%"\n',
+	"line": "    },\n",
+	"choices": '    "choices":[\n %choices%    ]\n',
+	"next": '    "next": "%next%"\n',
+	"line_close_coma": "  },\n",
+	"line_close_no_coma": "  }",
 }
 
 const CHOICE_STRING_TEMPLATE := {
-	"line_open": "    {\n",
-	"text": '      "text": {\n',
-	"en": '        "en": "%en%",\n',
-	"fr": '        "fr": "%fr%",\n',
-	"line_close": '      },\n',
-	"next": '      "next": "%next%"\n',
-	"line_close_2": '    },\n',
+	"line_open": "      {\n",
+	"text": '        "text": {\n',
+	"en": '          "en": "%en%",\n',
+	"fr": '          "fr": "%fr%"\n',
+	"line_close": '        },\n',
+	"next": '        "next": "%next%"\n',
+	"line_close_coma": '      },\n',
+	"line_close_no_coma": '      }',
 }
 
 var json_raw := {}
@@ -92,6 +94,7 @@ func to_string() -> String:
 
 func stringify(dialogue_string_template: Dictionary, choice_string_template: Dictionary) -> String:
 	var result := ""
+	var d_index := 0
 	for uuid in json_raw:
 		var template: Dictionary = dialogue_string_template.duplicate()
 		template.uuid = template.uuid.replace("%uuid%", uuid)
@@ -101,6 +104,7 @@ func stringify(dialogue_string_template: Dictionary, choice_string_template: Dic
 		template.fr = template.fr.replace("%fr%", json_raw[uuid].text.fr)
 
 		if Json.json_raw[uuid].has("choices"):
+			var c_index := 0
 			var choices_string := ""
 			for choice in Json.json_raw[uuid].choices:
 				var choice_template = choice_string_template.duplicate()
@@ -108,8 +112,14 @@ func stringify(dialogue_string_template: Dictionary, choice_string_template: Dic
 				choice_template.fr = choice_template.fr.replace("%fr%", choice.text.fr)
 				choice_template.next = choice_template.next.replace("%next%", choice.next)
 
+				if c_index != Json.json_raw[uuid].choices.size() - 1:
+					choice_template.erase("line_close_no_coma")
+				else:
+					choice_template.erase("line_close_coma")
+
 				for key in choice_template:
 					choices_string += choice_template[key]
+				c_index += 1
 			template.choices = template.choices.replace("%choices%", choices_string)
 		else:
 			template.erase("choices")
@@ -118,9 +128,17 @@ func stringify(dialogue_string_template: Dictionary, choice_string_template: Dic
 			template.next = template.next.replace("%next%", Json.json_raw[uuid].next)
 		else:
 			template.erase("next")
+			if not template.has("choices"):
+				template.line = "    }\n"
+
+		if d_index != Json.json_raw.size() - 1:
+			template.erase("line_close_no_coma")
+		else:
+			template.erase("line_close_coma")
 
 		for key in template:
 			result += template[key]
+		d_index += 1
 
 	return result
 
