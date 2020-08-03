@@ -3,6 +3,8 @@ extends DialogueEditorNode
 const TYPE = Editor.Type.dialogue
 
 var values := {"name": "", "portrait": "", "text": {"en": "", "fr": ""}}
+var connected_to_dialogue := ""
+var connected_slot := 0
 
 onready var container := $Container
 

@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "GraphNode",
 "class": "DialogueEditorNode",
 "language": "GDScript",
-"path": "res://src/Nodes/DialogueEditorNode.gd"
+"path": "res://src/Nodes/EditorNode.gd"
 } ]
 _global_script_class_icons={
 "DialogueEditorNode": ""

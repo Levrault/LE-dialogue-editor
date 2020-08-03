@@ -65,3 +65,15 @@ size_flags_vertical = 3
 shortcut = SubResource( 6 )
 text = "Raw Json"
 script = ExtResource( 4 )
+
+[node name="DisconnectLeft" type="ToolButton" parent="."]
+margin_left = 277.0
+margin_right = 389.0
+margin_bottom = 22.0
+text = "Disconnect Left"
+
+[node name="DisconnectRight" type="ToolButton" parent="."]
+margin_left = 393.0
+margin_right = 513.0
+margin_bottom = 22.0
+text = "Disconnect Right"

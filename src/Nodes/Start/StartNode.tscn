@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Nodes/Start/StartNode.gd" type="Script" id=1]
+
+[node name="StartNode" type="GraphNode"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1461.0
+margin_bottom = -809.0
+title = "StartNode"
+offset = Vector2( 40, 100 )
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 0.380392, 0.603922, 0.152941, 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 16.0
+margin_top = 23.0
+margin_right = 123.0
+margin_bottom = 73.0
+rect_min_size = Vector2( 50, 50 )
+text = "Start"
+align = 1
+valign = 1
