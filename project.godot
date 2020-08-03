@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "GraphNode",
 "class": "DialogueEditorNode",
 "language": "GDScript",
-"path": "res://src/Nodes/DialogueEditorNode.gd"
+"path": "res://src/Nodes/EditorNode.gd"
 } ]
 _global_script_class_icons={
 "DialogueEditorNode": ""
@@ -54,6 +54,11 @@ add_node={
 add_choice={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":true,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"unicode":0,"echo":false,"script":null)
+ ]
+}
+add_conditions={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":true,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":70,"unicode":0,"echo":false,"script":null)
  ]
 }
 save={

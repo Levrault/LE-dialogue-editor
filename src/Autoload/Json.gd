@@ -53,11 +53,17 @@ var json_raw := {}
 var dialogue_raw_default := {"name": "", "portrait": "", "text": {"en": "", "fr": ""}}
 
 var choices_node := {}
+var dialogues_uuid := []
 
 
 func _ready() -> void:
 	Events.connect("dialogue_node_created", self, "_on_Dialogue_node_created")
 	Events.connect("choice_node_created", self, "_on_Choice_node_created")
+
+	# start to dialogue
+	Events.connect(
+		"start_to_dialogue_relation_changed", self, "_on_Start_to_dialogue_relation_changed"
+	)
 
 	# Dialogue to dialogue
 	Events.connect(
@@ -145,23 +151,31 @@ func stringify(dialogue_string_template: Dictionary, choice_string_template: Dic
 
 func _on_Dialogue_node_created(data: Dictionary) -> void:
 	json_raw[data.uuid] = data.values
+	dialogues_uuid.append(data.uuid)
 
 
 func _on_Choice_node_created(data: Dictionary) -> void:
 	choices_node[data.uuid] = data.values
-	print(choices_node)
 
 
-func _on_Dialogue_to_dialogue_relation_created(from, to) -> void:
+func _on_Start_to_dialogue_relation_changed(from: String) -> void:
+	dialogues_uuid.push_front(from)
+	# re-order structure : Lazy way, destroy and rebuild
+	var previous_json_raw := json_raw.duplicate()
+	json_raw = {}
+	for uuid in dialogues_uuid:
+		json_raw[uuid] = previous_json_raw[uuid]
+
+
+func _on_Dialogue_to_dialogue_relation_created(from: String, to: String) -> void:
 	json_raw[from]["next"] = to
-	print(json_raw)
 
 
-func _on_Dialogue_to_dialogue_relation_delete(from, to) -> void:
-	pass
+func _on_Dialogue_to_dialogue_relation_deleted(from: String) -> void:
+	json_raw[from].erase("next")
 
 
-func _on_Dialogue_to_choice_relation_created(from, to) -> void:
+func _on_Dialogue_to_choice_relation_created(from: String, to: String) -> void:
 	if not json_raw[from].has("choices"):
 		json_raw[from]["choices"] = []
 	json_raw[from]["choices"].append(choices_node[to])

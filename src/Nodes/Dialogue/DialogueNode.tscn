@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/Nodes/Dialogue/DialogueNode.gd" type="Script" id=1]
-[ext_resource path="res://src/Nodes/Fields/Conditions.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Nodes/Fields/Signals.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/Nodes/Fields/Text.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Nodes/Fields/Field.gd" type="Script" id=5]
@@ -9,8 +8,8 @@
 [node name="DialogueNode" type="GraphNode"]
 margin_left = 4.0
 margin_top = -1.0
-margin_right = 350.0
-margin_bottom = 509.0
+margin_right = 349.0
+margin_bottom = 473.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 title = "Dialogue"
@@ -30,8 +29,8 @@ __meta__ = {
 [node name="Container" type="VBoxContainer" parent="."]
 margin_left = 16.0
 margin_top = 24.0
-margin_right = 330.0
-margin_bottom = 490.0
+margin_right = 329.0
+margin_bottom = 439.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 11
@@ -40,42 +39,42 @@ __meta__ = {
 }
 
 [node name="Name" type="VBoxContainer" parent="Container"]
-margin_right = 314.0
+margin_right = 313.0
 margin_bottom = 38.0
 
 [node name="Label" type="Label" parent="Container/Name"]
-margin_right = 314.0
+margin_right = 313.0
 margin_bottom = 14.0
 text = "Name"
 
 [node name="Name" type="TextEdit" parent="Container/Name"]
 margin_top = 18.0
-margin_right = 314.0
+margin_right = 313.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 10, 20 )
 script = ExtResource( 5 )
 
 [node name="Portrait" type="VBoxContainer" parent="Container"]
 margin_top = 49.0
-margin_right = 314.0
+margin_right = 313.0
 margin_bottom = 87.0
 
 [node name="Label" type="Label" parent="Container/Portrait"]
-margin_right = 314.0
+margin_right = 313.0
 margin_bottom = 14.0
 text = "Portait"
 
 [node name="Portrait" type="TextEdit" parent="Container/Portrait"]
 margin_top = 18.0
-margin_right = 314.0
+margin_right = 313.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 10, 20 )
 script = ExtResource( 5 )
 
 [node name="Text" parent="Container" instance=ExtResource( 4 )]
-
-[node name="Conditions" parent="Container" instance=ExtResource( 2 )]
-margin_top = 375.0
-margin_bottom = 415.0
+margin_right = 313.0
 
 [node name="Signals" parent="Container" instance=ExtResource( 3 )]
+margin_top = 375.0
+margin_right = 313.0
+margin_bottom = 415.0
