@@ -8,35 +8,4 @@ func _ready():
 
 
 func _on_About_to_show() -> void:
-	json.bbcode_text = ""
-
-	for uuid in Json.json_raw:
-		var template: Dictionary = Json.get_dialogue_template_string()
-		template.uuid = template.uuid.replace("%uuid%", uuid)
-		template.name = template.name.replace("%name%", Json.json_raw[uuid].name)
-		template.portrait = template.portrait.replace("%portrait%", Json.json_raw[uuid].portrait)
-		template.en = template.en.replace("%en%", Json.json_raw[uuid].text.en)
-		template.fr = template.fr.replace("%fr%", Json.json_raw[uuid].text.fr)
-
-		if Json.json_raw[uuid].has("choices"):
-			var choices_string := ""
-			for choice in Json.json_raw[uuid].choices:
-				var choice_template = Json.get_choice_template_string()
-				choice_template.en = choice_template.en.replace("%en%", choice.text.en)
-				choice_template.fr = choice_template.fr.replace("%fr%", choice.text.fr)
-				choice_template.next = choice_template.next.replace("%next%", choice.next)
-
-				for key in choice_template:
-					choices_string += choice_template[key]
-			template.choices = template.choices.replace("%choices%", choices_string)
-		else:
-			template.erase("choices")
-
-		if Json.json_raw[uuid].has("next"):
-			template.next = template.next.replace("%next%", Json.json_raw[uuid].next)
-		else:
-			template.erase("next")
-
-		for key in template:
-			print(template[key])
-			json.bbcode_text += template[key]
+	json.bbcode_text = Json.bbcode_to_string()
