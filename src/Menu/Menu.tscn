@@ -4,7 +4,7 @@
 [ext_resource path="res://src/Menu/AddNode.gd" type="Script" id=2]
 [ext_resource path="res://src/Menu/File.gd" type="Script" id=3]
 [ext_resource path="res://src/Menu/RawJson.gd" type="Script" id=4]
-[ext_resource path="res://src/Menu/Language.gd" type="Script" id=5]
+[ext_resource path="res://src/Menu/Locale.gd" type="Script" id=5]
 [ext_resource path="res://src/Menu/AddConditions.gd" type="Script" id=6]
 
 [sub_resource type="InputEventAction" id=1]
@@ -19,11 +19,11 @@ action = "add_choice"
 [sub_resource type="ShortCut" id=4]
 shortcut = SubResource( 3 )
 
-[sub_resource type="InputEventAction" id=9]
+[sub_resource type="InputEventAction" id=5]
 action = "add_conditions"
 
-[sub_resource type="ShortCut" id=10]
-shortcut = SubResource( 9 )
+[sub_resource type="ShortCut" id=6]
+shortcut = SubResource( 5 )
 
 [sub_resource type="InputEventAction" id=7]
 action = "raw_json"
@@ -77,7 +77,7 @@ margin_left = 390.0
 margin_right = 539.0
 margin_bottom = 22.0
 size_flags_vertical = 3
-shortcut = SubResource( 10 )
+shortcut = SubResource( 6 )
 text = "Add Conditions (alt+f)"
 script = ExtResource( 6 )
 
