@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/themes/button/round_button.tres" type="Theme" id=1]
+[ext_resource path="res://src/Tools/i18nBar.gd" type="Script" id=2]
+[ext_resource path="res://src/Tools/LocaleButton.gd" type="Script" id=3]
+
+[node name="i18nBar" type="Control"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -523.0
+margin_top = 48.0
+margin_right = -27.0
+margin_bottom = 88.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Container" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 16
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="en" type="Button" parent="Container"]
+margin_left = 400.0
+margin_right = 440.0
+margin_bottom = 40.0
+toggle_mode = true
+text = "en"
+script = ExtResource( 3 )
+
+[node name="fr" type="Button" parent="Container"]
+margin_left = 456.0
+margin_right = 496.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+toggle_mode = true
+text = "fr"
+script = ExtResource( 3 )

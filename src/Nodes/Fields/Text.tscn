@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://src/Nodes/Fields/TextFieldset.gd" type="Script" id=2]
+[ext_resource path="res://src/Nodes/Fields/LocaleFieldset.gd" type="Script" id=2]
 
 [node name="Text" type="VBoxContainer"]
 margin_top = 98.0
@@ -18,38 +18,9 @@ margin_right = 314.0
 margin_bottom = 14.0
 text = "Text"
 
-[node name="EnContainer" type="VBoxContainer" parent="."]
+[node name="Locale" type="TextEdit" parent="."]
 margin_top = 24.0
 margin_right = 314.0
-margin_bottom = 124.0
-custom_constants/separation = 0
-
-[node name="Label" type="Label" parent="EnContainer"]
-visible = false
-margin_right = 314.0
-margin_bottom = 14.0
-text = "en"
-
-[node name="En" type="TextEdit" parent="EnContainer"]
-margin_right = 314.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 10, 100 )
-size_flags_vertical = 3
-
-[node name="FrContainer" type="VBoxContainer" parent="."]
-visible = false
-margin_top = 148.0
-margin_right = 314.0
 margin_bottom = 266.0
-
-[node name="Label" type="Label" parent="FrContainer"]
-margin_right = 314.0
-margin_bottom = 14.0
-text = "fr"
-
-[node name="Fr" type="TextEdit" parent="FrContainer"]
-margin_top = 18.0
-margin_right = 314.0
-margin_bottom = 118.0
 rect_min_size = Vector2( 10, 100 )
 size_flags_vertical = 3

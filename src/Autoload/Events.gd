@@ -3,6 +3,9 @@ extends Node
 # creation
 signal graph_node_added(node)
 
+# change language
+signal locale_changed(value)
+
 # creation
 signal dialogue_node_created(uuid)
 signal choice_node_created(uuid)
