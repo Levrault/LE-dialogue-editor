@@ -33,7 +33,7 @@ __meta__ = {
 }
 
 [node name="Menu" parent="MarginContainer/VBoxContainer" instance=ExtResource( 1 )]
-margin_right = 273.0
+margin_right = 701.0
 
 [node name="GraphEdit" type="GraphEdit" parent="MarginContainer/VBoxContainer"]
 margin_top = 26.0

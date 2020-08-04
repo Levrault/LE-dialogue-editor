@@ -1,21 +1,56 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Nodes/Choice/ChoiceNode.gd" type="Script" id=1]
 [ext_resource path="res://src/Nodes/Fields/Text.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/themes/grap_node/graph_content.tres" type="Theme" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 16.0
+content_margin_right = 16.0
+bg_color = Color( 0.247059, 0.223529, 0.258824, 1 )
+border_width_top = 36
+border_color = Color( 0.368627, 0.207843, 0.694118, 1 )
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 8.0
+expand_margin_right = 8.0
+expand_margin_top = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 16.0
+content_margin_right = 16.0
+bg_color = Color( 0.247059, 0.223529, 0.258824, 1 )
+border_width_top = 36
+border_color = Color( 0.494118, 0.341176, 0.760784, 1 )
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 8.0
+expand_margin_right = 8.0
+expand_margin_top = 8.0
+expand_margin_bottom = 8.0
 
 [node name="ChoiceNode" type="GraphNode"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1302.0
-margin_bottom = -584.0
+margin_bottom = -728.0
+theme = ExtResource( 4 )
+custom_styles/frame = SubResource( 1 )
+custom_styles/selectedframe = SubResource( 2 )
+custom_colors/title_color = Color( 1, 1, 1, 1 )
 title = "Choice"
 show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
-slot/0/left_color = Color( 0.647059, 0.211765, 0.211765, 1 )
+slot/0/left_color = Color( 0.494118, 0.341176, 0.760784, 1 )
 slot/0/right_enabled = true
 slot/0/right_type = 0
-slot/0/right_color = Color( 0.647059, 0.211765, 0.211765, 1 )
+slot/0/right_color = Color( 0.494118, 0.341176, 0.760784, 1 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -23,6 +58,6 @@ __meta__ = {
 
 [node name="Text" parent="." instance=ExtResource( 2 )]
 margin_left = 16.0
-margin_top = 24.0
+margin_top = 36.0
 margin_right = 282.0
-margin_bottom = 290.0
+margin_bottom = 160.0
