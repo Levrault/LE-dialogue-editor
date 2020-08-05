@@ -14,13 +14,13 @@ signal choice_node_created(uuid)
 signal start_to_dialogue_relation_changed(from)
 
 signal dialogue_to_dialogue_relation_created(from, to)
-signal dialogue_to_dialogue_relation_deleted(from, to)
+signal dialogue_to_dialogue_relation_deleted(from)
 
 signal dialogue_to_choice_relation_created(from, to)
 signal dialogue_to_choice_relation_deleted(from, to)
 
 signal choice_to_dialogue_relation_created(from, to)
-signal choice_to_dialogue_relation_deleted(from, to)
+signal choice_to_dialogue_relation_deleted(from)
 
 # menu
 signal menu_popup_displayed(name)

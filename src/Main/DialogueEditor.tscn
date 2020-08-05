@@ -8,7 +8,7 @@
 [ext_resource path="res://src/Popup/RawJsonWindows.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/Popup/SaveFileDialog.gd" type="Script" id=7]
 [ext_resource path="res://src/Nodes/Start/StartNode.tscn" type="PackedScene" id=8]
-[ext_resource path="res://src/Tools/i18nBar.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/Tools/Localization/i18nBar.tscn" type="PackedScene" id=9]
 
 [node name="DialogueEditor" type="Control"]
 anchor_right = 1.0
@@ -42,6 +42,7 @@ margin_right = 1600.0
 margin_bottom = 895.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+right_disconnects = true
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false

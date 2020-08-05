@@ -1,4 +1,4 @@
-extends DialogueEditorNode
+extends GraphEditorNode
 
 const TYPE = Editor.Type.dialogue
 

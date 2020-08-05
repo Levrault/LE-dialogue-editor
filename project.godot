@@ -10,12 +10,12 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "GraphNode",
-"class": "DialogueEditorNode",
+"class": "GraphEditorNode",
 "language": "GDScript",
-"path": "res://src/Nodes/EditorNode.gd"
+"path": "res://src/Nodes/GraphEditorNode.gd"
 } ]
 _global_script_class_icons={
-"DialogueEditorNode": ""
+"GraphEditorNode": ""
 }
 
 [application]

@@ -1,5 +1,5 @@
 extends GraphNode
-class_name DialogueEditorNode
+class_name GraphEditorNode
 
 const SIZE_CONTAINER_BOTTOM_MARGIN := 50
 const COLLAPSED_SIZE := Vector2(346, 20)
@@ -21,4 +21,5 @@ func set_uuid(id: String) -> void:
 
 
 func _on_Close_request() -> void:
+	# TODO: delete all relations
 	queue_free()

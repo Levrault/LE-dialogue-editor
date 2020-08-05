@@ -70,7 +70,7 @@ func _ready() -> void:
 		"dialogue_to_dialogue_relation_created", self, "_on_Dialogue_to_dialogue_relation_created"
 	)
 	Events.connect(
-		"dialogue_to_dialogue_relation_deleted", self, "on_Dialogue_to_dialogue_relation_deleted"
+		"dialogue_to_dialogue_relation_deleted", self, "_on_Dialogue_to_dialogue_relation_deleted"
 	)
 
 	# Dialogue to choice
@@ -182,13 +182,13 @@ func _on_Dialogue_to_choice_relation_created(from: String, to: String) -> void:
 	print(json_raw[from]["choices"])
 
 
-func _on_Dialogue_to_choice_relation_deleted(from, to) -> void:
-	pass
+func _on_Dialogue_to_choice_relation_deleted(from: String, to: String) -> void:
+	json_raw[from]["choices"].erase(choices_node[to])
 
 
-func _on_Choice_to_dialogue_relation_created(from, to) -> void:
+func _on_Choice_to_dialogue_relation_created(from: String, to: String) -> void:
 	choices_node[from].next = to
 
 
-func _on_Choice_to_dialogue_relation_deleted(from, to) -> void:
-	pass
+func _on_Choice_to_dialogue_relation_deleted(from: String) -> void:
+	choices_node[from].next = ""
