@@ -24,23 +24,18 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 	# START -- DIALOGUE
 	if from_node.TYPE == Editor.Type.start and to_node.TYPE == Editor.Type.dialogue:
 		# is selected dialogue (from) is already connected to another dialogue
+		# Can only be connected to ONE dialogue but can be connected to multiple conditions
+		if not from_node.connected_to_dialogue.empty():
+			print_debug("WARNING: start is already connected to a dialogue, first connected will be disconnected")
+			disconnect_node(
+				from, from_slot, from_node.connected_to_dialogue, from_node.connected_slot
+			)
+			
 		print_debug("connect start to dialogue relation")
-		Events.emit_signal("start_to_dialogue_relation_changed", to_node.uuid)
-
-		# TODO: see if it is usefull for conditional display
-		# if not from_node.connected_to_dialogue.empty():
-		# 	print_debug("start is already connected to a dialogue")
-		# 	disconnect_node(
-		# 		from, from_slot, from_node.connected_to_dialogue, from_node.connected_slot
-		# 	)
-		# 	Events.emit_signal(
-		# 		"dialogue_to_dialogue_relation_deleted",
-		# 		from_node.uuid,
-		# 		from_node.connected_to_dialogue
-		# 	)
-
 		from_node.connected_to_dialogue = to
 		from_node.connected_slot = to_slot
+
+		Events.emit_signal("start_to_dialogue_relation_changed", to_node.uuid)
 
 		connect_node(from, from_slot, to, to_slot)
 		return
