@@ -1,23 +1,37 @@
-[gd_scene format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Nodes/Fields/DeleteField.gd" type="Script" id=1]
+[ext_resource path="res://assets/icons/trash-2.svg" type="Texture" id=2]
+[ext_resource path="res://src/Nodes/Fields/Conditions.gd" type="Script" id=3]
 
 [node name="Conditions" type="HBoxContainer"]
-margin_right = 149.0
-margin_bottom = 24.0
+margin_right = 201.0
+margin_bottom = 32.0
+size_flags_vertical = 3
+custom_constants/separation = 4
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="."]
-margin_top = 5.0
+margin_top = 9.0
 margin_right = 12.0
-margin_bottom = 19.0
+margin_bottom = 23.0
+custom_colors/font_color = Color( 0.458824, 0.458824, 0.458824, 1 )
 text = "IF"
 
-[node name="LineEdit" type="LineEdit" parent="."]
+[node name="Value" type="Label" parent="."]
 margin_left = 16.0
-margin_right = 149.0
-margin_bottom = 24.0
+margin_top = 9.0
+margin_right = 161.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
+text = "plaholder=true"
+
+[node name="DeleteCondition" type="ToolButton" parent="."]
+margin_left = 165.0
+margin_right = 201.0
+margin_bottom = 32.0
+icon = ExtResource( 2 )
+script = ExtResource( 1 )

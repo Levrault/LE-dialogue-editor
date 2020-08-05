@@ -23,15 +23,10 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 	# START -- DIALOGUE
 	if from_node.TYPE == Editor.Type.start and to_node.TYPE == Editor.Type.dialogue:
-		# is selected dialogue (from) is already connected to another dialogue
-		# Can only be connected to ONE dialogue but can be connected to multiple conditions
-		if not from_node.connected_to_dialogue.empty():
-			print_debug("WARNING: start is already connected to a dialogue, first connected will be disconnected")
-			disconnect_node(
-				from, from_slot, from_node.connected_to_dialogue, from_node.connected_slot
-			)
-			
+		# _check_node_connection(from, from_slot, to, to_slot, from_node, to_node)
+
 		print_debug("connect start to dialogue relation")
+
 		from_node.connected_to_dialogue = to
 		from_node.connected_slot = to_slot
 
@@ -40,9 +35,38 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		connect_node(from, from_slot, to, to_slot)
 		return
 
+	# DIALOGUE -- CONDITIONS
+	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.condition:
+		_check_node_connection(
+			from,
+			from_slot,
+			to,
+			to_slot,
+			from_node.connected_to_condition,
+			from_node.connected_to_condition_slot
+		)
+		print_debug("connect dialogue to condition relation")
+		from_node.connected_to_condition = to
+		from_node.connected_to_condition_slot = to_slot
+		connect_node(from, from_slot, to, to_slot)
+		Events.emit_signal("dialogue_to_condition_relation_created", from_node.uuid, to_node.uuid)
+		return
+
 	# DIALOGUE -- DIALOGUE
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.dialogue:
+		_check_node_connection(
+			from,
+			from_slot,
+			to,
+			to_slot,
+			from_node.connected_to_dialogue,
+			from_node.connected_to_dialogue_slot
+		)
 		print_debug("connect dialogue to dialogue relation")
+
+		from_node.connected_to_dialogue = to
+		from_node.connected_to_dialogue_slot = to_slot
+
 		connect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("dialogue_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
 		return
@@ -86,3 +110,25 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 		disconnect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("choice_to_dialogue_relation_deleted", from_node.uuid)
 		return
+
+
+# is selected dialogue (from) is already connected to another dialogue
+# Can only be connected to ONE dialogue but can be connected to multiple conditions
+func _check_node_connection(
+	from: String,
+	from_slot: int,
+	to: String,
+	to_slot: int,
+	node_connected: String,
+	node_connected_slot: int
+) -> void:
+	if node_connected.empty():
+		return
+
+	print_debug(
+		(
+			"WARNING: %s start is already connected to a dialogue, first connection will be disconnected"
+			% from
+		)
+	)
+	disconnect_node(from, from_slot, node_connected, node_connected_slot)

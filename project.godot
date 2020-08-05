@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Levrault-dialogue-editor"
-run/main_scene="res://src/Main/DialogueEditor.tscn"
+run/main_scene="res://src/Main/Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
