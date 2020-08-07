@@ -26,6 +26,8 @@ expand_margin_bottom = 8.0
 [sub_resource type="StyleBoxFlat" id=2]
 content_margin_left = 16.0
 content_margin_right = 16.0
+content_margin_top = 50.0
+content_margin_bottom = 16.0
 bg_color = Color( 0.247059, 0.223529, 0.258824, 1 )
 border_width_top = 36
 border_color = Color( 0.937255, 0.32549, 0.313726, 1 )
