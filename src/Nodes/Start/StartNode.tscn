@@ -33,10 +33,14 @@ expand_margin_top = 8.0
 expand_margin_bottom = 8.0
 
 [node name="StartNode" type="GraphNode"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -1461.0
-margin_bottom = -809.0
+anchor_left = 0.043
+anchor_top = 0.051
+anchor_right = 0.043
+anchor_bottom = 0.051
+margin_left = -68.8
+margin_top = -45.9
+margin_right = 70.2
+margin_bottom = 45.1
 custom_styles/frame = SubResource( 1 )
 custom_styles/selectedframe = SubResource( 2 )
 title = "StartNode"
@@ -49,7 +53,7 @@ slot/0/right_type = 0
 slot/0/right_color = Color( 0.611765, 0.8, 0.396078, 1 )
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="Label" type="Label" parent="."]

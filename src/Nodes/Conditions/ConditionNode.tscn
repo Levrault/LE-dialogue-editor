@@ -41,10 +41,14 @@ expand_margin_bottom = 8.0
 [sub_resource type="StyleBoxEmpty" id=3]
 
 [node name="ConditionNode" type="GraphNode"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -1306.0
-margin_bottom = -802.0
+anchor_left = 0.092
+anchor_top = 0.054
+anchor_right = 0.092
+anchor_bottom = 0.054
+margin_left = -147.2
+margin_top = -48.6
+margin_right = 146.8
+margin_bottom = 49.4
 theme = ExtResource( 4 )
 custom_styles/frame = SubResource( 1 )
 custom_styles/selectedframe = SubResource( 2 )
@@ -61,7 +65,7 @@ slot/0/right_type = 0
 slot/0/right_color = Color( 0.937255, 0.32549, 0.313726, 1 )
 script = ExtResource( 2 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="Container" type="VBoxContainer" parent="."]

@@ -23,10 +23,14 @@ expand_margin_top = 8.0
 expand_margin_bottom = 8.0
 
 [node name="DialogueNode" type="GraphNode"]
-margin_left = 4.0
-margin_top = -1.0
-margin_right = 349.0
-margin_bottom = 327.0
+anchor_left = 0.11
+anchor_top = 0.181
+anchor_right = 0.11
+anchor_bottom = 0.181
+margin_left = -172.0
+margin_top = -163.9
+margin_right = 173.0
+margin_bottom = 164.1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 6 )
@@ -43,7 +47,7 @@ slot/0/right_type = 0
 slot/0/right_color = Color( 0.129412, 0.588235, 0.952941, 1 )
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="Container" type="VBoxContainer" parent="."]

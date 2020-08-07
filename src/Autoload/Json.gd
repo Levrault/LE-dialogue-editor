@@ -119,6 +119,11 @@ func to_string() -> String:
 	)
 
 
+# Read template dictionary to correctly format string
+# Use to display as bb_code
+# Use to export to a correctly formatted json (since we don't to have dependancie)
+# 	For json export, a check must be done to manage closing coma, this isn't sexy but it works
+#	Work by deleting the UNUSED dictionnary key e.g. don't want coma, delete the coma key
 func stringify(
 	dialogue_string_template: Dictionary,
 	choice_string_template: Dictionary,
@@ -187,7 +192,7 @@ func stringify(
 			template.erase("next")
 			if not template.has("choices"):
 				template.line = "    }\n"
-				
+
 		if d_index != json_raw.size() - 1:
 			template.erase("line_close_no_coma")
 		else:

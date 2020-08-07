@@ -35,10 +35,14 @@ expand_margin_top = 8.0
 expand_margin_bottom = 8.0
 
 [node name="ChoiceNode" type="GraphNode"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -1302.0
-margin_bottom = -728.0
+anchor_left = 0.093
+anchor_top = 0.096
+anchor_right = 0.093
+anchor_bottom = 0.096
+margin_left = -148.8
+margin_top = -86.4
+margin_right = 149.2
+margin_bottom = 85.6
 theme = ExtResource( 4 )
 custom_styles/frame = SubResource( 1 )
 custom_styles/selectedframe = SubResource( 2 )
@@ -53,7 +57,7 @@ slot/0/right_type = 0
 slot/0/right_color = Color( 0.494118, 0.341176, 0.760784, 1 )
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="Text" parent="." instance=ExtResource( 2 )]

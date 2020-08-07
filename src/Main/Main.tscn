@@ -40,7 +40,6 @@ margin_right = 579.0
 margin_top = 26.0
 margin_right = 1600.0
 margin_bottom = 895.0
-size_flags_horizontal = 3
 size_flags_vertical = 3
 right_disconnects = true
 script = ExtResource( 1 )
@@ -49,10 +48,10 @@ __meta__ = {
 }
 
 [node name="StartNode" parent="MarginContainer/VBoxContainer/GraphEdit" instance=ExtResource( 7 )]
-margin_left = 40.0
-margin_top = 100.0
-margin_right = -1421.0
-margin_bottom = -683.0
+margin_left = -28.8
+margin_top = 55.681
+margin_right = 110.2
+margin_bottom = 146.681
 mouse_filter = 1
 
 [node name="i18nBar" parent="." instance=ExtResource( 9 )]
