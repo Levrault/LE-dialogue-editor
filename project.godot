@@ -9,12 +9,24 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Button",
+"class": "AddButton",
+"language": "GDScript",
+"path": "res://src/Nodes/AddButton.gd"
+}, {
+"base": "LineEdit",
+"class": "FieldInput",
+"language": "GDScript",
+"path": "res://src/Nodes/FieldInput.gd"
+}, {
 "base": "GraphNode",
 "class": "GraphEditorNode",
 "language": "GDScript",
 "path": "res://src/Nodes/GraphEditorNode.gd"
 } ]
 _global_script_class_icons={
+"AddButton": "",
+"FieldInput": "",
 "GraphEditorNode": ""
 }
 
@@ -69,6 +81,11 @@ save={
 raw_json={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":true,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
+ ]
+}
+add_signal={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":true,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
  ]
 }
 

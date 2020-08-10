@@ -1,0 +1,251 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://src/Nodes/Signal/SignalNode.gd" type="Script" id=1]
+[ext_resource path="res://assets/themes/options/option_button.tres" type="Theme" id=2]
+[ext_resource path="res://assets/themes/grap_node/graph_content.tres" type="Theme" id=3]
+[ext_resource path="res://src/Nodes/Signal/AddSignal.gd" type="Script" id=4]
+[ext_resource path="res://src/Nodes/Signal/SignalFieldInput.gd" type="Script" id=5]
+[ext_resource path="res://assets/icons/plus.svg" type="Texture" id=6]
+[ext_resource path="res://assets/themes/button/round_button.tres" type="Theme" id=7]
+[ext_resource path="res://src/Nodes/Signal/Vector2.gd" type="Script" id=8]
+[ext_resource path="res://src/Nodes/Signal/String.gd" type="Script" id=9]
+[ext_resource path="res://src/Nodes/Signal/Number.gd" type="Script" id=10]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 48.0
+content_margin_bottom = 20.0
+bg_color = Color( 0.247059, 0.223529, 0.258824, 1 )
+border_width_top = 36
+border_color = Color( 0, 0.47451, 0.419608, 1 )
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 8.0
+expand_margin_right = 8.0
+expand_margin_top = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 48.0
+content_margin_bottom = 20.0
+bg_color = Color( 0.247059, 0.223529, 0.258824, 1 )
+border_width_top = 36
+border_color = Color( 0.301961, 0.713726, 0.67451, 1 )
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 8.0
+expand_margin_right = 8.0
+expand_margin_top = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[node name="SignalNode" type="GraphNode"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1326.0
+margin_bottom = -741.0
+theme = ExtResource( 3 )
+custom_styles/frame = SubResource( 1 )
+custom_styles/selectedframe = SubResource( 2 )
+custom_colors/title_color = Color( 1, 1, 1, 1 )
+title = "Signal"
+show_close = true
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 0.301961, 0.713726, 0.67451, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Container" type="VBoxContainer" parent="."]
+margin_left = 16.0
+margin_top = 48.0
+margin_right = 258.0
+margin_bottom = 190.0
+theme = ExtResource( 7 )
+custom_constants/separation = 16
+
+[node name="FieldContainer" type="HBoxContainer" parent="Container"]
+margin_right = 242.0
+margin_bottom = 22.0
+size_flags_vertical = 3
+custom_constants/separation = 7
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Container/FieldContainer"]
+margin_top = 4.0
+margin_right = 38.0
+margin_bottom = 18.0
+text = "Name"
+valign = 1
+
+[node name="SignalName" type="LineEdit" parent="Container/FieldContainer"]
+margin_left = 45.0
+margin_right = 242.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TypeContainer" type="HBoxContainer" parent="Container"]
+margin_top = 38.0
+margin_right = 242.0
+margin_bottom = 58.0
+
+[node name="Label" type="Label" parent="Container/TypeContainer"]
+margin_top = 3.0
+margin_right = 43.0
+margin_bottom = 17.0
+text = "Value  "
+
+[node name="TypeOption" type="OptionButton" parent="Container/TypeContainer"]
+margin_left = 47.0
+margin_right = 242.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+theme = ExtResource( 2 )
+
+[node name="Vector2" type="HBoxContainer" parent="Container"]
+visible = false
+margin_top = 72.0
+margin_right = 242.0
+margin_bottom = 92.0
+custom_constants/separation = 16
+script = ExtResource( 8 )
+
+[node name="X" type="Label" parent="Container/Vector2"]
+margin_right = 8.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+text = "x"
+valign = 1
+uppercase = true
+
+[node name="Vector2X" type="LineEdit" parent="Container/Vector2"]
+margin_left = 24.0
+margin_right = 113.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+is_number = true
+can_has_duplicate = true
+
+[node name="Y" type="Label" parent="Container/Vector2"]
+margin_left = 129.0
+margin_right = 136.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+text = "y"
+valign = 1
+uppercase = true
+
+[node name="Vector2Y" type="LineEdit" parent="Container/Vector2"]
+margin_left = 152.0
+margin_right = 242.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+is_number = true
+can_has_duplicate = true
+
+[node name="Number" type="HBoxContainer" parent="Container"]
+visible = false
+margin_top = 72.0
+margin_right = 242.0
+margin_bottom = 92.0
+custom_constants/separation = 16
+script = ExtResource( 10 )
+
+[node name="NumberLabel" type="Label" parent="Container/Number"]
+margin_right = 56.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+text = "Number"
+valign = 1
+uppercase = true
+
+[node name="Number" type="LineEdit" parent="Container/Number"]
+margin_left = 72.0
+margin_right = 242.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+is_number = true
+can_has_duplicate = true
+
+[node name="String" type="HBoxContainer" parent="Container"]
+visible = false
+margin_top = 72.0
+margin_right = 242.0
+margin_bottom = 92.0
+custom_constants/separation = 16
+script = ExtResource( 9 )
+
+[node name="StringLabel" type="Label" parent="Container/String"]
+margin_right = 47.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+text = "String"
+valign = 1
+uppercase = true
+
+[node name="String" type="LineEdit" parent="Container/String"]
+margin_left = 63.0
+margin_right = 242.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+can_has_duplicate = true
+
+[node name="AddSignal" type="ToolButton" parent="Container"]
+margin_left = 194.0
+margin_top = 74.0
+margin_right = 242.0
+margin_bottom = 122.0
+rect_min_size = Vector2( 48, 48 )
+rect_pivot_offset = Vector2( 24, 24 )
+size_flags_horizontal = 8
+custom_styles/focus = SubResource( 3 )
+icon = ExtResource( 6 )
+script = ExtResource( 4 )
+
+[node name="Tween" type="Tween" parent="Container/AddSignal"]
+
+[node name="HSeparator" type="HSeparator" parent="Container"]
+margin_top = 138.0
+margin_right = 242.0
+margin_bottom = 142.0

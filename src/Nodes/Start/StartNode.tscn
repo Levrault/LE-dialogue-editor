@@ -43,6 +43,7 @@ margin_right = 70.2
 margin_bottom = 45.1
 custom_styles/frame = SubResource( 1 )
 custom_styles/selectedframe = SubResource( 2 )
+custom_colors/title_color = Color( 1, 1, 1, 1 )
 title = "StartNode"
 offset = Vector2( 40, 100 )
 slot/0/left_enabled = false

@@ -1,0 +1,24 @@
+[gd_resource type="Theme" load_steps=2 format=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 12.0
+bg_color = Color( 0.172549, 0.164706, 0.196078, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[resource]
+OptionButton/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+OptionButton/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+OptionButton/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+OptionButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+OptionButton/constants/arrow_margin = 2
+OptionButton/constants/hseparation = 2
+OptionButton/fonts/font = null
+OptionButton/icons/arrow = null
+OptionButton/styles/disabled = null
+OptionButton/styles/focus = null
+OptionButton/styles/hover = null
+OptionButton/styles/normal = SubResource( 1 )
+OptionButton/styles/pressed = null

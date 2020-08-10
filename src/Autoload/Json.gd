@@ -2,7 +2,8 @@ extends Node
 
 const BBCODE_DIALOGUE_TEMPLATE = {
 	"uuid": "[color=#ef5350]%uuid%[/color] {\n",
-	"conditions": "	[color=#03a9f4]conditions:{\n%conditions% \n		}[/color]\n",
+	"conditions": "	[color=#03a9f4]conditions[/color]: {\n%conditions% \n	}\n",
+	"signals": "	[color=#03a9f4]signals[/color]: {\n%signals% \n	}\n",
 	"name": "	[color=#2196f3]name[/color]: [color=#fdd835]%name%[/color],\n",
 	"portrait": "	[color=#2196f3]portrait[/color]: [color=#fdd835]%portrait%[/color],\n",
 	"text": "	[color=#2196f3]text[/color]: {\n",
@@ -24,12 +25,24 @@ const BBCODE_CHOICE_TEMPLATE := {
 }
 
 const BBCODE_CONDITIONS_TEMPLATE := {
-	"condition": "			[color=#2196f3]%key%[/color]: %value%\n",
+	"condition": "			[color=#ef5350]%key%[/color]: %value%",
+	"line_close_coma": ',\n',
+	"line_close_no_coma": '',
+}
+
+const BBCODE_SIGNALS_TEMPLATE := {
+	"signals": "			[color=#4db6ac]%key%[/color]: %value%",
+	"string": '{\n 				String: %value%\n 			}',
+	"vector2": '{\n				Vector2: {\n					x: %x%\n					y: %y%\n				}\n			}',
+	"number": '{\n				Float: %value%\n			}',
+	"line_close_coma": ',\n',
+	"line_close_no_coma": '',
 }
 
 # single quote to escape double quote
 const DIALOGUE_STRING_TEMPLATE = {
 	"uuid": '  "%uuid%": {\n',
+	"signals": '    "signals": {\n%signals%    },\n',
 	"conditions": '    "conditions": {\n%conditions%    },\n',
 	"name": '    "name": "%name%",\n',
 	"portrait": '    "portrait": "%portrait%",\n',
@@ -60,10 +73,21 @@ const CONDITIONS_TEMPLATE := {
 	"line_close_no_coma": '\n',
 }
 
+const SIGNALS_TEMPLATE := {
+	"signals": '      "%key%": %value%',
+	"string": '{\n        "String": "%value%"\n      }',
+	"vector2":
+	'{\n        "Vector2": {\n          "x": %x%,\n          "y": %y%\n        }\n      }',
+	"number": '{\n        "Float": %value%\n      }',
+	"line_close_coma": ',\n',
+	"line_close_no_coma": '\n',
+}
+
 var json_raw := {}
 var dialogue_raw_default := {"name": "", "portrait": "", "text": {"en": "", "fr": ""}}
 var choices_node := {}
 var conditions_node := {}
+var signals_node := {}
 var dialogues_uuid := []
 
 
@@ -71,6 +95,7 @@ func _ready() -> void:
 	Events.connect("dialogue_node_created", self, "_on_Dialogue_node_created")
 	Events.connect("choice_node_created", self, "_on_Choice_node_created")
 	Events.connect("condition_node_created", self, "_on_Condition_node_created")
+	Events.connect("signal_node_created", self, "_on_Signal_node_created")
 
 	# start to dialogue
 	Events.connect(
@@ -88,6 +113,14 @@ func _ready() -> void:
 	# dialogue to conditions
 	Events.connect(
 		"dialogue_to_condition_relation_created", self, "_on_Dialogue_to_condition_relation_created"
+	)
+
+	# Dialogue to signal
+	Events.connect(
+		"dialogue_to_signal_relation_created", self, "_on_Dialogue_to_signal_relation_created"
+	)
+	Events.connect(
+		"dialogue_to_signal_relation_deleted", self, "_on_Dialogue_to_signal_relation_deleted"
 	)
 
 	# Dialogue to choice
@@ -108,13 +141,20 @@ func _ready() -> void:
 
 
 func bbcode_to_string() -> String:
-	return stringify(BBCODE_DIALOGUE_TEMPLATE, BBCODE_CHOICE_TEMPLATE, BBCODE_CONDITIONS_TEMPLATE)
+	return stringify(
+		BBCODE_DIALOGUE_TEMPLATE,
+		BBCODE_CHOICE_TEMPLATE,
+		BBCODE_CONDITIONS_TEMPLATE,
+		BBCODE_SIGNALS_TEMPLATE
+	)
 
 
 func to_string() -> String:
 	return (
 		"{\n"
-		+ stringify(DIALOGUE_STRING_TEMPLATE, CHOICE_STRING_TEMPLATE, CONDITIONS_TEMPLATE)
+		+ stringify(
+			DIALOGUE_STRING_TEMPLATE, CHOICE_STRING_TEMPLATE, CONDITIONS_TEMPLATE, SIGNALS_TEMPLATE
+		)
 		+ "\n}"
 	)
 
@@ -127,7 +167,8 @@ func to_string() -> String:
 func stringify(
 	dialogue_string_template: Dictionary,
 	choice_string_template: Dictionary,
-	conditions_string_template: Dictionary
+	conditions_string_template: Dictionary,
+	signals_string_template: Dictionary
 ) -> String:
 	var result := ""
 	var d_index := 0
@@ -163,6 +204,50 @@ func stringify(
 
 		else:
 			template.erase("conditions")
+
+		if node_data.has("signals"):
+			print(node_data.signals)
+			var signals_string := ""
+			var s_index := 0
+			for signal_dic in node_data.signals:
+				for signal_key in signal_dic:
+					var signals_template := signals_string_template.duplicate()
+					var value := 'null'
+
+					signals_template.signals = signals_template.signals.replace("%key%", signal_key)
+
+					if signal_dic[signal_key].has("Vector2"):
+						value = signals_template.vector2.replace("%x%", signal_dic[signal_key]["Vector2"].x).replace(
+							"%y%", signal_dic[signal_key]["Vector2"].y
+						)
+					elif signal_dic[signal_key].has("String"):
+						value = signals_template["string"].replace(
+							"%value%", signal_dic[signal_key]["String"]
+						)
+					elif signal_dic[signal_key].has("Number"):
+						value = signals_template["number"].replace(
+							"%value%", signal_dic[signal_key]["Number"]
+						)
+
+					signals_template.signals = signals_template.signals.replace("%value%", value)
+
+					signals_template.erase("vector2")
+					signals_template.erase("number")
+					signals_template.erase("string")
+
+					if s_index != signal_dic.size() - 1:
+						signals_template.erase("line_close_no_coma")
+					else:
+						signals_template.erase("line_close_coma")
+
+					for key in signals_template:
+						signals_string += signals_template[key]
+
+					s_index += 1
+			template.signals = template.signals.replace("%signals%", signals_string)
+
+		else:
+			template.erase("signals")
 
 		# choice
 		if node_data.has("choices"):
@@ -218,6 +303,10 @@ func _on_Condition_node_created(data: Dictionary) -> void:
 	conditions_node[data.uuid] = data.values
 
 
+func _on_Signal_node_created(data: Dictionary) -> void:
+	signals_node[data.uuid] = data.values
+
+
 func _on_Start_to_dialogue_relation_changed(from: String) -> void:
 	dialogues_uuid.push_front(from)
 	# re-order structure : Lazy way, destroy and rebuild
@@ -249,6 +338,16 @@ func _on_Dialogue_to_choice_relation_created(from: String, to: String) -> void:
 
 func _on_Dialogue_to_choice_relation_deleted(from: String, to: String) -> void:
 	json_raw[from]["choices"].erase(choices_node[to])
+
+
+func _on_Dialogue_to_signal_relation_created(from: String, to: String) -> void:
+	if not json_raw[from].has("signals"):
+		json_raw[from]["signals"] = []
+	json_raw[from].signals.append(signals_node[to])
+
+
+func _on_Dialogue_to_signal_relation_deleted(from: String, to: String) -> void:
+	json_raw[from]["signals"].erase(signals_node[to])
 
 
 func _on_Choice_to_dialogue_relation_created(from: String, to: String) -> void:
