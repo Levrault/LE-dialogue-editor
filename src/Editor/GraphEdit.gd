@@ -21,6 +21,18 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		# TODO: ADD warning message
 		return
 
+	# start to signal  
+	if from_node.TYPE == Editor.Type.start and to_node.TYPE == Editor.Type.signal_node:
+		print_debug("ERROR: start to signal relation")
+		# TODO: ADD warning message
+		return
+
+	# signal to signal  
+	if from_node.TYPE == Editor.Type.signal_node and to_node.TYPE == Editor.Type.signal_node:
+		print_debug("ERROR: signal to signal relation")
+		# TODO: ADD warning message
+		return
+
 	# START -- DIALOGUE
 	if from_node.TYPE == Editor.Type.start and to_node.TYPE == Editor.Type.dialogue:
 		# _check_node_connection(from, from_slot, to, to_slot, from_node, to_node)
@@ -69,6 +81,17 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 		connect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("dialogue_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
+		return
+
+	# DIALOGUE -- SIGNAL  
+	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.signal_node:
+		print_debug("connect signal to dialogue relation")
+		from_node.connected_to_signal = to
+		from_node.connected_to_signal_slot = to_slot
+
+		connect_node(from, from_slot, to, to_slot)
+		Events.emit_signal("dialogue_to_signal_relation_created", from_node.uuid, to_node.uuid)
+		# TODO: ADD warning message
 		return
 
 	# DIALOGUE -- CHOICE

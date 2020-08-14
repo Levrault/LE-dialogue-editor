@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/Nodes/Dialogue/DialogueNode.gd" type="Script" id=1]
 [ext_resource path="res://assets/themes/grap_node/graph_node.tres" type="StyleBox" id=2]
-[ext_resource path="res://src/Nodes/Fields/Signals.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/Nodes/Fields/Text.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/Nodes/Fields/Field.gd" type="Script" id=5]
+[ext_resource path="res://src/Nodes/Fields/LineField.gd" type="Script" id=5]
 [ext_resource path="res://assets/themes/grap_node/graph_content.tres" type="Theme" id=6]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -24,9 +23,9 @@ expand_margin_bottom = 8.0
 
 [node name="DialogueNode" type="GraphNode"]
 anchor_left = 0.11
-anchor_top = 0.181
+anchor_top = 0.125444
 anchor_right = 0.11
-anchor_bottom = 0.181
+anchor_bottom = 0.125444
 margin_left = -172.0
 margin_top = -163.9
 margin_right = 173.0
@@ -54,7 +53,7 @@ __meta__ = {
 margin_left = 16.0
 margin_top = 36.0
 margin_right = 329.0
-margin_bottom = 309.0
+margin_bottom = 274.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 11
@@ -64,42 +63,38 @@ __meta__ = {
 
 [node name="Name" type="VBoxContainer" parent="Container"]
 margin_right = 313.0
-margin_bottom = 38.0
+margin_bottom = 46.0
 
 [node name="Label" type="Label" parent="Container/Name"]
 margin_right = 313.0
 margin_bottom = 14.0
 text = "Name"
 
-[node name="Name" type="TextEdit" parent="Container/Name"]
+[node name="Name" type="LineEdit" parent="Container/Name"]
 margin_top = 18.0
 margin_right = 313.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 10, 20 )
+margin_bottom = 46.0
+rect_min_size = Vector2( 10, 28 )
 script = ExtResource( 5 )
 
 [node name="Portrait" type="VBoxContainer" parent="Container"]
-margin_top = 49.0
+margin_top = 57.0
 margin_right = 313.0
-margin_bottom = 87.0
+margin_bottom = 103.0
 
 [node name="Label" type="Label" parent="Container/Portrait"]
 margin_right = 313.0
 margin_bottom = 14.0
 text = "Portait"
 
-[node name="Portrait" type="TextEdit" parent="Container/Portrait"]
+[node name="Portrait" type="LineEdit" parent="Container/Portrait"]
 margin_top = 18.0
 margin_right = 313.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 10, 20 )
+margin_bottom = 46.0
+rect_min_size = Vector2( 10, 28 )
 script = ExtResource( 5 )
 
 [node name="Text" parent="Container" instance=ExtResource( 4 )]
+margin_top = 114.0
 margin_right = 313.0
-margin_bottom = 222.0
-
-[node name="Signals" parent="Container" instance=ExtResource( 3 )]
-margin_top = 233.0
-margin_right = 313.0
-margin_bottom = 273.0
+margin_bottom = 238.0

@@ -28,6 +28,10 @@ func _on_graph_node_added(node: GraphNode) -> void:
 		Events.emit_signal("condition_node_created", {uuid = node.uuid, values = node.values})
 		return
 
+	if node.TYPE == Editor.Type.signal_node:
+		Events.emit_signal("signal_node_created", {uuid = node.uuid, values = node.values})
+		return
+
 	Events.emit_signal("dialogue_node_created", {uuid = node.uuid, values = node.values})
 
 

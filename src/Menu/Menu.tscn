@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://src/Menu/AddChoices.gd" type="Script" id=1]
 [ext_resource path="res://src/Menu/AddNode.gd" type="Script" id=2]
 [ext_resource path="res://src/Menu/File.gd" type="Script" id=3]
 [ext_resource path="res://src/Menu/RawJson.gd" type="Script" id=4]
+[ext_resource path="res://src/Menu/AddSignal.gd" type="Script" id=5]
 [ext_resource path="res://src/Menu/AddConditions.gd" type="Script" id=6]
 
 [sub_resource type="InputEventAction" id=1]
@@ -25,10 +26,16 @@ action = "add_conditions"
 shortcut = SubResource( 5 )
 
 [sub_resource type="InputEventAction" id=7]
-action = "raw_json"
+action = "add_signal"
 
 [sub_resource type="ShortCut" id=8]
 shortcut = SubResource( 7 )
+
+[sub_resource type="InputEventAction" id=9]
+action = "raw_json"
+
+[sub_resource type="ShortCut" id=10]
+shortcut = SubResource( 9 )
 
 [node name="Menu" type="HBoxContainer"]
 margin_right = 209.0
@@ -72,11 +79,20 @@ shortcut = SubResource( 6 )
 text = "Add Conditions (alt+f)"
 script = ExtResource( 6 )
 
-[node name="RawJson" type="ToolButton" parent="."]
+[node name="AddSignal" type="ToolButton" parent="."]
 margin_left = 468.0
-margin_right = 579.0
+margin_right = 592.0
 margin_bottom = 22.0
 size_flags_vertical = 3
 shortcut = SubResource( 8 )
+text = "Add Signal (alt+w)"
+script = ExtResource( 5 )
+
+[node name="RawJson" type="ToolButton" parent="."]
+margin_left = 596.0
+margin_right = 707.0
+margin_bottom = 22.0
+size_flags_vertical = 3
+shortcut = SubResource( 10 )
 text = "Raw Json (alt+e)"
 script = ExtResource( 4 )

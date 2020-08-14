@@ -6,11 +6,11 @@ var values := {}
 
 onready var container := $Container
 onready var input := $Container/FieldContainer/Input
-onready var add_condition = $Container/FieldContainer/AddCondition
+onready var add_field = $Container/FieldContainer/AddCondition
 
 
 func _ready() -> void:
-	add_condition.is_disabled = true
+	add_field.is_disabled = true
 
 
 # prevent addind an existing value
