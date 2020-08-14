@@ -1,4 +1,4 @@
-extends ToolButton
+extends Button
 
 var dialog_node := preload("res://src/Nodes/Choice/ChoiceNode.tscn")
 
