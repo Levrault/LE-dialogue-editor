@@ -1,7 +1,6 @@
 extends Control
 
-const INITIAL_NODE_OFFSET := Vector2(40, 60)
-const NODE_OFFSET := Vector2(20, 20)
+const NODE_OFFSET := Vector2(120, 120)
 
 var node_index := 0
 
@@ -14,7 +13,7 @@ func _ready() -> void:
 
 
 func _on_graph_node_added(node: GraphNode) -> void:
-	node.offset += INITIAL_NODE_OFFSET + (node_index * NODE_OFFSET)
+	node.offset += graph_edit.scroll_offset + NODE_OFFSET
 	node.uuid = Uuid.v4()
 	graph_edit.add_child(node)
 	node_index += 1

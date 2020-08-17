@@ -35,3 +35,4 @@ signal choice_to_dialogue_relation_deleted(from)
 
 # menu
 signal menu_popup_displayed(name)
+signal file_dialog_opened(mode)

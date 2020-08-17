@@ -5,11 +5,11 @@
 [ext_resource path="res://assets/themes/menu/menu.tres" type="Theme" id=7]
 [ext_resource path="res://assets/icons/menu.svg" type="Texture" id=8]
 
-[sub_resource type="InputEventAction" id=9]
+[sub_resource type="InputEventAction" id=1]
 action = "raw_json"
 
-[sub_resource type="ShortCut" id=10]
-shortcut = SubResource( 9 )
+[sub_resource type="ShortCut" id=2]
+shortcut = SubResource( 1 )
 
 [node name="Menu" type="HBoxContainer"]
 margin_right = 209.0
@@ -31,9 +31,9 @@ script = ExtResource( 3 )
 
 [node name="RawJson" type="ToolButton" parent="."]
 margin_left = 74.0
-margin_right = 185.0
+margin_right = 180.0
 margin_bottom = 22.0
 size_flags_vertical = 3
-shortcut = SubResource( 10 )
-text = "Raw Json (alt+e)"
+shortcut = SubResource( 2 )
+text = "Preview (alt+e)"
 script = ExtResource( 4 )
