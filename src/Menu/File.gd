@@ -1,17 +1,22 @@
 extends MenuButton
 
-const SAVE := "Save"
+enum Menu { new, open, save, save_as, quit }
 
 
 func _ready():
 	get_popup().connect("id_pressed", self, "_on_Item_pressed")
-	get_popup().add_item("New")
-	get_popup().add_item("Open")
-	get_popup().add_item(SAVE)
-	get_popup().add_item("Quit")
+	get_popup().add_item("New Scene", Menu.new)
+	get_popup().add_item("Open File", Menu.open)
+	get_popup().add_item("Save", Menu.save)
+	get_popup().add_item("Save as", Menu.save_as)
+	get_popup().add_item("Quit", Menu.quit)
 
 
 func _on_Item_pressed(id: int) -> void:
-	var action := get_popup().get_item_text(id)
-	if action == SAVE:
+	if id == Menu.save:
 		Events.emit_signal("menu_popup_displayed", "SaveFileDialog")
+		return
+
+	if id == Menu.quit:
+		get_tree().quit() 
+		return
