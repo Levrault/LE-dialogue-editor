@@ -2,6 +2,7 @@ extends Node
 
 const BBCODE_DIALOGUE_TEMPLATE = {
 	"uuid": "[color=#ef5350]%uuid%[/color] {\n",
+	"root": "    root: true\n",
 	"conditions": "	[color=#03a9f4]conditions[/color]: {\n%conditions% \n	}\n",
 	"signals": "	[color=#03a9f4]signals[/color]: {\n%signals% \n	}\n",
 	"name": "	[color=#2196f3]name[/color]: [color=#fdd835]%name%[/color],\n",
@@ -42,6 +43,7 @@ const BBCODE_SIGNALS_TEMPLATE := {
 # single quote to escape double quote
 const DIALOGUE_STRING_TEMPLATE = {
 	"uuid": '  "%uuid%": {\n',
+	"root": '    "root": true,\n',
 	"signals": '    "signals": {\n%signals%    },\n',
 	"conditions": '    "conditions": {\n%conditions%    },\n',
 	"name": '    "name": "%name%",\n',
@@ -181,6 +183,9 @@ func stringify(
 		template.en = template.en.replace("%en%", node_data.text.en)
 		template.fr = template.fr.replace("%fr%", node_data.text.fr)
 
+		if not node_data.has("root"):
+			template.erase("root")
+
 		# conditions
 		if node_data.has("conditions"):
 			var conditions_string := ""
@@ -291,6 +296,10 @@ func stringify(
 
 
 func _on_Dialogue_node_created(data: Dictionary) -> void:
+	if json_raw.empty():
+		print(data)
+		data.values["root"] = true
+
 	json_raw[data.uuid] = data.values
 	dialogues_uuid.append(data.uuid)
 
@@ -308,7 +317,15 @@ func _on_Signal_node_created(data: Dictionary) -> void:
 
 
 func _on_Start_to_dialogue_relation_changed(from: String) -> void:
+	# remove previous first
+	for uuid in dialogues_uuid:
+		if json_raw[uuid].has("root"):
+			json_raw[uuid].erase("root")
+
+	# new one 
 	dialogues_uuid.push_front(from)
+	json_raw[from]["root"] = true
+
 	# re-order structure : Lazy way, destroy and rebuild
 	var previous_json_raw := json_raw.duplicate()
 	json_raw = {}
