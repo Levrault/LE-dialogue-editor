@@ -40,8 +40,8 @@ config/icon="res://icon.png"
 
 Events="*res://src/Autoload/Events.gd"
 Uuid="*res://src/Autoload/Uuid.gd"
-Json="*res://src/Autoload/Json.gd"
 Editor="*res://src/Autoload/Editor.gd"
+Json="*res://src/Autoload/Json.gd"
 Serialize="*res://src/Autoload/Serialize.gd"
 
 [debug]

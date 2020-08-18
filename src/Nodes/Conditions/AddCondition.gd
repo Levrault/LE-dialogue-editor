@@ -1,7 +1,5 @@
 extends AddButton
 
-var condition := preload("res://src/Nodes/Fields/Conditions.tscn")
-
 
 func on_Pressed() -> void:
 	if owner.input.text.empty():
@@ -11,7 +9,7 @@ func on_Pressed() -> void:
 	owner.values[owner.input.text] = true
 
 	# add field
-	var new_condition := condition.instance()
+	var new_condition = owner.condition.instance()
 	owner.container.add_child(new_condition)
 	new_condition.value.text = owner.input.text
 	new_condition.connect("field_deleted", owner, "_on_Condition_deleted")

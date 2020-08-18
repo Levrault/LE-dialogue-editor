@@ -2,6 +2,7 @@ extends Node
 
 # creation
 signal graph_node_added(node)
+signal graph_node_loaded(node)
 
 # change language
 signal locale_changed(value)
@@ -36,3 +37,6 @@ signal choice_to_dialogue_relation_deleted(from)
 # menu
 signal menu_popup_displayed(name)
 signal file_dialog_opened(mode)
+
+# file
+signal file_loaded

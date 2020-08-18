@@ -61,33 +61,33 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="VBoxContainer" parent="Container"]
+[node name="NameContainer" type="VBoxContainer" parent="Container"]
 margin_right = 313.0
 margin_bottom = 46.0
 
-[node name="Label" type="Label" parent="Container/Name"]
+[node name="Label" type="Label" parent="Container/NameContainer"]
 margin_right = 313.0
 margin_bottom = 14.0
 text = "Name"
 
-[node name="Name" type="LineEdit" parent="Container/Name"]
+[node name="Name" type="LineEdit" parent="Container/NameContainer"]
 margin_top = 18.0
 margin_right = 313.0
 margin_bottom = 46.0
 rect_min_size = Vector2( 10, 28 )
 script = ExtResource( 5 )
 
-[node name="Portrait" type="VBoxContainer" parent="Container"]
+[node name="PortraitContainer" type="VBoxContainer" parent="Container"]
 margin_top = 57.0
 margin_right = 313.0
 margin_bottom = 103.0
 
-[node name="Label" type="Label" parent="Container/Portrait"]
+[node name="Label" type="Label" parent="Container/PortraitContainer"]
 margin_right = 313.0
 margin_bottom = 14.0
 text = "Portait"
 
-[node name="Portrait" type="LineEdit" parent="Container/Portrait"]
+[node name="Portrait" type="LineEdit" parent="Container/PortraitContainer"]
 margin_top = 18.0
 margin_right = 313.0
 margin_bottom = 46.0

@@ -21,9 +21,15 @@ func save() -> void:
 
 
 func load(path: String):
+	print("LOAD has been called")
 	var file = File.new()
 	file.open(path, File.READ)
 	var content = file.get_as_text()
 	file.close()
 	Editor.current_state = Editor.FileState.saved
-	return content
+	var parsed_result = JSON.parse(content)
+	if parsed_result.error != OK:
+		print("get_json: error while parsing")
+		return
+	Json.json_raw = parsed_result.result
+	Editor.generate_graph(Json.json_raw)
