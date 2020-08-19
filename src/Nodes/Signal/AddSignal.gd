@@ -5,7 +5,7 @@ var signal_field := preload("res://src/Nodes/Fields/Signal.tscn")
 
 func on_Pressed() -> void:
 	# add values
-	owner.values[owner.signal_name.text] = owner.get_values()
+	owner.values["data"][owner.signal_name.text] = owner.get_values()
 
 	# add field
 	var new_signal := signal_field.instance()

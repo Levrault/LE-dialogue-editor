@@ -6,7 +6,7 @@ func on_Pressed() -> void:
 		return
 
 	# add values
-	owner.values[owner.input.text] = true
+	owner.values["data"][owner.input.text] = true
 
 	# add field
 	var new_condition = owner.condition.instance()

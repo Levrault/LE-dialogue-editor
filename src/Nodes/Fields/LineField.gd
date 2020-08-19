@@ -9,8 +9,8 @@ func _ready():
 
 
 func _on_Text_changed(new_text: String) -> void:
-	owner.values[_name] = text
+	owner.values.data[_name] = text
 
 
 func _on_File_loaded() -> void:
-	text = owner.values[_name]
+	text = owner.values.data[_name]

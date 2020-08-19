@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/Editor/GraphEdit.gd" type="Script" id=1]
 [ext_resource path="res://src/Main/Main.gd" type="Script" id=2]
 [ext_resource path="res://src/Popup/FileDialog.gd" type="Script" id=3]
 [ext_resource path="res://src/Tools/Actions/ActionsBar.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/Popup/RawJsonWindows.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/Nodes/Start/StartNode.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/Menu/Menu.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/Tools/Localization/i18nBar.tscn" type="PackedScene" id=9]
@@ -69,7 +68,7 @@ __meta__ = {
 }
 
 [node name="Menu" parent="MarginContainer/VBoxContainer" instance=ExtResource( 8 )]
-margin_right = 180.0
+margin_right = 70.0
 
 [node name="GraphEdit" type="GraphEdit" parent="MarginContainer/VBoxContainer"]
 margin_top = 26.0
@@ -92,16 +91,6 @@ mouse_filter = 1
 [node name="i18nBar" parent="." instance=ExtResource( 9 )]
 
 [node name="ActionsBar" parent="." instance=ExtResource( 4 )]
-
-[node name="RawJsonWindows" parent="." instance=ExtResource( 6 )]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 400.0
-margin_top = 225.0
-margin_right = 503.0
-margin_bottom = 226.0
 
 [node name="FileDialog" type="FileDialog" parent="."]
 anchor_left = 0.5

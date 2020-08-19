@@ -48,10 +48,14 @@ expand_margin_bottom = 8.0
 [sub_resource type="StyleBoxEmpty" id=3]
 
 [node name="SignalNode" type="GraphNode"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -1326.0
-margin_bottom = -741.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -800.0
+margin_top = -450.0
+margin_right = -526.0
+margin_bottom = -291.0
 theme = ExtResource( 3 )
 custom_styles/frame = SubResource( 1 )
 custom_styles/selectedframe = SubResource( 2 )

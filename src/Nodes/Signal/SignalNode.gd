@@ -3,7 +3,6 @@ extends GraphEditorNode
 enum Type { empty, string, vector2, number }
 const TYPE = Editor.Type.signal_node
 
-var values := {}
 var selected_type = Type.empty
 
 onready var container := $Container
@@ -30,7 +29,7 @@ func _ready() -> void:
 
 # prevent addind an existing value
 func has_duplicate_value(value: String) -> bool:
-	for v in values:
+	for v in values.data:
 		if v == value:
 			return true
 	return false

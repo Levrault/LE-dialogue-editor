@@ -1,15 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/Menu/File.gd" type="Script" id=3]
-[ext_resource path="res://src/Menu/RawJson.gd" type="Script" id=4]
 [ext_resource path="res://assets/themes/menu/menu.tres" type="Theme" id=7]
 [ext_resource path="res://assets/icons/menu.svg" type="Texture" id=8]
-
-[sub_resource type="InputEventAction" id=1]
-action = "raw_json"
-
-[sub_resource type="ShortCut" id=2]
-shortcut = SubResource( 1 )
 
 [node name="Menu" type="HBoxContainer"]
 margin_right = 209.0
@@ -28,12 +21,3 @@ size_flags_vertical = 3
 text = "File"
 icon = ExtResource( 8 )
 script = ExtResource( 3 )
-
-[node name="RawJson" type="ToolButton" parent="."]
-margin_left = 74.0
-margin_right = 180.0
-margin_bottom = 22.0
-size_flags_vertical = 3
-shortcut = SubResource( 2 )
-text = "Preview (alt+e)"
-script = ExtResource( 4 )

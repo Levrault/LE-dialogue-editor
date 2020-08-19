@@ -17,7 +17,6 @@ func _on_graph_node_added(node: GraphNode) -> void:
 	node.offset += graph_edit.scroll_offset + NODE_OFFSET
 	node.uuid = Uuid.v4()
 	graph_edit.add_child(node)
-	node_index += 1
 
 	# generate signal to add a new entry inside the json
 	if node.TYPE == Editor.Type.choice:
@@ -36,9 +35,10 @@ func _on_graph_node_added(node: GraphNode) -> void:
 
 
 func _on_graph_node_loaded(node: GraphNode) -> void:
-	node.offset += graph_edit.scroll_offset + NODE_OFFSET
+	node.offset = Vector2(node.values.__editor.offset[0], node.values.__editor.offset[1])
+	print_debug(Vector2(node.values.__editor.offset[0], node.values.__editor.offset[1]))
+	node.is_loaded = true
 	graph_edit.add_child(node)
-	node_index += 1
 
 	# generate signal to add a new entry inside the json
 	if node.TYPE == Editor.Type.choice:

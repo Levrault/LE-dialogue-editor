@@ -40,3 +40,4 @@ signal file_dialog_opened(mode)
 
 # file
 signal file_loaded
+signal offset_changed(uuid, type, offset)

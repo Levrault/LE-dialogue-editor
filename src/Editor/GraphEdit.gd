@@ -36,11 +36,11 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 	# START -- DIALOGUE
 	if from_node.TYPE == Editor.Type.start and to_node.TYPE == Editor.Type.dialogue:
 		# _check_node_connection(from, from_slot, to, to_slot, from_node, to_node)
-
 		print_debug("connect start to dialogue relation")
 
 		from_node.connected_to_dialogue = to
 		from_node.connected_slot = to_slot
+		to_node.values["__editor"]["parent"] = from_node.uuid
 
 		Events.emit_signal("start_to_dialogue_relation_changed", to_node.uuid)
 
@@ -60,6 +60,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		print_debug("connect dialogue to condition relation")
 		from_node.connected_to_condition = to
 		from_node.connected_to_condition_slot = to_slot
+		to_node.values["__editor"]["parent"] = from_node.uuid
 		connect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("dialogue_to_condition_relation_created", from_node.uuid, to_node.uuid)
 		return
@@ -88,6 +89,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		print_debug("connect signal to dialogue relation")
 		from_node.connected_to_signal = to
 		from_node.connected_to_signal_slot = to_slot
+		to_node.values["__editor"]["parent"] = from_node.uuid
 
 		connect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("dialogue_to_signal_relation_created", from_node.uuid, to_node.uuid)
@@ -98,6 +100,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.choice:
 		print_debug("connect dialogue to choice relation")
 		connect_node(from, from_slot, to, to_slot)
+		to_node.values["__editor"]["parent"] = from_node.uuid
 		Events.emit_signal("dialogue_to_choice_relation_created", from_node.uuid, to_node.uuid)
 		return
 
@@ -110,7 +113,6 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 
 func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot: int) -> void:
-	print(from)
 	var from_node = get_node(from)
 	var to_node = get_node(to)
 	# DIALOGUE -- DIALOGUE

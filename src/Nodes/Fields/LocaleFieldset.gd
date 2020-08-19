@@ -15,13 +15,13 @@ func _ready() -> void:
 
 
 func _on_Text_changed() -> void:
-	owner.values.text[Editor.locale] = locale.text
+	owner.values.data.text[Editor.locale] = locale.text
 
 
 func _on_Localization_changed(new_lang: String) -> void:
-	locale.text = owner.values.text[Editor.locale]
+	locale.text = owner.values.data.text[Editor.locale]
 	label.text = "%s (%s)" % [initial_text, new_lang]
 
 
 func _on_File_loaded() -> void:
-	locale.text = owner.values.text[Editor.locale]
+	locale.text = owner.values.data.text[Editor.locale]

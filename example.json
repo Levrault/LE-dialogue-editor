@@ -1,0 +1,70 @@
+{
+  "0a3f0ebd-a6cc-473d-853c-04ff163fb4a3": {
+    "conditions": {
+			"asdasd": true
+    },
+    "signals": {
+      "notification_started": {
+        "String": "dialogue generate event"
+      },
+      "camera_offset_changed": {
+        "Vector2": {
+          "x": 200,
+          "y": -400
+        }
+      }
+    },
+    "name": "asd",
+    "portrait": "asd",
+    "text": {
+      "en": "asdasd",
+      "fr": ""
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Yes",
+          "fr": "Oui"
+        },
+        "next": "002"
+      },
+      {
+        "text": {
+          "en": "No",
+          "fr": "No"
+        },
+        "next": "003"
+      }
+    ]
+  },
+  "levrault_dialogue_editor": {
+    "dialogue": [
+      { 
+      "uuid": "0a3f0ebd-a6cc-473d-853c-04ff163fb4a3", 
+      "offset": [340, 160]
+      },
+      { 
+        "uuid": "0a3f0ebd-a6cc-473d-853c-04ff163fb4a3",
+        "offset": [340, 160]
+      }
+    ],
+    "conditions": [{ 
+      "uuid": "0a3f0ebd-a6cc-473d-853c-04ff163fb4a3",
+      "parent": "0a3f0ebd-a6cc-473d-853c-04ff163fb4a3",
+      "offset": [340, 160]
+    }],
+    "signals": [{ 
+      "uuid": "0a3f0ebd-a6cc-473d-853c-04ff163fb4a3",
+      "parent": "0a3f0ebd-a6cc-473d-853c-04ff163fb4a3",
+      "offset": [340, 160]
+    }, { 
+      "uuid": "0a3f0ebd-a6cc-473d-853c-04ff163fb4a3",
+      "offset": [340, 160]
+    }],
+    "choices": [{
+      "uuid": "0a3f0ebd-a6cc-473d-853c-04ff163fb4a3",
+      "parent": "0a3f0ebd-a6cc-473d-853c-04ff163fb4a3",
+      "offset": [340, 160]
+    }]
+  }
+}

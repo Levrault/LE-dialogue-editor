@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "GraphEditorNode",
 "language": "GDScript",
 "path": "res://src/Nodes/GraphEditorNode.gd"
+}, {
+"base": "Node",
+"class": "Parser",
+"language": "GDScript",
+"path": "res://src/Utils/Parser.gd"
 } ]
 _global_script_class_icons={
 "AddButton": "",
 "FieldInput": "",
-"GraphEditorNode": ""
+"GraphEditorNode": "",
+"Parser": ""
 }
 
 [application]
@@ -41,7 +47,7 @@ config/icon="res://icon.png"
 Events="*res://src/Autoload/Events.gd"
 Uuid="*res://src/Autoload/Uuid.gd"
 Editor="*res://src/Autoload/Editor.gd"
-Json="*res://src/Autoload/Json.gd"
+Store="*res://src/Autoload/Store.gd"
 Serialize="*res://src/Autoload/Serialize.gd"
 
 [debug]
