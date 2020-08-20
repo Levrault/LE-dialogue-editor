@@ -9,10 +9,10 @@ func on_Pressed() -> void:
 	owner.values["data"][owner.input.text] = true
 
 	# add field
-	var new_condition = owner.condition.instance()
+	var new_condition = owner.condition_field.instance()
 	owner.container.add_child(new_condition)
 	new_condition.value.text = owner.input.text
-	new_condition.connect("field_deleted", owner, "_on_Condition_deleted")
+	new_condition.connect("field_deleted", owner, "_on_Deleted")
 
 	# set for next conditions
 	owner.input.text = ""

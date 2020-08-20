@@ -21,7 +21,6 @@ func save() -> void:
 
 
 func load(path: String):
-	print_debug("SERIALIZE LOAD has been called")
 	var file = File.new()
 	file.open(path, File.READ)
 	var content = file.get_as_text()
@@ -31,5 +30,5 @@ func load(path: String):
 	if parsed_result.error != OK:
 		print("load json: error while parsing")
 		return
-	# Store.json_raw = parsed_result.result
 	Editor.generate_graph(parsed_result.result)
+	current_path = path

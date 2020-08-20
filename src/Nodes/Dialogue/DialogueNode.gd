@@ -11,7 +11,6 @@ var connected_to_condition_slot := 0
 var connected_to_signal := ""
 var connected_to_signal_slot := 0
 
-onready var container := $Container
 
 
 func _ready() -> void:

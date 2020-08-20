@@ -3,9 +3,9 @@ extends GraphEditorNode
 enum Type { empty, string, vector2, number }
 const TYPE = Editor.Type.signal_node
 
+var signal_field := preload("res://src/Nodes/Fields/Signal.tscn")
 var selected_type = Type.empty
 
-onready var container := $Container
 onready var add_field := $Container/AddSignal
 onready var signal_name := $Container/FieldContainer/SignalName
 onready var type_option := $Container/TypeContainer/TypeOption
@@ -15,6 +15,7 @@ onready var string_field := $Container/String
 
 
 func _ready() -> void:
+	Events.connect("file_loaded", self, "_on_File_loaded")
 	type_option.connect("item_selected", self, "_on_Type_selected")
 	type_option.add_item("Empty", Type.empty)
 	type_option.add_item("String", Type.string)
@@ -103,14 +104,6 @@ func reset_type() -> void:
 	string_field.hide()
 
 
-# Remove delete value from values dictionnary
-# and use rect_size to resize the node
-func _on_Signal_deleted(value_to_delete: String, field_rect_size: Vector2) -> void:
-	values.erase(value_to_delete)
-	container.rect_size = Vector2(container.rect_size.x, container.rect_size.y - field_rect_size.y)
-	rect_size = Vector2(rect_size.x, rect_size.y - (field_rect_size.y * 2))
-
-
 func _on_Type_selected(index: int) -> void:
 	selected_type = index
 	if index == Type.empty:
@@ -139,3 +132,11 @@ func _on_Type_selected(index: int) -> void:
 		number_field.hide()
 		vector2_field.hide()
 		return
+
+
+func _on_File_loaded() -> void:
+	for value in values:
+		var new_signal = signal_field.instance()
+		container.add_child(new_signal)
+		new_signal.value.text = value
+		new_signal.connect("field_deleted", self, "_on_Deleted")
