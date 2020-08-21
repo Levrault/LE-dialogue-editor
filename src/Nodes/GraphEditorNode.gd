@@ -34,6 +34,14 @@ func _on_Deleted(value_to_delete: String, field_rect_size: Vector2) -> void:
 
 
 func _on_Close_request() -> void:
-	if values["__editor"].has("parent"):
-		Events.emit_signal("node_deleted", values["__editor"].parent, 0, uuid, 0)
+	if values.__editor.has("parent"):
+		Events.emit_signal("node_deleted", values.__editor.parent, 0, uuid, 0)
+	if values.data.has("next") and not values.data.next.empty():
+		Events.emit_signal("node_deleted", uuid, 0, values.data.next, 0)
+
+	# remove node connect to choice
+	if self.TYPE == Editor.Type.dialogue:
+		for choice in Store.get_connected_choice(uuid):
+			choice.data.next = ""
+			Events.emit_signal("node_deleted", choice.__editor.uuid, 0, uuid, 0)
 	queue_free()

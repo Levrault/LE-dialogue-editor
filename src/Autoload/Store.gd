@@ -66,6 +66,15 @@ func to_json() -> String:
 	return parser.to_json(json_raw)
 
 
+func get_connected_choice(dialogue_uuid: String) -> Array:
+	var result := []
+	for key in choices_node:
+		print(choices_node[key].data.next)
+		if choices_node[key].data.has("next") and choices_node[key].data.next == dialogue_uuid:
+			result.append(choices_node[key])
+	return result
+
+
 # Start node
 func _on_Start_to_dialogue_relation_changed(from: String) -> void:
 	# remove previous first
@@ -144,14 +153,15 @@ func _on_Dialogue_to_choice_relation_created(from: String, to: String) -> void:
 
 
 func _on_Dialogue_to_choice_relation_deleted(from: String, to: String) -> void:
-	print(json_raw[from]["choices"])
-	json_raw[from]["choices"].erase(choices_node[to])
-	print(json_raw[from]["choices"])
+	json_raw[from]["choices"].erase(choices_node[to].data)
+	choices_node.erase(to)
+	if choices_node.empty():
+		json_raw[from].erase("choices")
 
 
 func _on_Choice_to_dialogue_relation_created(from: String, to: String) -> void:
-	choices_node[from].next = to
+	choices_node[from].data.next = to
 
 
 func _on_Choice_to_dialogue_relation_deleted(from: String) -> void:
-	choices_node[from].next = ""
+	choices_node[from].data.next = ""

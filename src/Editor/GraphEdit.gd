@@ -135,11 +135,11 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 		Events.emit_signal("dialogue_to_choice_relation_deleted", from_node.uuid, to_node.uuid)
 		return
 
-	# CHOICE -- DIALOGUE
+	# CHOICE -- DIALOGUE 
 	if from_node.TYPE == Editor.Type.choice and to_node.TYPE == Editor.Type.dialogue:
 		print_debug("disconnect choice of dialogue relation")
 		disconnect_node(from, from_slot, to, to_slot)
-		Events.emit_signal("choice_to_dialogue_relation_deleted", from_node.uuid)
+		# Events.emit_signal("choice_to_dialogue_relation_deleted", to_node.uuid)
 		return
 
 	# DIALOGUE -- CONDITION
