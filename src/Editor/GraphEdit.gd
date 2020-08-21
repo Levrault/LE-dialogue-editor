@@ -7,6 +7,7 @@ const NODE_OFFSET := Vector2(120, 120)
 func _ready() -> void:
 	connect("connection_request", self, "_on_Connection_request")
 	connect("disconnection_request", self, "_on_Disconnection_request")
+	Events.connect("node_deleted", self, "_on_Disconnection_request")
 	Events.connect("connection_request_loaded", self, "_on_Connection_request")
 	Events.connect("graph_node_added", self, "_on_graph_node_added")
 	Events.connect("graph_node_loaded", self, "_on_graph_node_loaded")
@@ -122,23 +123,37 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 	var to_node = get_node(to)
 	# DIALOGUE -- DIALOGUE
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.dialogue:
-		print_debug("disconnect dialogue to dialogue relation")
+		print_debug("disconnect dialogue of dialogue relation")
 		disconnect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("dialogue_to_dialogue_relation_deleted", from_node.uuid)
 		return
 
 	# DIALOGUE -- CHOICE
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.choice:
-		print_debug("disconnect dialogue to choice relation")
+		print_debug("disconnect dialogue of choice relation")
 		disconnect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("dialogue_to_choice_relation_deleted", from_node.uuid, to_node.uuid)
 		return
 
 	# CHOICE -- DIALOGUE
 	if from_node.TYPE == Editor.Type.choice and to_node.TYPE == Editor.Type.dialogue:
-		print_debug("disconnect choice to dialogue relation")
+		print_debug("disconnect choice of dialogue relation")
 		disconnect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("choice_to_dialogue_relation_deleted", from_node.uuid)
+		return
+
+	# DIALOGUE -- CONDITION
+	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.condition:
+		print_debug("disconnect conditions of dialogue relation")
+		disconnect_node(from, from_slot, to, to_slot)
+		Events.emit_signal("dialogue_to_condition_relation_deleted", from_node.uuid)
+		return
+
+	# DIALOGUE -- SIGNAL
+	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.signal_node:
+		print_debug("disconnect signals of dialogue relation")
+		disconnect_node(from, from_slot, to, to_slot)
+		Events.emit_signal("dialogue_to_signal_relation_deleted", from_node.uuid)
 		return
 
 

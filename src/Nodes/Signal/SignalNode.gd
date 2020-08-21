@@ -1,6 +1,12 @@
+# SignalNode
+# Directly related to godot's signal pattern. 
+# When readed by the dialogue system, he should emit a signal with the params
+# 4 types are managed for the moment
+#  Empty, String, Vector2, Number
 extends GraphEditorNode
 
 enum Type { empty, string, vector2, number }
+
 const TYPE = Editor.Type.signal_node
 
 var signal_field := preload("res://src/Nodes/Fields/Signal.tscn")

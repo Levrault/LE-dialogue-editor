@@ -34,4 +34,6 @@ func _on_Deleted(value_to_delete: String, field_rect_size: Vector2) -> void:
 
 
 func _on_Close_request() -> void:
+	if values["__editor"].has("parent"):
+		Events.emit_signal("node_deleted", values["__editor"].parent, 0, uuid, 0)
 	queue_free()

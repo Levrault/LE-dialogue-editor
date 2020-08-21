@@ -16,7 +16,6 @@ func _ready() -> void:
 	Events.connect("choice_node_created", self, "_on_Choice_node_created")
 	Events.connect("condition_node_created", self, "_on_Condition_node_created")
 	Events.connect("signal_node_created", self, "_on_Signal_node_created")
-
 	# start to dialogue
 	Events.connect(
 		"start_to_dialogue_relation_changed", self, "_on_Start_to_dialogue_relation_changed"
@@ -33,6 +32,9 @@ func _ready() -> void:
 	# dialogue to conditions
 	Events.connect(
 		"dialogue_to_condition_relation_created", self, "_on_Dialogue_to_condition_relation_created"
+	)
+	Events.connect(
+		"dialogue_to_condition_relation_deleted", self, "_on_Dialogue_to_condition_relation_deleted"
 	)
 
 	# Dialogue to signal
@@ -64,27 +66,7 @@ func to_json() -> String:
 	return parser.to_json(json_raw)
 
 
-func _on_Dialogue_node_created(data: Dictionary) -> void:
-	if json_raw.empty():
-		data.values["root"] = true
-
-	json_raw[data.uuid] = data.values.data
-	dialogues_node[data.uuid] = data.values
-	dialogues_uuid.append(data.uuid)
-
-
-func _on_Choice_node_created(data: Dictionary) -> void:
-	choices_node[data.uuid] = data.values
-
-
-func _on_Condition_node_created(data: Dictionary) -> void:
-	conditions_node[data.uuid] = data.values
-
-
-func _on_Signal_node_created(data: Dictionary) -> void:
-	signals_node[data.uuid] = data.values
-
-
+# Start node
 func _on_Start_to_dialogue_relation_changed(from: String) -> void:
 	# remove previous first
 	for uuid in dialogues_uuid:
@@ -102,6 +84,16 @@ func _on_Start_to_dialogue_relation_changed(from: String) -> void:
 		json_raw[uuid] = previous_json_raw[uuid]
 
 
+# Dialogue
+func _on_Dialogue_node_created(data: Dictionary) -> void:
+	if json_raw.empty():
+		data.values["root"] = true
+
+	json_raw[data.uuid] = data.values.data
+	dialogues_node[data.uuid] = data.values
+	dialogues_uuid.append(data.uuid)
+
+
 func _on_Dialogue_to_dialogue_relation_created(from: String, to: String) -> void:
 	json_raw[from]["next"] = to
 
@@ -110,10 +102,39 @@ func _on_Dialogue_to_dialogue_relation_deleted(from: String) -> void:
 	json_raw[from].erase("next")
 
 
+# Condition
+func _on_Condition_node_created(data: Dictionary) -> void:
+	conditions_node[data.uuid] = data.values
+
+
 func _on_Dialogue_to_condition_relation_created(from: String, to: String) -> void:
 	if not json_raw[from].has("conditions"):
 		json_raw[from]["conditions"] = []
 	json_raw[from].conditions = conditions_node[to].data
+
+
+func _on_Dialogue_to_condition_relation_deleted(from: String) -> void:
+	json_raw[from].erase("conditions")
+
+
+# Signals
+func _on_Signal_node_created(data: Dictionary) -> void:
+	signals_node[data.uuid] = data.values
+
+
+func _on_Dialogue_to_signal_relation_created(from: String, to: String) -> void:
+	if not json_raw[from].has("signals"):
+		json_raw[from]["signals"] = []
+	json_raw[from].signals = signals_node[to].data
+
+
+func _on_Dialogue_to_signal_relation_deleted(from: String) -> void:
+	json_raw[from].erase("signals")
+
+
+# Choices
+func _on_Choice_node_created(data: Dictionary) -> void:
+	choices_node[data.uuid] = data.values
 
 
 func _on_Dialogue_to_choice_relation_created(from: String, to: String) -> void:
@@ -123,17 +144,9 @@ func _on_Dialogue_to_choice_relation_created(from: String, to: String) -> void:
 
 
 func _on_Dialogue_to_choice_relation_deleted(from: String, to: String) -> void:
+	print(json_raw[from]["choices"])
 	json_raw[from]["choices"].erase(choices_node[to])
-
-
-func _on_Dialogue_to_signal_relation_created(from: String, to: String) -> void:
-	if not json_raw[from].has("signals"):
-		json_raw[from]["signals"] = []
-	json_raw[from].signals = signals_node[to].data
-
-
-func _on_Dialogue_to_signal_relation_deleted(from: String, to: String) -> void:
-	json_raw[from]["signals"].erase(signals_node[to])
+	print(json_raw[from]["choices"])
 
 
 func _on_Choice_to_dialogue_relation_created(from: String, to: String) -> void:

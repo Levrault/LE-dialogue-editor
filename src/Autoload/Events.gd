@@ -13,6 +13,8 @@ signal choice_node_created(data)
 signal condition_node_created(data)
 signal signal_node_created(data)
 
+signal node_deleted(from, from_slot, to, to_slot)
+
 # signals
 signal signals_window_displayed(uuid)
 
@@ -29,6 +31,7 @@ signal dialogue_to_signal_relation_created(from, to)
 signal dialogue_to_signal_relation_deleted(from)
 
 signal dialogue_to_condition_relation_created(from, to)
+signal dialogue_to_condition_relation_deleted(from)
 
 # choice to conditions
 signal choice_to_dialogue_relation_created(from, to)
