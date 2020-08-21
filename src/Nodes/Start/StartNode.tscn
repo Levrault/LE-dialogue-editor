@@ -57,11 +57,16 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="Label" type="Label" parent="."]
+[node name="Container" type="CenterContainer" parent="."]
 margin_left = 16.0
 margin_top = 36.0
 margin_right = 123.0
 margin_bottom = 86.0
+
+[node name="Label" type="Label" parent="Container"]
+margin_left = 28.0
+margin_right = 78.0
+margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
 text = "Start"
 align = 1

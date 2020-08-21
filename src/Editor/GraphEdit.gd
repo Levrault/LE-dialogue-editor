@@ -1,9 +1,15 @@
+# Manage node creation and relation creation between them
 extends GraphEdit
+
+const NODE_OFFSET := Vector2(120, 120)
 
 
 func _ready() -> void:
 	connect("connection_request", self, "_on_Connection_request")
 	connect("disconnection_request", self, "_on_Disconnection_request")
+	Events.connect("connection_request_loaded", self, "_on_Connection_request")
+	Events.connect("graph_node_added", self, "_on_graph_node_added")
+	Events.connect("graph_node_loaded", self, "_on_graph_node_loaded")
 
 
 func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: int) -> void:
@@ -36,7 +42,6 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 	# START -- DIALOGUE
 	if from_node.TYPE == Editor.Type.start and to_node.TYPE == Editor.Type.dialogue:
 		# _check_node_connection(from, from_slot, to, to_slot, from_node, to_node)
-
 		print_debug("connect start to dialogue relation")
 
 		from_node.connected_to_dialogue = to
@@ -60,6 +65,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		print_debug("connect dialogue to condition relation")
 		from_node.connected_to_condition = to
 		from_node.connected_to_condition_slot = to_slot
+		to_node.values["__editor"]["parent"] = from_node.uuid
 		connect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("dialogue_to_condition_relation_created", from_node.uuid, to_node.uuid)
 		return
@@ -88,6 +94,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		print_debug("connect signal to dialogue relation")
 		from_node.connected_to_signal = to
 		from_node.connected_to_signal_slot = to_slot
+		to_node.values["__editor"]["parent"] = from_node.uuid
 
 		connect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("dialogue_to_signal_relation_created", from_node.uuid, to_node.uuid)
@@ -98,6 +105,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.choice:
 		print_debug("connect dialogue to choice relation")
 		connect_node(from, from_slot, to, to_slot)
+		to_node.values["__editor"]["parent"] = from_node.uuid
 		Events.emit_signal("dialogue_to_choice_relation_created", from_node.uuid, to_node.uuid)
 		return
 
@@ -110,7 +118,6 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 
 func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot: int) -> void:
-	print(from)
 	var from_node = get_node(from)
 	var to_node = get_node(to)
 	# DIALOGUE -- DIALOGUE
@@ -135,6 +142,18 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 		return
 
 
+func _on_graph_node_added(node: GraphNode) -> void:
+	node.offset += scroll_offset + NODE_OFFSET
+	node.uuid = Uuid.v4()
+	_add_graph_node(node)
+
+
+func _on_graph_node_loaded(node: GraphNode) -> void:
+	node.offset = Vector2(node.values.__editor.offset[0], node.values.__editor.offset[1])
+	node.is_loaded = true
+	_add_graph_node(node)
+
+
 # is selected dialogue (from) is already connected to another dialogue
 # Can only be connected to ONE dialogue but can be connected to multiple conditions
 func _check_node_connection(
@@ -155,3 +174,23 @@ func _check_node_connection(
 		)
 	)
 	disconnect_node(from, from_slot, node_connected, node_connected_slot)
+
+
+func _add_graph_node(node: GraphNode) -> void:
+	node.name = node.uuid
+	add_child(node)
+
+	# generate signal to add a new entry inside the json
+	if node.TYPE == Editor.Type.choice:
+		Events.emit_signal("choice_node_created", {uuid = node.uuid, values = node.values})
+		return
+
+	if node.TYPE == Editor.Type.condition:
+		Events.emit_signal("condition_node_created", {uuid = node.uuid, values = node.values})
+		return
+
+	if node.TYPE == Editor.Type.signal_node:
+		Events.emit_signal("signal_node_created", {uuid = node.uuid, values = node.values})
+		return
+
+	Events.emit_signal("dialogue_node_created", {uuid = node.uuid, values = node.values})

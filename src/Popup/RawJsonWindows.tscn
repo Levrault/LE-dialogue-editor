@@ -1,6 +1,18 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://src/Popup/RawJsonWindows.gd" type="Script" id=1]
+[sub_resource type="GDScript" id=1]
+script/source = "extends WindowDialog
+
+onready var json := $Container/Json
+
+
+func _ready():
+	connect(\"about_to_show\", self, \"_on_About_to_show\")
+
+
+func _on_About_to_show() -> void:
+	json.bbcode_text = Store.to_bbcode()
+"
 
 [node name="RawJsonWindows" type="WindowDialog"]
 anchor_left = 0.5
@@ -13,7 +25,7 @@ margin_right = 400.0
 margin_bottom = 225.0
 window_title = "Raw Json"
 resizable = true
-script = ExtResource( 1 )
+script = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

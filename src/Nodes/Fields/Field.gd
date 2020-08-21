@@ -8,4 +8,4 @@ func _ready():
 
 
 func _on_Text_changed() -> void:
-	owner.values[_name] = text
+	owner.values.data[_name] = text

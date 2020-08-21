@@ -2,14 +2,14 @@ extends GraphEditorNode
 
 const TYPE = Editor.Type.condition
 
-var values := {}
+var condition_field := preload("res://src/Nodes/Fields/Conditions.tscn")
 
-onready var container := $Container
 onready var input := $Container/FieldContainer/Input
 onready var add_field = $Container/FieldContainer/AddCondition
 
 
 func _ready() -> void:
+	Events.connect("file_loaded", self, "_on_File_loaded")
 	add_field.is_disabled = true
 
 
@@ -21,12 +21,10 @@ func has_duplicate_value(value: String) -> bool:
 	return false
 
 
-# Remove delete value from values dictionnary
-# and use rect_size to resize the node
-func _on_Condition_deleted(value_to_delete: String, field_rect_size: Vector2) -> void:
-	values.erase(value_to_delete)
-	print(rect_size)
-	container.rect_size = Vector2(container.rect_size.x, container.rect_size.y - field_rect_size.y)
-	rect_size = Vector2(rect_size.x, rect_size.y - (field_rect_size.y * 2))
-
-	print(rect_size)
+func _on_File_loaded() -> void:
+	for value in values:
+		var new_condition = condition_field.instance()
+		container.add_child(new_condition)
+		yield(new_condition, "ready")
+		new_condition.value.text = value
+		new_condition.connect("field_deleted", self, "_on_Deleted")
