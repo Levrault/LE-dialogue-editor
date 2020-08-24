@@ -33,6 +33,9 @@ signal dialogue_to_signal_relation_deleted(from)
 signal dialogue_to_condition_relation_created(from, to)
 signal dialogue_to_condition_relation_deleted(from)
 
+signal condition_to_dialogue_relation_created(from, to)
+signal condition_to_dialogue_relation_deleted(from)
+
 # choice to conditions
 signal choice_to_dialogue_relation_created(from, to)
 signal choice_to_dialogue_relation_deleted(from)

@@ -7,7 +7,9 @@ onready var value := $Value
 onready var type := $Type
 
 
-func delete() -> void:
-	emit_signal("field_deleted", signal_name.text, self.rect_size)
-	queue_free()
+func _exit_tree() -> void:
+	emit_signal("field_deleted", value.text, self.rect_size)
 
+
+func delete() -> void:
+	queue_free()

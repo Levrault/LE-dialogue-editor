@@ -30,7 +30,7 @@ func _on_Offset_changed() -> void:
 func _on_Deleted(value_to_delete: String, field_rect_size: Vector2) -> void:
 	values.data.erase(value_to_delete)
 	container.rect_size = Vector2(container.rect_size.x, container.rect_size.y - field_rect_size.y)
-	rect_size = Vector2(rect_size.x, rect_size.y - (field_rect_size.y * 2))
+	rect_size = Vector2(rect_size.x, rect_size.y - (field_rect_size.y * 4))
 
 
 func _on_Close_request() -> void:

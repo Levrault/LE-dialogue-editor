@@ -5,8 +5,15 @@ func on_Pressed() -> void:
 	if owner.input.text.empty():
 		return
 
+	if is_disabled:
+		return
+
+	if owner.input.text == "next":
+		print_debug("ERROR: next is a reserved word")
+		return
+
 	# add values
-	owner.values["data"][owner.input.text] = true
+	owner.values.data[owner.input.text] = true
 
 	# add field
 	var new_condition = owner.condition_field.instance()
@@ -17,3 +24,4 @@ func on_Pressed() -> void:
 	# set for next conditions
 	owner.input.text = ""
 	owner.add_field.is_disabled = true
+	owner.callback()

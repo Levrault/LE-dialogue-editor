@@ -34,10 +34,11 @@ func set_locale(value: String) -> void:
 
 
 func save_file() -> void:
+	print(Store.json_raw)
 	if current_state == FileState.new:
 		Events.emit_signal("file_dialog_opened", 4)  # FileDialog.Mode.MODE_SAVE_FILE
 		return
-	if current_state == FileState.saved:
+	if current_state == FileState.unsaved or current_state == FileState.saved:
 		Serialize.save()
 	return
 
@@ -55,6 +56,7 @@ func generate_graph(json: Dictionary) -> void:
 	var editor_data = json["__editor"].duplicate()
 	var dialogue_list := []
 	var choices_list := []
+	var conditions_list := []
 	json.erase("__editor")
 
 	# create instance
@@ -68,15 +70,18 @@ func generate_graph(json: Dictionary) -> void:
 		Events.emit_signal("graph_node_loaded", dialogue_instance)
 
 		if json[uuid].has("conditions"):
-			var conditions_instance = condition_node.instance()
-
-			var saved_data = _find_by_uuid(editor_data.conditions, uuid)
-			conditions_instance.uuid = saved_data.uuid
-			conditions_instance.values.data = json[uuid].conditions.duplicate()
-			conditions_instance.values["__editor"] = saved_data.duplicate()
-			dialogue_instance.connected_to_condition = conditions_instance.uuid
-			Events.emit_signal("graph_node_loaded", conditions_instance)
-			Events.emit_signal("connection_request_loaded", uuid, 0, saved_data.uuid, 0)
+			for condition in json[uuid].conditions:
+				var condition_instance = condition_node.instance()
+				var saved_data = _find_by_uuid(editor_data.conditions, uuid)
+				if not saved_data.empty():
+					condition_instance.uuid = saved_data.uuid
+					condition_instance.values.data = condition.duplicate()
+					condition_instance.values["__editor"] = saved_data.duplicate()
+					conditions_list.append(condition_instance)
+					Events.emit_signal("graph_node_loaded", condition_instance)
+					Events.emit_signal(
+						"connection_request_loaded", uuid, 0, condition_instance.uuid, 0
+					)
 
 		if json[uuid].has("signals"):
 			var signals_instance = signal_node.instance()
@@ -98,7 +103,6 @@ func generate_graph(json: Dictionary) -> void:
 					choices_instance.values["__editor"] = saved_data.duplicate()
 					choices_list.append(choices_instance)
 					Events.emit_signal("graph_node_loaded", choices_instance)
-
 					Events.emit_signal(
 						"connection_request_loaded", uuid, 0, choices_instance.uuid, 0
 					)
@@ -109,7 +113,12 @@ func generate_graph(json: Dictionary) -> void:
 			Events.emit_signal("connection_request_loaded", "StartNode", 0, dialogue.uuid, 0)
 		if values.has("next"):
 			Events.emit_signal("connection_request_loaded", dialogue.uuid, 0, values.next, 0)
-			
+
+	for condition in conditions_list:
+		var values = condition.values.data
+		if values.has("next") and not values.next.empty():
+			Events.emit_signal("connection_request_loaded", condition.uuid, 0, values.next, 0)
+
 	for choice in choices_list:
 		var values = choice.values.data
 		if values.has("next") and not values.next.empty():
