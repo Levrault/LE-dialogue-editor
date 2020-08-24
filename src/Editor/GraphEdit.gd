@@ -19,31 +19,52 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 	if from_node.TYPE == Editor.Type.start and to_node.TYPE == Editor.Type.choice:
 		print_debug("ERROR: start to choice relation")
+		Events.emit_signal(
+			"notification_displayed",
+			Editor.Notification.error,
+			"ERROR: start node can't be linked to a choice node"
+		)
 		# TODO: ADD warning message
 		return
 
 	# start to signal  
 	if from_node.TYPE == Editor.Type.start and to_node.TYPE == Editor.Type.signal_node:
 		print_debug("ERROR: start to signal relation")
-		# TODO: ADD warning message
+		Events.emit_signal(
+			"notification_displayed",
+			Editor.Notification.error,
+			"ERROR: start can't be linked to signal node"
+		)
 		return
 
 	# choice to dialogue relation
 	if from_node.TYPE == Editor.Type.choice and to_node.TYPE == Editor.Type.choice:
 		print_debug("ERROR: choice to choice relation")
-		# TODO: ADD warning message
+		Events.emit_signal(
+			"notification_displayed",
+			Editor.Notification.error,
+			"ERROR: choice can only be linked to a dialogue node"
+		)
 		return
 
 	# signal to signal  
 	if from_node.TYPE == Editor.Type.signal_node and to_node.TYPE == Editor.Type.signal_node:
 		print_debug("ERROR: signal to signal relation")
-		# TODO: ADD warning message
+		Events.emit_signal(
+			"notification_displayed",
+			Editor.Notification.error,
+			"ERROR: signal can only be linked to a dialogue node"
+		)
 		return
 
 	# conditions to conditions
 	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.condition:
 		print_debug("ERROR: condition to condition relation")
-		# TODO: ADD warning message
+		Events.emit_signal(
+			"notification_displayed",
+			Editor.Notification.error,
+			"ERROR: condition node can't be linked to another condition node"
+		)
 		return
 
 	# START -- DIALOGUE
@@ -64,8 +85,10 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		_check_node_connection(
 			from,
 			from_slot,
+			Editor.type_to_string(from_node.TYPE),
 			to,
 			to_slot,
+			Editor.type_to_string(to_node.TYPE),
 			from_node.connected_to_dialogue,
 			from_node.connected_to_dialogue_slot
 		)
@@ -81,13 +104,22 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 	# DIALOGUE -- SIGNAL  
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.signal_node:
 		print_debug("connect signal to dialogue relation")
+		_check_node_connection(
+			from,
+			from_slot,
+			Editor.type_to_string(from_node.TYPE),
+			to,
+			to_slot,
+			Editor.type_to_string(to_node.TYPE),
+			from_node.connected_to_signal,
+			from_node.connected_to_signal_slot
+		)
 		from_node.connected_to_signal = to
 		from_node.connected_to_signal_slot = to_slot
 		to_node.values["__editor"]["parent"] = from_node.uuid
 
 		connect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("dialogue_to_signal_relation_created", from_node.uuid, to_node.uuid)
-		# TODO: ADD warning message
 		return
 
 	# DIALOGUE -- CHOICE
@@ -182,8 +214,10 @@ func _on_graph_node_loaded(node: GraphNode) -> void:
 func _check_node_connection(
 	from: String,
 	from_slot: int,
+	from_type: String,
 	to: String,
 	to_slot: int,
+	to_type: String,
 	node_connected: String,
 	node_connected_slot: int
 ) -> void:
@@ -192,8 +226,17 @@ func _check_node_connection(
 
 	print_debug(
 		(
-			"WARNING: %s start is already connected to a dialogue, first connection will be disconnected"
-			% from
+			"WARNING: %s node is already connected to a %s, first connection will be disconnected"
+			% [from_type, to_type]
+		)
+	)
+
+	Events.emit_signal(
+		"notification_displayed",
+		Editor.Notification.warning,
+		(
+			"WARNING: %s node is already connected to a %s, first connection will be disconnected"
+			% [from_type, to_type]
 		)
 	)
 	disconnect_node(from, from_slot, node_connected, node_connected_slot)

@@ -48,3 +48,6 @@ signal file_dialog_opened(mode)
 signal file_loaded
 signal offset_changed(uuid, type, offset)
 signal connection_request_loaded(from, from_slot, to, to_slot)
+
+# notification
+signal notification_displayed(type, message)

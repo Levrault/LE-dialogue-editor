@@ -2,6 +2,7 @@ extends Node
 
 enum Type { start, dialogue, choice, condition, signal_node }
 enum FileState { new, opened, unsaved, saved }
+enum Notification {idle, warning, error, success }
 
 var current_state = FileState.new
 var locale := 'en' setget set_locale
