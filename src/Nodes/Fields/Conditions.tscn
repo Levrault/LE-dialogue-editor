@@ -27,7 +27,7 @@ margin_top = 9.0
 margin_right = 161.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
-text = "plaholder=true"
+text = "placeholder=true"
 
 [node name="DeleteCondition" type="ToolButton" parent="."]
 margin_left = 165.0

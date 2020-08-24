@@ -17,12 +17,6 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 	var from_node = get_node(from)
 	var to_node = get_node(to)
 
-	# choice to dialogue relation
-	if from_node.TYPE == Editor.Type.choice and to_node.TYPE == Editor.Type.choice:
-		print_debug("ERROR: choice to choice relation")
-		# TODO: ADD warning message
-		return
-
 	if from_node.TYPE == Editor.Type.start and to_node.TYPE == Editor.Type.choice:
 		print_debug("ERROR: start to choice relation")
 		# TODO: ADD warning message
@@ -34,9 +28,21 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		# TODO: ADD warning message
 		return
 
+	# choice to dialogue relation
+	if from_node.TYPE == Editor.Type.choice and to_node.TYPE == Editor.Type.choice:
+		print_debug("ERROR: choice to choice relation")
+		# TODO: ADD warning message
+		return
+
 	# signal to signal  
 	if from_node.TYPE == Editor.Type.signal_node and to_node.TYPE == Editor.Type.signal_node:
 		print_debug("ERROR: signal to signal relation")
+		# TODO: ADD warning message
+		return
+
+	# conditions to conditions
+	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.condition:
+		print_debug("ERROR: condition to condition relation")
 		# TODO: ADD warning message
 		return
 
@@ -51,24 +57,6 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		Events.emit_signal("start_to_dialogue_relation_changed", to_node.uuid)
 
 		connect_node(from, from_slot, to, to_slot)
-		return
-
-	# DIALOGUE -- CONDITIONS
-	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.condition:
-		_check_node_connection(
-			from,
-			from_slot,
-			to,
-			to_slot,
-			from_node.connected_to_condition,
-			from_node.connected_to_condition_slot
-		)
-		print_debug("connect dialogue to condition relation")
-		from_node.connected_to_condition = to
-		from_node.connected_to_condition_slot = to_slot
-		to_node.values["__editor"]["parent"] = from_node.uuid
-		connect_node(from, from_slot, to, to_slot)
-		Events.emit_signal("dialogue_to_condition_relation_created", from_node.uuid, to_node.uuid)
 		return
 
 	# DIALOGUE -- DIALOGUE
@@ -117,6 +105,21 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		Events.emit_signal("choice_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
 		return
 
+	# DIALOGUE -- CONDITIONS
+	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.condition:
+		print_debug("connect dialogue to condition relation")
+		connect_node(from, from_slot, to, to_slot)
+		to_node.values["__editor"]["parent"] = from_node.uuid
+		Events.emit_signal("dialogue_to_condition_relation_created", from_node.uuid, to_node.uuid)
+		return
+
+	# CONDITIONS -- DIALOGUE 
+	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.dialogue:
+		print_debug("connect condition to dialogue relation")
+		connect_node(from, from_slot, to, to_slot)
+		Events.emit_signal("condition_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
+		return
+
 
 func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot: int) -> void:
 	var from_node = get_node(from)
@@ -139,14 +142,19 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 	if from_node.TYPE == Editor.Type.choice and to_node.TYPE == Editor.Type.dialogue:
 		print_debug("disconnect choice of dialogue relation")
 		disconnect_node(from, from_slot, to, to_slot)
-		# Events.emit_signal("choice_to_dialogue_relation_deleted", to_node.uuid)
+		return
+
+	# CONDITIONS -- DIALOGUE 
+	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.dialogue:
+		print_debug("disconnect choice of dialogue relation")
+		disconnect_node(from, from_slot, to, to_slot)
 		return
 
 	# DIALOGUE -- CONDITION
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.condition:
 		print_debug("disconnect conditions of dialogue relation")
 		disconnect_node(from, from_slot, to, to_slot)
-		Events.emit_signal("dialogue_to_condition_relation_deleted", from_node.uuid)
+		Events.emit_signal("dialogue_to_condition_relation_deleted", from_node.uuid, to_node.uuid)
 		return
 
 	# DIALOGUE -- SIGNAL

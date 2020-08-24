@@ -37,6 +37,14 @@ func _ready() -> void:
 		"dialogue_to_condition_relation_deleted", self, "_on_Dialogue_to_condition_relation_deleted"
 	)
 
+	# condtion to dialogue
+	Events.connect(
+		"condition_to_dialogue_relation_created", self, "_on_Condition_to_dialogue_relation_created"
+	)
+	Events.connect(
+		"condition_to_dialogue_relation_deleted", self, "_on_Condition_to_dialogue_relation_deleted"
+	)
+
 	# Dialogue to signal
 	Events.connect(
 		"dialogue_to_signal_relation_created", self, "_on_Dialogue_to_signal_relation_created"
@@ -118,11 +126,22 @@ func _on_Condition_node_created(data: Dictionary) -> void:
 func _on_Dialogue_to_condition_relation_created(from: String, to: String) -> void:
 	if not json_raw[from].has("conditions"):
 		json_raw[from]["conditions"] = []
-	json_raw[from].conditions = conditions_node[to].data
+	json_raw[from].conditions.append(conditions_node[to].data)
 
 
-func _on_Dialogue_to_condition_relation_deleted(from: String) -> void:
-	json_raw[from].erase("conditions")
+func _on_Dialogue_to_condition_relation_deleted(from: String, to: String) -> void:
+	json_raw[from]["conditions"].erase(conditions_node[to].data)
+	conditions_node.erase(to)
+	if conditions_node.empty():
+		json_raw[from].erase("conditions")
+
+
+func _on_Condition_to_dialogue_relation_created(from: String, to: String) -> void:
+	conditions_node[from].data.next = to
+
+
+func _on_Condition_to_dialogue_relation_deleted(from: String) -> void:
+	conditions_node[from].data.next = ""
 
 
 # Signals
