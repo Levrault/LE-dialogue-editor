@@ -2,7 +2,7 @@ extends Node
 
 enum Type { start, dialogue, choice, condition, signal_node }
 enum FileState { new, opened, unsaved, saved }
-enum Notification {idle, warning, error, success }
+enum Notification { idle, warning, error, success }
 
 var current_state = FileState.new
 var locale := 'en' setget set_locale
@@ -53,7 +53,14 @@ func open_file() -> void:
 	Events.emit_signal("file_dialog_opened", 0)  # FileDialog.Mode.MODE_OPEN_FILE
 
 
-func generate_graph(json: Dictionary) -> void:
+func generate_graph(json: Dictionary) -> bool:
+	if not json.has("__editor"):
+		Events.emit_signal(
+			"notification_displayed",
+			Editor.Notification.error,
+			"This file was not created with Levrault Editor and is not supported"
+		)
+		return false
 	var editor_data = json["__editor"].duplicate()
 	var dialogue_list := []
 	var choices_list := []
@@ -126,6 +133,7 @@ func generate_graph(json: Dictionary) -> void:
 			Events.emit_signal("connection_request_loaded", choice.uuid, 0, values.next, 0)
 
 	Events.emit_signal("file_loaded")
+	return true
 
 
 func _find_by_uuid(data: Array, uuid: String) -> Dictionary:

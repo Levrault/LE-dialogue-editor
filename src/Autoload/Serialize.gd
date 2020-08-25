@@ -36,8 +36,8 @@ func load(path: String):
 	if parsed_result.error != OK:
 		print("load json: error while parsing")
 		return
-	Editor.generate_graph(parsed_result.result)
-	current_path = path
-	Events.emit_signal(
-		"notification_displayed", Editor.Notification.success, "%s has been saved" % path
-	)
+	if Editor.generate_graph(parsed_result.result):
+		current_path = path
+		Events.emit_signal(
+			"notification_displayed", Editor.Notification.success, "%s has been saved" % path
+		)
