@@ -3,4 +3,4 @@ extends GraphNode
 const TYPE = Editor.Type.start
 
 var connected_to_dialogue := ""
-var connected_slot := 0
+var connected_to_dialogue_slot := 0
