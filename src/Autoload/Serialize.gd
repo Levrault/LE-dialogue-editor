@@ -10,6 +10,9 @@ func save_as(path: String) -> void:
 	file.close()
 	current_path = path
 	Editor.current_state = Editor.FileState.saved
+	Events.emit_signal(
+		"notification_displayed", Editor.Notification.success, "%s has been saved" % path
+	)
 
 
 func save() -> void:
@@ -18,6 +21,9 @@ func save() -> void:
 	file.store_string(Store.to_json())
 	file.close()
 	Editor.current_state = Editor.FileState.saved
+	Events.emit_signal(
+		"notification_displayed", Editor.Notification.success, "%s has been saved" % current_path
+	)
 
 
 func load(path: String):
@@ -32,3 +38,6 @@ func load(path: String):
 		return
 	Editor.generate_graph(parsed_result.result)
 	current_path = path
+	Events.emit_signal(
+		"notification_displayed", Editor.Notification.success, "%s has been saved" % path
+	)
