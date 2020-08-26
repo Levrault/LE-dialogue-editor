@@ -17,7 +17,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 	var from_node = get_node(from)
 	var to_node = get_node(to)
 
-	if from_node.uuid == to_node.uuid:
+	if from_node.TYPE != Editor.Type.start and from_node.uuid == to_node.uuid:
 		Events.emit_signal(
 			"notification_displayed",
 			Editor.Notification.error,

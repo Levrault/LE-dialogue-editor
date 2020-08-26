@@ -4,16 +4,14 @@
 [ext_resource path="res://src/Tools/Localization/i18nBar.gd" type="Script" id=2]
 [ext_resource path="res://src/Tools/Localization/LocaleButton.gd" type="Script" id=3]
 
-
-
-
 [node name="i18nBar" type="Control"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -523.0
+margin_left = -129.0
 margin_top = 48.0
 margin_right = -27.0
 margin_bottom = 88.0
+mouse_filter = 1
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
 __meta__ = {
@@ -30,18 +28,20 @@ __meta__ = {
 }
 
 [node name="en" type="Button" parent="Container"]
-margin_left = 400.0
-margin_right = 440.0
+margin_left = 6.0
+margin_right = 46.0
 margin_bottom = 40.0
+mouse_default_cursor_shape = 2
 toggle_mode = true
 text = "en"
 script = ExtResource( 3 )
 
 [node name="fr" type="Button" parent="Container"]
-margin_left = 456.0
-margin_right = 496.0
+margin_left = 62.0
+margin_right = 102.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
+mouse_default_cursor_shape = 2
 toggle_mode = true
 text = "fr"
 script = ExtResource( 3 )

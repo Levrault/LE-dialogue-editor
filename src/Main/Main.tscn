@@ -88,6 +88,14 @@ margin_right = 110.2
 margin_bottom = 146.681
 mouse_filter = 1
 
+[node name="NotificationsContainer" parent="." instance=ExtResource( 10 )]
+anchor_left = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1296.0
+margin_right = 1567.0
+margin_bottom = 861.0
+
 [node name="i18nBar" parent="." instance=ExtResource( 9 )]
 
 [node name="ActionsBar" parent="." instance=ExtResource( 4 )]
@@ -108,5 +116,3 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="NotificationsContainer" parent="." instance=ExtResource( 10 )]

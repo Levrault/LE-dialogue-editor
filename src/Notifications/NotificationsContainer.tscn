@@ -11,6 +11,7 @@ margin_top = 99.0
 margin_right = -30.0
 margin_bottom = -42.0
 grow_vertical = 0
+mouse_filter = 2
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -21,6 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -4.0
 rect_min_size = Vector2( 50, 50 )
+mouse_filter = 2
 custom_constants/separation = 16
 alignment = 2
 __meta__ = {
