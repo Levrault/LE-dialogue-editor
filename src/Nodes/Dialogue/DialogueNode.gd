@@ -28,7 +28,6 @@ func _on_Close_request() -> void:
 
 	# remove form other dialogue node
 	for dialogue in Store.get_connected_nodes(Store.dialogues_node, uuid):
-		print_debug("in")
 		dialogue.data.next = ""
 		Events.emit_signal("node_deleted", dialogue.__editor.uuid, 0, uuid, 0)
 

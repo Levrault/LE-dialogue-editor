@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "GraphNode",
 "class": "GraphEditorNode",
 "language": "GDScript",
-"path": "res://src/Nodes/GraphEditorNode.gd"
+"path": "res://src/Editor/GraphEditorNode.gd"
 }, {
 "base": "Node",
 "class": "Parser",
