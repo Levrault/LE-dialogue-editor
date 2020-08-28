@@ -1,12 +1,15 @@
 extends Node
 
+var Parser = load("res://src/Utils/Parser.gd")
 var current_path := ""
+
+onready var parser = Parser.new()
 
 
 func save_as(path: String) -> void:
 	var file = File.new()
 	file.open(path, File.WRITE)
-	file.store_string(Store.to_json())
+	file.store_string(parser.to_json(Store.json_raw))
 	file.close()
 	current_path = path
 	Editor.current_state = Editor.FileState.saved
@@ -18,7 +21,7 @@ func save_as(path: String) -> void:
 func save() -> void:
 	var file = File.new()
 	file.open(current_path, File.WRITE)
-	file.store_string(Store.to_json())
+	file.store_string(parser.to_json(Store.json_raw))
 	file.close()
 	Editor.current_state = Editor.FileState.saved
 	Events.emit_signal(

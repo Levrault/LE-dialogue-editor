@@ -1,14 +1,11 @@
 extends Node
 
-var Parser = load("res://src/Utils/Parser.gd")
 var json_raw := {}
 var choices_node := {}
 var conditions_node := {}
 var signals_node := {}
 var dialogues_node := {}
 var dialogues_uuid := []
-
-onready var parser = Parser.new()
 
 
 func _ready() -> void:
@@ -68,10 +65,6 @@ func _ready() -> void:
 	Events.connect(
 		"choice_to_dialogue_relation_deleted", self, "_on_Choice_to_dialogue_relation_deleted"
 	)
-
-
-func to_json() -> String:
-	return parser.to_json(json_raw)
 
 
 func get_connected_nodes(nodes: Dictionary, dialogue_uuid: String) -> Array:
