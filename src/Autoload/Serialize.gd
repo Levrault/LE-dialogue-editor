@@ -1,6 +1,6 @@
 extends Node
 
-var current_path := ''
+var current_path := ""
 
 
 func save_as(path: String) -> void:
@@ -27,17 +27,20 @@ func save() -> void:
 
 
 func load(path: String):
+	Editor.reset()
+
 	var file = File.new()
 	file.open(path, File.READ)
 	var content = file.get_as_text()
 	file.close()
-	Editor.current_state = Editor.FileState.saved
+
 	var parsed_result = JSON.parse(content)
 	if parsed_result.error != OK:
 		print("load json: error while parsing")
 		return
+
 	if Editor.generate_graph(parsed_result.result):
 		current_path = path
 		Events.emit_signal(
-			"notification_displayed", Editor.Notification.success, "%s has been saved" % path
+			"notification_displayed", Editor.Notification.success, "%s has been loaded" % path
 		)

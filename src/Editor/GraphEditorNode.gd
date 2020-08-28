@@ -20,10 +20,13 @@ func _ready() -> void:
 
 func set_uuid(id: String) -> void:
 	uuid = id
-	title += id
+	title = id
 
 
 func _on_Offset_changed() -> void:
+	if Editor.current_state != Editor.FileState.unsaved:
+		Editor.current_state = Editor.FileState.unsaved
+
 	values["__editor"]["offset"] = [offset.x, offset.y]
 
 

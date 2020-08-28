@@ -14,6 +14,7 @@ func _ready() -> void:
 
 
 func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: int) -> void:
+	Editor.current_state = Editor.FileState.unsaved
 	var from_node = get_node(from)
 	var to_node = get_node(to)
 
@@ -37,7 +38,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 			from_node.connected_to_dialogue,
 			from_node.connected_to_dialogue_slot
 		)
-		print_debug("connect start to dialogue relation")
+		# print_debug("connect start to dialogue relation")
 
 		from_node.connected_to_dialogue = to
 		from_node.connected_to_dialogue_slot = to_slot
@@ -60,7 +61,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 			from_node.connected_to_dialogue_slot
 		)
 
-		print_debug("connect dialogue to dialogue relation")
+		# print_debug("connect dialogue to dialogue relation")
 
 		from_node.connected_to_dialogue = to
 		from_node.connected_to_dialogue_slot = to_slot
@@ -71,7 +72,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 	# DIALOGUE -- SIGNAL  
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.signal_node:
-		print_debug("connect signal to dialogue relation")
+		# print_debug("connect signal to dialogue relation")
 		_check_node_connection(
 			from,
 			from_slot,
@@ -92,7 +93,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 	# DIALOGUE -- CHOICE
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.choice:
-		print_debug("connect dialogue to choice relation")
+		# print_debug("connect dialogue to choice relation")
 		connect_node(from, from_slot, to, to_slot)
 		to_node.values["__editor"]["parent"] = from_node.uuid
 		Events.emit_signal("dialogue_to_choice_relation_created", from_node.uuid, to_node.uuid)
@@ -100,14 +101,14 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 	# CHOICE -- DIALOGUE
 	if from_node.TYPE == Editor.Type.choice and to_node.TYPE == Editor.Type.dialogue:
-		print_debug("connect choice to dialogue relation")
+		# print_debug("connect choice to dialogue relation")
 		connect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("choice_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
 		return
 
 	# DIALOGUE -- CONDITIONS
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.condition:
-		print_debug("connect dialogue to condition relation")
+		# print_debug("connect dialogue to condition relation")
 		connect_node(from, from_slot, to, to_slot)
 		to_node.values["__editor"]["parent"] = from_node.uuid
 		Events.emit_signal("dialogue_to_condition_relation_created", from_node.uuid, to_node.uuid)
@@ -115,7 +116,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 	# CONDITIONS -- DIALOGUE 
 	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.dialogue:
-		print_debug("connect condition to dialogue relation")
+		# print_debug("connect condition to dialogue relation")
 		connect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("condition_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
 		return
@@ -131,6 +132,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 
 func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot: int) -> void:
+	Editor.current_state = Editor.FileState.unsaved
 	var from_node = get_node(from)
 	var to_node = get_node(to)
 	# DIALOGUE -- DIALOGUE
@@ -178,6 +180,7 @@ func _on_graph_node_added(node: GraphNode) -> void:
 	node.offset += scroll_offset + NODE_OFFSET
 	node.uuid = Uuid.v4()
 	_add_graph_node(node)
+	Editor.current_state = Editor.FileState.unsaved
 
 
 func _on_graph_node_loaded(node: GraphNode) -> void:
@@ -203,8 +206,8 @@ func _check_node_connection(
 
 	print_debug(
 		(
-			"WARNING: %s node is already connected to a %s, first connection will be disconnected"
-			% [from_type, to_type]
+			"WARNING: %s %s node is already connected to a %s %s, first connection will be disconnected"
+			% [from_type, from, to_type, to]
 		)
 	)
 

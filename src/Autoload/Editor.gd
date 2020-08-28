@@ -1,3 +1,4 @@
+# Manage editor interaction
 extends Node
 
 enum Type { start, dialogue, choice, condition, signal_node }
@@ -5,12 +6,31 @@ enum FileState { new, opened, unsaved, saved }
 enum Notification { idle, warning, error, success }
 
 var current_state = FileState.new
-var locale := 'en' setget set_locale
+var locale := "en" setget set_locale
+var graph_edit: GraphEdit = null
 
 onready var dialogue_node := load("res://src/Nodes/Dialogue/DialogueNode.tscn")
 onready var choice_node := load("res://src/Nodes/Choice/ChoiceNode.tscn")
 onready var condition_node := load("res://src/Nodes/Conditions/ConditionNode.tscn")
 onready var signal_node := load("res://src/Nodes/Signal/SignalNode.tscn")
+
+
+func reset() -> void:
+	current_state = FileState.new
+	self.locale = "en"
+
+	for child in graph_edit.get_children():
+		if child is GraphEditorNode:
+			child.free()
+
+	graph_edit.get_node("StartNode").connected_to_dialogue = ""
+	Serialize.current_path = ""
+	Store.json_raw = {}
+	Store.choices_node = {}
+	Store.conditions_node = {}
+	Store.signals_node = {}
+	Store.dialogues_node = {}
+	Store.dialogues_uuid = []
 
 
 func type_to_string(value: int) -> String:
@@ -35,20 +55,23 @@ func set_locale(value: String) -> void:
 
 
 func save_file() -> void:
-	print(Store.json_raw)
-	if current_state == FileState.new:
+	if (
+		current_state == FileState.new
+		or (current_state == FileState.unsaved and Serialize.current_path.empty())
+	):
 		Events.emit_signal("file_dialog_opened", 4)  # FileDialog.Mode.MODE_SAVE_FILE
 		return
-	if current_state == FileState.unsaved or current_state == FileState.saved:
+	if current_state == FileState.saved or current_state == FileState.unsaved:
 		Serialize.save()
 	return
 
 
-func open_file() -> void:
-	if current_state == FileState.unsaved:
-		print_debug("file has unsaved change")
-		return
+func new_file() -> void:
+	reset()
+	get_tree().reload_current_scene()
 
+
+func open_file() -> void:
 	current_state = Editor.FileState.opened
 	Events.emit_signal("file_dialog_opened", 0)  # FileDialog.Mode.MODE_OPEN_FILE
 
@@ -97,7 +120,6 @@ func generate_graph(json: Dictionary) -> bool:
 			signals_instance.uuid = saved_data.uuid
 			signals_instance.values.data = json[uuid].signals.duplicate()
 			signals_instance.values["__editor"] = saved_data.duplicate()
-			dialogue_instance.connected_to_signal = signals_instance.uuid
 			Events.emit_signal("graph_node_loaded", signals_instance)
 			Events.emit_signal("connection_request_loaded", uuid, 0, saved_data.uuid, 0)
 

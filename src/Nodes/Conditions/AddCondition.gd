@@ -9,7 +9,7 @@ func on_Pressed() -> void:
 		return
 
 	if owner.input.text == "next":
-		print_debug("ERROR: next is a reserved word")
+		# print_debug("ERROR: next is a reserved word")
 		return
 
 	# add values

@@ -3,6 +3,12 @@ extends Node
 # creation
 signal graph_node_added(node)
 signal graph_node_loaded(node)
+signal graph_edit_reloaded_started
+signal graph_edit_reloaded_finished
+
+# graph
+signal graph_edit_reloaded
+signal graph_edit_loaded
 
 # change language
 signal locale_changed(value)
@@ -48,6 +54,8 @@ signal file_dialog_opened(mode)
 signal file_loaded
 signal offset_changed(uuid, type, offset)
 signal connection_request_loaded(from, from_slot, to, to_slot)
+
+signal unsaved_file_displayed
 
 # notification
 signal notification_displayed(type, message)
