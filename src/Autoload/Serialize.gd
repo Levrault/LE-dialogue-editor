@@ -19,14 +19,8 @@ func save_as(path: String) -> void:
 
 
 func save() -> void:
-	var file = File.new()
-	file.open(current_path, File.WRITE)
-	file.store_string(parser.to_json(Store.json_raw))
-	file.close()
-	Editor.current_state = Editor.FileState.saved
-	Events.emit_signal(
-		"notification_displayed", Editor.Notification.success, "%s has been saved" % current_path
-	)
+	print(Store.json_raw["f119a6c2-c008-481c-b67e-83149c50e3e3"].choices)
+	save_as(current_path)
 
 
 func load(path: String):
