@@ -2,10 +2,11 @@
 extends Node
 
 enum Type { start, dialogue, choice, condition, signal_node }
-enum FileState { new, opened, unsaved, saved }
+enum FileState { new, opened, unsaved, saved, export_file }
 enum Notification { idle, warning, error, success }
 
-var current_state = FileState.new
+var current_state = FileState.new setget set_current_state
+var previous_state = current_state
 var locale := "en" setget set_locale
 var graph_edit: GraphEdit = null
 
@@ -54,9 +55,15 @@ func set_locale(value: String) -> void:
 	Events.emit_signal("locale_changed", value)
 
 
+func set_current_state(new_state: int) -> void:
+	previous_state = current_state
+	current_state = new_state
+
+
 func save_file() -> void:
 	if (
 		current_state == FileState.new
+		or current_state == FileState.export_file
 		or (current_state == FileState.unsaved and Serialize.current_path.empty())
 	):
 		Events.emit_signal("file_dialog_opened", 4)  # FileDialog.Mode.MODE_SAVE_FILE

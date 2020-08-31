@@ -6,10 +6,16 @@ var current_path := ""
 onready var parser = Parser.new()
 
 
-func save_as(path: String) -> void:
+func save_as(path: String, editor_compatible := true) -> void:
 	var file = File.new()
 	file.open(path, File.WRITE)
-	file.store_string(parser.to_json(Store.json_raw))
+	file.store_string(
+		(
+			parser.to_json(Store.json_raw)
+			if editor_compatible
+			else parser.export_to_json(Store.json_raw)
+		)
+	)
 	file.close()
 	current_path = path
 	Editor.current_state = Editor.FileState.saved

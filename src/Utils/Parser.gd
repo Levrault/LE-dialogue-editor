@@ -7,6 +7,10 @@ func to_json(json_raw: Dictionary) -> String:
 	return JSON.print(json_raw)
 
 
+func export_to_json(json_raw: Dictionary) -> String:
+	return JSON.print(json_raw)
+
+
 func _get_editor_data() -> Dictionary:
 	var json = Store.json_raw
 	var result: Dictionary = {
