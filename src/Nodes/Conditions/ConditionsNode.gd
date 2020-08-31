@@ -11,7 +11,6 @@ onready var is_empty = $Container/IsEmpty
 
 
 func _ready() -> void:
-	Events.connect("file_loaded", self, "_on_File_loaded")
 	is_empty.connect("toggled", self, "_on_Toggled")
 	add_field.is_disabled = true
 
@@ -51,6 +50,8 @@ func _on_File_loaded() -> void:
 	if values.__editor.has("collapsed") and values.__editor.collapsed:
 		field_container.hide()
 		is_empty.pressed = true
+
+	is_loading = false
 
 
 func _on_Toggled(button_pressed: bool) -> void:

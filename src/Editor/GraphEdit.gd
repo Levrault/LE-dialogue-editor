@@ -88,6 +88,9 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		to_node.values["__editor"]["parent"] = from_node.uuid
 
 		connect_node(from, from_slot, to, to_slot)
+		# in loading mode, store has already the data
+		if to_node.is_loading:
+			return
 		Events.emit_signal("dialogue_to_signal_relation_created", from_node.uuid, to_node.uuid)
 		return
 
@@ -96,6 +99,10 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		# print_debug("connect dialogue to choice relation")
 		connect_node(from, from_slot, to, to_slot)
 		to_node.values["__editor"]["parent"] = from_node.uuid
+
+		# in loading mode, store has already the data
+		if to_node.is_loading:
+			return
 		Events.emit_signal("dialogue_to_choice_relation_created", from_node.uuid, to_node.uuid)
 		return
 
@@ -111,6 +118,10 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		# print_debug("connect dialogue to condition relation")
 		connect_node(from, from_slot, to, to_slot)
 		to_node.values["__editor"]["parent"] = from_node.uuid
+
+		# in loading mode, store has already the data
+		if to_node.is_loading:
+			return
 		Events.emit_signal("dialogue_to_condition_relation_created", from_node.uuid, to_node.uuid)
 		return
 
@@ -185,7 +196,7 @@ func _on_graph_node_added(node: GraphNode) -> void:
 
 func _on_graph_node_loaded(node: GraphNode) -> void:
 	node.offset = Vector2(node.values.__editor.offset[0], node.values.__editor.offset[1])
-	node.is_loaded = true
+	node.is_loading = true
 	_add_graph_node(node)
 
 

@@ -19,12 +19,13 @@ func save_as(path: String) -> void:
 
 
 func save() -> void:
-	print(Store.json_raw["f119a6c2-c008-481c-b67e-83149c50e3e3"].choices)
 	save_as(current_path)
 
 
 func load(path: String):
 	Editor.reset()
+
+	print_debug("load %s" % path)
 
 	var file = File.new()
 	file.open(path, File.READ)
@@ -33,11 +34,22 @@ func load(path: String):
 
 	var parsed_result = JSON.parse(content)
 	if parsed_result.error != OK:
-		print("load json: error while parsing")
+		Events.emit_signal(
+			"notification_displayed",
+			Editor.Notification.error,
+			"error while parsing json of %s" % path
+		)
 		return
 
-	if Editor.generate_graph(parsed_result.result):
-		current_path = path
+	if not Editor.generate_graph(parsed_result.result):
 		Events.emit_signal(
-			"notification_displayed", Editor.Notification.success, "%s has been loaded" % path
+			"notification_displayed",
+			Editor.Notification.error,
+			"%s seems incompatible couldn't be loaded" % path
 		)
+		return
+
+	current_path = path
+	Events.emit_signal(
+		"notification_displayed", Editor.Notification.success, "%s has been loaded" % path
+	)

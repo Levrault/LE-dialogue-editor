@@ -21,7 +21,6 @@ onready var string_field := $Container/String
 
 
 func _ready() -> void:
-	Events.connect("file_loaded", self, "_on_File_loaded")
 	type_option.connect("item_selected", self, "_on_Type_selected")
 	type_option.add_item("Empty", Type.empty)
 	type_option.add_item("String", Type.string)
@@ -146,3 +145,4 @@ func _on_File_loaded() -> void:
 		container.add_child(new_signal)
 		new_signal.value.text = value
 		new_signal.connect("field_deleted", self, "_on_Deleted")
+	is_loading = false

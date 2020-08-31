@@ -92,6 +92,7 @@ func generate_graph(json: Dictionary) -> bool:
 
 	# create instance
 	for uuid in json:
+		print(uuid)
 		var dialogue_instance = dialogue_node.instance()
 		var dialogue_saved_data = _find_by_uuid(editor_data.dialogues, uuid)
 		dialogue_instance.uuid = dialogue_saved_data.uuid
@@ -106,6 +107,7 @@ func generate_graph(json: Dictionary) -> bool:
 				var saved_data = _find_by_uuid(editor_data.conditions, uuid)
 				if not saved_data.empty():
 					condition_instance.uuid = saved_data.uuid
+					condition_instance.is_loading = true
 					condition_instance.values.data = condition.duplicate()
 					condition_instance.values["__editor"] = saved_data.duplicate()
 					conditions_list.append(condition_instance)
@@ -118,23 +120,26 @@ func generate_graph(json: Dictionary) -> bool:
 			var signals_instance = signal_node.instance()
 			var saved_data = _find_by_uuid(editor_data.signals, uuid)
 			signals_instance.uuid = saved_data.uuid
+			signals_instance.is_loading = true
 			signals_instance.values.data = json[uuid].signals.duplicate()
 			signals_instance.values["__editor"] = saved_data.duplicate()
 			Events.emit_signal("graph_node_loaded", signals_instance)
 			Events.emit_signal("connection_request_loaded", uuid, 0, saved_data.uuid, 0)
 
 		if json[uuid].has("choices"):
+			print(json[uuid].has("choices"))
 			for choice in json[uuid].choices:
-				var choices_instance = choice_node.instance()
+				var choice_instance = choice_node.instance()
 				var saved_data = _find_by_uuid(editor_data.choices, uuid)
 				if not saved_data.empty():
-					choices_instance.uuid = saved_data.uuid
-					choices_instance.values.data = choice.duplicate()
-					choices_instance.values["__editor"] = saved_data.duplicate()
-					choices_list.append(choices_instance)
-					Events.emit_signal("graph_node_loaded", choices_instance)
+					choice_instance.uuid = saved_data.uuid
+					choice_instance.is_loading = true
+					choice_instance.values.data = choice.duplicate()
+					choice_instance.values["__editor"] = saved_data.duplicate()
+					choices_list.append(choice_instance)
+					Events.emit_signal("graph_node_loaded", choice_instance)
 					Events.emit_signal(
-						"connection_request_loaded", uuid, 0, choices_instance.uuid, 0
+						"connection_request_loaded", uuid, 0, choice_instance.uuid, 0
 					)
 
 	for dialogue in dialogue_list:

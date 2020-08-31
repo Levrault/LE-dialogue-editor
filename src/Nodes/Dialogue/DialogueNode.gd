@@ -13,7 +13,7 @@ var connected_to_signal_slot := 0
 
 
 func _ready() -> void:
-	if not is_loaded:
+	if not is_loading:
 		values = {
 			"__editor": {"uuid": uuid, "offset": [offset.x, offset.y]},
 			"data": {"name": "", "portrait": "", "text": {"en": "", "fr": ""}}

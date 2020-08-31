@@ -4,16 +4,17 @@ class_name GraphEditorNode
 var uuid := '' setget set_uuid
 var _initial_rect_size := rect_size
 var values := {"__editor": {}, "data": {}}
-var is_loaded := false
+var is_loading := false
 
 onready var container := $Container
 
 
 func _ready() -> void:
+	Events.connect("file_loaded", self, "_on_File_loaded")
 	connect("close_request", self, "_on_Close_request")
 	connect("offset_changed", self, "_on_Offset_changed")
 
-	if not is_loaded:
+	if not is_loading:
 		values["__editor"]["uuid"] = uuid
 		values["__editor"]["offset"] = [offset.x, offset.y]
 
@@ -43,3 +44,7 @@ func _on_Close_request() -> void:
 		Events.emit_signal("node_deleted", uuid, 0, values.data.next, 0)
 
 	queue_free()
+
+
+func _on_File_loaded() -> void:
+	is_loading = false
