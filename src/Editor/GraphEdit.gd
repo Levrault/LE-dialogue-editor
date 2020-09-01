@@ -26,6 +26,28 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		)
 		return
 
+	# START -- Conditions
+	if from_node.TYPE == Editor.Type.start and to_node.TYPE == Editor.Type.condition:
+		_check_node_connection(
+			from,
+			from_slot,
+			Editor.type_to_string(from_node.TYPE),
+			to,
+			to_slot,
+			Editor.type_to_string(to_node.TYPE),
+			from_node.connected_to_dialogue,
+			from_node.connected_to_dialogue_slot
+		)
+
+		from_node.connected_to_dialogue = ""
+		from_node.connected_to_dialogue_slot = 0
+		from_node.connected_to_conditions.append(to)
+		from_node.connected_to_conditions_slot = to_slot
+		Events.emit_signal("root_to_condition_relation_changed", to_node.uuid)
+
+		connect_node(from, from_slot, to, to_slot)
+		return
+
 	# START -- DIALOGUE
 	if from_node.TYPE == Editor.Type.start and to_node.TYPE == Editor.Type.dialogue:
 		_check_node_connection(
@@ -38,12 +60,24 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 			from_node.connected_to_dialogue,
 			from_node.connected_to_dialogue_slot
 		)
+
+		for condition in from_node.connected_to_conditions:
+			_check_node_connection(
+				from,
+				from_slot,
+				Editor.type_to_string(from_node.TYPE),
+				to,
+				to_slot,
+				Editor.type_to_string(to_node.TYPE),
+				condition,
+				from_node.connected_to_conditions_slot
+			)
 		# print_debug("connect start to dialogue relation")
 
 		from_node.connected_to_dialogue = to
 		from_node.connected_to_dialogue_slot = to_slot
 
-		Events.emit_signal("start_to_dialogue_relation_changed", to_node.uuid)
+		Events.emit_signal("root_to_dialogue_relation_changed", to_node.uuid)
 
 		connect_node(from, from_slot, to, to_slot)
 		return

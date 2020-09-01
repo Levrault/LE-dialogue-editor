@@ -15,7 +15,11 @@ func _ready() -> void:
 	Events.connect("signal_node_created", self, "_on_Signal_node_created")
 	# start to dialogue
 	Events.connect(
-		"start_to_dialogue_relation_changed", self, "_on_Start_to_dialogue_relation_changed"
+		"root_to_dialogue_relation_changed", self, "_on_Root_to_dialogue_relation_changed"
+	)
+
+	Events.connect(
+		"root_to_condition_relation_changed", self, "_on_Root_to_condition_relation_changed"
 	)
 
 	# Dialogue to dialogue
@@ -75,29 +79,20 @@ func get_connected_nodes(nodes: Dictionary, dialogue_uuid: String) -> Array:
 	return result
 
 
-# Start node
-func _on_Start_to_dialogue_relation_changed(from: String) -> void:
-	# remove previous first
-	for uuid in dialogues_uuid:
-		if json_raw[uuid].has("root"):
-			json_raw[uuid].erase("root")
+func _on_Root_to_dialogue_relation_changed(from: String) -> void:
+	if not json_raw.root.has("next"):
+		json_raw.root["next"] = ""
+	json_raw.root.next = from
 
-	# new one 
-	dialogues_uuid.push_front(from)
-	json_raw[from]["root"] = true
 
-	# re-order structure : Lazy way, destroy and rebuild
-	var previous_json_raw := json_raw.duplicate()
-	json_raw = {}
-	for uuid in dialogues_uuid:
-		json_raw[uuid] = previous_json_raw[uuid]
+func _on_Root_to_condition_relation_changed(to: String) -> void:
+	if not json_raw.root.has("conditions"):
+		json_raw.root["conditions"] = []
+	json_raw.root.conditions.append(conditions_node[to].data)
 
 
 # Dialogue
 func _on_Dialogue_node_created(data: Dictionary) -> void:
-	if json_raw.empty():
-		data.values["root"] = true
-
 	json_raw[data.uuid] = data.values.data
 	dialogues_node[data.uuid] = data.values
 	dialogues_uuid.append(data.uuid)
