@@ -1,5 +1,7 @@
 extends FileDialog
 
+var initial_file := current_file
+
 
 func _ready():
 	Events.connect("file_dialog_opened", self, "_on_Dialog_opened")
@@ -21,6 +23,11 @@ func _on_Dialog_opened(new_mode: int) -> void:
 
 	if Editor.current_state == Editor.FileState.export_file:
 		window_title = "Export a file"
+		initial_file = current_file
+		if not current_file.empty():
+			current_file = current_file.replace(".json", ".min.json")
+		else:
+			current_file = "new_dialogue.min.json"
 
 	popup()
 
@@ -35,7 +42,12 @@ func _on_Close_pressed() -> void:
 
 func _on_Confirmed() -> void:
 	if mode == 4:
-		Serialize.save_as(current_path, Editor.current_state != Editor.FileState.export_file)
+		if Editor.current_state == Editor.FileState.export_file:
+			Serialize.save_as(current_path, false)
+			current_file = initial_file
+			return
+
+		Serialize.save_as(current_path)
 
 
 func _on_File_selected(path: String) -> void:

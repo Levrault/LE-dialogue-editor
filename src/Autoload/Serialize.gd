@@ -17,10 +17,18 @@ func save_as(path: String, editor_compatible := true) -> void:
 		)
 	)
 	file.close()
-	current_path = path
-	Editor.current_state = Editor.FileState.saved
+
+	if editor_compatible:
+		current_path = path
+		Editor.current_state = Editor.FileState.saved
+		Events.emit_signal(
+			"notification_displayed", Editor.Notification.success, "%s has been saved" % path
+		)
+		return
+
+	Editor.current_state = Editor.FileState.unsaved
 	Events.emit_signal(
-		"notification_displayed", Editor.Notification.success, "%s has been saved" % path
+		"notification_displayed", Editor.Notification.success, "%s has been exported" % path
 	)
 
 
