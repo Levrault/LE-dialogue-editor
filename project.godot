@@ -9,10 +9,25 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Actor",
+"language": "GDScript",
+"path": "res://src/Preview/Actor/Actor.gd"
+}, {
 "base": "Button",
 "class": "AddButton",
 "language": "GDScript",
 "path": "res://src/Nodes/AddButton.gd"
+}, {
+"base": "Reference",
+"class": "AttackFactory",
+"language": "GDScript",
+"path": "res://src/Preview/Libraries/AttackFactory/AttackFactory.gd"
+}, {
+"base": "Node2D",
+"class": "DialogueController",
+"language": "GDScript",
+"path": "res://src/Preview/NPCs/DialogueController.gd"
 }, {
 "base": "LineEdit",
 "class": "FieldInput",
@@ -24,16 +39,49 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Editor/GraphEditorNode.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "Npc",
+"language": "GDScript",
+"path": "res://src/Preview/NPCs/Npc.gd"
+}, {
 "base": "Node",
 "class": "Parser",
 "language": "GDScript",
 "path": "res://src/Utils/Parser.gd"
+}, {
+"base": "Actor",
+"class": "Player",
+"language": "GDScript",
+"path": "res://src/Preview/Player/Player.gd"
+}, {
+"base": "Reference",
+"class": "State",
+"language": "GDScript",
+"path": "res://src/Preview/Libraries/StateMachine/State.gd"
+}, {
+"base": "Reference",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://src/Preview/Libraries/StateMachine/StateMachine.gd"
+}, {
+"base": "Node2D",
+"class": "Stats",
+"language": "GDScript",
+"path": "res://src/Preview/Actor/Stats.gd"
 } ]
 _global_script_class_icons={
+"Actor": "",
 "AddButton": "",
+"AttackFactory": "",
+"DialogueController": "",
 "FieldInput": "",
 "GraphEditorNode": "",
-"Parser": ""
+"Npc": "",
+"Parser": "",
+"Player": "",
+"State": "",
+"StateMachine": "",
+"Stats": ""
 }
 
 [application]
@@ -53,6 +101,7 @@ Serialize="*res://src/Autoload/Serialize.gd"
 [debug]
 
 gdscript/warnings/unused_variable=false
+gdscript/warnings/shadowed_variable=false
 gdscript/warnings/unused_argument=false
 gdscript/warnings/unused_signal=false
 gdscript/warnings/return_value_discarded=false
@@ -102,6 +151,31 @@ open_file={
 export_file={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
+ ]
+}
+preview={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777248,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+jump={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+ ]
+}
+interaction={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
  ]
 }
 

@@ -52,6 +52,8 @@ signal menu_popup_displayed(name)
 signal file_dialog_opened(mode)
 signal file_dialog_export_opened
 
+signal preview_dialog_opened
+
 # file
 signal file_loaded
 signal offset_changed(uuid, type, offset)
@@ -61,3 +63,31 @@ signal unsaved_file_displayed
 
 # notification
 signal notification_displayed(type, message)
+
+# GAME ENGINE
+# player
+signal player_choice_started
+
+# dialogue
+signal dialogue_started
+signal dialogue_changed(name, portrait, message)
+signal dialogue_text_displayed
+signal dialogue_last_text_displayed
+signal dialogue_finished
+signal dialogue_last_dialogue_displayed
+signal dialogue_animation_skipped
+signal dialogue_choices_changed(choices)
+signal dialogue_choices_displayed
+signal dialogue_choices_finished(choices)
+signal dialogue_choices_pressed
+signal dialogue_timed_out
+signal dialogue_timed(value)
+
+# cinematic
+signal cinematic_started
+signal cinematic_ended
+
+# transitions
+signal transition_started(anim_name)
+signal transition_mid_animated
+signal transition_finished

@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
+[ext_resource path="res://src/Menu/Preview.gd" type="Script" id=1]
 [ext_resource path="res://src/Menu/File.gd" type="Script" id=3]
 [ext_resource path="res://assets/themes/menu/menu.tres" type="Theme" id=7]
 [ext_resource path="res://assets/icons/menu.svg" type="Texture" id=8]
+
+[sub_resource type="InputEventAction" id=1]
+action = "preview"
+
+[sub_resource type="ShortCut" id=2]
+shortcut = SubResource( 1 )
 
 [node name="Menu" type="HBoxContainer"]
 margin_right = 209.0
@@ -22,3 +29,11 @@ size_flags_vertical = 3
 text = "File"
 icon = ExtResource( 8 )
 script = ExtResource( 3 )
+
+[node name="Preview" type="ToolButton" parent="."]
+margin_left = 74.0
+margin_right = 136.0
+margin_bottom = 22.0
+shortcut = SubResource( 2 )
+text = "Preview"
+script = ExtResource( 1 )

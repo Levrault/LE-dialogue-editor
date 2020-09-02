@@ -24,7 +24,6 @@ func reset() -> void:
 		if child is GraphEditorNode:
 			child.free()
 
-	graph_edit.get_node("StartNode").connected_to_dialogue = ""
 	Serialize.current_path = ""
 	Store.json_raw = {}
 	Store.choices_node = {}
