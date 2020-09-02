@@ -8,6 +8,9 @@ var connected_to_dialogue_slot := 0
 var connected_to_condition := ""
 var connected_to_condition_slot := 0
 
+var connected_to_choices := []
+var connected_to_choices_slot := 0
+
 var connected_to_signal := ""
 var connected_to_signal_slot := 0
 
