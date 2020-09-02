@@ -76,6 +76,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 		from_node.connected_to_dialogue = to
 		from_node.connected_to_dialogue_slot = to_slot
+		from_node.connected_to_conditions = []
 
 		Events.emit_signal("root_to_dialogue_relation_changed", to_node.uuid)
 
@@ -95,10 +96,23 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 			from_node.connected_to_dialogue_slot
 		)
 
+		for choices in from_node.connected_to_choices:
+			_check_node_connection(
+				from,
+				from_slot,
+				Editor.type_to_string(from_node.TYPE),
+				to,
+				to_slot,
+				Editor.type_to_string(to_node.TYPE),
+				choices,
+				from_node.connected_to_choices_slot
+			)
+
 		# print_debug("connect dialogue to dialogue relation")
 
 		from_node.connected_to_dialogue = to
 		from_node.connected_to_dialogue_slot = to_slot
+		from_node.connected_to_choices = []
 
 		connect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("dialogue_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
@@ -131,8 +145,23 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 	# DIALOGUE -- CHOICE
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.choice:
 		# print_debug("connect dialogue to choice relation")
+		_check_node_connection(
+			from,
+			from_slot,
+			Editor.type_to_string(from_node.TYPE),
+			to,
+			to_slot,
+			Editor.type_to_string(to_node.TYPE),
+			from_node.connected_to_dialogue,
+			from_node.connected_to_dialogue_slot
+		)
+
 		connect_node(from, from_slot, to, to_slot)
 		to_node.values["__editor"]["parent"] = from_node.uuid
+
+		from_node.connected_to_dialogue = ""
+		from_node.connected_to_choices.append(to)
+		from_node.connected_to_choices_slot = to_slot
 
 		# in loading mode, store has already the data
 		if to_node.is_loading:
