@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://src/Nodes/Start/StartNode.gd" type="Script" id=1]
+[ext_resource path="res://src/Nodes/Root/RootNode.gd" type="Script" id=1]
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 16.0
@@ -32,7 +32,7 @@ expand_margin_right = 8.0
 expand_margin_top = 8.0
 expand_margin_bottom = 8.0
 
-[node name="StartNode" type="GraphNode"]
+[node name="RootNode" type="GraphNode"]
 anchor_left = 0.043
 anchor_top = 0.051
 anchor_right = 0.043
@@ -44,7 +44,7 @@ margin_bottom = 45.1
 custom_styles/frame = SubResource( 1 )
 custom_styles/selectedframe = SubResource( 2 )
 custom_colors/title_color = Color( 1, 1, 1, 1 )
-title = "StartNode"
+title = "RootNode"
 offset = Vector2( 40, 100 )
 slot/0/left_enabled = false
 slot/0/left_type = 0
@@ -68,6 +68,6 @@ margin_left = 28.0
 margin_right = 78.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-text = "Start"
+text = "Root"
 align = 1
 valign = 1
