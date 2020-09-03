@@ -14,11 +14,14 @@ func export_to_json(json_raw: Dictionary) -> String:
 func _get_editor_data() -> Dictionary:
 	var json = Store.json_raw
 	var result: Dictionary = {
+		"root": {},
 		"dialogues": [],
 		"conditions": [],
 		"signals": [],
 		"choices": [],
 	}
+
+	result.root = Store.root_node.values.__editor
 
 	for key in Store.dialogues_node:
 		result.dialogues.append(Store.dialogues_node[key].__editor)

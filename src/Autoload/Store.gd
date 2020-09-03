@@ -1,6 +1,7 @@
 extends Node
 
 var json_raw := {}
+var root_node = null
 var choices_node := {}
 var conditions_node := {}
 var signals_node := {}

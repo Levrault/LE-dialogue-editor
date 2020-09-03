@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/NPCs/Npc.tscn" type="PackedScene" id=1]
+
+[node name="NpcDummy" instance=ExtResource( 1 )]
+conditions = {
+"has_already_been_meet": true
+}
+
+[node name="NpcSkin" parent="." index="1"]
+position = Vector2( 0, 0 )
+
+[node name="Label" parent="." index="3"]
+margin_right = 38.0
+text = "Npc Dummy"

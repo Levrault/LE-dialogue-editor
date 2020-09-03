@@ -1,7 +1,7 @@
 # Manage editor interaction
 extends Node
 
-enum Type { start, dialogue, choice, condition, signal_node }
+enum Type { root, dialogue, choice, condition, signal_node }
 enum FileState { new, opened, unsaved, saved, export_file }
 enum Notification { idle, warning, error, success }
 
@@ -10,6 +10,7 @@ var previous_state = current_state
 var locale := "en" setget set_locale
 var graph_edit: GraphEdit = null
 
+onready var root_node := load("res://src/Nodes/Root/RootNode.tscn")
 onready var dialogue_node := load("res://src/Nodes/Dialogue/DialogueNode.tscn")
 onready var choice_node := load("res://src/Nodes/Choice/ChoiceNode.tscn")
 onready var condition_node := load("res://src/Nodes/Conditions/ConditionNode.tscn")
@@ -20,11 +21,6 @@ func reset() -> void:
 	current_state = FileState.new
 	self.locale = "en"
 
-	for child in graph_edit.get_children():
-		if child is GraphEditorNode:
-			child.free()
-
-	graph_edit.get_node("StartNode").connected_to_dialogue = ""
 	Serialize.current_path = ""
 	Store.json_raw = {}
 	Store.choices_node = {}
@@ -32,13 +28,18 @@ func reset() -> void:
 	Store.signals_node = {}
 	Store.dialogues_node = {}
 	Store.dialogues_uuid = []
+	
+	for child in graph_edit.get_children():
+		if child is GraphEditorNode:
+			child.free()
+
 
 
 func type_to_string(value: int) -> String:
 	var result := ''
 	match value:
-		Type.start:
-			result = 'start'
+		Type.root:
+			result = 'root'
 		Type.dialogue:
 			result = 'dialogue'
 		Type.choice:
@@ -97,9 +98,11 @@ func generate_graph(json: Dictionary) -> bool:
 	var conditions_list := []
 	json.erase("__editor")
 
+	var root = json["root"].duplicate()
+	json.erase("root")
+
 	# create instance
 	for uuid in json:
-		print(uuid)
 		var dialogue_instance = dialogue_node.instance()
 		var dialogue_saved_data = _find_by_uuid(editor_data.dialogues, uuid)
 		dialogue_instance.uuid = dialogue_saved_data.uuid
@@ -110,49 +113,51 @@ func generate_graph(json: Dictionary) -> bool:
 
 		if json[uuid].has("conditions"):
 			for condition in json[uuid].conditions:
-				var condition_instance = condition_node.instance()
 				var saved_data = _find_by_uuid(editor_data.conditions, uuid)
-				if not saved_data.empty():
-					condition_instance.uuid = saved_data.uuid
-					condition_instance.is_loading = true
-					condition_instance.values.data = condition.duplicate()
-					condition_instance.values["__editor"] = saved_data.duplicate()
+				var condition_instance = _load_node(
+					uuid, condition_node.instance(), condition.duplicate(), saved_data.duplicate()
+				)
+				if condition_instance:
 					conditions_list.append(condition_instance)
-					Events.emit_signal("graph_node_loaded", condition_instance)
-					Events.emit_signal(
-						"connection_request_loaded", uuid, 0, condition_instance.uuid, 0
-					)
 
 		if json[uuid].has("signals"):
-			var signals_instance = signal_node.instance()
 			var saved_data = _find_by_uuid(editor_data.signals, uuid)
-			signals_instance.uuid = saved_data.uuid
-			signals_instance.is_loading = true
-			signals_instance.values.data = json[uuid].signals.duplicate()
-			signals_instance.values["__editor"] = saved_data.duplicate()
-			Events.emit_signal("graph_node_loaded", signals_instance)
-			Events.emit_signal("connection_request_loaded", uuid, 0, saved_data.uuid, 0)
+			_load_node(
+				uuid, signal_node.instance(), json[uuid].signals.duplicate(), saved_data.duplicate()
+			)
 
 		if json[uuid].has("choices"):
-			print(json[uuid].has("choices"))
 			for choice in json[uuid].choices:
-				var choice_instance = choice_node.instance()
 				var saved_data = _find_by_uuid(editor_data.choices, uuid)
-				if not saved_data.empty():
-					choice_instance.uuid = saved_data.uuid
-					choice_instance.is_loading = true
-					choice_instance.values.data = choice.duplicate()
-					choice_instance.values["__editor"] = saved_data.duplicate()
+				var choice_instance = _load_node(
+					uuid, choice_node.instance(), choice.duplicate(), saved_data.duplicate()
+				)
+				if choice_instance:
 					choices_list.append(choice_instance)
-					Events.emit_signal("graph_node_loaded", choice_instance)
-					Events.emit_signal(
-						"connection_request_loaded", uuid, 0, choice_instance.uuid, 0
-					)
+
+	# create root node
+	var root_instance = root_node.instance()
+	root_instance.uuid = "root"
+	root_instance.values.data = root.duplicate()
+	root_instance.values["__editor"] = editor_data.root.duplicate()
+	Events.emit_signal("graph_node_loaded", root_instance)
+
+	if root_instance.values.data.has("conditions"):
+		for condition in root_instance.values.data.conditions:
+			if condition.has("next") and not condition.next.empty():
+				var saved_data = _find_by_uuid(editor_data.conditions, "root")
+				var condition_instance = _load_node(
+					"root", condition_node.instance(), condition.duplicate(), saved_data.duplicate()
+				)
+				if condition_instance:
+					conditions_list.append(condition_instance)
+	elif root_instance.values.data.has("next") and root_instance.values.data.next.empty():
+		Events.emit_signal(
+			"connection_request_loaded", root_instance.uuid, 0, root_instance.values.data.next, 0
+		)
 
 	for dialogue in dialogue_list:
 		var values = dialogue.values.data
-		if values.has("root"):
-			Events.emit_signal("connection_request_loaded", "StartNode", 0, dialogue.uuid, 0)
 		if values.has("next"):
 			Events.emit_signal("connection_request_loaded", dialogue.uuid, 0, values.next, 0)
 
@@ -177,3 +182,20 @@ func _find_by_uuid(data: Array, uuid: String) -> Dictionary:
 			return id.duplicate()
 
 	return {}
+
+
+# Load node and add it to the graphedit
+func _load_node(
+	uuid: String, node_instance: GraphEditorNode, data: Dictionary, editor_data: Dictionary
+) -> GraphEditorNode:
+	if not editor_data:
+		return null
+
+	node_instance.uuid = editor_data.uuid
+	node_instance.is_loading = true
+	node_instance.values.data = data
+	node_instance.values["__editor"] = editor_data
+
+	Events.emit_signal("graph_node_loaded", node_instance)
+	Events.emit_signal("connection_request_loaded", uuid, 0, node_instance.uuid, 0)
+	return node_instance
