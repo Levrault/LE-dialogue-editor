@@ -16,6 +16,12 @@ func _ready():
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("new_scene"):
+		if Editor.current_state == Editor.FileState.unsaved:
+			Events.emit_signal("unsaved_file_displayed")
+			return
+		Editor.new_file()
+		return
 	if event.is_action_pressed("save_file"):
 		Editor.save_file()
 		return
