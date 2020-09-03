@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://src/Preview/Preview.gd" type="Script" id=1]
+[ext_resource path="res://src/FolderView/FolderView.gd" type="Script" id=1]
+[ext_resource path="res://src/FolderView/View.gd" type="Script" id=2]
 
-[node name="Preview" type="Control"]
+[node name="FolderView" type="Control"]
 margin_right = 300.0
 margin_bottom = 869.0
 rect_min_size = Vector2( 300, 0 )
@@ -23,20 +24,18 @@ __meta__ = {
 margin_right = 300.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
-text = "Preview"
+text = "Folder View"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="VBoxContainer"]
+[node name="View" type="Tree" parent="VBoxContainer"]
 margin_top = 18.0
 margin_right = 300.0
-margin_bottom = 158.0
-rect_min_size = Vector2( 0, 140 )
-
-[node name="Panel2" type="Panel" parent="VBoxContainer"]
-margin_top = 162.0
-margin_right = 300.0
-margin_bottom = 302.0
-rect_min_size = Vector2( 0, 140 )
+margin_bottom = 869.0
+size_flags_vertical = 3
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

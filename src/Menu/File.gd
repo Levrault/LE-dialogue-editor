@@ -1,6 +1,6 @@
 extends MenuButton
 
-enum Menu { new, open, save, save_as, export_file, quit }
+enum Menu { new, open, folder, save, save_as, export_file, quit }
 
 
 func _ready():
@@ -9,6 +9,7 @@ func _ready():
 	# add items
 	get_popup().add_item("New Scene", Menu.new)
 	get_popup().add_item("Open File", Menu.open)
+	get_popup().add_item("Open Folder...", Menu.folder)
 	get_popup().add_item("Save", Menu.save)
 	get_popup().add_item("Save as", Menu.save_as)
 	get_popup().add_item("Export", Menu.export_file)
@@ -52,6 +53,14 @@ func _on_Item_pressed(id: int) -> void:
 			Events.emit_signal("unsaved_file_displayed")
 			return
 		Editor.open_file()
+		return
+
+	if id == Menu.folder:
+		if Editor.current_state == Editor.FileState.unsaved:
+			Editor.current_state = Editor.FileState.opened
+			Events.emit_signal("unsaved_file_displayed")
+			return
+		Editor.open_folder()
 		return
 
 	if id == Menu.export_file:

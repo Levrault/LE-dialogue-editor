@@ -1,5 +1,9 @@
 extends Node
 
+# layout
+signal layout_folder_view_toggled
+signal layout_preview_toggled
+
 # creation
 signal graph_node_added(node)
 signal graph_node_loaded(node)
@@ -52,13 +56,10 @@ signal menu_popup_displayed(name)
 signal file_dialog_opened(mode)
 signal file_dialog_export_opened
 
-signal preview_dialog_opened
-
 # file
 signal file_loaded
 signal offset_changed(uuid, type, offset)
 signal connection_request_loaded(from, from_slot, to, to_slot)
-
 signal unsaved_file_displayed
 
 # notification

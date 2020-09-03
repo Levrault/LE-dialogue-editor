@@ -9,25 +9,10 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "KinematicBody2D",
-"class": "Actor",
-"language": "GDScript",
-"path": "res://src/Preview/Actor/Actor.gd"
-}, {
 "base": "Button",
 "class": "AddButton",
 "language": "GDScript",
 "path": "res://src/Nodes/AddButton.gd"
-}, {
-"base": "Reference",
-"class": "AttackFactory",
-"language": "GDScript",
-"path": "res://src/Preview/Libraries/AttackFactory/AttackFactory.gd"
-}, {
-"base": "Node2D",
-"class": "DialogueController",
-"language": "GDScript",
-"path": "res://src/Preview/NPCs/DialogueController.gd"
 }, {
 "base": "LineEdit",
 "class": "FieldInput",
@@ -39,49 +24,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Editor/GraphEditorNode.gd"
 }, {
-"base": "KinematicBody2D",
-"class": "Npc",
-"language": "GDScript",
-"path": "res://src/Preview/NPCs/Npc.gd"
-}, {
 "base": "Node",
 "class": "Parser",
 "language": "GDScript",
 "path": "res://src/Utils/Parser.gd"
-}, {
-"base": "Actor",
-"class": "Player",
-"language": "GDScript",
-"path": "res://src/Preview/Player/Player.gd"
-}, {
-"base": "Reference",
-"class": "State",
-"language": "GDScript",
-"path": "res://src/Preview/Libraries/StateMachine/State.gd"
-}, {
-"base": "Reference",
-"class": "StateMachine",
-"language": "GDScript",
-"path": "res://src/Preview/Libraries/StateMachine/StateMachine.gd"
-}, {
-"base": "Node2D",
-"class": "Stats",
-"language": "GDScript",
-"path": "res://src/Preview/Actor/Stats.gd"
 } ]
 _global_script_class_icons={
-"Actor": "",
 "AddButton": "",
-"AttackFactory": "",
-"DialogueController": "",
 "FieldInput": "",
 "GraphEditorNode": "",
-"Npc": "",
-"Parser": "",
-"Player": "",
-"State": "",
-"StateMachine": "",
-"Stats": ""
+"Parser": ""
 }
 
 [application]
