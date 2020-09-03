@@ -18,6 +18,8 @@ onready var dialogue_json: Dictionary = Store.json_raw
 # preload all portrait resources into memory
 func _ready() -> void:
 	print(dialogue_json)
+
+
 #	for key in dialogue_json:
 #		var values: Dictionary = dialogue_json[key]
 #		if not values.has("portrait"):
@@ -105,7 +107,9 @@ func _get_non_conditional_dialogue():
 #	Dialogue with condition only the condition {has_been_talked_to: true} will NOT match;
 # 	Only the dialogue with the same condition will work
 func _get_conditional_dialogue():
-	_get_non_conditional_dialogue()
+	# _get_non_conditional_dialogue()
+	var root: Dictionary = dialogue_json.root
+	print(root)
 	var is_first_dialogue := false
 	for dialogue_key in dialogue_json:
 		var values: Dictionary = dialogue_json[dialogue_key]

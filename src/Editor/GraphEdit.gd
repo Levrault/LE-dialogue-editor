@@ -9,8 +9,8 @@ func _ready() -> void:
 	connect("disconnection_request", self, "_on_Disconnection_request")
 	Events.connect("node_deleted", self, "_on_Disconnection_request")
 	Events.connect("connection_request_loaded", self, "_on_Connection_request")
-	Events.connect("graph_node_added", self, "_on_graph_node_added")
-	Events.connect("graph_node_loaded", self, "_on_graph_node_loaded")
+	Events.connect("graph_node_added", self, "_on_Graph_node_added")
+	Events.connect("graph_node_loaded", self, "_on_Graph_node_loaded")
 
 
 func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: int) -> void:
@@ -18,7 +18,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 	var from_node = get_node(from)
 	var to_node = get_node(to)
 
-	if from_node.TYPE != Editor.Type.start and from_node.uuid == to_node.uuid:
+	if from_node.TYPE != Editor.Type.root and from_node.uuid == to_node.uuid:
 		Events.emit_signal(
 			"notification_displayed",
 			Editor.Notification.error,
@@ -27,7 +27,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		return
 
 	# START -- Conditions
-	if from_node.TYPE == Editor.Type.start and to_node.TYPE == Editor.Type.condition:
+	if from_node.TYPE == Editor.Type.root and to_node.TYPE == Editor.Type.condition:
 		_check_node_connection(
 			from,
 			from_slot,
@@ -43,13 +43,14 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		from_node.connected_to_dialogue_slot = 0
 		from_node.connected_to_conditions.append(to)
 		from_node.connected_to_conditions_slot = to_slot
+		to_node.values["__editor"]["parent"] = from_node.uuid
 		Events.emit_signal("root_to_condition_relation_changed", to_node.uuid)
 
 		connect_node(from, from_slot, to, to_slot)
 		return
 
 	# START -- DIALOGUE
-	if from_node.TYPE == Editor.Type.start and to_node.TYPE == Editor.Type.dialogue:
+	if from_node.TYPE == Editor.Type.root and to_node.TYPE == Editor.Type.dialogue:
 		_check_node_connection(
 			from,
 			from_slot,
@@ -250,17 +251,17 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 		return
 
 
-func _on_graph_node_added(node: GraphNode) -> void:
+func _on_Graph_node_added(node: GraphNode) -> void:
 	node.offset += scroll_offset + NODE_OFFSET
 	node.uuid = Uuid.v4()
-	_add_graph_node(node)
+	_add_Graph_node(node)
 	Editor.current_state = Editor.FileState.unsaved
 
 
-func _on_graph_node_loaded(node: GraphNode) -> void:
+func _on_Graph_node_loaded(node: GraphNode) -> void:
 	node.offset = Vector2(node.values.__editor.offset[0], node.values.__editor.offset[1])
 	node.is_loading = true
-	_add_graph_node(node)
+	_add_Graph_node(node)
 
 
 # is selected dialogue (from) is already connected to another dialogue
@@ -296,9 +297,12 @@ func _check_node_connection(
 	disconnect_node(from, from_slot, node_connected, node_connected_slot)
 
 
-func _add_graph_node(node: GraphNode) -> void:
+func _add_Graph_node(node: GraphNode) -> void:
 	node.name = node.uuid
 	add_child(node)
+
+	if node.TYPE == Editor.Type.root:
+		return
 
 	# generate signal to add a new entry inside the json
 	if node.TYPE == Editor.Type.choice:
