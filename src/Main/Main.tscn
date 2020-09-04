@@ -70,7 +70,7 @@ __meta__ = {
 }
 
 [node name="Menu" parent="MarginContainer/VBoxContainer" instance=ExtResource( 8 )]
-margin_right = 226.0
+margin_right = 116.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 26.0
@@ -82,7 +82,7 @@ size_flags_vertical = 3
 visible = false
 
 [node name="Editor" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_right = 1600.0
+margin_right = 1296.0
 margin_bottom = 869.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -104,7 +104,6 @@ margin_top = 17.0
 margin_bottom = 57.0
 
 [node name="Preview" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
-visible = false
 margin_left = 1300.0
 margin_right = 1600.0
 

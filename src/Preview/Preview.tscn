@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/Preview/Preview.gd" type="Script" id=1]
+[ext_resource path="res://src/Preview/Timeline.tscn" type="PackedScene" id=2]
 
-[node name="Preview" type="Control"]
+[node name="Preview" type="ScrollContainer"]
 margin_right = 300.0
 margin_bottom = 869.0
 rect_min_size = Vector2( 300, 0 )
@@ -12,15 +13,30 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 300.0
+margin_bottom = 382.0
+rect_min_size = Vector2( 220, 0 )
+size_flags_horizontal = 3
+custom_constants/margin_right = 8
+custom_constants/margin_top = 8
+custom_constants/margin_left = 8
+custom_constants/margin_bottom = 8
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Label" parent="VBoxContainer"]
-margin_right = 300.0
+[node name="Container" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 292.0
+margin_bottom = 374.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="MarginContainer/Container"]
+margin_right = 284.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 text = "Preview"
@@ -29,27 +45,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Message" type="VBoxContainer" parent="VBoxContainer"]
+[node name="Timeline" parent="MarginContainer/Container" instance=ExtResource( 2 )]
 margin_top = 18.0
-margin_right = 300.0
-margin_bottom = 176.0
-
-[node name="Label" type="Label" parent="VBoxContainer/Message"]
-margin_right = 300.0
-margin_bottom = 14.0
-text = "Speaker"
-
-[node name="Message" type="Panel" parent="VBoxContainer/Message"]
-margin_top = 18.0
-margin_right = 300.0
-margin_bottom = 158.0
-rect_min_size = Vector2( 0, 140 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Message/Message"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_bottom = 366.0

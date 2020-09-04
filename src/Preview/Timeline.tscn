@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Preview/PreviewDialogueRight.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Preview/PreviewDialogueLeft.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Preview/PreviewChoice.tscn" type="PackedScene" id=3]
+
+[node name="Timeline" type="VBoxContainer"]
+margin_right = 284.0
+margin_bottom = 899.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PreviewDialogueLeft" parent="." instance=ExtResource( 2 )]
+
+[node name="PreviewDialogueRight" parent="." instance=ExtResource( 1 )]
+margin_top = 182.0
+margin_bottom = 348.0
+
+[node name="PreviewChoice" parent="." instance=ExtResource( 3 )]
