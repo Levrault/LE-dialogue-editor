@@ -19,7 +19,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Title" type="Label" parent="VBoxContainer"]
 margin_right = 300.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
@@ -29,14 +29,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="VBoxContainer"]
+[node name="Message" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 18.0
+margin_right = 300.0
+margin_bottom = 176.0
+
+[node name="Label" type="Label" parent="VBoxContainer/Message"]
+margin_right = 300.0
+margin_bottom = 14.0
+text = "Speaker"
+
+[node name="Message" type="Panel" parent="VBoxContainer/Message"]
 margin_top = 18.0
 margin_right = 300.0
 margin_bottom = 158.0
 rect_min_size = Vector2( 0, 140 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="Panel2" type="Panel" parent="VBoxContainer"]
-margin_top = 162.0
-margin_right = 300.0
-margin_bottom = 302.0
-rect_min_size = Vector2( 0, 140 )
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Message/Message"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

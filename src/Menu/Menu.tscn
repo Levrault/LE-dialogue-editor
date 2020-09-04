@@ -24,7 +24,7 @@ text = "File"
 icon = ExtResource( 8 )
 script = ExtResource( 3 )
 
-[node name="Menu" type="MenuButton" parent="."]
+[node name="View" type="MenuButton" parent="."]
 margin_left = 74.0
 margin_right = 116.0
 margin_bottom = 22.0
