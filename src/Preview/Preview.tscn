@@ -1,21 +1,19 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/Preview/Preview.gd" type="Script" id=1]
 [ext_resource path="res://src/Preview/Timeline.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Preview/TimelineForm.tscn" type="PackedScene" id=3]
 
-[node name="Preview" type="ScrollContainer"]
+[node name="Preview" type="Control"]
 margin_right = 300.0
 margin_bottom = 869.0
 rect_min_size = Vector2( 300, 0 )
 size_flags_vertical = 3
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_right = 300.0
-margin_bottom = 382.0
+margin_bottom = 866.0
 rect_min_size = Vector2( 220, 0 )
 size_flags_horizontal = 3
 custom_constants/margin_right = 8
@@ -30,7 +28,7 @@ __meta__ = {
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 292.0
-margin_bottom = 374.0
+margin_bottom = 858.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -45,6 +43,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Timeline" parent="MarginContainer/Container" instance=ExtResource( 2 )]
-margin_top = 18.0
-margin_bottom = 366.0
+[node name="TimelineForm" parent="MarginContainer/Container" instance=ExtResource( 3 )]
+
+[node name="TimelineContainer" type="ScrollContainer" parent="MarginContainer/Container"]
+visible = false
+margin_top = 22.0
+margin_right = 284.0
+margin_bottom = 850.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Timeline" parent="MarginContainer/Container/TimelineContainer" instance=ExtResource( 2 )]
+margin_bottom = 850.0

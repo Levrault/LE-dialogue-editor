@@ -34,6 +34,7 @@ func callback() -> void:
 
 func _on_Deleted(value_to_delete: String, field_rect_size: Vector2) -> void:
 	._on_Deleted(value_to_delete, field_rect_size)
+	Events.emit_signal("condition_value_deleted", value_to_delete)
 	callback()
 
 

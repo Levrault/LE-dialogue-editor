@@ -51,6 +51,10 @@ signal condition_to_dialogue_relation_deleted(from)
 signal choice_to_dialogue_relation_created(from, to)
 signal choice_to_dialogue_relation_deleted(from)
 
+# condition value
+signal condition_value_added
+signal condition_value_deleted(value)
+
 # menu
 signal menu_popup_displayed(name)
 signal file_dialog_opened(mode)

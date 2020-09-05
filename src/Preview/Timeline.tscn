@@ -19,5 +19,25 @@ __meta__ = {
 [node name="PreviewDialogueRight" parent="." instance=ExtResource( 1 )]
 margin_top = 182.0
 margin_bottom = 348.0
+is_speaker_displayed = true
+
+[node name="PreviewDialogueRight2" parent="." instance=ExtResource( 1 )]
+margin_top = 364.0
+margin_bottom = 512.0
+is_speaker_displayed = false
 
 [node name="PreviewChoice" parent="." instance=ExtResource( 3 )]
+margin_top = 528.0
+margin_bottom = 558.0
+
+[node name="PreviewChoice2" parent="." instance=ExtResource( 3 )]
+margin_top = 574.0
+margin_bottom = 604.0
+
+[node name="PreviewChoice3" parent="." instance=ExtResource( 3 )]
+margin_top = 620.0
+margin_bottom = 650.0
+
+[node name="PreviewDialogueLeft2" parent="." instance=ExtResource( 2 )]
+margin_top = 666.0
+margin_bottom = 832.0

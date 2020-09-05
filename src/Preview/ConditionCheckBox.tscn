@@ -1,0 +1,8 @@
+[gd_scene format=2]
+
+[node name="ConditionCheckBox" type="CheckBox"]
+margin_right = 284.0
+margin_bottom = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -25,3 +25,4 @@ func on_Pressed() -> void:
 	owner.input.text = ""
 	owner.add_field.is_disabled = true
 	owner.callback()
+	Events.emit_signal("condition_value_added")
