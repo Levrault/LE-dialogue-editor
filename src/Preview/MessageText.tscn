@@ -1,4 +1,6 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Preview/MessageText.gd" type="Script" id=1]
 
 [node name="MessageText" type="Button"]
 margin_right = 264.0
@@ -7,6 +9,7 @@ rect_min_size = Vector2( 0, 140 )
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -44,6 +44,7 @@ __meta__ = {
 }
 
 [node name="TimelineForm" parent="MarginContainer/Container" instance=ExtResource( 3 )]
+margin_bottom = 98.0
 
 [node name="TimelineContainer" type="ScrollContainer" parent="MarginContainer/Container"]
 visible = false

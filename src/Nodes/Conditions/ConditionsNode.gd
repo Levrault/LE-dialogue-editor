@@ -47,6 +47,7 @@ func _on_File_loaded() -> void:
 		container.add_child(new_condition)
 		new_condition.value.text = value
 		new_condition.connect("field_deleted", self, "_on_Deleted")
+		Events.emit_signal("condition_value_added")
 
 	if values.__editor.has("collapsed") and values.__editor.collapsed:
 		field_container.hide()

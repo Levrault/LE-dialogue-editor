@@ -4,6 +4,9 @@ extends Node
 signal layout_folder_view_toggled
 signal layout_preview_toggled
 
+# preview
+signal preview_started(conditions)
+
 # creation
 signal graph_node_added(node)
 signal graph_node_loaded(node)
