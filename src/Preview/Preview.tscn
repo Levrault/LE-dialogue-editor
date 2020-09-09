@@ -10,6 +10,9 @@ margin_bottom = 869.0
 rect_min_size = Vector2( 300, 0 )
 size_flags_vertical = 3
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_right = 300.0
@@ -29,6 +32,7 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = 292.0
 margin_bottom = 858.0
+custom_constants/separation = 16
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -44,7 +48,8 @@ __meta__ = {
 }
 
 [node name="TimelineForm" parent="MarginContainer/Container" instance=ExtResource( 3 )]
-margin_bottom = 98.0
+margin_top = 30.0
+margin_bottom = 110.0
 
 [node name="TimelineContainer" type="ScrollContainer" parent="MarginContainer/Container"]
 visible = false
@@ -55,4 +60,4 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Timeline" parent="MarginContainer/Container/TimelineContainer" instance=ExtResource( 2 )]
-margin_bottom = 850.0
+margin_bottom = 828.0

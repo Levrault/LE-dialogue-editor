@@ -13,27 +13,7 @@ func _ready() -> void:
 
 func _on_Preview_started(form_conditions: Dictionary) -> void:
 	timeline = []
-
-	# read start_node for conditions
-	# var root = Store.json_raw.root.duplicate()
-	# var next = ''
-	# if root.has("conditions"):
-	# 	for root_condition in root.conditions:
-	# 		var next_dialogue = root_condition.next
-	# 		root_condition.erase("next")
-	# 		var is_root_matched := true
-	# 		for key in root_condition:
-	# 			if not form_conditions.has(key):
-	# 				is_root_matched = false
-	# 				continue
-	# 			if not is_root_matched:
-	# 				continue
-	# 			next = next_dialogue
-	# 		if is_root_matched and not next.empty():
-	# 			break
-	# print(next)
-
-	_create_timeline(Store.json_raw.root.duplicate(), form_conditions)
+	_create_timeline(Store.json_raw.root.duplicate(), form_conditions, "root")
 
 	for item in timeline:
 		var preview_dialogue_instance = null
@@ -42,24 +22,38 @@ func _on_Preview_started(form_conditions: Dictionary) -> void:
 		elif speakers.right.has(item.name):
 			preview_dialogue_instance = preview_dialogue_right.instance()
 
+		var timer := get_tree().create_timer(.15)
+		yield(timer, "timeout")
+		add_child(preview_dialogue_instance)
 		preview_dialogue_instance.value = item
-		add_child(item)
 
 
-func _create_timeline(dialogue: Dictionary, form_conditions: Dictionary) -> void:
-	if not dialogue.speaker.empty():
-		_push_speaker(dialogue.speaker)
+# Recursive function that get the correct dialogue
+func _create_timeline(dialogue: Dictionary, form_conditions: Dictionary, uuid: String) -> void:
+	if uuid != "root":
+		timeline.append(dialogue)
+
+	if dialogue.has("name") and not dialogue.name.empty():
+		_push_speaker(dialogue.name)
 
 	if dialogue.has("next"):
-		timeline.append(dialogue)
-		_create_timeline(Store.json_raw[dialogue.next].duplicate(), form_conditions)
+		_create_timeline(Store.json_raw[dialogue.next].duplicate(), form_conditions, dialogue.next)
 		return
 
 	var next := ""
 	if dialogue.has("conditions"):
 		for condition in dialogue.conditions:
 			var next_dialogue = condition.next
+			condition.erase("next")
 			var is_root_matched := true
+
+			# empty condition
+			if condition.empty() and form_conditions.empty():
+				_create_timeline(
+					Store.json_raw[next_dialogue].duplicate(), form_conditions, next_dialogue
+				)
+				return
+
 			for key in condition:
 				if not form_conditions.has(key):
 					is_root_matched = false
@@ -69,8 +63,8 @@ func _create_timeline(dialogue: Dictionary, form_conditions: Dictionary) -> void
 				next = next_dialogue
 			if is_root_matched and not next.empty():
 				break
-
-		_create_timeline(Store.json_raw[next].duplicate(), form_conditions)
+		# TODO: catch empty next. Maybe the condition can't match anything
+		_create_timeline(Store.json_raw[next].duplicate(), form_conditions, next)
 
 
 func _push_speaker(name: String) -> void:

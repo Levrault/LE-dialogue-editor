@@ -4,8 +4,11 @@
 
 [node name="MessageText" type="Button"]
 margin_right = 264.0
-margin_bottom = 140.0
-rect_min_size = Vector2( 0, 140 )
+margin_bottom = 136.0
+grow_vertical = 0
+rect_min_size = Vector2( 264, 28 )
+rect_pivot_offset = Vector2( 132, 68 )
+rect_clip_content = true
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -14,10 +17,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Tween" type="Tween" parent="."]
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_bottom = -104.0
+rect_min_size = Vector2( 264, 0 )
 mouse_filter = 2
+size_flags_horizontal = 3
 custom_constants/margin_right = 12
 custom_constants/margin_top = 8
 custom_constants/margin_left = 12
@@ -30,9 +38,14 @@ __meta__ = {
 margin_left = 12.0
 margin_top = 8.0
 margin_right = 252.0
-margin_bottom = 132.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 240, 16 )
+rect_clip_content = false
 mouse_filter = 2
-text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt libero neque, ac tempus velit gravida sed. Aliquam vitae blandit nunc. Etiam venenatis pharetra consequat Aliquam quam massa, vestibulum sit amet tellus ac, molestie sagittis metus. "
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Lorem ipsum dolor sit amet "
+scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }

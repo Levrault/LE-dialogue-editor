@@ -2,13 +2,13 @@
   "8ca8447f-140a-4f62-b366-138d080a35a7": {
     "name": "Docteur Evil",
     "portrait": "dr_evil_evil",
-    "text": { "en": "You don't know me but I'm very evil!", "fr": "" },
+    "text": { "en": "NO CONDITION : You don't know me but I'm very evil! Because bblablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablab asdasdasdasdasdasdasdasdasdasdasdasd lablablablablablablablablablablablablablablablablablalablabla", "fr": "" },
     "next": "c2e47be6-1cfa-4ef1-ba66-28072f84f24b"
   },
   "1a637399-83fc-4ed5-b834-9a8641b9db37": {
     "name": "Docteur Evil",
     "portrait": "dr_evil_very_evil",
-    "text": { "en": "You don'know me,  I'm very evil!", "fr": "" },
+    "text": { "en": "HAS_MEET - You do know me,  I'm very evil!", "fr": "" },
     "next": "c2e47be6-1cfa-4ef1-ba66-28072f84f24b"
   },
   "c2e47be6-1cfa-4ef1-ba66-28072f84f24b": {

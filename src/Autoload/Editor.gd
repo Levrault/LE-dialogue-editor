@@ -61,7 +61,6 @@ func set_current_state(new_state: int) -> void:
 
 
 func save_file() -> void:
-	print(current_state)
 	if (
 		current_state == FileState.new
 		or current_state == FileState.export_file
