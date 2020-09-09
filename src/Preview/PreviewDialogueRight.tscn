@@ -39,10 +39,10 @@ text = "Speaker"
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_top = 18.0
 margin_right = 284.0
-margin_bottom = 166.0
+margin_bottom = 54.0
 custom_constants/margin_right = 20
 custom_constants/margin_top = 8
 
 [node name="MessageText" parent="MarginContainer" instance=ExtResource( 2 )]
 margin_top = 8.0
-margin_bottom = 148.0
+margin_bottom = 36.0

@@ -1,7 +1,7 @@
 extends Control
 
-
 onready var timeline_container := $MarginContainer/Container/TimelineContainer
+
 
 func _ready() -> void:
 	Events.connect("layout_preview_toggled", self, "_on_Layout_preview_toggled")

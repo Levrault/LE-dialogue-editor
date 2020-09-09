@@ -2,6 +2,7 @@ extends VBoxContainer
 
 var preview_dialogue_left = preload("res://src/Preview/PreviewDialogueLeft.tscn")
 var preview_dialogue_right = preload("res://src/Preview/PreviewDialogueRight.tscn")
+var no_route = preload("res://src/Preview/PreviewNoRoute.tscn")
 var timeline := []
 var speakers := {"left": {}, "right": {}}
 var should_add_speaker_to_left := true
@@ -16,6 +17,10 @@ func _on_Preview_started(form_conditions: Dictionary) -> void:
 	for child in get_children():
 		child.queue_free()
 	_create_timeline(Store.json_raw.root.duplicate(), form_conditions, "root")
+	
+	if timeline.empty():
+		add_child(no_route.instance())
+		return
 
 	for item in timeline:
 		var preview_dialogue_instance = null
