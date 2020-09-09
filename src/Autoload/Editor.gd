@@ -142,28 +142,35 @@ func generate_graph(json: Dictionary) -> bool:
 	# create root node
 	var root_instance = root_node.instance()
 	root_instance.uuid = "root"
-	root_instance.values.data = root.duplicate()
+	print_debug(root)
+#	root_instance.values.data = root.duplicate()
 	root_instance.values["__editor"] = editor_data.root.duplicate()
 	Events.emit_signal("graph_node_loaded", root_instance)
 
-	if root_instance.values.data.has("conditions"):
-		for condition in root_instance.values.data.conditions:
-			if condition.has("next") and not condition.next.empty():
-				var saved_data = _find_by_uuid(editor_data.conditions, "root")
-				var condition_instance = _load_node(
-					"root", condition_node.instance(), condition.duplicate(), saved_data.duplicate()
-				)
-				if condition_instance:
-					conditions_list.append(condition_instance)
-	elif root_instance.values.data.has("next") and root_instance.values.data.next.empty():
+	if root.has("conditions"):
+		for condition in root.conditions:
+			if not condition.has("next"):
+				continue
+			if condition.next.empty():
+				continue
+			var saved_data = _find_by_uuid(editor_data.conditions, "root")
+			var condition_instance = _load_node(
+				"root", condition_node.instance(), condition.duplicate(), saved_data.duplicate()
+			)
+			if condition_instance:
+				conditions_list.append(condition_instance)
+	elif root_instance.values.data.has("next") and not root_instance.values.data.next.empty():
 		Events.emit_signal(
 			"connection_request_loaded", root_instance.uuid, 0, root_instance.values.data.next, 0
 		)
+	
+	print(root_instance.values.data.conditions)
 
 	for dialogue in dialogue_list:
 		var values = dialogue.values.data
 		if values.has("next"):
 			Events.emit_signal("connection_request_loaded", dialogue.uuid, 0, values.next, 0)
+	print(root_instance.values.data)
 
 	for condition in conditions_list:
 		var values = condition.values.data
