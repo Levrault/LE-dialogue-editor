@@ -142,8 +142,6 @@ func generate_graph(json: Dictionary) -> bool:
 	# create root node
 	var root_instance = root_node.instance()
 	root_instance.uuid = "root"
-	print_debug(root)
-#	root_instance.values.data = root.duplicate()
 	root_instance.values["__editor"] = editor_data.root.duplicate()
 	Events.emit_signal("graph_node_loaded", root_instance)
 
@@ -163,14 +161,11 @@ func generate_graph(json: Dictionary) -> bool:
 		Events.emit_signal(
 			"connection_request_loaded", root_instance.uuid, 0, root_instance.values.data.next, 0
 		)
-	
-	print(root_instance.values.data.conditions)
 
 	for dialogue in dialogue_list:
 		var values = dialogue.values.data
 		if values.has("next"):
 			Events.emit_signal("connection_request_loaded", dialogue.uuid, 0, values.next, 0)
-	print(root_instance.values.data)
 
 	for condition in conditions_list:
 		var values = condition.values.data

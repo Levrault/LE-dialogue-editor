@@ -13,6 +13,8 @@ func _ready() -> void:
 
 func _on_Preview_started(form_conditions: Dictionary) -> void:
 	timeline = []
+	for child in get_children():
+		child.queue_free()
 	_create_timeline(Store.json_raw.root.duplicate(), form_conditions, "root")
 
 	for item in timeline:
@@ -42,7 +44,8 @@ func _create_timeline(dialogue: Dictionary, form_conditions: Dictionary, uuid: S
 
 	var next := ""
 	if dialogue.has("conditions"):
-		for condition in dialogue.conditions:
+		var conditions = dialogue.conditions.duplicate(true)
+		for condition in conditions:
 			var next_dialogue = condition.next
 			condition.erase("next")
 			var is_root_matched := true
@@ -63,7 +66,11 @@ func _create_timeline(dialogue: Dictionary, form_conditions: Dictionary, uuid: S
 				next = next_dialogue
 			if is_root_matched and not next.empty():
 				break
-		# TODO: catch empty next. Maybe the condition can't match anything
+				
+		if next.empty():
+			# TODO: display invalid route message error
+			return
+
 		_create_timeline(Store.json_raw[next].duplicate(), form_conditions, next)
 
 
