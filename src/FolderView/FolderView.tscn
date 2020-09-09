@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/FolderView/FolderView.gd" type="Script" id=1]
+[ext_resource path="res://src/FolderView/View.gd" type="Script" id=2]
+
+[node name="FolderView" type="Control"]
+margin_right = 300.0
+margin_bottom = 869.0
+rect_min_size = Vector2( 300, 0 )
+size_flags_vertical = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 300.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Folder View"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="View" type="Tree" parent="VBoxContainer"]
+margin_top = 18.0
+margin_right = 300.0
+margin_bottom = 869.0
+size_flags_vertical = 3
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

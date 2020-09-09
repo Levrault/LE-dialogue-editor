@@ -34,6 +34,7 @@ func callback() -> void:
 
 func _on_Deleted(value_to_delete: String, field_rect_size: Vector2) -> void:
 	._on_Deleted(value_to_delete, field_rect_size)
+	Events.emit_signal("condition_value_deleted", value_to_delete)
 	callback()
 
 
@@ -46,6 +47,7 @@ func _on_File_loaded() -> void:
 		container.add_child(new_condition)
 		new_condition.value.text = value
 		new_condition.connect("field_deleted", self, "_on_Deleted")
+		Events.emit_signal("condition_value_added")
 
 	if values.__editor.has("collapsed") and values.__editor.collapsed:
 		field_container.hide()

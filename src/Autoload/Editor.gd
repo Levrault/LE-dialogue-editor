@@ -28,11 +28,10 @@ func reset() -> void:
 	Store.signals_node = {}
 	Store.dialogues_node = {}
 	Store.dialogues_uuid = []
-	
+
 	for child in graph_edit.get_children():
 		if child is GraphEditorNode:
 			child.free()
-
 
 
 func type_to_string(value: int) -> String:
@@ -82,6 +81,11 @@ func new_file() -> void:
 func open_file() -> void:
 	current_state = Editor.FileState.opened
 	Events.emit_signal("file_dialog_opened", 0)  # FileDialog.Mode.MODE_OPEN_FILE
+
+
+func open_folder() -> void:
+	current_state = Editor.FileState.opened
+	Events.emit_signal("file_dialog_opened", 2)  # FileDialog.Mode.MODE_OPEN_DIR
 
 
 func generate_graph(json: Dictionary) -> bool:

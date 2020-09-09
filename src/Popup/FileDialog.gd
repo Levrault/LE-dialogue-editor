@@ -18,6 +18,9 @@ func _on_Dialog_opened(new_mode: int) -> void:
 	if mode == 0:
 		window_title = "Open a file"
 
+	if mode == 2:
+		window_title = "Open folder"
+
 	if mode == 4:
 		window_title = "Save a file"
 
