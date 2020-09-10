@@ -1,4 +1,4 @@
-extends Button
+extends PanelContainer
 
 var message := "" setget set_message
 
@@ -17,7 +17,6 @@ func set_message(new_message: String) -> void:
 
 
 func resize() -> void:
-	rect_min_size = margin_container.rect_size
 	pop_in_animation()
 
 

@@ -17,9 +17,10 @@ func _on_Preview_started(form_conditions: Dictionary) -> void:
 	for child in get_children():
 		child.queue_free()
 	_create_timeline(Store.json_raw.root.duplicate(), form_conditions, "root")
-	
+
 	if timeline.empty():
 		add_child(no_route.instance())
+		print("in")
 		return
 
 	for item in timeline:
@@ -40,7 +41,7 @@ func _create_timeline(dialogue: Dictionary, form_conditions: Dictionary, uuid: S
 	if uuid != "root":
 		timeline.append(dialogue)
 
-	if dialogue.has("name") and not dialogue.name.empty():
+	if dialogue.has("name"):
 		_push_speaker(dialogue.name)
 
 	if dialogue.has("next"):
@@ -48,34 +49,46 @@ func _create_timeline(dialogue: Dictionary, form_conditions: Dictionary, uuid: S
 		return
 
 	var next := ""
+	var default_next := ""
+	var can_not_predicate := false
 	if dialogue.has("conditions"):
 		var conditions = dialogue.conditions.duplicate(true)
+		var matching_condition := 0
 		for condition in conditions:
-			var next_dialogue = condition.next
+			var predicated_next: String = condition.next
 			condition.erase("next")
-			var is_root_matched := true
 
-			# empty condition
-			if condition.empty() and form_conditions.empty():
+			# conditions will never match
+			if form_conditions.size() < condition.size():
+				continue
+
+			if condition.empty():
+				default_next = predicated_next
+
+			# perfect matching keys
+			if condition.has_all(form_conditions.keys()):
 				_create_timeline(
-					Store.json_raw[next_dialogue].duplicate(), form_conditions, next_dialogue
+					Store.json_raw[predicated_next].duplicate(), form_conditions, predicated_next
 				)
 				return
 
+			# partial matching
+			var current_matching_condition := 0
 			for key in condition:
-				if not form_conditions.has(key):
-					is_root_matched = false
-					continue
-				if not is_root_matched:
-					continue
-				next = next_dialogue
-			if is_root_matched and not next.empty():
-				break
-				
+				if form_conditions.has(key):
+					current_matching_condition += 1
+			if current_matching_condition > matching_condition:
+				matching_condition = current_matching_condition
+				next = predicated_next
+
+		# take default empty branch if nothing has match
 		if next.empty():
-			# TODO: display invalid route message error
+			_create_timeline(
+				Store.json_raw[default_next].duplicate(), form_conditions, default_next
+			)
 			return
 
+		# take best matching branch
 		_create_timeline(Store.json_raw[next].duplicate(), form_conditions, next)
 
 
