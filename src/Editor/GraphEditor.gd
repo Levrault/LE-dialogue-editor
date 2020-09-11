@@ -268,7 +268,6 @@ func _on_Graph_node_loaded(node: GraphNode) -> void:
 func _on_Graph_node_focused(uuid: String) -> void:
 	var node := get_node(uuid)
 	set_selected(node)
-	scroll_offset = node.offset
 
 
 # is selected dialogue (from) is already connected to another dialogue

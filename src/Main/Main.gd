@@ -2,7 +2,7 @@
 # Create node and send 
 extends Control
 
-onready var graph_edit := $MarginContainer/VBoxContainer/HBoxContainer/Editor/GraphEdit
+onready var graph_edit := $MarginContainer/VBoxContainer/HBoxContainer/Editor/GraphEditor
 
 
 func _ready() -> void:

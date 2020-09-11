@@ -12,6 +12,7 @@ func _ready() -> void:
 	Events.connect("preview_started", self, "_on_Preview_started")
 
 
+# PreviewDialogue must have uuid has name
 func _on_Preview_started(form_conditions: Dictionary) -> void:
 	timeline = []
 	for child in get_children():
@@ -25,21 +26,22 @@ func _on_Preview_started(form_conditions: Dictionary) -> void:
 
 	for item in timeline:
 		var preview_dialogue_instance = null
-		if speakers.left.has(item.name):
+		if speakers.left.has(item.dialogue.name):
 			preview_dialogue_instance = preview_dialogue_left.instance()
-		elif speakers.right.has(item.name):
+		elif speakers.right.has(item.dialogue.name):
 			preview_dialogue_instance = preview_dialogue_right.instance()
 
 		var timer := get_tree().create_timer(.15)
 		yield(timer, "timeout")
 		add_child(preview_dialogue_instance)
-		preview_dialogue_instance.value = item
+		preview_dialogue_instance.value = item.dialogue
+		preview_dialogue_instance.name = item.uuid
 
 
 # Recursive function that get the correct dialogue
 func _create_timeline(dialogue: Dictionary, form_conditions: Dictionary, uuid: String) -> void:
 	if uuid != "root":
-		timeline.append(dialogue)
+		timeline.append({uuid = uuid, dialogue = dialogue})
 
 	if dialogue.has("name"):
 		_push_speaker(dialogue.name)
