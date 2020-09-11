@@ -1,11 +1,17 @@
 extends VBoxContainer
 
-var preview_dialogue_left = preload("res://src/Preview/PreviewDialogueLeft.tscn")
-var preview_dialogue_right = preload("res://src/Preview/PreviewDialogueRight.tscn")
-var no_route = preload("res://src/Preview/PreviewNoRoute.tscn")
-var timeline := []
+enum State { dialogue, signals, choices }
+
+const TRANSITION_DURATION := .1
+
+var preview_dialogue_left_scene = preload("res://src/Preview/PreviewDialogueLeft.tscn")
+var preview_dialogue_right_scene = preload("res://src/Preview/PreviewDialogueRight.tscn")
+var preview_no_route_scene = preload("res://src/Preview/PreviewNoRoute.tscn")
+var preview_choice_scene = preload("res://src/Preview/PreviewChoice.tscn")
+var preview_list := []
 var speakers := {"left": {}, "right": {}}
 var should_add_speaker_to_left := true
+var _form_conditions := {}
 
 
 func _ready() -> void:
@@ -14,40 +20,42 @@ func _ready() -> void:
 
 # PreviewDialogue must have uuid has name
 func _on_Preview_started(form_conditions: Dictionary) -> void:
-	timeline = []
+	_form_conditions = form_conditions
+	preview_list = []
 	for child in get_children():
 		child.queue_free()
-	_create_timeline(Store.json_raw.root.duplicate(), form_conditions, "root")
+	_create_timeline(Store.json_raw.root.duplicate(), "root")
 
-	if timeline.empty():
-		add_child(no_route.instance())
+	if preview_list.empty():
+		add_child(preview_no_route_scene.instance())
 		print("in")
 		return
 
-	for item in timeline:
-		var preview_dialogue_instance = null
-		if speakers.left.has(item.dialogue.name):
-			preview_dialogue_instance = preview_dialogue_left.instance()
-		elif speakers.right.has(item.dialogue.name):
-			preview_dialogue_instance = preview_dialogue_right.instance()
+	_display_timeline(preview_list)
 
-		var timer := get_tree().create_timer(.15)
-		yield(timer, "timeout")
-		add_child(preview_dialogue_instance)
-		preview_dialogue_instance.value = item.dialogue
-		preview_dialogue_instance.name = item.uuid
+
+func _on_Choice_pressed(value: Dictionary, index: int, choices_size: int) -> void:
+	# clean if preview answer
+	print(get_child_count())
+	var child_to_delete := get_children().slice(index + choices_size, get_child_count(), 1)
+	for child in child_to_delete:
+		child.queue_free()
+
+	preview_list.resize(index)
+	_create_timeline(Store.json_raw[value.next].duplicate(), value.next)
+	_display_timeline(preview_list, index)
 
 
 # Recursive function that get the correct dialogue
-func _create_timeline(dialogue: Dictionary, form_conditions: Dictionary, uuid: String) -> void:
-	if uuid != "root":
-		timeline.append({uuid = uuid, dialogue = dialogue})
+func _create_timeline(dialogue: Dictionary, uuid := "") -> void:
+	if uuid != "root" and not uuid.empty():
+		preview_list.append({uuid = uuid, dialogue = dialogue})
 
 	if dialogue.has("name"):
 		_push_speaker(dialogue.name)
 
 	if dialogue.has("next"):
-		_create_timeline(Store.json_raw[dialogue.next].duplicate(), form_conditions, dialogue.next)
+		_create_timeline(Store.json_raw[dialogue.next].duplicate(), dialogue.next)
 		return
 
 	var next := ""
@@ -61,23 +69,21 @@ func _create_timeline(dialogue: Dictionary, form_conditions: Dictionary, uuid: S
 			condition.erase("next")
 
 			# conditions will never match
-			if form_conditions.size() < condition.size():
+			if _form_conditions.size() < condition.size():
 				continue
 
 			if condition.empty():
 				default_next = predicated_next
 
 			# perfect matching keys
-			if condition.has_all(form_conditions.keys()):
-				_create_timeline(
-					Store.json_raw[predicated_next].duplicate(), form_conditions, predicated_next
-				)
+			if condition.has_all(_form_conditions.keys()):
+				_create_timeline(Store.json_raw[predicated_next].duplicate(), predicated_next)
 				return
 
 			# partial matching
 			var current_matching_condition := 0
 			for key in condition:
-				if form_conditions.has(key):
+				if _form_conditions.has(key):
 					current_matching_condition += 1
 			if current_matching_condition > matching_condition:
 				matching_condition = current_matching_condition
@@ -85,13 +91,11 @@ func _create_timeline(dialogue: Dictionary, form_conditions: Dictionary, uuid: S
 
 		# take default empty branch if nothing has match
 		if next.empty():
-			_create_timeline(
-				Store.json_raw[default_next].duplicate(), form_conditions, default_next
-			)
+			_create_timeline(Store.json_raw[default_next].duplicate(), default_next)
 			return
 
 		# take best matching branch
-		_create_timeline(Store.json_raw[next].duplicate(), form_conditions, next)
+		_create_timeline(Store.json_raw[next].duplicate(), next)
 
 
 func _push_speaker(name: String) -> void:
@@ -102,3 +106,37 @@ func _push_speaker(name: String) -> void:
 
 	if not speakers.right.has(name):
 		speakers.right[name] = true
+
+
+func _display_timeline(list: Array, start_at: int = 0) -> void:
+	var index := start_at
+	var items := list.slice(start_at, list.size(), 1, true)
+	print_debug(items)
+	for item in items:
+		var timer := get_tree().create_timer(TRANSITION_DURATION)
+		yield(timer, "timeout")
+
+		# dialogue
+		var preview_dialogue = null
+		if speakers.left.has(item.dialogue.name):
+			preview_dialogue = preview_dialogue_left_scene.instance()
+		elif speakers.right.has(item.dialogue.name):
+			preview_dialogue = preview_dialogue_right_scene.instance()
+
+		add_child(preview_dialogue)
+		preview_dialogue.value = item.dialogue
+		preview_dialogue.name = item.uuid
+
+		# choices
+		var choices = item.dialogue.get("choices")
+		if choices:
+			for choice in choices:
+				var preview_choice = preview_choice_scene.instance()
+
+				var timer_choice := get_tree().create_timer(TRANSITION_DURATION)
+				yield(timer_choice, "timeout")
+				add_child(preview_choice)
+				preview_choice.value = choice
+				preview_choice.button.connect(
+					"pressed", self, "_on_Choice_pressed", [choice, items.size(), choices.size()]
+				)

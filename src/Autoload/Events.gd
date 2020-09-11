@@ -6,6 +6,7 @@ signal layout_preview_toggled
 
 # preview
 signal preview_started(conditions)
+signal preview_choices_displayed
 
 # creation
 signal graph_node_added(node)
