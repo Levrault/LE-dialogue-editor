@@ -11,7 +11,10 @@ func _ready() -> void:
 	Events.connect("connection_request_loaded", self, "_on_Connection_request")
 	Events.connect("graph_node_added", self, "_on_Graph_node_added")
 	Events.connect("graph_node_loaded", self, "_on_Graph_node_loaded")
-	Events.connect("graph_node_focused", self, "_on_Graph_node_focused")
+	Events.connect("graph_node_selected", self, "_on_Graph_node_selected")
+	Events.connect(
+		"preview_predicated_route_displayed", self, "_on_Preview_predicated_route_displayed"
+	)
 
 
 func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: int) -> void:
@@ -265,9 +268,21 @@ func _on_Graph_node_loaded(node: GraphNode) -> void:
 	_add_Graph_node(node)
 
 
-func _on_Graph_node_focused(uuid: String) -> void:
-	var node := get_node(uuid)
-	set_selected(node)
+func _on_Graph_node_selected(uuid: String) -> void:
+	set_selected(get_node(uuid))
+
+
+func _on_Preview_predicated_route_displayed(uuid_list: Array) -> void:
+	for child in get_children():
+		if not child is GraphEditorNode:
+			continue
+		print("in")
+		child.selected = false
+
+	for uuid in uuid_list:
+		if not has_node(uuid):
+			continue
+		get_node(uuid).selected = true
 
 
 # is selected dialogue (from) is already connected to another dialogue

@@ -34,9 +34,8 @@ expand_margin_top = 8.0
 expand_margin_bottom = 8.0
 
 [node name="GraphEditor" type="GraphEdit"]
-margin_top = 26.0
 margin_right = 1600.0
-margin_bottom = 895.0
+margin_bottom = 869.0
 size_flags_vertical = 3
 right_disconnects = true
 script = ExtResource( 2 )

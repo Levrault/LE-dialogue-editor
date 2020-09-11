@@ -23,9 +23,9 @@ expand_margin_bottom = 8.0
 
 [node name="DialogueNode" type="GraphNode"]
 anchor_left = 0.11
-anchor_top = 0.125444
+anchor_top = 0.0787778
 anchor_right = 0.11
-anchor_bottom = 0.125444
+anchor_bottom = 0.0787778
 margin_left = -172.0
 margin_top = -163.9
 margin_right = 173.0

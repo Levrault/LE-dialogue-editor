@@ -6,12 +6,13 @@ signal layout_preview_toggled
 
 # preview
 signal preview_started(conditions)
+signal preview_predicated_route_displayed(uuid_list)
 signal preview_choices_displayed
 
 # creation
 signal graph_node_added(node)
 signal graph_node_loaded(node)
-signal graph_node_focused(uuid)
+signal graph_node_selected(uuid)
 signal graph_edit_reloaded_started
 signal graph_edit_reloaded_finished
 

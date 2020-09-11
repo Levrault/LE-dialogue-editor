@@ -9,6 +9,7 @@ var preview_dialogue_right_scene = preload("res://src/Preview/PreviewDialogueRig
 var preview_no_route_scene = preload("res://src/Preview/PreviewNoRoute.tscn")
 var preview_choice_scene = preload("res://src/Preview/PreviewChoice.tscn")
 var preview_list := []
+var uuid_list := []
 var speakers := {"left": {}, "right": {}}
 var should_add_speaker_to_left := true
 var _form_conditions := {}
@@ -22,13 +23,13 @@ func _ready() -> void:
 func _on_Preview_started(form_conditions: Dictionary) -> void:
 	_form_conditions = form_conditions
 	preview_list = []
+	uuid_list = []
 	for child in get_children():
 		child.queue_free()
 	_create_timeline(Store.json_raw.root.duplicate(), "root")
 
 	if preview_list.empty():
 		add_child(preview_no_route_scene.instance())
-		print("in")
 		return
 
 	_display_timeline(preview_list)
@@ -50,6 +51,7 @@ func _on_Choice_pressed(value: Dictionary, index: int, choices_size: int) -> voi
 func _create_timeline(dialogue: Dictionary, uuid := "") -> void:
 	if uuid != "root" and not uuid.empty():
 		preview_list.append({uuid = uuid, dialogue = dialogue})
+		uuid_list.append(uuid)
 
 	if dialogue.has("name"):
 		_push_speaker(dialogue.name)
@@ -108,10 +110,11 @@ func _push_speaker(name: String) -> void:
 		speakers.right[name] = true
 
 
+# Add scene based on the start_at index
 func _display_timeline(list: Array, start_at: int = 0) -> void:
 	var index := start_at
 	var items := list.slice(start_at, list.size(), 1, true)
-	print_debug(items)
+	Events.emit_signal("preview_predicated_route_displayed", uuid_list)
 	for item in items:
 		var timer := get_tree().create_timer(TRANSITION_DURATION)
 		yield(timer, "timeout")
@@ -131,10 +134,10 @@ func _display_timeline(list: Array, start_at: int = 0) -> void:
 		var choices = item.dialogue.get("choices")
 		if choices:
 			for choice in choices:
-				var preview_choice = preview_choice_scene.instance()
-
 				var timer_choice := get_tree().create_timer(TRANSITION_DURATION)
 				yield(timer_choice, "timeout")
+
+				var preview_choice = preview_choice_scene.instance()
 				add_child(preview_choice)
 				preview_choice.value = choice
 				preview_choice.button.connect(
