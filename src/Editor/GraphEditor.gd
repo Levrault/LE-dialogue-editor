@@ -186,6 +186,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		# print_debug("connect dialogue to condition relation")
 		connect_node(from, from_slot, to, to_slot)
 		to_node.values["__editor"]["parent"] = from_node.uuid
+		from_node.connected_to_choices.append(to)
 
 		# in loading mode, store has already the data
 		if to_node.is_loading:

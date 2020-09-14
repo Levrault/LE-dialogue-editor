@@ -28,12 +28,18 @@ _global_script_classes=[ {
 "class": "Parser",
 "language": "GDScript",
 "path": "res://src/Utils/Parser.gd"
+}, {
+"base": "PanelContainer",
+"class": "PopInPanel",
+"language": "GDScript",
+"path": "res://src/Preview/PopInPanel.gd"
 } ]
 _global_script_class_icons={
 "AddButton": "",
 "FieldInput": "",
 "GraphEditorNode": "",
-"Parser": ""
+"Parser": "",
+"PopInPanel": ""
 }
 
 [application]

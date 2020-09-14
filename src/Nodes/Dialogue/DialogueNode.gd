@@ -5,7 +5,7 @@ const TYPE = Editor.Type.dialogue
 var connected_to_dialogue := ""
 var connected_to_dialogue_slot := 0
 
-var connected_to_condition := ""
+var connected_to_conditions := []
 var connected_to_condition_slot := 0
 
 var connected_to_choices := []
@@ -34,11 +34,11 @@ func _on_Close_request() -> void:
 		dialogue.data.next = ""
 		Events.emit_signal("node_deleted", dialogue.__editor.uuid, 0, uuid, 0)
 
-	if not connected_to_condition.empty():
+	# clean valid conditions
+	for condition in Store.get_connected_nodes(Store.conditions_node, uuid):
 		Events.emit_signal(
-			"node_deleted", uuid, 0, connected_to_condition, connected_to_condition_slot
+			"node_deleted", uuid, 0, condition.__editor.uuid, connected_to_condition_slot
 		)
-		connected_to_condition = ""
 
 	if not connected_to_signal.empty():
 		Events.emit_signal("node_deleted", uuid, 0, connected_to_signal, connected_to_signal_slot)

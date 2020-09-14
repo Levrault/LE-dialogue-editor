@@ -13,6 +13,7 @@ var preview_list := []
 var uuid_list := []
 var speakers := {"left": {}, "right": {}}
 var should_add_speaker_to_left := true
+
 var _form_conditions := {}
 
 
@@ -36,13 +37,25 @@ func _on_Preview_started(form_conditions: Dictionary) -> void:
 	_display_timeline(preview_list)
 
 
-func _on_Choice_pressed(value: Dictionary, index: int, choices_size: int) -> void:
+func _on_Choice_pressed(
+	value: Dictionary, index: int, choices_size: int, uuid: String, parent_uuid: String
+) -> void:
 	# clean if preview answer
-	var child_to_delete := get_children().slice(index + choices_size, get_child_count(), 1)
-	for child in child_to_delete:
+	print(index + choices_size)
+	print(get_children())
+	var children_to_delete := get_children().slice(index + choices_size, get_child_count(), 1)
+	print(children_to_delete)
+	for child in children_to_delete:
 		child.queue_free()
 
+	# clean preview list 
 	preview_list.resize(index)
+
+	# clean uuid list
+	uuid_list.resize(uuid_list.find(parent_uuid) + 1)
+	uuid_list.append(uuid)
+
+	# display
 	_create_timeline(Store.json_raw[value.next].duplicate(), value.next)
 	_display_timeline(preview_list, index)
 
@@ -114,7 +127,7 @@ func _push_speaker(name: String) -> void:
 func _display_timeline(list: Array, start_at: int = 0) -> void:
 	var index := start_at
 	var items := list.slice(start_at, list.size(), 1, true)
-	Events.emit_signal("preview_predicated_route_displayed", uuid_list)
+
 	for item in items:
 		var timer := get_tree().create_timer(TRANSITION_DURATION)
 		yield(timer, "timeout")
@@ -134,18 +147,27 @@ func _display_timeline(list: Array, start_at: int = 0) -> void:
 		if signals:
 			var preview_signal = preview_signal_scene.instance()
 			add_child(preview_signal)
+			preview_signal.name = Editor.graph_edit.get_node(item.uuid).connected_to_signal
 			preview_signal.values = signals
+			uuid_list.append(preview_signal.name)
 
 		# choices
 		var choices = item.dialogue.get("choices")
 		if choices:
-			for choice in choices:
+			for i in range(0, choices.size()):
 				var timer_choice := get_tree().create_timer(TRANSITION_DURATION)
 				yield(timer_choice, "timeout")
 
 				var preview_choice = preview_choice_scene.instance()
 				add_child(preview_choice)
-				preview_choice.value = choice
+
+				preview_choice.value = choices[i]
+				preview_choice.name = Editor.graph_edit.get_node(item.uuid).connected_to_choices[i]
 				preview_choice.button.connect(
-					"pressed", self, "_on_Choice_pressed", [choice, items.size(), choices.size()]
+					"pressed",
+					self,
+					"_on_Choice_pressed",
+					[choices[i], items.size(), choices.size(), preview_choice.name, item.uuid]
 				)
+
+	Events.emit_signal("preview_predicated_route_displayed", uuid_list)
