@@ -38,15 +38,15 @@ func _on_Preview_started(form_conditions: Dictionary) -> void:
 
 
 func _on_Choice_pressed(
-	value: Dictionary, index: int, choices_size: int, uuid: String, parent_uuid: String
+	value: Dictionary, index: int, last_choice: Dictionary, uuid: String, parent_uuid: String
 ) -> void:
 	# clean if preview answer
-	print(index + choices_size)
-	print(get_children())
-	var children_to_delete := get_children().slice(index + choices_size, get_child_count(), 1)
-	print(children_to_delete)
-	for child in children_to_delete:
-		child.queue_free()
+	if not last_choice.uuid == get_child(get_child_count() - 1).name:
+		var slice_start_to := get_children().find(get_node(last_choice.uuid)) + 1
+		var children_to_delete := get_children().slice(slice_start_to, get_child_count(), 1)
+		# does those value are one of our current choice
+		for child in children_to_delete:
+			child.queue_free()
 
 	# clean preview list 
 	preview_list.resize(index)
@@ -152,8 +152,8 @@ func _display_timeline(list: Array, start_at: int = 0) -> void:
 			uuid_list.append(preview_signal.name)
 
 		# choices
-		var choices = item.dialogue.get("choices")
-		if choices:
+		if item.dialogue.has("choices"):
+			var choices = item.dialogue.choices.duplicate(true)
 			for i in range(0, choices.size()):
 				var timer_choice := get_tree().create_timer(TRANSITION_DURATION)
 				yield(timer_choice, "timeout")
@@ -163,11 +163,19 @@ func _display_timeline(list: Array, start_at: int = 0) -> void:
 
 				preview_choice.value = choices[i]
 				preview_choice.name = Editor.graph_edit.get_node(item.uuid).connected_to_choices[i]
+				# add uuid
+				choices[i]["uuid"] = preview_choice.name
 				preview_choice.button.connect(
 					"pressed",
 					self,
 					"_on_Choice_pressed",
-					[choices[i], items.size(), choices.size(), preview_choice.name, item.uuid]
+					[
+						choices[i],
+						items.size(),
+						choices[choices.size() - 1],
+						preview_choice.name,
+						item.uuid
+					]
 				)
 
 	Events.emit_signal("preview_predicated_route_displayed", uuid_list)
