@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Preview/PreviewSignal.gd" type="Script" id=1]
+[ext_resource path="res://assets/themes/preview/preview_signal.tres" type="Theme" id=2]
+
+[node name="PreviewSignal" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1316.0
+margin_bottom = -870.0
+theme = ExtResource( 2 )
+custom_constants/margin_right = 24
+custom_constants/margin_left = 24
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Wrapper" type="PanelContainer" parent="."]
+margin_left = 24.0
+margin_right = 260.0
+margin_bottom = 48.0
+
+[node name="Container" type="VBoxContainer" parent="Wrapper"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 228.0
+margin_bottom = 40.0
+
+[node name="Title" type="Label" parent="Wrapper/Container"]
+margin_right = 220.0
+margin_bottom = 14.0
+text = "has emited"
+
+[node name="MarginContainer" type="MarginContainer" parent="Wrapper/Container"]
+margin_top = 18.0
+margin_right = 220.0
+margin_bottom = 18.0
+custom_constants/margin_left = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ListContainer" type="VBoxContainer" parent="Wrapper/Container/MarginContainer"]
+margin_left = 8.0
+margin_right = 220.0

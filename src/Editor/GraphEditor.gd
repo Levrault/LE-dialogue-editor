@@ -276,7 +276,6 @@ func _on_Preview_predicated_route_displayed(uuid_list: Array) -> void:
 	for child in get_children():
 		if not child is GraphEditorNode:
 			continue
-		print("in")
 		child.selected = false
 
 	for uuid in uuid_list:

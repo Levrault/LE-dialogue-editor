@@ -8,6 +8,7 @@ var preview_dialogue_left_scene = preload("res://src/Preview/PreviewDialogueLeft
 var preview_dialogue_right_scene = preload("res://src/Preview/PreviewDialogueRight.tscn")
 var preview_no_route_scene = preload("res://src/Preview/PreviewNoRoute.tscn")
 var preview_choice_scene = preload("res://src/Preview/PreviewChoice.tscn")
+var preview_signal_scene = preload("res://src/Preview/PreviewSignal.tscn")
 var preview_list := []
 var uuid_list := []
 var speakers := {"left": {}, "right": {}}
@@ -37,7 +38,6 @@ func _on_Preview_started(form_conditions: Dictionary) -> void:
 
 func _on_Choice_pressed(value: Dictionary, index: int, choices_size: int) -> void:
 	# clean if preview answer
-	print(get_child_count())
 	var child_to_delete := get_children().slice(index + choices_size, get_child_count(), 1)
 	for child in child_to_delete:
 		child.queue_free()
@@ -129,6 +129,12 @@ func _display_timeline(list: Array, start_at: int = 0) -> void:
 		add_child(preview_dialogue)
 		preview_dialogue.value = item.dialogue
 		preview_dialogue.name = item.uuid
+
+		var signals = item.dialogue.get("signals")
+		if signals:
+			var preview_signal = preview_signal_scene.instance()
+			add_child(preview_signal)
+			preview_signal.values = signals
 
 		# choices
 		var choices = item.dialogue.get("choices")

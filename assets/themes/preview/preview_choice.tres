@@ -8,7 +8,7 @@ corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.584314, 0.458824, 0.803922, 1 )
+bg_color = Color( 0.368627, 0.207843, 0.694118, 1 )
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
