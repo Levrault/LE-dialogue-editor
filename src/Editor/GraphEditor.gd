@@ -11,6 +11,10 @@ func _ready() -> void:
 	Events.connect("connection_request_loaded", self, "_on_Connection_request")
 	Events.connect("graph_node_added", self, "_on_Graph_node_added")
 	Events.connect("graph_node_loaded", self, "_on_Graph_node_loaded")
+	Events.connect("graph_node_selected", self, "_on_Graph_node_selected")
+	Events.connect(
+		"preview_predicated_route_displayed", self, "_on_Preview_predicated_route_displayed"
+	)
 
 
 func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: int) -> void:
@@ -182,6 +186,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		# print_debug("connect dialogue to condition relation")
 		connect_node(from, from_slot, to, to_slot)
 		to_node.values["__editor"]["parent"] = from_node.uuid
+		from_node.connected_to_choices.append(to)
 
 		# in loading mode, store has already the data
 		if to_node.is_loading:
@@ -192,6 +197,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 	# CONDITIONS -- DIALOGUE 
 	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.dialogue:
 		# print_debug("connect condition to dialogue relation")
+		to_node.left_conditions_connection = from
 		connect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("condition_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
 		return
@@ -262,6 +268,22 @@ func _on_Graph_node_loaded(node: GraphNode) -> void:
 	node.offset = Vector2(node.values.__editor.offset[0], node.values.__editor.offset[1])
 	node.is_loading = true
 	_add_Graph_node(node)
+
+
+func _on_Graph_node_selected(uuid: String) -> void:
+	set_selected(get_node(uuid))
+
+
+func _on_Preview_predicated_route_displayed(uuid_list: Array) -> void:
+	for child in get_children():
+		if not child is GraphEditorNode:
+			continue
+		child.selected = false
+
+	for uuid in uuid_list:
+		if not has_node(uuid):
+			continue
+		get_node(uuid).selected = true
 
 
 # is selected dialogue (from) is already connected to another dialogue

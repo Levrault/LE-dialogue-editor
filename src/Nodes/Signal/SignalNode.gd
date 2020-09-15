@@ -140,7 +140,7 @@ func _on_Type_selected(index: int) -> void:
 
 
 func _on_File_loaded() -> void:
-	for value in values:
+	for value in values.data:
 		var new_signal = signal_field.instance()
 		container.add_child(new_signal)
 		new_signal.value.text = value

@@ -21,4 +21,4 @@ func set_value(value: Dictionary) -> void:
 	speaker_name.text = value.name
 	portrait.text = value.portrait
 	message_text.message = value.text[Editor.locale]
-	message_text.call_deferred("resize")
+	message_text.call_deferred("pop_in_animation")

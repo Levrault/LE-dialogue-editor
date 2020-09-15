@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://src/Editor/GraphEdit.gd" type="Script" id=1]
-[ext_resource path="res://src/Nodes/Root/RootNode.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Nodes/Root/RootNode.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Editor/GraphEditor.gd" type="Script" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 16.0
@@ -33,18 +33,17 @@ expand_margin_right = 8.0
 expand_margin_top = 8.0
 expand_margin_bottom = 8.0
 
-[node name="GraphEdit" type="GraphEdit"]
-margin_top = 26.0
+[node name="GraphEditor" type="GraphEdit"]
 margin_right = 1600.0
-margin_bottom = 895.0
+margin_bottom = 869.0
 size_flags_vertical = 3
 right_disconnects = true
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RootNode" parent="." instance=ExtResource( 3 )]
+[node name="RootNode" parent="." instance=ExtResource( 1 )]
 margin_left = -28.8
 margin_top = 55.681
 margin_right = 110.2
