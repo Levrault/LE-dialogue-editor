@@ -197,6 +197,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 	# CONDITIONS -- DIALOGUE 
 	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.dialogue:
 		# print_debug("connect condition to dialogue relation")
+		to_node.left_conditions_connection = from
 		connect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("condition_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
 		return

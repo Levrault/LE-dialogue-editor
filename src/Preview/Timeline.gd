@@ -1,3 +1,6 @@
+# Display a dialogue route based on the condition
+# Display the dialogue, signals, choices in a windows
+# Hightlight the route in the editor
 extends VBoxContainer
 
 enum State { dialogue, signals, choices }
@@ -9,6 +12,7 @@ var preview_dialogue_right_scene = preload("res://src/Preview/PreviewDialogueRig
 var preview_no_route_scene = preload("res://src/Preview/PreviewNoRoute.tscn")
 var preview_choice_scene = preload("res://src/Preview/PreviewChoice.tscn")
 var preview_signal_scene = preload("res://src/Preview/PreviewSignal.tscn")
+
 var preview_list := []
 var uuid_list := []
 var speakers := {"left": {}, "right": {}}
@@ -21,7 +25,7 @@ func _ready() -> void:
 	Events.connect("preview_started", self, "_on_Preview_started")
 
 
-# PreviewDialogue must have uuid has name
+# Preview predicated route based on selected conditions
 func _on_Preview_started(form_conditions: Dictionary) -> void:
 	_form_conditions = form_conditions
 	preview_list = []
@@ -37,6 +41,13 @@ func _on_Preview_started(form_conditions: Dictionary) -> void:
 	_display_timeline(preview_list)
 
 
+# Pressing on a choice need to clean the path created after that choice. Last choice is sended
+# to take all the data after the "choice" path
+# @param {dictionary} value
+# @param {int} index - dialogue index, to resize the list and uuid
+# @param {dictionary} last_choice - last available choice to clean the list after pressing
+# @param {string} uuid - current choice uuid
+# @param {string} parent_uuid - related dialogue uuid
 func _on_Choice_pressed(
 	value: Dictionary, index: int, last_choice: Dictionary, uuid: String, parent_uuid: String
 ) -> void:
@@ -62,9 +73,14 @@ func _on_Choice_pressed(
 
 # Recursive function that get the correct dialogue
 func _create_timeline(dialogue: Dictionary, uuid := "") -> void:
-	if uuid != "root" and not uuid.empty():
-		preview_list.append({uuid = uuid, dialogue = dialogue})
-		uuid_list.append(uuid)
+	if uuid != "root":
+		if not uuid.empty():
+			preview_list.append({uuid = uuid, dialogue = dialogue})
+			uuid_list.append(uuid)
+
+		var dialogue_node := Editor.graph_edit.get_node(uuid)
+		if not dialogue_node.left_conditions_connection.empty():
+			uuid_list.append(dialogue_node.left_conditions_connection)
 
 	if dialogue.has("name"):
 		_push_speaker(dialogue.name)
@@ -79,6 +95,7 @@ func _create_timeline(dialogue: Dictionary, uuid := "") -> void:
 	if dialogue.has("conditions"):
 		var conditions = dialogue.conditions.duplicate(true)
 		var matching_condition := 0
+
 		for condition in conditions:
 			var predicated_next: String = condition.next
 			condition.erase("next")
@@ -113,6 +130,7 @@ func _create_timeline(dialogue: Dictionary, uuid := "") -> void:
 		_create_timeline(Store.json_raw[next].duplicate(), next)
 
 
+# Add speaker line to dialogue
 func _push_speaker(name: String) -> void:
 	if should_add_speaker_to_left and not speakers.left.has(name):
 		speakers.left[name] = true
@@ -179,3 +197,4 @@ func _display_timeline(list: Array, start_at: int = 0) -> void:
 				)
 
 	Events.emit_signal("preview_predicated_route_displayed", uuid_list)
+	Events.emit_signal("preview_finished")

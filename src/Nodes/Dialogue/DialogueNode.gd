@@ -5,6 +5,7 @@ const TYPE = Editor.Type.dialogue
 var connected_to_dialogue := ""
 var connected_to_dialogue_slot := 0
 
+var left_conditions_connection := ""
 var connected_to_conditions := []
 var connected_to_condition_slot := 0
 
