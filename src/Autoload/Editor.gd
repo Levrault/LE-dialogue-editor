@@ -31,7 +31,7 @@ func reset() -> void:
 
 	for child in graph_edit.get_children():
 		if child is GraphEditorNode:
-			child.free()
+			child.queue_free()
 
 
 func type_to_string(value: int) -> String:
