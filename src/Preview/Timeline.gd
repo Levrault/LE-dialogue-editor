@@ -7,11 +7,11 @@ enum State { dialogue, signals, choices }
 
 const TRANSITION_DURATION := .1
 
-var preview_dialogue_left_scene = preload("res://src/Preview/PreviewDialogueLeft.tscn")
-var preview_dialogue_right_scene = preload("res://src/Preview/PreviewDialogueRight.tscn")
+var preview_dialogue_left_scene = preload("res://src/Preview/PreviewDialogue/PreviewDialogueLeft.tscn")
+var preview_dialogue_right_scene = preload("res://src/Preview/PreviewDialogue/PreviewDialogueRight.tscn")
 var preview_no_route_scene = preload("res://src/Preview/PreviewNoRoute.tscn")
-var preview_choice_scene = preload("res://src/Preview/PreviewChoice.tscn")
-var preview_signal_scene = preload("res://src/Preview/PreviewSignal.tscn")
+var preview_choice_scene = preload("res://src/Preview/PreviewChoice/PreviewChoice.tscn")
+var preview_signal_scene = preload("res://src/Preview/PreviewSignal/PreviewSignal.tscn")
 
 var preview_list := []
 var uuid_list := []
