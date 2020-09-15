@@ -245,8 +245,18 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 	# DIALOGUE -- CONDITION
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.condition:
 		print_debug("disconnect conditions of dialogue relation")
-		disconnect_node(from, from_slot, to, to_slot)
-		Events.emit_signal("dialogue_to_condition_relation_deleted", from_node.uuid, to_node.uuid)
+
+		# left connection
+		if not from_node.left_conditions_connection.empty():
+			disconnect_node(from_node.left_conditions_connection, to_slot, from, from_slot)
+
+		# right connection
+		if not from_node.connected_to_conditions.empty():
+			for condition in from_node.connected_to_conditions:
+				disconnect_node(from, from_slot, condition, to_slot)
+				Events.emit_signal(
+					"dialogue_to_condition_relation_deleted", from_node.uuid, condition
+				)
 		return
 
 	# DIALOGUE -- SIGNAL
