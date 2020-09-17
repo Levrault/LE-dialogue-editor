@@ -4,7 +4,6 @@
 [ext_resource path="res://src/Preview/PreviewDialogue/MessageText.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/themes/preview/preview_dialogue_left.tres" type="Theme" id=3]
 
-
 [node name="PreviewDialogueLeft" type="VBoxContainer"]
 margin_right = 284.0
 margin_bottom = 166.0

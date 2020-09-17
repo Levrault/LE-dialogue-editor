@@ -80,3 +80,4 @@ size_flags_vertical = 3
 
 [node name="Timeline" parent="MarginContainer/Container/TimelineContainer" instance=ExtResource( 2 )]
 margin_bottom = 828.0
+rect_clip_content = true
