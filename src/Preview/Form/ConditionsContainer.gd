@@ -4,7 +4,7 @@ var condition_checkbox := preload("res://src/Preview/Form/ConditionCheckBox.tscn
 
 var conditions := {}
 
-onready var label := $Label
+onready var label := $Empty
 
 
 func _ready() -> void:
@@ -18,6 +18,7 @@ func _on_Condition_value_added() -> void:
 		return
 
 	label.hide()
+	owner.reset_fold_button()
 	for key in Store.conditions_node:
 		for data in Store.conditions_node[key].data:
 			# prevent adding editor data
