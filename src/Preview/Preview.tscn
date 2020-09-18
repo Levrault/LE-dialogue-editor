@@ -1,13 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/Preview/Preview.gd" type="Script" id=1]
 [ext_resource path="res://src/Preview/Timeline.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Preview/Form/TimelineForm.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/icons/close_white.svg" type="Texture" id=4]
 [ext_resource path="res://src/Preview/ClosePreviewButton.gd" type="Script" id=5]
+[ext_resource path="res://src/Components/AnimatedToolButton.tscn" type="PackedScene" id=6]
 
 [node name="Preview" type="Control"]
-visible = false
 margin_right = 300.0
 margin_bottom = 869.0
 rect_min_size = Vector2( 300, 0 )
@@ -55,29 +55,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ClosePreviewButton" type="ToolButton" parent="MarginContainer/Container/HBoxContainer"]
+[node name="ClosePreviewButton" parent="MarginContainer/Container/HBoxContainer" instance=ExtResource( 6 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_left = 248.0
 margin_right = 284.0
 margin_bottom = 32.0
-mouse_default_cursor_shape = 2
 icon = ExtResource( 4 )
 script = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TimelineForm" parent="MarginContainer/Container" instance=ExtResource( 3 )]
 margin_top = 48.0
-margin_bottom = 128.0
+margin_bottom = 132.0
 
 [node name="TimelineContainer" type="ScrollContainer" parent="MarginContainer/Container"]
 visible = false
-margin_top = 22.0
+margin_top = 148.0
 margin_right = 284.0
 margin_bottom = 850.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Timeline" parent="MarginContainer/Container/TimelineContainer" instance=ExtResource( 2 )]
-margin_bottom = 828.0
+margin_bottom = 702.0
 rect_clip_content = true
