@@ -14,13 +14,21 @@ func _ready() -> void:
 	Events.connect("choice_node_created", self, "_on_Choice_node_created")
 	Events.connect("condition_node_created", self, "_on_Condition_node_created")
 	Events.connect("signal_node_created", self, "_on_Signal_node_created")
-	# start to dialogue
+
+	# root to dialogue
 	Events.connect(
-		"root_to_dialogue_relation_changed", self, "_on_Root_to_dialogue_relation_changed"
+		"root_to_dialogue_relation_created", self, "_on_Root_to_dialogue_relation_created"
+	)
+	Events.connect(
+		"root_to_dialogue_relation_deleted", self, "_on_Root_to_dialogue_relation_deleted"
 	)
 
+	# root to condition
 	Events.connect(
-		"root_to_condition_relation_changed", self, "_on_Root_to_condition_relation_changed"
+		"root_to_condition_relation_created", self, "_on_Root_to_condition_relation_created"
+	)
+	Events.connect(
+		"root_to_condition_relation_deleted", self, "_on_Root_to_condition_relation_deleted"
 	)
 
 	# Dialogue to dialogue
@@ -80,16 +88,25 @@ func get_connected_nodes(nodes: Dictionary, dialogue_uuid: String) -> Array:
 	return result
 
 
-func _on_Root_to_dialogue_relation_changed(from: String) -> void:
+# Root
+func _on_Root_to_dialogue_relation_created(from: String) -> void:
 	if not json_raw.root.has("next"):
 		json_raw.root["next"] = ""
 	json_raw.root.next = from
 
 
-func _on_Root_to_condition_relation_changed(to: String) -> void:
+func _on_Root_to_dialogue_relation_deleted() -> void:
+	json_raw.root.erase("next")
+
+
+func _on_Root_to_condition_relation_created(to: String) -> void:
 	if not json_raw.root.has("conditions"):
 		json_raw.root["conditions"] = []
 	json_raw.root.conditions.append(conditions_node[to].data)
+
+
+func _on_Root_to_condition_relation_deleted(to: String) -> void:
+	json_raw.root.conditions.erase(conditions_node[to].data)
 
 
 # Dialogue

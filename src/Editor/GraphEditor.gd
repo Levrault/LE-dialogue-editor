@@ -48,7 +48,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		from_node.connected_to_conditions.append(to)
 		from_node.connected_to_conditions_slot = to_slot
 		to_node.values["__editor"]["parent"] = from_node.uuid
-		Events.emit_signal("root_to_condition_relation_changed", to_node.uuid)
+		Events.emit_signal("root_to_condition_relation_created", to_node.uuid)
 
 		connect_node(from, from_slot, to, to_slot)
 		return
@@ -81,8 +81,9 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		from_node.connected_to_dialogue = to
 		from_node.connected_to_dialogue_slot = to_slot
 		from_node.connected_to_conditions = []
+		to_node.values["__editor"]["parent"] = from_node.uuid
 
-		Events.emit_signal("root_to_dialogue_relation_changed", to_node.uuid)
+		Events.emit_signal("root_to_dialogue_relation_created", to_node.uuid)
 
 		connect_node(from, from_slot, to, to_slot)
 		return
@@ -211,11 +212,15 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 
 	# ROOT -- DIALOGUE 
 	if from_node.TYPE == Editor.Type.root and to_node.TYPE == Editor.Type.dialogue:
+		Events.emit_signal("root_to_dialogue_relation_deleted")
+		from_node.connected_to_dialogue = ""
 		disconnect_node(from, from_slot, to, to_slot)
 		return
 
 	# ROOT -- CONDITION 
-	if from_node.TYPE == Editor.Type.root and to_node.TYPE == Editor.Type.conditions:
+	if from_node.TYPE == Editor.Type.root and to_node.TYPE == Editor.Type.condition:
+		Events.emit_signal("root_to_condition_relation_deleted", to)
+		from_node.connected_to_conditions.erase(to)
 		disconnect_node(from, from_slot, to, to_slot)
 		return
 
