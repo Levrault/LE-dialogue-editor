@@ -82,7 +82,7 @@ size_flags_vertical = 3
 visible = false
 
 [node name="Editor" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_right = 1296.0
+margin_right = 1600.0
 margin_bottom = 869.0
 size_flags_horizontal = 3
 size_flags_vertical = 3

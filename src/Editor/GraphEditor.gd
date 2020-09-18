@@ -30,7 +30,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		)
 		return
 
-	# START -- Conditions
+	# ROOT -- Conditions
 	if from_node.TYPE == Editor.Type.root and to_node.TYPE == Editor.Type.condition:
 		_check_node_connection(
 			from,
@@ -53,7 +53,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		connect_node(from, from_slot, to, to_slot)
 		return
 
-	# START -- DIALOGUE
+	# ROOT -- DIALOGUE
 	if from_node.TYPE == Editor.Type.root and to_node.TYPE == Editor.Type.dialogue:
 		_check_node_connection(
 			from,
@@ -77,7 +77,6 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 				condition,
 				from_node.connected_to_conditions_slot
 			)
-		# print_debug("connect start to dialogue relation")
 
 		from_node.connected_to_dialogue = to
 		from_node.connected_to_dialogue_slot = to_slot
@@ -113,8 +112,6 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 				from_node.connected_to_choices_slot
 			)
 
-		# print_debug("connect dialogue to dialogue relation")
-
 		from_node.connected_to_dialogue = to
 		from_node.connected_to_dialogue_slot = to_slot
 		from_node.connected_to_choices = []
@@ -125,7 +122,6 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 	# DIALOGUE -- SIGNAL  
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.signal_node:
-		# print_debug("connect signal to dialogue relation")
 		_check_node_connection(
 			from,
 			from_slot,
@@ -149,7 +145,6 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 	# DIALOGUE -- CHOICE
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.choice:
-		# print_debug("connect dialogue to choice relation")
 		_check_node_connection(
 			from,
 			from_slot,
@@ -176,14 +171,12 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 	# CHOICE -- DIALOGUE
 	if from_node.TYPE == Editor.Type.choice and to_node.TYPE == Editor.Type.dialogue:
-		# print_debug("connect choice to dialogue relation")
 		connect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("choice_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
 		return
 
 	# DIALOGUE -- CONDITIONS
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.condition:
-		# print_debug("connect dialogue to condition relation")
 		connect_node(from, from_slot, to, to_slot)
 		to_node.values["__editor"]["parent"] = from_node.uuid
 		from_node.connected_to_choices.append(to)
@@ -196,7 +189,6 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 	# CONDITIONS -- DIALOGUE 
 	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.dialogue:
-		# print_debug("connect condition to dialogue relation")
 		to_node.left_conditions_connection = from
 		connect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("condition_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
@@ -216,36 +208,41 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 	Editor.current_state = Editor.FileState.unsaved
 	var from_node = get_node(from)
 	var to_node = get_node(to)
+
+	# ROOT -- DIALOGUE 
+	if from_node.TYPE == Editor.Type.root and to_node.TYPE == Editor.Type.dialogue:
+		disconnect_node(from, from_slot, to, to_slot)
+		return
+
+	# ROOT -- CONDITION 
+	if from_node.TYPE == Editor.Type.root and to_node.TYPE == Editor.Type.conditions:
+		disconnect_node(from, from_slot, to, to_slot)
+		return
+
 	# DIALOGUE -- DIALOGUE
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.dialogue:
-		print_debug("disconnect dialogue of dialogue relation")
 		disconnect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("dialogue_to_dialogue_relation_deleted", from_node.uuid)
 		return
 
 	# DIALOGUE -- CHOICE
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.choice:
-		print_debug("disconnect dialogue of choice relation")
 		disconnect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("dialogue_to_choice_relation_deleted", from_node.uuid, to_node.uuid)
 		return
 
 	# CHOICE -- DIALOGUE 
 	if from_node.TYPE == Editor.Type.choice and to_node.TYPE == Editor.Type.dialogue:
-		print_debug("disconnect choice of dialogue relation")
 		disconnect_node(from, from_slot, to, to_slot)
 		return
 
 	# CONDITIONS -- DIALOGUE 
 	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.dialogue:
-		print_debug("disconnect choice of dialogue relation")
 		disconnect_node(from, from_slot, to, to_slot)
 		return
 
 	# DIALOGUE -- CONDITION
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.condition:
-		print_debug("disconnect conditions of dialogue relation")
-
 		# left connection
 		if not from_node.left_conditions_connection.empty():
 			disconnect_node(from_node.left_conditions_connection, to_slot, from, from_slot)
@@ -261,7 +258,6 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 
 	# DIALOGUE -- SIGNAL
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.signal_node:
-		print_debug("disconnect signals of dialogue relation")
 		disconnect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("dialogue_to_signal_relation_deleted", from_node.uuid)
 		return
@@ -310,13 +306,6 @@ func _check_node_connection(
 ) -> void:
 	if node_connected.empty():
 		return
-
-	print_debug(
-		(
-			"WARNING: %s %s node is already connected to a %s %s, first connection will be disconnected"
-			% [from_type, from, to_type, to]
-		)
-	)
 
 	Events.emit_signal(
 		"notification_displayed",

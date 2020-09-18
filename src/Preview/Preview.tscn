@@ -8,6 +8,7 @@
 [ext_resource path="res://src/Components/AnimatedToolButton.tscn" type="PackedScene" id=6]
 
 [node name="Preview" type="Control"]
+visible = false
 margin_right = 300.0
 margin_bottom = 869.0
 rect_min_size = Vector2( 300, 0 )

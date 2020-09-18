@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-const FOLD_TIME := .05
+const FOLD_TIME := .075
 
 var conditions := {}
 onready var conditions_container := $ConditionsContainer
