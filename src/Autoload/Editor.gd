@@ -1,6 +1,8 @@
 # Manage editor interaction
 extends Node
 
+signal scene_cleared
+
 enum Type { root, dialogue, choice, condition, signal_node }
 enum FileState { new, opened, unsaved, saved, export_file }
 enum Notification { idle, warning, error, success }
@@ -32,6 +34,9 @@ func reset() -> void:
 	for child in graph_edit.get_children():
 		if child is GraphEditorNode:
 			child.queue_free()
+
+	yield(get_tree(), "idle_frame")
+	self.call_deferred("emit_signal", "scene_cleared")
 
 
 func type_to_string(value: int) -> String:
@@ -142,6 +147,7 @@ func generate_graph(json: Dictionary) -> bool:
 	# create root node
 	var root_instance = root_node.instance()
 	root_instance.uuid = "root"
+	root_instance.name = "root"
 	root_instance.values["__editor"] = editor_data.root.duplicate()
 	Events.emit_signal("graph_node_loaded", root_instance)
 	print(root)
@@ -158,9 +164,7 @@ func generate_graph(json: Dictionary) -> bool:
 			if condition_instance:
 				conditions_list.append(condition_instance)
 	elif root.has("next") and not root.next.empty():
-		Events.emit_signal(
-			"connection_request_loaded", root_instance.uuid, 0, root.next, 0
-		)
+		Events.emit_signal("connection_request_loaded", root_instance.uuid, 0, root.next, 0)
 
 	for dialogue in dialogue_list:
 		var values = dialogue.values.data

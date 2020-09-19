@@ -55,4 +55,6 @@ func _on_Confirmed() -> void:
 
 func _on_File_selected(path: String) -> void:
 	if mode == 0:
-		Serialize.load(current_path)
+		Editor.reset()
+		yield(Editor, "scene_cleared")
+		Serialize.call_deferred("load", current_path)

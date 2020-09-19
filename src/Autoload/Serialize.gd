@@ -37,8 +37,6 @@ func save() -> void:
 
 
 func load(path: String):
-	Editor.reset()
-
 	print_debug("load %s" % path)
 
 	var file = File.new()

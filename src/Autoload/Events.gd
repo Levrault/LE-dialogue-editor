@@ -36,8 +36,10 @@ signal node_deleted(from, from_slot, to, to_slot)
 signal signals_window_displayed(uuid)
 
 # relations
-signal root_to_dialogue_relation_changed(from)
-signal root_to_condition_relation_changed(to)
+signal root_to_dialogue_relation_created(from)
+signal root_to_dialogue_relation_deleted
+signal root_to_condition_relation_created(to)
+signal root_to_condition_relation_deleted(to)
 
 signal dialogue_to_dialogue_relation_created(from, to)
 signal dialogue_to_dialogue_relation_deleted(from)
