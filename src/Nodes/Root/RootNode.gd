@@ -6,10 +6,10 @@ extends GraphEditorNode
 
 const TYPE = Editor.Type.root
 
-var connected_to_dialogue := ""
-var connected_to_dialogue_slot := 0
-var connected_to_conditions := []
-var connected_to_conditions_slot := 0
+var right_dialogue_connection := ""
+var right_dialogue_connection_slot := 0
+var right_connection_slot := []
+var right_connection_slot_slot := 0
 
 
 func _ready() -> void:

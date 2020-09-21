@@ -2,18 +2,18 @@ extends GraphEditorNode
 
 const TYPE = Editor.Type.dialogue
 
-var connected_to_dialogue := ""
-var connected_to_dialogue_slot := 0
+var right_dialogue_connection := ""
+var right_dialogue_connection_slot := 0
 
 var left_conditions_connection := ""
-var connected_to_conditions := []
+var right_connection_slot := []
 var connected_to_condition_slot := 0
 
-var connected_to_choices := []
-var connected_to_choices_slot := 0
+var right_choices_connection := []
+var right_choices_connection_slot := 0
 
-var connected_to_signal := ""
-var connected_to_signal_slot := 0
+var right_signal_connection := ""
+var right_signal_connection_slot := 0
 
 
 func _ready() -> void:
@@ -41,8 +41,10 @@ func _on_Close_request() -> void:
 			"node_deleted", uuid, 0, condition.__editor.uuid, connected_to_condition_slot
 		)
 
-	if not connected_to_signal.empty():
-		Events.emit_signal("node_deleted", uuid, 0, connected_to_signal, connected_to_signal_slot)
-		connected_to_signal = ""
+	if not right_signal_connection.empty():
+		Events.emit_signal(
+			"node_deleted", uuid, 0, right_signal_connection, right_signal_connection_slot
+		)
+		right_signal_connection = ""
 
 	._on_Close_request()

@@ -165,7 +165,7 @@ func _display_timeline(list: Array, start_at: int = 0) -> void:
 		if signals:
 			var preview_signal = preview_signal_scene.instance()
 			add_child(preview_signal)
-			preview_signal.name = Editor.graph_edit.get_node(item.uuid).connected_to_signal
+			preview_signal.name = Editor.graph_edit.get_node(item.uuid).right_signal_connection
 			preview_signal.values = signals
 			uuid_list.append(preview_signal.name)
 
@@ -180,7 +180,7 @@ func _display_timeline(list: Array, start_at: int = 0) -> void:
 				add_child(preview_choice)
 
 				preview_choice.value = choices[i]
-				preview_choice.name = Editor.graph_edit.get_node(item.uuid).connected_to_choices[i]
+				preview_choice.name = Editor.graph_edit.get_node(item.uuid).right_choices_connection[i]
 				# add uuid
 				choices[i]["uuid"] = preview_choice.name
 				preview_choice.button.connect(
