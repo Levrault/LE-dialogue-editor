@@ -7,11 +7,11 @@ enum State { dialogue, signals, choices }
 
 const TRANSITION_DURATION := .1
 
-var preview_dialogue_left_scene = preload("res://src/Preview/PreviewDialogue/PreviewDialogueLeft.tscn")
-var preview_dialogue_right_scene = preload("res://src/Preview/PreviewDialogue/PreviewDialogueRight.tscn")
-var preview_no_route_scene = preload("res://src/Preview/PreviewNoRoute.tscn")
-var preview_choice_scene = preload("res://src/Preview/PreviewChoice/PreviewChoice.tscn")
-var preview_signal_scene = preload("res://src/Preview/PreviewSignal/PreviewSignal.tscn")
+var dialogue_left_scene = preload("res://src/Preview/PreviewDialogue/PreviewDialogueLeft.tscn")
+var dialogue_right_scene = preload("res://src/Preview/PreviewDialogue/PreviewDialogueRight.tscn")
+var no_route_scene = preload("res://src/Preview/PreviewNoRoute.tscn")
+var choice_scene = preload("res://src/Preview/PreviewChoice/PreviewChoice.tscn")
+var signal_scene = preload("res://src/Preview/PreviewSignal/PreviewSignal.tscn")
 
 var preview_list := []
 var uuid_list := []
@@ -35,7 +35,7 @@ func _on_Preview_started(form_conditions: Dictionary) -> void:
 	_create_timeline(Store.json_raw.root.duplicate(), "root")
 
 	if preview_list.empty():
-		add_child(preview_no_route_scene.instance())
+		add_child(no_route_scene.instance())
 		return
 
 	_display_timeline(preview_list)
@@ -79,8 +79,8 @@ func _create_timeline(dialogue: Dictionary, uuid := "") -> void:
 			uuid_list.append(uuid)
 
 		var dialogue_node := Editor.graph_edit.get_node(uuid)
-		if not dialogue_node.left_conditions_connection.empty():
-			uuid_list.append(dialogue_node.left_conditions_connection)
+		if not dialogue_node.left_condition_connection.empty():
+			uuid_list.append(dialogue_node.left_condition_connection)
 
 	if dialogue.has("name"):
 		_push_speaker(dialogue.name)
@@ -153,9 +153,9 @@ func _display_timeline(list: Array, start_at: int = 0) -> void:
 		# dialogue
 		var preview_dialogue = null
 		if speakers.left.has(item.dialogue.name):
-			preview_dialogue = preview_dialogue_left_scene.instance()
+			preview_dialogue = dialogue_left_scene.instance()
 		elif speakers.right.has(item.dialogue.name):
-			preview_dialogue = preview_dialogue_right_scene.instance()
+			preview_dialogue = dialogue_right_scene.instance()
 
 		add_child(preview_dialogue)
 		preview_dialogue.value = item.dialogue
@@ -163,7 +163,7 @@ func _display_timeline(list: Array, start_at: int = 0) -> void:
 
 		var signals = item.dialogue.get("signals")
 		if signals:
-			var preview_signal = preview_signal_scene.instance()
+			var preview_signal = signal_scene.instance()
 			add_child(preview_signal)
 			preview_signal.name = Editor.graph_edit.get_node(item.uuid).right_signal_connection
 			preview_signal.values = signals
@@ -176,7 +176,7 @@ func _display_timeline(list: Array, start_at: int = 0) -> void:
 				var timer_choice := get_tree().create_timer(TRANSITION_DURATION)
 				yield(timer_choice, "timeout")
 
-				var preview_choice = preview_choice_scene.instance()
+				var preview_choice = choice_scene.instance()
 				add_child(preview_choice)
 
 				preview_choice.value = choices[i]

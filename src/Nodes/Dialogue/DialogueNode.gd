@@ -5,8 +5,8 @@ const TYPE = Editor.Type.dialogue
 var right_dialogue_connection := ""
 var right_dialogue_connection_slot := 0
 
-var left_conditions_connection := ""
-var right_connection_slot := []
+var left_condition_connection := ""
+var right_conditions_connection := []
 var connected_to_condition_slot := 0
 
 var right_choices_connection := []
@@ -25,6 +25,7 @@ func _ready() -> void:
 
 
 func _on_Close_request() -> void:
+	# TODO: See if this is still relevant with the left connection value
 	# remove node connect to choice
 	for choice in Store.get_connected_nodes(Store.choices_node, uuid):
 		choice.data.next = ""
@@ -48,3 +49,4 @@ func _on_Close_request() -> void:
 		right_signal_connection = ""
 
 	._on_Close_request()
+	Store.dialogues_node.erase(uuid)

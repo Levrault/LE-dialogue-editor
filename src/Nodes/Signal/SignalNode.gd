@@ -109,6 +109,11 @@ func reset_type() -> void:
 	string_field.hide()
 
 
+func _on_Close_request() -> void:
+	._on_Close_request()
+	Store.signals_node.erase(uuid)
+
+
 func _on_Type_selected(index: int) -> void:
 	selected_type = index
 	if index == Type.empty:

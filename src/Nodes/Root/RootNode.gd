@@ -8,8 +8,8 @@ const TYPE = Editor.Type.root
 
 var right_dialogue_connection := ""
 var right_dialogue_connection_slot := 0
-var right_connection_slot := []
-var right_connection_slot_slot := 0
+var right_conditions_connection := []
+var right_conditions_connection_slot := 0
 
 
 func _ready() -> void:

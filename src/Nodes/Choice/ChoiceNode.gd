@@ -9,3 +9,8 @@ func _ready() -> void:
 			"__editor": {"uuid": uuid, "offset": [offset.x, offset.y]},
 			"data": {"text": {"en": "", "fr": ""}, "next": ""}
 		}
+
+
+func _on_Close_request() -> void:
+	._on_Close_request()
+	Store.choices_node.erase(uuid)

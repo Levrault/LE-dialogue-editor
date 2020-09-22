@@ -43,6 +43,7 @@ func _on_Close_request() -> void:
 	if values.data.has("next") and not values.data.next.empty():
 		Events.emit_signal("node_deleted", uuid, 0, values.data.next, 0)
 
+	# clean editor data 
 	queue_free()
 
 
