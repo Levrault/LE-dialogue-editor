@@ -115,8 +115,8 @@ func generate_graph(json: Dictionary) -> bool:
 		var dialogue_instance = dialogue_node.instance()
 		var dialogue_saved_data = _find_by_uuid(editor_data.dialogues, uuid)
 		dialogue_instance.uuid = dialogue_saved_data.uuid
-		dialogue_instance.values.data = json[uuid].duplicate()
-		dialogue_instance.values["__editor"] = dialogue_saved_data.duplicate()
+		dialogue_instance.values.data = json[uuid]
+		dialogue_instance.values["__editor"] = dialogue_saved_data
 		dialogue_list.append(dialogue_instance)
 		Events.emit_signal("graph_node_loaded", dialogue_instance)
 
@@ -124,7 +124,7 @@ func generate_graph(json: Dictionary) -> bool:
 			for condition in json[uuid].conditions:
 				var saved_data = _find_by_uuid(editor_data.conditions, uuid)
 				var condition_instance = _load_node(
-					uuid, condition_node.instance(), condition.duplicate(), saved_data.duplicate()
+					uuid, condition_node.instance(), condition, saved_data
 				)
 				if condition_instance:
 					conditions_list.append(condition_instance)
@@ -132,14 +132,14 @@ func generate_graph(json: Dictionary) -> bool:
 		if json[uuid].has("signals"):
 			var saved_data = _find_by_uuid(editor_data.signals, uuid)
 			_load_node(
-				uuid, signal_node.instance(), json[uuid].signals.duplicate(), saved_data.duplicate()
+				uuid, signal_node.instance(), json[uuid].signals, saved_data
 			)
 
 		if json[uuid].has("choices"):
 			for choice in json[uuid].choices:
 				var saved_data = _find_by_uuid(editor_data.choices, uuid)
 				var choice_instance = _load_node(
-					uuid, choice_node.instance(), choice.duplicate(), saved_data.duplicate()
+					uuid, choice_node.instance(), choice, saved_data
 				)
 				if choice_instance:
 					choices_list.append(choice_instance)
@@ -148,9 +148,8 @@ func generate_graph(json: Dictionary) -> bool:
 	var root_instance = root_node.instance()
 	root_instance.uuid = "root"
 	root_instance.name = "root"
-	root_instance.values["__editor"] = editor_data.root.duplicate()
+	root_instance.values["__editor"] = editor_data.root
 	Events.emit_signal("graph_node_loaded", root_instance)
-	print(root)
 	if root.has("conditions"):
 		for condition in root.conditions:
 			if not condition.has("next"):
@@ -159,7 +158,7 @@ func generate_graph(json: Dictionary) -> bool:
 				continue
 			var saved_data = _find_by_uuid(editor_data.conditions, "root")
 			var condition_instance = _load_node(
-				"root", condition_node.instance(), condition.duplicate(), saved_data.duplicate()
+				"root", condition_node.instance(), condition, saved_data
 			)
 			if condition_instance:
 				conditions_list.append(condition_instance)

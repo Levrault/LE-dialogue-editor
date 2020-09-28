@@ -10,7 +10,6 @@ corner_radius_bottom_left = 8
 expand_margin_bottom = 16.0
 shadow_color = Color( 0.129412, 0.129412, 0.129412, 1 )
 shadow_size = 1
-shadow_offset = Vector2( 1, 1 )
 
 [resource]
 PopupMenu/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )

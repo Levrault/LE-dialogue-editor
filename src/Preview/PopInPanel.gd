@@ -11,7 +11,6 @@ func _ready() -> void:
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse:
 		if event.is_action_pressed("left_click"):
-			print("in")
 			Events.emit_signal("graph_node_selected", owner.name)
 
 

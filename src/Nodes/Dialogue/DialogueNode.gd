@@ -1,19 +1,33 @@
+# Dialogue node
+# Left connection rules
+#  * Multiples DIALOGUE can have point to a single DIALOGUE (Many to One relationship)
+#  * Only one conditions node can be connected to a Dialogue (One To One relationship)
+#  * A choice is related to one dialogue (One to One relationship)
+# Right connection rules
+#  * DIALOGUE can only have an one to one connection to another DIALOGUE (One to One relationship)
+#  * One right connection with SIGNALS (One To One relationship)
+#  * A dialogue can only be connected to one conditions node (One To One relationship)
+#  * Can have multiples choices (One to Many relationship)
+#
 extends GraphEditorNode
 
 const TYPE = Editor.Type.dialogue
+const SLOT := 0
 
+# Dialogues
+var left_dialogues_connection := []
 var right_dialogue_connection := ""
-var right_dialogue_connection_slot := 0
 
+# Conditions
 var left_condition_connection := ""
 var right_conditions_connection := []
-var connected_to_condition_slot := 0
 
+# Choices
+var left_choices_connection := []
 var right_choices_connection := []
-var right_choices_connection_slot := 0
 
+# Signal
 var right_signal_connection := ""
-var right_signal_connection_slot := 0
 
 
 func _ready() -> void:
@@ -25,28 +39,32 @@ func _ready() -> void:
 
 
 func _on_Close_request() -> void:
-	# TODO: See if this is still relevant with the left connection value
-	# remove node connect to choice
-	for choice in Store.get_connected_nodes(Store.choices_node, uuid):
-		choice.data.next = ""
-		Events.emit_signal("node_deleted", choice.__editor.uuid, 0, uuid, 0)
+	# left connection, remove CHOICES - DIALOGUE relation
+	# prevent array to clean itself with node_deleted signal and stop cleaning all the relation
+	for choice_uuid in left_choices_connection.duplicate():
+		Events.emit_signal("node_deleted", choice_uuid, 0, uuid, 0)
 
-	# remove form other dialogue node
-	for dialogue in Store.get_connected_nodes(Store.dialogues_node, uuid):
-		dialogue.data.next = ""
-		Events.emit_signal("node_deleted", dialogue.__editor.uuid, 0, uuid, 0)
+	# left connection, remove DIALOGUE - DIALOGUE
+	for dialogue_uuid in left_dialogues_connection.duplicate():
+		Events.emit_signal("node_deleted", dialogue_uuid, 0, uuid, 0)
 
-	# clean valid conditions
-	for condition in Store.get_connected_nodes(Store.conditions_node, uuid):
-		Events.emit_signal(
-			"node_deleted", uuid, 0, condition.__editor.uuid, connected_to_condition_slot
-		)
+	# left connection: remove CONDITIONS
+	if not left_condition_connection.empty():
+		Events.emit_signal("node_deleted", left_condition_connection, 0, uuid, 0)
 
+	# right connection : remove CONDITIONS
+	for condition in right_conditions_connection.duplicate():
+		Events.emit_signal("node_deleted", uuid, 0, condition, SLOT)
+
+	# right connection: remove CHOICES
+	for choice in right_choices_connection.duplicate():
+		Events.emit_signal("node_deleted", uuid, 0, choice, SLOT)
+
+	# right connection : remove SIGNALs
 	if not right_signal_connection.empty():
-		Events.emit_signal(
-			"node_deleted", uuid, 0, right_signal_connection, right_signal_connection_slot
-		)
+		Events.emit_signal("node_deleted", uuid, 0, right_signal_connection, SLOT)
 		right_signal_connection = ""
 
 	._on_Close_request()
 	Store.dialogues_node.erase(uuid)
+	Store.json_raw.erase(uuid)

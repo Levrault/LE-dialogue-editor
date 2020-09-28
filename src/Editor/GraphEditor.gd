@@ -22,6 +22,22 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 	var from_node = get_node(from)
 	var to_node = get_node(to)
 
+	if from_node == null:
+		Events.emit_signal(
+			"notification_displayed",
+			Editor.Notification.error,
+			"ERROR: %s doesn't not exist in the json file" % [from]
+		)
+		return
+
+	if to_node == null:
+		Events.emit_signal(
+			"notification_displayed",
+			Editor.Notification.error,
+			"ERROR: %s doesn't not exist in the json file" % [to]
+		)
+		return
+
 	if from_node.TYPE != Editor.Type.root and from_node.uuid == to_node.uuid:
 		Events.emit_signal(
 			"notification_displayed",
@@ -40,13 +56,11 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 			to_slot,
 			Editor.type_to_string(to_node.TYPE),
 			from_node.right_dialogue_connection,
-			from_node.right_dialogue_connection_slot
+			from_node.SLOT
 		)
 
 		from_node.right_dialogue_connection = ""
-		from_node.right_dialogue_connection_slot = 0
 		from_node.right_conditions_connection.append(to)
-		from_node.right_conditions_connection_slot = to_slot
 		to_node.values["__editor"]["parent"] = from_node.uuid
 		Events.emit_signal("root_to_condition_relation_created", to_node.uuid)
 
@@ -63,7 +77,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 			to_slot,
 			Editor.type_to_string(to_node.TYPE),
 			from_node.right_dialogue_connection,
-			from_node.right_dialogue_connection_slot
+			from_node.SLOT
 		)
 
 		for condition in from_node.right_conditions_connection:
@@ -75,11 +89,10 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 				to_slot,
 				Editor.type_to_string(to_node.TYPE),
 				condition,
-				from_node.right_conditions_connection_slot
+				from_node.SLOT
 			)
 
 		from_node.right_dialogue_connection = to
-		from_node.right_dialogue_connection_slot = to_slot
 		from_node.right_conditions_connection = []
 		to_node.values["__editor"]["parent"] = from_node.uuid
 
@@ -98,23 +111,16 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 			to_slot,
 			Editor.type_to_string(to_node.TYPE),
 			from_node.right_dialogue_connection,
-			from_node.right_dialogue_connection_slot
+			from_node.SLOT
 		)
 
-		for choices in from_node.right_choices_connection:
-			_check_node_connection(
-				from,
-				from_slot,
-				Editor.type_to_string(from_node.TYPE),
-				to,
-				to_slot,
-				Editor.type_to_string(to_node.TYPE),
-				choices,
-				from_node.right_choices_connection_slot
-			)
+		# Multiple dialogues can point to a dialogue
+		to_node.left_dialogues_connection.append(from)
 
+		# But a dialogue can only have one connection on the next dialogue
 		from_node.right_dialogue_connection = to
-		from_node.right_dialogue_connection_slot = to_slot
+
+		# if the from dialogue has choice, connection must be deleted
 		from_node.right_choices_connection = []
 
 		connect_node(from, from_slot, to, to_slot)
@@ -131,10 +137,9 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 			to_slot,
 			Editor.type_to_string(to_node.TYPE),
 			from_node.right_signal_connection,
-			from_node.right_signal_connection_slot
+			from_node.SLOT
 		)
 		from_node.right_signal_connection = to
-		from_node.right_signal_connection_slot = to_slot
 		to_node.values["__editor"]["parent"] = from_node.uuid
 
 		connect_node(from, from_slot, to, to_slot)
@@ -154,7 +159,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 			to_slot,
 			Editor.type_to_string(to_node.TYPE),
 			from_node.right_dialogue_connection,
-			from_node.right_dialogue_connection_slot
+			from_node.SLOT
 		)
 
 		connect_node(from, from_slot, to, to_slot)
@@ -162,7 +167,6 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 		from_node.right_dialogue_connection = ""
 		from_node.right_choices_connection.append(to)
-		from_node.right_choices_connection_slot = to_slot
 
 		# in loading mode, store has already the data
 		if to_node.is_loading:
@@ -170,22 +174,24 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		Events.emit_signal("dialogue_to_choice_relation_created", from_node.uuid, to_node.uuid)
 		return
 
-	# CHOICE -- DIALOGUE
-	if from_node.TYPE == Editor.Type.choice and to_node.TYPE == Editor.Type.dialogue:
-		connect_node(from, from_slot, to, to_slot)
-		Events.emit_signal("choice_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
-		return
-
 	# DIALOGUE -- CONDITIONS
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.condition:
 		connect_node(from, from_slot, to, to_slot)
-		to_node.values["__editor"]["parent"] = from_node.uuid
-		from_node.right_choices_connection.append(to)
+		to_node.values.__editor["parent"] = from_node.uuid
+		from_node.right_conditions_connection.append(to)
 
 		# in loading mode, store has already the data
 		if to_node.is_loading:
 			return
 		Events.emit_signal("dialogue_to_condition_relation_created", from_node.uuid, to_node.uuid)
+		return
+
+	# CHOICE -- DIALOGUE
+	if from_node.TYPE == Editor.Type.choice and to_node.TYPE == Editor.Type.dialogue:
+		to_node.left_choices_connection.append(from)
+		from_node.values.data.next = to
+		connect_node(from, from_slot, to, to_slot)
+		Events.emit_signal("choice_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
 		return
 
 	# CONDITIONS -- DIALOGUE 
@@ -214,6 +220,7 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 	if from_node.TYPE == Editor.Type.root and to_node.TYPE == Editor.Type.dialogue:
 		Events.emit_signal("root_to_dialogue_relation_deleted")
 		from_node.right_dialogue_connection = ""
+		to_node.left_dialogues_connection.erase(from)
 		disconnect_node(from, from_slot, to, to_slot)
 		return
 
@@ -232,45 +239,49 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 
 	# DIALOGUE -- DIALOGUE
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.dialogue:
+		from_node.right_dialogue_connection = ""
+		to_node.left_dialogues_connection.erase(from)
 		disconnect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("dialogue_to_dialogue_relation_deleted", from_node.uuid)
 		return
 
 	# DIALOGUE -- CHOICE
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.choice:
+		to_node.values.__editor.erase("parent")
+		from_node.right_choices_connection.erase(to)
 		disconnect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("dialogue_to_choice_relation_deleted", from_node.uuid, to_node.uuid)
 		return
 
-	# CHOICE -- DIALOGUE 
-	if from_node.TYPE == Editor.Type.choice and to_node.TYPE == Editor.Type.dialogue:
-		disconnect_node(from, from_slot, to, to_slot)
-		return
-
-	# CONDITIONS -- DIALOGUE 
-	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.dialogue:
-		disconnect_node(from, from_slot, to, to_slot)
-		return
-
 	# DIALOGUE -- CONDITION
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.condition:
-		# left connection
-		if not from_node.left_condition_connection.empty():
-			disconnect_node(from_node.left_condition_connection, to_slot, from, from_slot)
-
+		to_node.values.__editor.erase("parent")
+		from_node.right_conditions_connection.erase(to)
 		# right connection
-		if not from_node.right_conditions_connection.empty():
-			for condition in from_node.right_conditions_connection:
-				disconnect_node(from, from_slot, condition, to_slot)
-				Events.emit_signal(
-					"dialogue_to_condition_relation_deleted", from_node.uuid, condition
-				)
+		disconnect_node(from, from_slot, to, to_slot)
+		Events.emit_signal("dialogue_to_condition_relation_deleted", from, to)
 		return
 
 	# DIALOGUE -- SIGNAL
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.signal_node:
+		to_node.values.__editor.erase("parent")
+		from_node.right_signal_connection = ""
 		disconnect_node(from, from_slot, to, to_slot)
-		Events.emit_signal("dialogue_to_signal_relation_deleted", from_node.uuid)
+		Events.emit_signal("dialogue_to_signal_relation_deleted", from)
+		return
+
+	# CHOICE -- DIALOGUE 
+	if from_node.TYPE == Editor.Type.choice and to_node.TYPE == Editor.Type.dialogue:
+		to_node.left_choices_connection.erase(from)
+		disconnect_node(from, from_slot, to, to_slot)
+		Events.emit_signal("choice_to_dialogue_relation_deleted", from)
+		return
+
+	# CONDITIONS -- DIALOGUE 
+	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.dialogue:
+		from_node.values.data.next = ""
+		to_node.left_condition_connection = ""
+		disconnect_node(from, from_slot, to, to_slot)
 		return
 
 
