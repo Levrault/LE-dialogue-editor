@@ -1,15 +1,14 @@
-# Start node are already added to the scene
+# Root node are already added to the scene and are unique in the graph
 # Can only have one starting node
 # - Can connect to one dialogue node
 # - Can connect to multiple conditions
 extends GraphEditorNode
 
 const TYPE = Editor.Type.root
+const SLOT = 0
 
 var right_dialogue_connection := ""
-var right_dialogue_connection_slot := 0
 var right_conditions_connection := []
-var right_conditions_connection_slot := 0
 
 
 func _ready() -> void:

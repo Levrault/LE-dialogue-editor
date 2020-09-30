@@ -9,7 +9,6 @@ onready var wrapper := $Wrapper
 
 func set_values(new_values: Dictionary) -> void:
 	values = new_values
-	print(values)
 
 	for child in list_container.get_children():
 		child.queue_free()

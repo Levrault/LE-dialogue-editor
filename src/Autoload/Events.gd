@@ -57,7 +57,7 @@ signal condition_to_dialogue_relation_created(from, to)
 signal condition_to_dialogue_relation_deleted(from)
 
 # choice to conditions
-signal choice_to_dialogue_relation_created(from, to)
+signal choice_to_dialogue_relation_created(parent, from, to)
 signal choice_to_dialogue_relation_deleted(from)
 
 # condition value

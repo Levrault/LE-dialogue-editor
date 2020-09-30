@@ -137,7 +137,6 @@ func _on_Dialogue_to_condition_relation_created(from: String, to: String) -> voi
 
 func _on_Dialogue_to_condition_relation_deleted(from: String, to: String) -> void:
 	json_raw[from]["conditions"].erase(conditions_node[to].data)
-	conditions_node.erase(to)
 	if conditions_node.empty():
 		json_raw[from].erase("conditions")
 
@@ -178,7 +177,6 @@ func _on_Dialogue_to_choice_relation_created(from: String, to: String) -> void:
 
 func _on_Dialogue_to_choice_relation_deleted(from: String, to: String) -> void:
 	json_raw[from]["choices"].erase(choices_node[to].data)
-	choices_node.erase(to)
 	if choices_node.empty():
 		json_raw[from].erase("choices")
 
