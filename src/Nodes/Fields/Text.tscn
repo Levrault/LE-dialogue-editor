@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://src/Components/AnimatedToolButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Nodes/Fields/LocaleFieldset.gd" type="Script" id=2]
+[ext_resource path="res://assets/icons/maximize-2.svg" type="Texture" id=3]
+[ext_resource path="res://src/Components/Expand.gd" type="Script" id=4]
 
 [node name="Text" type="VBoxContainer"]
 margin_top = 98.0
@@ -21,6 +24,21 @@ text = "Text"
 [node name="Locale" type="TextEdit" parent="."]
 margin_top = 24.0
 margin_right = 314.0
-margin_bottom = 266.0
+margin_bottom = 224.0
 rect_min_size = Vector2( 10, 100 )
 size_flags_vertical = 3
+
+[node name="Options" type="HBoxContainer" parent="."]
+margin_top = 234.0
+margin_right = 314.0
+margin_bottom = 266.0
+alignment = 2
+
+[node name="Expand" parent="Options" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 278.0
+margin_right = 314.0
+margin_bottom = 32.0
+icon = ExtResource( 3 )
+script = ExtResource( 4 )

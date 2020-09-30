@@ -69,6 +69,9 @@ signal menu_popup_displayed(name)
 signal file_dialog_opened(mode)
 signal file_dialog_export_opened
 
+# expand text
+signal expand_text_dialogued_opened(owner)
+
 # file
 signal file_loaded
 signal offset_changed(uuid, type, offset)
