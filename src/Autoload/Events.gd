@@ -7,6 +7,7 @@ signal layout_preview_toggled
 # preview
 signal preview_started(conditions)
 signal preview_finished
+signal preview_button_activated
 signal preview_predicated_route_displayed(uuid_list)
 signal preview_choices_displayed
 

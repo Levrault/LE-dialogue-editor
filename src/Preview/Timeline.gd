@@ -9,7 +9,6 @@ const TRANSITION_DURATION := .1
 
 var dialogue_left_scene = preload("res://src/Preview/PreviewDialogue/PreviewDialogueLeft.tscn")
 var dialogue_right_scene = preload("res://src/Preview/PreviewDialogue/PreviewDialogueRight.tscn")
-var no_route_scene = preload("res://src/Preview/PreviewNoRoute.tscn")
 var choice_scene = preload("res://src/Preview/PreviewChoice/PreviewChoice.tscn")
 var signal_scene = preload("res://src/Preview/PreviewSignal/PreviewSignal.tscn")
 
@@ -35,7 +34,11 @@ func _on_Preview_started(form_conditions: Dictionary) -> void:
 	_create_timeline(Store.json_raw.root.duplicate(), "root")
 
 	if preview_list.empty():
-		add_child(no_route_scene.instance())
+		Events.emit_signal(
+			"notification_displayed",
+			Editor.Notification.error,
+			"No route can be predicated with the current condition(s)"
+		)
 		return
 
 	_display_timeline(preview_list)
@@ -48,9 +51,24 @@ func _on_Preview_started(form_conditions: Dictionary) -> void:
 # @param {dictionary} last_choice - last available choice to clean the list after pressing
 # @param {string} uuid - current choice uuid
 # @param {string} parent_uuid - related dialogue uuid
+# @param {PreviewChoice} this_button - current pressed button
 func _on_Choice_pressed(
-	value: Dictionary, index: int, last_choice: Dictionary, uuid: String, parent_uuid: String
+	value: Dictionary,
+	index: int,
+	last_choice: Dictionary,
+	uuid: String,
+	parent_uuid: String,
+	this_button: PreviewChoice
 ) -> void:
+	if value.next.empty():
+		Events.emit_signal(
+			"notification_displayed",
+			Editor.Notification.error,
+			"The choice isn't related to any dialogue"
+		)
+		this_button.has_error()
+		return
+
 	# clean if preview answer
 	if not last_choice.uuid == get_child(get_child_count() - 1).name:
 		var slice_start_to := get_children().find(get_node(last_choice.uuid)) + 1
@@ -192,7 +210,8 @@ func _display_timeline(list: Array, start_at: int = 0) -> void:
 						items.size(),
 						choices[choices.size() - 1],
 						preview_choice.name,
-						item.uuid
+						item.uuid,
+						preview_choice
 					]
 				)
 

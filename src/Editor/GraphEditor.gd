@@ -19,6 +19,7 @@ func _ready() -> void:
 
 func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: int) -> void:
 	Editor.current_state = Editor.FileState.unsaved
+	Events.emit_signal("preview_button_activated")
 	var from_node = get_node(from)
 	var to_node = get_node(to)
 
@@ -213,6 +214,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot: int) -> void:
 	Editor.current_state = Editor.FileState.unsaved
+	Events.emit_signal("preview_button_activated")
 	var from_node = get_node(from)
 	var to_node = get_node(to)
 

@@ -4,6 +4,7 @@ extends Button
 func _ready() -> void:
 	connect("pressed", self, "_on_Pressed")
 	Events.connect("preview_finished", self, "_on_Preview_finished")
+	Events.connect("preview_button_activated", self, "_on_Preview_finished")
 
 
 func _on_Pressed() -> void:
@@ -13,3 +14,4 @@ func _on_Pressed() -> void:
 
 func _on_Preview_finished() -> void:
 	disabled = false
+	text = "Update Preview"

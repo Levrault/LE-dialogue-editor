@@ -10,7 +10,7 @@
 [ext_resource path="res://src/Notifications/NotificationsContainer.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/Popup/FileDialog.gd" type="Script" id=9]
 [ext_resource path="res://src/Popup/UnsavedLostDialog.gd" type="Script" id=10]
-[ext_resource path="res://src/Popup/ExpandTextDialog.gd" type="Script" id=11]
+[ext_resource path="res://src/Popup/ExpandTextDialog.tscn" type="PackedScene" id=11]
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 16.0
@@ -149,30 +149,4 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ExpandTextDialog" type="WindowDialog" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 161.5
-margin_top = 105.5
-margin_right = -161.5
-margin_bottom = -105.5
-script = ExtResource( 11 )
-
-[node name="MarginContainer" type="MarginContainer" parent="ExpandTextDialog"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 20
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextEdit" type="TextEdit" parent="ExpandTextDialog/MarginContainer"]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 1257.0
-margin_bottom = 669.0
-highlight_current_line = true
-show_line_numbers = true
+[node name="ExpandTextDialog" parent="." instance=ExtResource( 11 )]
