@@ -152,10 +152,6 @@ func generate_graph(json: Dictionary) -> bool:
 	Events.emit_signal("graph_node_loaded", root_instance)
 	if root.has("conditions"):
 		for condition in root.conditions:
-			if not condition.has("next"):
-				continue
-			if condition.next.empty():
-				continue
 			var saved_data = _find_by_uuid(editor_data.conditions, "root")
 			var condition_instance = _load_node(
 				"root", condition_node.instance(), condition, saved_data
