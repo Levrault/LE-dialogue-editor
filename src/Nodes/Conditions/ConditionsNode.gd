@@ -1,6 +1,7 @@
 extends GraphEditorNode
 
 const TYPE = Editor.Type.condition
+const SLOT = 0
 
 var condition_field := preload("res://src/Nodes/Fields/Conditions.tscn")
 
@@ -8,6 +9,8 @@ onready var input := $Container/FieldContainer/Input
 onready var add_field = $Container/FieldContainer/AddCondition
 onready var field_container = $Container/FieldContainer
 onready var is_empty = $Container/IsEmpty
+
+var right_dialogue_connection := ""
 
 
 func _ready() -> void:

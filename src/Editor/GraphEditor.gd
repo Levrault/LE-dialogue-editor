@@ -197,7 +197,18 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 	# CONDITIONS -- DIALOGUE 
 	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.dialogue:
+		_check_node_connection(
+			from,
+			from_slot,
+			Editor.type_to_string(from_node.TYPE),
+			to,
+			to_slot,
+			Editor.type_to_string(to_node.TYPE),
+			from_node.right_dialogue_connection,
+			from_node.SLOT
+		)
 		to_node.left_condition_connection = from
+		from_node.right_dialogue_connection = to
 		connect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("condition_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
 		return
@@ -282,6 +293,7 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 	# CONDITIONS -- DIALOGUE 
 	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.dialogue:
 		from_node.values.data.next = ""
+		from_node.right_dialogue_connection = ""
 		to_node.left_condition_connection = ""
 		disconnect_node(from, from_slot, to, to_slot)
 		return
