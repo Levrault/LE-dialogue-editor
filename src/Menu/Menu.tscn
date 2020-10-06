@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
+[ext_resource path="res://src/Menu/Settings.gd" type="Script" id=1]
 [ext_resource path="res://src/Menu/File.gd" type="Script" id=3]
 [ext_resource path="res://src/Menu/View.gd" type="Script" id=4]
 [ext_resource path="res://assets/themes/menu/menu.tres" type="Theme" id=7]
@@ -30,3 +31,10 @@ margin_right = 116.0
 margin_bottom = 22.0
 text = "View"
 script = ExtResource( 4 )
+
+[node name="Settings" type="MenuButton" parent="."]
+margin_left = 120.0
+margin_right = 183.0
+margin_bottom = 22.0
+text = "Settings"
+script = ExtResource( 1 )

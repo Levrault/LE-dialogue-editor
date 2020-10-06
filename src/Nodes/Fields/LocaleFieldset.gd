@@ -19,6 +19,9 @@ func _on_Text_changed() -> void:
 
 
 func _on_Localization_changed(new_lang: String) -> void:
+	if not owner.values.data.text.has(Editor.locale):
+		owner.values.data.text[Editor.locale] = ""
+		
 	locale.text = owner.values.data.text[Editor.locale]
 	label.text = "%s (%s)" % [initial_text, new_lang]
 

@@ -24,6 +24,10 @@ signal graph_edit_loaded
 
 # change language
 signal locale_changed(value)
+signal locale_pop_up_displayed
+
+# manage locale
+signal i18n_changed
 
 # creation
 signal dialogue_node_created(data)
