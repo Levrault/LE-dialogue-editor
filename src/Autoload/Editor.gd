@@ -19,6 +19,10 @@ onready var condition_node := load("res://src/Nodes/Conditions/ConditionNode.tsc
 onready var signal_node := load("res://src/Nodes/Signal/SignalNode.tscn")
 
 
+func _ready() -> void:
+	locale = Config.values.locale.current
+
+
 func reset() -> void:
 	current_state = FileState.new
 	self.locale = "en"
@@ -58,6 +62,8 @@ func type_to_string(value: int) -> String:
 func set_locale(value: String) -> void:
 	locale = value
 	Events.emit_signal("locale_changed", value)
+	Config.values.locale.current = value
+	Config.save(Config.values)
 
 
 func set_current_state(new_state: int) -> void:
@@ -131,16 +137,12 @@ func generate_graph(json: Dictionary) -> bool:
 
 		if json[uuid].has("signals"):
 			var saved_data = _find_by_uuid(editor_data.signals, uuid)
-			_load_node(
-				uuid, signal_node.instance(), json[uuid].signals, saved_data
-			)
+			_load_node(uuid, signal_node.instance(), json[uuid].signals, saved_data)
 
 		if json[uuid].has("choices"):
 			for choice in json[uuid].choices:
 				var saved_data = _find_by_uuid(editor_data.choices, uuid)
-				var choice_instance = _load_node(
-					uuid, choice_node.instance(), choice, saved_data
-				)
+				var choice_instance = _load_node(uuid, choice_node.instance(), choice, saved_data)
 				if choice_instance:
 					choices_list.append(choice_instance)
 

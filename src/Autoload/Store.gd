@@ -88,6 +88,11 @@ func get_connected_nodes(nodes: Dictionary, dialogue_uuid: String) -> Array:
 	return result
 
 
+func remove_locale(locale: String) -> void:
+	for key in dialogues_node:
+		dialogues_node[key].data.text.erase(locale)
+
+
 # Root
 func _on_Root_to_dialogue_relation_created(from: String) -> void:
 	if not json_raw.root.has("next"):

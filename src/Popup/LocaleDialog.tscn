@@ -1,0 +1,622 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/themes/grap_node/graph_content.tres" type="Theme" id=1]
+[ext_resource path="res://assets/themes/button/round_button.tres" type="Theme" id=2]
+[ext_resource path="res://src/Popup/LocaleDialog.gd" type="Script" id=3]
+
+[node name="LocaleDialog" type="WindowDialog"]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -425.0
+margin_top = -325.0
+margin_right = 425.0
+margin_bottom = 325.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+popup_exclusive = true
+window_title = "Locale"
+resizable = true
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 15
+custom_constants/margin_top = 20
+custom_constants/margin_left = 15
+custom_constants/margin_bottom = 28
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 15.0
+margin_top = 20.0
+margin_right = 835.0
+margin_bottom = 622.0
+custom_constants/separation = 24
+
+[node name="Description" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_right = 820.0
+margin_bottom = 14.0
+text = "Add a new locale to the project"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 38.0
+margin_right = 820.0
+margin_bottom = 454.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LocaleList" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 408.0
+margin_bottom = 416.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList"]
+margin_right = 396.0
+margin_bottom = 1844.0
+size_flags_horizontal = 3
+
+[node name="aa" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_right = 396.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "aa"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="af" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 28.0
+margin_right = 396.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+text = "af"
+
+[node name="ar" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 56.0
+margin_right = 396.0
+margin_bottom = 80.0
+size_flags_horizontal = 3
+text = "ar"
+
+[node name="be" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 84.0
+margin_right = 396.0
+margin_bottom = 108.0
+size_flags_horizontal = 3
+text = "be"
+
+[node name="bg" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 112.0
+margin_right = 396.0
+margin_bottom = 136.0
+size_flags_horizontal = 3
+text = "bg"
+
+[node name="bn" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 140.0
+margin_right = 396.0
+margin_bottom = 164.0
+size_flags_horizontal = 3
+text = "bn"
+
+[node name="bo" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 168.0
+margin_right = 396.0
+margin_bottom = 192.0
+size_flags_horizontal = 3
+text = "bo"
+
+[node name="ca" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 196.0
+margin_right = 396.0
+margin_bottom = 220.0
+size_flags_horizontal = 3
+text = "ca"
+
+[node name="cs" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 224.0
+margin_right = 396.0
+margin_bottom = 248.0
+size_flags_horizontal = 3
+text = "cs"
+
+[node name="da" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 252.0
+margin_right = 396.0
+margin_bottom = 276.0
+size_flags_horizontal = 3
+text = "da"
+
+[node name="de" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 280.0
+margin_right = 396.0
+margin_bottom = 304.0
+size_flags_horizontal = 3
+text = "de"
+
+[node name="el" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 308.0
+margin_right = 396.0
+margin_bottom = 332.0
+size_flags_horizontal = 3
+text = "el"
+
+[node name="en" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 336.0
+margin_right = 396.0
+margin_bottom = 360.0
+size_flags_horizontal = 3
+text = "en"
+
+[node name="eo" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 364.0
+margin_right = 396.0
+margin_bottom = 388.0
+size_flags_horizontal = 3
+text = "eo"
+
+[node name="es" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 392.0
+margin_right = 396.0
+margin_bottom = 416.0
+size_flags_horizontal = 3
+text = "es"
+
+[node name="et" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 420.0
+margin_right = 396.0
+margin_bottom = 444.0
+size_flags_horizontal = 3
+text = "et"
+
+[node name="eu" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 448.0
+margin_right = 396.0
+margin_bottom = 472.0
+size_flags_horizontal = 3
+text = "eu"
+
+[node name="fa" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 476.0
+margin_right = 396.0
+margin_bottom = 500.0
+size_flags_horizontal = 3
+text = "fa"
+
+[node name="fi" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 504.0
+margin_right = 396.0
+margin_bottom = 528.0
+size_flags_horizontal = 3
+text = "fi"
+
+[node name="fil" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 532.0
+margin_right = 396.0
+margin_bottom = 556.0
+size_flags_horizontal = 3
+text = "fil"
+
+[node name="fr" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 560.0
+margin_right = 396.0
+margin_bottom = 584.0
+size_flags_horizontal = 3
+text = "fr"
+
+[node name="ga" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 588.0
+margin_right = 396.0
+margin_bottom = 612.0
+size_flags_horizontal = 3
+text = "ga"
+
+[node name="he" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 616.0
+margin_right = 396.0
+margin_bottom = 640.0
+size_flags_horizontal = 3
+text = "he"
+
+[node name="hi" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 644.0
+margin_right = 396.0
+margin_bottom = 668.0
+size_flags_horizontal = 3
+text = "hi"
+
+[node name="hr" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 672.0
+margin_right = 396.0
+margin_bottom = 696.0
+size_flags_horizontal = 3
+text = "hr"
+
+[node name="hu" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 700.0
+margin_right = 396.0
+margin_bottom = 724.0
+size_flags_horizontal = 3
+text = "hu"
+
+[node name="id" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 728.0
+margin_right = 396.0
+margin_bottom = 752.0
+size_flags_horizontal = 3
+text = "id"
+
+[node name="is" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 756.0
+margin_right = 396.0
+margin_bottom = 780.0
+size_flags_horizontal = 3
+text = "is"
+
+[node name="it" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 784.0
+margin_right = 396.0
+margin_bottom = 808.0
+size_flags_horizontal = 3
+text = "it"
+
+[node name="ja" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 812.0
+margin_right = 396.0
+margin_bottom = 836.0
+size_flags_horizontal = 3
+text = "ja"
+
+[node name="ka" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 840.0
+margin_right = 396.0
+margin_bottom = 864.0
+size_flags_horizontal = 3
+text = "ka"
+
+[node name="ko" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 868.0
+margin_right = 396.0
+margin_bottom = 892.0
+size_flags_horizontal = 3
+text = "ko"
+
+[node name="ku" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 896.0
+margin_right = 396.0
+margin_bottom = 920.0
+size_flags_horizontal = 3
+text = "ku"
+
+[node name="lt" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 924.0
+margin_right = 396.0
+margin_bottom = 948.0
+size_flags_horizontal = 3
+text = "lt"
+
+[node name="lv" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 952.0
+margin_right = 396.0
+margin_bottom = 976.0
+size_flags_horizontal = 3
+text = "lv"
+
+[node name="mi" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 980.0
+margin_right = 396.0
+margin_bottom = 1004.0
+size_flags_horizontal = 3
+text = "mi"
+
+[node name="mk" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1008.0
+margin_right = 396.0
+margin_bottom = 1032.0
+size_flags_horizontal = 3
+text = "mk"
+
+[node name="ml" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1036.0
+margin_right = 396.0
+margin_bottom = 1060.0
+size_flags_horizontal = 3
+text = "ml"
+
+[node name="ms" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1064.0
+margin_right = 396.0
+margin_bottom = 1088.0
+size_flags_horizontal = 3
+text = "ms"
+
+[node name="mt" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1092.0
+margin_right = 396.0
+margin_bottom = 1116.0
+size_flags_horizontal = 3
+text = "mt"
+
+[node name="nb" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1120.0
+margin_right = 396.0
+margin_bottom = 1144.0
+size_flags_horizontal = 3
+text = "nb"
+
+[node name="nl" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1148.0
+margin_right = 396.0
+margin_bottom = 1172.0
+size_flags_horizontal = 3
+text = "nl"
+
+[node name="nn" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1176.0
+margin_right = 396.0
+margin_bottom = 1200.0
+size_flags_horizontal = 3
+text = "nn"
+
+[node name="om" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1204.0
+margin_right = 396.0
+margin_bottom = 1228.0
+size_flags_horizontal = 3
+text = "om"
+
+[node name="pr" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1232.0
+margin_right = 396.0
+margin_bottom = 1256.0
+size_flags_horizontal = 3
+text = "pr"
+
+[node name="pt" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1260.0
+margin_right = 396.0
+margin_bottom = 1284.0
+size_flags_horizontal = 3
+text = "pt"
+
+[node name="ro" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1288.0
+margin_right = 396.0
+margin_bottom = 1312.0
+size_flags_horizontal = 3
+text = "ro"
+
+[node name="ru" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1316.0
+margin_right = 396.0
+margin_bottom = 1340.0
+size_flags_horizontal = 3
+text = "ru"
+
+[node name="sco" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1344.0
+margin_right = 396.0
+margin_bottom = 1368.0
+size_flags_horizontal = 3
+text = "sco"
+
+[node name="si" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1372.0
+margin_right = 396.0
+margin_bottom = 1396.0
+size_flags_horizontal = 3
+text = "si"
+
+[node name="sk" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1400.0
+margin_right = 396.0
+margin_bottom = 1424.0
+size_flags_horizontal = 3
+text = "sk"
+
+[node name="sl" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1428.0
+margin_right = 396.0
+margin_bottom = 1452.0
+size_flags_horizontal = 3
+text = "sl"
+
+[node name="so" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1456.0
+margin_right = 396.0
+margin_bottom = 1480.0
+size_flags_horizontal = 3
+text = "so"
+
+[node name="sq" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1484.0
+margin_right = 396.0
+margin_bottom = 1508.0
+size_flags_horizontal = 3
+text = "sq"
+
+[node name="sr" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1512.0
+margin_right = 396.0
+margin_bottom = 1536.0
+size_flags_horizontal = 3
+text = "sr"
+
+[node name="sv" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1540.0
+margin_right = 396.0
+margin_bottom = 1564.0
+size_flags_horizontal = 3
+text = "sv"
+
+[node name="ta" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1568.0
+margin_right = 396.0
+margin_bottom = 1592.0
+size_flags_horizontal = 3
+text = "ta"
+
+[node name="te" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1596.0
+margin_right = 396.0
+margin_bottom = 1620.0
+size_flags_horizontal = 3
+text = "te"
+
+[node name="th" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1624.0
+margin_right = 396.0
+margin_bottom = 1648.0
+size_flags_horizontal = 3
+text = "th"
+
+[node name="ti" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1652.0
+margin_right = 396.0
+margin_bottom = 1676.0
+size_flags_horizontal = 3
+text = "ti"
+
+[node name="tr" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1680.0
+margin_right = 396.0
+margin_bottom = 1704.0
+size_flags_horizontal = 3
+text = "tr"
+
+[node name="uk" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1708.0
+margin_right = 396.0
+margin_bottom = 1732.0
+size_flags_horizontal = 3
+text = "uk"
+
+[node name="ur" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1736.0
+margin_right = 396.0
+margin_bottom = 1760.0
+size_flags_horizontal = 3
+text = "ur"
+
+[node name="uz" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1764.0
+margin_right = 396.0
+margin_bottom = 1788.0
+size_flags_horizontal = 3
+text = "uz"
+
+[node name="vi" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1792.0
+margin_right = 396.0
+margin_bottom = 1816.0
+size_flags_horizontal = 3
+text = "vi"
+
+[node name="zh" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer"]
+margin_top = 1820.0
+margin_right = 396.0
+margin_bottom = 1844.0
+size_flags_horizontal = 3
+text = "zh"
+
+[node name="SelectedLocaleList" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 412.0
+margin_right = 820.0
+margin_bottom = 416.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/SelectedLocaleList"]
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+margin_top = 478.0
+margin_right = 820.0
+margin_bottom = 482.0
+
+[node name="FormContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 506.0
+margin_right = 820.0
+margin_bottom = 602.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+custom_constants/separation = 16
+
+[node name="Description" type="Label" parent="MarginContainer/VBoxContainer/FormContainer"]
+margin_right = 820.0
+margin_bottom = 14.0
+text = "Add a custom locale"
+
+[node name="FieldContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/FormContainer"]
+margin_top = 30.0
+margin_right = 820.0
+margin_bottom = 52.0
+custom_constants/separation = 24
+
+[node name="LocaleContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/FormContainer/FieldContainer"]
+margin_right = 398.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+custom_constants/separation = 16
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/FormContainer/FieldContainer/LocaleContainer"]
+margin_top = 4.0
+margin_right = 41.0
+margin_bottom = 18.0
+text = "Locale"
+
+[node name="LocaleLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/FormContainer/FieldContainer/LocaleContainer"]
+margin_left = 57.0
+margin_right = 398.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+expand_to_text_length = true
+placeholder_text = "e.g. fr_CA"
+placeholder_alpha = 0.2
+
+[node name="LanguageContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/FormContainer/FieldContainer"]
+margin_left = 422.0
+margin_right = 820.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+custom_constants/separation = 16
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/FormContainer/FieldContainer/LanguageContainer"]
+margin_top = 4.0
+margin_right = 59.0
+margin_bottom = 18.0
+text = "Language"
+
+[node name="LanguageLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/FormContainer/FieldContainer/LanguageContainer"]
+margin_left = 75.0
+margin_right = 398.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+placeholder_text = "Canadien Français"
+placeholder_alpha = 0.2
+
+[node name="ButtonContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/FormContainer"]
+margin_top = 68.0
+margin_right = 820.0
+margin_bottom = 96.0
+alignment = 2
+
+[node name="CreateLocaleButton" type="Button" parent="MarginContainer/VBoxContainer/FormContainer/ButtonContainer"]
+margin_left = 672.0
+margin_right = 820.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 2 )
+text = "Create a new locale"
+__meta__ = {
+"_editor_description_": ""
+}
