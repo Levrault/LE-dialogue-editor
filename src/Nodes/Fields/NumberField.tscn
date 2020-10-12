@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Nodes/Signal/SignalFieldInput.gd" type="Script" id=1]
+[ext_resource path="res://src/Nodes/Signal/Number.gd" type="Script" id=2]
+
+[node name="NumberField" type="HBoxContainer"]
+margin_right = 242.0
+margin_bottom = 24.0
+custom_constants/separation = 16
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NumberLabel" type="Label" parent="."]
+margin_top = 2.0
+margin_right = 56.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 0, 20 )
+text = "Number"
+valign = 1
+uppercase = true
+
+[node name="Number" type="LineEdit" parent="."]
+margin_left = 72.0
+margin_right = 242.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+is_number = true

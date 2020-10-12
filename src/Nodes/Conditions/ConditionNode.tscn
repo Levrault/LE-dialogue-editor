@@ -1,15 +1,21 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/Nodes/Conditions/AddCondition.gd" type="Script" id=1]
 [ext_resource path="res://src/Nodes/Conditions/ConditionsNode.gd" type="Script" id=2]
 [ext_resource path="res://assets/icons/plus.svg" type="Texture" id=3]
 [ext_resource path="res://assets/themes/grap_node/graph_content.tres" type="Theme" id=4]
 [ext_resource path="res://src/Nodes/Conditions/ConditionFieldInput.gd" type="Script" id=5]
+[ext_resource path="res://src/Components/AnimatedToolButton.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/icons/chevron-up.svg" type="Texture" id=7]
+[ext_resource path="res://src/Nodes/Fields/TypeOptions.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/Nodes/Fields/NumberOptionsField.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/Nodes/Fields/BooleanField.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/icons/chevron-down.svg" type="Texture" id=12]
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 16.0
 content_margin_right = 16.0
-content_margin_top = 50.0
+content_margin_top = 32.0
 content_margin_bottom = 16.0
 bg_color = Color( 0.247059, 0.223529, 0.258824, 1 )
 border_width_top = 36
@@ -26,7 +32,7 @@ expand_margin_bottom = 8.0
 [sub_resource type="StyleBoxFlat" id=2]
 content_margin_left = 16.0
 content_margin_right = 16.0
-content_margin_top = 50.0
+content_margin_top = 32.0
 content_margin_bottom = 16.0
 bg_color = Color( 0.247059, 0.223529, 0.258824, 1 )
 border_width_top = 36
@@ -50,7 +56,7 @@ anchor_bottom = 0.054
 margin_left = -147.2
 margin_top = -48.6
 margin_right = 146.8
-margin_bottom = 105.4
+margin_bottom = 267.4
 theme = ExtResource( 4 )
 custom_styles/frame = SubResource( 1 )
 custom_styles/selectedframe = SubResource( 2 )
@@ -72,15 +78,38 @@ __meta__ = {
 
 [node name="Container" type="VBoxContainer" parent="."]
 margin_left = 16.0
-margin_top = 50.0
+margin_top = 32.0
 margin_right = 278.0
-margin_bottom = 138.0
+margin_bottom = 300.0
 size_flags_vertical = 0
 custom_constants/separation = 16
 
-[node name="FieldContainer" type="HBoxContainer" parent="Container"]
+[node name="FoldContainer" type="HBoxContainer" parent="Container"]
 margin_right = 262.0
 margin_bottom = 32.0
+alignment = 2
+
+[node name="Fold" parent="Container/FoldContainer" instance=ExtResource( 6 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 226.0
+margin_right = 262.0
+margin_bottom = 32.0
+icon = ExtResource( 7 )
+
+[node name="UnFold" parent="Container/FoldContainer" instance=ExtResource( 6 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 226.0
+margin_right = 262.0
+margin_bottom = 32.0
+icon = ExtResource( 12 )
+
+[node name="FieldContainer" type="HBoxContainer" parent="Container"]
+margin_top = 48.0
+margin_right = 262.0
+margin_bottom = 70.0
 size_flags_vertical = 3
 custom_constants/separation = 7
 __meta__ = {
@@ -88,34 +117,64 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Container/FieldContainer"]
-margin_top = 9.0
-margin_right = 12.0
-margin_bottom = 23.0
+margin_top = 4.0
+margin_right = 33.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 33, 0 )
 text = "IF"
 
 [node name="Input" type="LineEdit" parent="Container/FieldContainer"]
-margin_left = 19.0
-margin_right = 219.0
-margin_bottom = 32.0
+margin_left = 40.0
+margin_right = 262.0
+margin_bottom = 22.0
 size_flags_horizontal = 3
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AddCondition" type="ToolButton" parent="Container/FieldContainer"]
+[node name="TypeContainer" parent="Container" instance=ExtResource( 8 )]
+margin_top = 86.0
+margin_right = 262.0
+margin_bottom = 108.0
+
+[node name="Label" parent="Container/TypeContainer" index="0"]
+margin_right = 36.0
+rect_min_size = Vector2( 36, 0 )
+size_flags_horizontal = 1
+
+[node name="TypeOption" parent="Container/TypeContainer" index="1"]
+margin_left = 40.0
+margin_right = 262.0
+
+[node name="BooleanField" parent="Container" instance=ExtResource( 11 )]
+
+[node name="NumberOptionsField" parent="Container" instance=ExtResource( 9 )]
+visible = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container"]
+margin_top = 180.0
+margin_right = 262.0
+margin_bottom = 212.0
+alignment = 2
+
+[node name="AddCondition" type="ToolButton" parent="Container/HBoxContainer"]
 margin_left = 226.0
 margin_right = 262.0
 margin_bottom = 32.0
 rect_pivot_offset = Vector2( 18, 16 )
+mouse_default_cursor_shape = 2
 custom_styles/focus = SubResource( 3 )
 icon = ExtResource( 3 )
 script = ExtResource( 1 )
 
-[node name="Tween" type="Tween" parent="Container/FieldContainer/AddCondition"]
+[node name="Tween" type="Tween" parent="Container/HBoxContainer/AddCondition"]
 
 [node name="IsEmpty" type="CheckButton" parent="Container"]
-margin_top = 48.0
+margin_top = 228.0
 margin_right = 262.0
-margin_bottom = 88.0
+margin_bottom = 268.0
+mouse_default_cursor_shape = 2
 text = "Empty condition"
+
+[editable path="Container/TypeContainer"]

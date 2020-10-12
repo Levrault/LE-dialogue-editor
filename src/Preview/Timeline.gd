@@ -26,6 +26,7 @@ func _ready() -> void:
 
 # Preview predicated route based on selected conditions
 func _on_Preview_started(form_conditions: Dictionary) -> void:
+	print(form_conditions)
 	_form_conditions = form_conditions
 	preview_list = []
 	uuid_list = []
@@ -118,29 +119,66 @@ func _create_timeline(dialogue: Dictionary, uuid := "") -> void:
 			var predicated_next: String = condition.next
 			condition.erase("next")
 
-			# conditions will never match
-			if _form_conditions.size() < condition.size():
-				continue
-
 			if condition.empty():
 				default_next = predicated_next
-
-			# perfect matching keys
-			if condition.has_all(_form_conditions.keys()):
-				_create_timeline(Store.json_raw[predicated_next].duplicate(), predicated_next)
-				return
 
 			# partial matching
 			var current_matching_condition := 0
 			for key in condition:
 				if _form_conditions.has(key):
-					current_matching_condition += 1
+					# conditions will never match
+					if _form_conditions.size() < condition.size():
+						continue
+
+					if condition.empty():
+						default_next = predicated_next
+
+					var operator: int = Operator.get_operator_enum(condition[key].operator)
+					var condition_matched := false
+
+					if operator == Operator.Type.different:
+						condition_matched = (
+							true
+							if _form_conditions[key] != condition[key].value
+							else false
+						)
+
+					if operator == Operator.Type.greater:
+						condition_matched = (
+							true
+							if _form_conditions[key] > condition[key].value
+							else false
+						)
+
+					if operator == Operator.Type.lower:
+						condition_matched = (
+							true
+							if _form_conditions[key] < condition[key].value
+							else false
+						)
+
+					if operator == Operator.Type.equal:
+						condition_matched = (
+							true
+							if _form_conditions[key] == condition[key].value
+							else false
+						)
+
+					if condition_matched:
+						current_matching_condition += 1
 			if current_matching_condition > matching_condition:
 				matching_condition = current_matching_condition
 				next = predicated_next
 
 		# take default empty branch if nothing has match
 		if next.empty():
+			if default_next.empty():
+				Events.emit_signal(
+					"notification_displayed",
+					Editor.Notification.error,
+					"No route can be predicated with the current condition(s)"
+				)
+				return
 			_create_timeline(Store.json_raw[default_next].duplicate(), default_next)
 			return
 

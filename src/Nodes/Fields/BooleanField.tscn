@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Nodes/Fields/BooleanField.gd" type="Script" id=1]
+
+[node name="BooleanField" type="HBoxContainer"]
+margin_top = 124.0
+margin_right = 262.0
+margin_bottom = 164.0
+custom_constants/separation = 16
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BooleanLabel" type="Label" parent="."]
+margin_top = 10.0
+margin_right = 41.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 20 )
+text = "Value"
+valign = 1
+uppercase = true
+
+[node name="Boolean" type="CheckButton" parent="."]
+margin_left = 57.0
+margin_right = 262.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 20 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+pressed = true

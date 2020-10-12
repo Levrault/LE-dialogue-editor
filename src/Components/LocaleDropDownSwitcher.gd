@@ -78,8 +78,6 @@ func _on_I18n_changed() -> void:
 		button.connect("pressed", self, "_on_Locale_pressed", [locale])
 		locale_container.add_child(button)
 
-	print(Config.values.locale.selected)
 	if not Config.values.locale.selected.has(Editor.locale):
 		Editor.locale = Config.values.locale.selected[0]
 		self.current_locale = Editor.locale
-		print(current_locale)
