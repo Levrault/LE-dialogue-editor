@@ -141,10 +141,14 @@ func generate_graph(json: Dictionary) -> bool:
 
 		if json[uuid].has("choices"):
 			for choice in json[uuid].choices:
+
+				# linear connexion (dialgue -> choice)
 				var saved_data = _find_by_uuid(editor_data.choices, uuid)
 				var choice_instance = _load_node(uuid, choice_node.instance(), choice, saved_data)
 				if choice_instance:
 					choices_list.append(choice_instance)
+
+				# conditional connexion (dialogue -> condition -> choice)
 
 	# create root node
 	var root_instance = root_node.instance()
@@ -152,6 +156,7 @@ func generate_graph(json: Dictionary) -> bool:
 	root_instance.name = "root"
 	root_instance.values["__editor"] = editor_data.root
 	Events.emit_signal("graph_node_loaded", root_instance)
+
 	if root.has("conditions"):
 		for condition in root.conditions:
 			var saved_data = _find_by_uuid(editor_data.conditions, "root")
@@ -177,6 +182,9 @@ func generate_graph(json: Dictionary) -> bool:
 		var values = choice.values.data
 		if values.has("next") and not values.next.empty():
 			Events.emit_signal("connection_request_loaded", choice.uuid, 0, values.next, 0)
+
+	# add lonely node
+	print(editor_data.choices)
 
 	Events.emit_signal("file_loaded")
 	return true

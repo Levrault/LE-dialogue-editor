@@ -2,6 +2,26 @@
 # Can only have one starting node
 # - Can connect to one dialogue node
 # - Can connect to multiple conditions
+#
+# generated json
+# linear 
+#   "root": { "next": "e7c3a4cf-4b63-4149-94eb-d396f8f4f9fe" },
+#
+# Conditional
+#   "root": {
+#     "conditions": [
+#       { "next": "db401685-3241-4a2f-8ccd-b526047aa621" },
+#       {
+#         "has_kill_dragon": {
+#           "value": false,
+#           "operator": "equal",
+#           "type": "boolean"
+#         },
+#         "next": "f38278b3-cb69-430e-84b8-4f23bcdf7adc"
+#       }
+#     ]
+#   },
+
 extends GraphEditorNode
 
 const TYPE = Editor.Type.root

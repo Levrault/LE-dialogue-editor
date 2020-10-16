@@ -3,6 +3,13 @@
 # When readed by the dialogue system, he should emit a signal with the params
 # 4 types are managed for the moment
 #  Empty, String, Vector2, Number
+#
+# generated json
+#    "signals": {
+#      "camera_shake": { "Vector2": { "x": "100", "y": "20" } },
+#      "camera_animation_duration": { "Number": "250" }
+#    }
+
 extends GraphEditorNode
 
 enum Type { empty, string, vector2, number }

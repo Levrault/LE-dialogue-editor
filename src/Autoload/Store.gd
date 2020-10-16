@@ -47,12 +47,20 @@ func _ready() -> void:
 		"dialogue_to_condition_relation_deleted", self, "_on_Dialogue_to_condition_relation_deleted"
 	)
 
-	# condtion to dialogue
+	# condition to dialogue
 	Events.connect(
 		"condition_to_dialogue_relation_created", self, "_on_Condition_to_dialogue_relation_created"
 	)
 	Events.connect(
 		"condition_to_dialogue_relation_deleted", self, "_on_Condition_to_dialogue_relation_deleted"
+	)
+
+	# condition to choice
+	Events.connect(
+		"condition_to_choice_relation_created", self, "_on_Condition_to_choice_relation_created"
+	)
+	Events.connect(
+		"condition_to_choice_relation_deleted", self, "_on_Condition_to_choice_relation_deleted"
 	)
 
 	# Dialogue to signal
@@ -139,11 +147,19 @@ func _on_Dialogue_to_condition_relation_created(from: String, to: String) -> voi
 		json_raw[from]["conditions"] = []
 	json_raw[from].conditions.append(conditions_node[to].data)
 
+	# if is in "conditional choice" context, remove choice
+	if conditions_node[to].__editor.has("choice_uuid"):
+		_on_Dialogue_to_choice_relation_created(from, conditions_node[to].__editor.choice_uuid)
+
 
 func _on_Dialogue_to_condition_relation_deleted(from: String, to: String) -> void:
 	json_raw[from]["conditions"].erase(conditions_node[to].data)
-	if conditions_node.empty():
+	if json_raw[from]["conditions"].empty():
 		json_raw[from].erase("conditions")
+
+	# if is in "conditional choice" context, remove choice
+	if conditions_node[to].__editor.has("choice_uuid"):
+		_on_Dialogue_to_choice_relation_deleted(from, conditions_node[to].__editor.choice_uuid)
 
 
 func _on_Condition_to_dialogue_relation_created(from: String, to: String) -> void:
@@ -152,6 +168,34 @@ func _on_Condition_to_dialogue_relation_created(from: String, to: String) -> voi
 
 func _on_Condition_to_dialogue_relation_deleted(from: String) -> void:
 	conditions_node[from].data.next = ""
+
+
+func _on_Condition_to_choice_relation_created(from: String, to: String) -> void:
+	conditions_node[from].data.next = to
+
+	# keep track of conditions/choice relation
+	if not conditions_node[from].__editor.has("choice_uuid"):
+		conditions_node[from].__editor["choice_uuid"] = ""
+	conditions_node[from].__editor.choice_uuid = to
+
+	# keep track in choice too
+	if not choices_node[to].__editor.has("condition_uuid"):
+		choices_node[to].__editor["condition_uuid"] = ""
+	choices_node[to].__editor.condition_uuid = from
+
+	# sync choice to the dialogue node
+	var parent = conditions_node[from].__editor.get("parent")
+	if parent:
+		_on_Dialogue_to_choice_relation_created(parent, to)
+
+
+func _on_Condition_to_choice_relation_deleted(from: String, to: String) -> void:
+	conditions_node[from].data.next = ""
+	conditions_node[from].__editor.erase("choice_uuid")
+
+	var parent = conditions_node[from].__editor.get("parent")
+	if parent:
+		_on_Dialogue_to_choice_relation_deleted(parent, to)
 
 
 # Signals

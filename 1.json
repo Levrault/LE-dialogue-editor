@@ -1,0 +1,52 @@
+{
+  "root": { "next": "83ac4f12-17da-4291-bc17-3b6054bc63c6" },
+  "83ac4f12-17da-4291-bc17-3b6054bc63c6": {
+    "name": "",
+    "portrait": "",
+    "text": { "en": "", "fr": "" },
+    "conditions": [
+      {
+        "con": { "value": true, "operator": "equal", "type": "boolean" },
+        "next": "23a5b73b-9c98-46d4-831f-4abc9e93ac84"
+      }
+    ],
+    "choices": [
+      { "text": { "en": "conditional", "fr": "" }, "next": "" },
+      { "text": { "en": "linear", "fr": "" }, "next": "" }
+    ]
+  },
+  "__editor": {
+    "root": { "uuid": "root", "offset": [40, 100] },
+    "dialogues": [
+      {
+        "uuid": "83ac4f12-17da-4291-bc17-3b6054bc63c6",
+        "offset": [240, 140],
+        "parent": "root"
+      }
+    ],
+    "conditions": [
+      {
+        "uuid": "4c7b2ff6-c8eb-4840-aa45-5323db8324c1",
+        "offset": [660, 80],
+        "parent": "83ac4f12-17da-4291-bc17-3b6054bc63c6",
+        "choice_uuid": "23a5b73b-9c98-46d4-831f-4abc9e93ac84",
+        "folded": true
+      }
+    ],
+    "signals": [],
+    "choices": [
+      { "uuid": "511e37c1-e315-484c-a67b-ad3e98a6e73d", "offset": [660, 720] },
+      {
+        "uuid": "21ce121b-0ae5-42dc-adb3-4e431c353c46",
+        "offset": [680, 340],
+        "parent": "83ac4f12-17da-4291-bc17-3b6054bc63c6"
+      },
+      {
+        "uuid": "23a5b73b-9c98-46d4-831f-4abc9e93ac84",
+        "offset": [1100, 100],
+        "parent": "4c7b2ff6-c8eb-4840-aa45-5323db8324c1",
+        "condition_uuid": "4c7b2ff6-c8eb-4840-aa45-5323db8324c1"
+      }
+    ]
+  }
+}
