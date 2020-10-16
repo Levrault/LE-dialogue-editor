@@ -43,6 +43,11 @@ _global_script_classes=[ {
 "class": "PreviewChoice",
 "language": "GDScript",
 "path": "res://src/Preview/PreviewChoice/PreviewChoice.gd"
+}, {
+"base": "HBoxContainer",
+"class": "TimelineField",
+"language": "GDScript",
+"path": "res://src/Preview/Form/TimelineField.gd"
 } ]
 _global_script_class_icons={
 "AddButton": "",
@@ -51,7 +56,8 @@ _global_script_class_icons={
 "GraphEditorNode": "",
 "Parser": "",
 "PopInPanel": "",
-"PreviewChoice": ""
+"PreviewChoice": "",
+"TimelineField": ""
 }
 
 [application]
@@ -68,6 +74,7 @@ Config="*res://src/Autoload/Config.gd"
 Editor="*res://src/Autoload/Editor.gd"
 Store="*res://src/Autoload/Store.gd"
 Serialize="*res://src/Autoload/Serialize.gd"
+Operator="*res://src/Autoload/Operator.gd"
 
 [debug]
 

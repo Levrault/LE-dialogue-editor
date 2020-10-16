@@ -9,15 +9,15 @@ enum Type { empty, string, vector2, number }
 
 const TYPE = Editor.Type.signal_node
 
-var signal_field := preload("res://src/Nodes/Fields/Signal.tscn")
+var signal_field := preload("res://src/Nodes/Fields/SignalItem.tscn")
 var selected_type = Type.empty
 
 onready var add_field := $Container/AddSignal
 onready var signal_name := $Container/FieldContainer/SignalName
 onready var type_option := $Container/TypeContainer/TypeOption
-onready var vector2_field := $Container/Vector2
-onready var number_field := $Container/Number
-onready var string_field := $Container/String
+onready var vector2_field := $Container/Vector2Field
+onready var number_field := $Container/NumberField
+onready var string_field := $Container/StringField
 
 
 func _ready() -> void:

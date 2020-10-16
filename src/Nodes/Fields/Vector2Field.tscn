@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Nodes/Signal/SignalFieldInput.gd" type="Script" id=1]
+[ext_resource path="res://src/Nodes/Signal/Vector2.gd" type="Script" id=2]
+
+[node name="Vector2Field" type="HBoxContainer"]
+visible = false
+margin_top = 72.0
+margin_right = 242.0
+margin_bottom = 92.0
+custom_constants/separation = 16
+script = ExtResource( 2 )
+
+[node name="X" type="Label" parent="."]
+margin_right = 8.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+text = "x"
+valign = 1
+uppercase = true
+
+[node name="Vector2X" type="LineEdit" parent="."]
+margin_left = 24.0
+margin_right = 113.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+is_number = true
+
+[node name="Y" type="Label" parent="."]
+margin_left = 129.0
+margin_right = 136.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+text = "y"
+valign = 1
+uppercase = true
+
+[node name="Vector2Y" type="LineEdit" parent="."]
+margin_left = 152.0
+margin_right = 242.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+is_number = true

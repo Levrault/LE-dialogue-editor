@@ -8,6 +8,7 @@ func _ready() -> void:
 
 
 func _on_Pressed() -> void:
+	print(owner.conditions)
 	Events.emit_signal("preview_started", owner.conditions)
 	disabled = true
 
