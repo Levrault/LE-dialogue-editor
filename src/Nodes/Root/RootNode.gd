@@ -35,5 +35,5 @@ func _ready() -> void:
 	if not is_loading:
 		values = {"__editor": {"uuid": 'root', "offset": [offset.x, offset.y]}, "data": {}}
 	uuid = "root"
-	Store.json_raw["root"] = values.data
+	Store.json["root"] = values.data
 	Store.root_node = self

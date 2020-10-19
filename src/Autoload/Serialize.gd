@@ -10,11 +10,7 @@ func save_as(path: String, editor_compatible := true) -> void:
 	var file = File.new()
 	file.open(path, File.WRITE)
 	file.store_string(
-		(
-			parser.to_json(Store.json_raw)
-			if editor_compatible
-			else parser.export_to_json(Store.json_raw)
-		)
+		parser.to_json(Store.json) if editor_compatible else parser.export_to_json(Store.json)
 	)
 	file.close()
 

@@ -32,7 +32,7 @@ func _on_Preview_started(form_conditions: Dictionary) -> void:
 	uuid_list = []
 	for child in get_children():
 		child.queue_free()
-	_create_timeline(Store.json_raw.root.duplicate(), "root")
+	_create_timeline(Store.json.root.duplicate(), "root")
 
 	if preview_list.empty():
 		Events.emit_signal(
@@ -86,7 +86,7 @@ func _on_Choice_pressed(
 	uuid_list.append(uuid)
 
 	# display
-	_create_timeline(Store.json_raw[value.next].duplicate(), value.next)
+	_create_timeline(Store.json[value.next].duplicate(), value.next)
 	_display_timeline(preview_list, index)
 
 
@@ -105,7 +105,7 @@ func _create_timeline(dialogue: Dictionary, uuid := "") -> void:
 		_push_speaker(dialogue.name)
 
 	if dialogue.has("next"):
-		_create_timeline(Store.json_raw[dialogue.next].duplicate(), dialogue.next)
+		_create_timeline(Store.json[dialogue.next].duplicate(), dialogue.next)
 		return
 
 	var next := ""
@@ -179,11 +179,11 @@ func _create_timeline(dialogue: Dictionary, uuid := "") -> void:
 					"No route can be predicated with the current condition(s)"
 				)
 				return
-			_create_timeline(Store.json_raw[default_next].duplicate(), default_next)
+			_create_timeline(Store.json[default_next].duplicate(), default_next)
 			return
 
 		# take best matching branch
-		_create_timeline(Store.json_raw[next].duplicate(), next)
+		_create_timeline(Store.json[next].duplicate(), next)
 
 
 # Add speaker line to dialogue

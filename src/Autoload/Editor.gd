@@ -28,7 +28,7 @@ func reset() -> void:
 	self.locale = "en"
 
 	Serialize.current_path = ""
-	Store.json_raw = {}
+	Store.json = {}
 	Store.choices_node = {}
 	Store.conditions_node = {}
 	Store.signals_node = {}
@@ -99,6 +99,11 @@ func open_folder() -> void:
 	Events.emit_signal("file_dialog_opened", 2)  # FileDialog.Mode.MODE_OPEN_DIR
 
 
+# Recreate the graph based on the json file
+# Will recreated all linked nodes first
+# and add lonely node afterward
+# @param {Dictionary} json
+# @returns {bool} - loading finished
 func generate_graph(json: Dictionary) -> bool:
 	if not json.has("__editor"):
 		Events.emit_signal(
@@ -116,7 +121,7 @@ func generate_graph(json: Dictionary) -> bool:
 	var root = json["root"].duplicate()
 	json.erase("root")
 
-	# create instance
+	# construct all connected nodes
 	for uuid in json:
 		var dialogue_instance = dialogue_node.instance()
 		var dialogue_saved_data = _find_by_uuid(editor_data.dialogues, uuid)
@@ -141,14 +146,11 @@ func generate_graph(json: Dictionary) -> bool:
 
 		if json[uuid].has("choices"):
 			for choice in json[uuid].choices:
-
 				# linear connexion (dialgue -> choice)
 				var saved_data = _find_by_uuid(editor_data.choices, uuid)
 				var choice_instance = _load_node(uuid, choice_node.instance(), choice, saved_data)
 				if choice_instance:
 					choices_list.append(choice_instance)
-
-				# conditional connexion (dialogue -> condition -> choice)
 
 	# create root node
 	var root_instance = root_node.instance()

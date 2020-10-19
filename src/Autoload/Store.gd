@@ -1,6 +1,6 @@
 extends Node
 
-var json_raw := {}
+var json := {}
 var root_node = null
 var choices_node := {}
 var conditions_node := {}
@@ -88,12 +88,30 @@ func _ready() -> void:
 	)
 
 
-func get_connected_nodes(nodes: Dictionary, dialogue_uuid: String) -> Array:
-	var result := []
-	for key in nodes:
-		if nodes[key].data.has("next") and nodes[key].data.next == dialogue_uuid:
-			result.append(nodes[key])
-	return result
+# find a node in the tree
+func has_node_in_json(node_uuid: String) -> bool:
+	for uuid in json:
+		var next = json[uuid].get("next")
+		if next and next == "uuid":
+			return true
+
+		var choices = json[uuid].get("choices")
+		if choices:
+			for key in choices:
+				if not choices[key].has("next"):
+					continue
+				if choices[key].next == uuid:
+					return true
+
+		var conditions = json[uuid].get("conditions")
+		if conditions:
+			for key in conditions:
+				if not conditions[key].has("next"):
+					continue
+				if conditions[key].next == uuid:
+					return true
+
+	return false
 
 
 func remove_locale(locale: String) -> void:
@@ -103,38 +121,38 @@ func remove_locale(locale: String) -> void:
 
 # Root
 func _on_Root_to_dialogue_relation_created(from: String) -> void:
-	if not json_raw.root.has("next"):
-		json_raw.root["next"] = ""
-	json_raw.root.next = from
+	if not json.root.has("next"):
+		json.root["next"] = ""
+	json.root.next = from
 
 
 func _on_Root_to_dialogue_relation_deleted() -> void:
-	json_raw.root.erase("next")
+	json.root.erase("next")
 
 
 func _on_Root_to_condition_relation_created(to: String) -> void:
-	if not json_raw.root.has("conditions"):
-		json_raw.root["conditions"] = []
-	json_raw.root.conditions.append(conditions_node[to].data)
+	if not json.root.has("conditions"):
+		json.root["conditions"] = []
+	json.root.conditions.append(conditions_node[to].data)
 
 
 func _on_Root_to_condition_relation_deleted(to: String) -> void:
-	json_raw.root.conditions.erase(conditions_node[to].data)
+	json.root.conditions.erase(conditions_node[to].data)
 
 
 # Dialogue
 func _on_Dialogue_node_created(data: Dictionary) -> void:
-	json_raw[data.uuid] = data.values.data
+	json[data.uuid] = data.values.data
 	dialogues_node[data.uuid] = data.values
 	dialogues_uuid.append(data.uuid)
 
 
 func _on_Dialogue_to_dialogue_relation_created(from: String, to: String) -> void:
-	json_raw[from]["next"] = to
+	json[from]["next"] = to
 
 
 func _on_Dialogue_to_dialogue_relation_deleted(from: String) -> void:
-	json_raw[from].erase("next")
+	json[from].erase("next")
 
 
 # Condition
@@ -143,23 +161,23 @@ func _on_Condition_node_created(data: Dictionary) -> void:
 
 
 func _on_Dialogue_to_condition_relation_created(from: String, to: String) -> void:
-	if not json_raw[from].has("conditions"):
-		json_raw[from]["conditions"] = []
-	json_raw[from].conditions.append(conditions_node[to].data)
+	if not json[from].has("conditions"):
+		json[from]["conditions"] = []
+	json[from].conditions.append(conditions_node[to].data)
 
 	# if is in "conditional choice" context, remove choice
-	if conditions_node[to].__editor.has("choice_uuid"):
-		_on_Dialogue_to_choice_relation_created(from, conditions_node[to].__editor.choice_uuid)
+	if conditions_node[to].__editor.has("child_is_choice"):
+		_on_Dialogue_to_choice_relation_created(from, conditions_node[to].data.next)
 
 
 func _on_Dialogue_to_condition_relation_deleted(from: String, to: String) -> void:
-	json_raw[from]["conditions"].erase(conditions_node[to].data)
-	if json_raw[from]["conditions"].empty():
-		json_raw[from].erase("conditions")
+	json[from]["conditions"].erase(conditions_node[to].data)
+	if json[from]["conditions"].empty():
+		json[from].erase("conditions")
 
 	# if is in "conditional choice" context, remove choice
-	if conditions_node[to].__editor.has("choice_uuid"):
-		_on_Dialogue_to_choice_relation_deleted(from, conditions_node[to].__editor.choice_uuid)
+	if conditions_node[to].__editor.has("child_is_choice"):
+		_on_Dialogue_to_choice_relation_deleted(from, conditions_node[to].data.next)
 
 
 func _on_Condition_to_dialogue_relation_created(from: String, to: String) -> void:
@@ -174,14 +192,14 @@ func _on_Condition_to_choice_relation_created(from: String, to: String) -> void:
 	conditions_node[from].data.next = to
 
 	# keep track of conditions/choice relation
-	if not conditions_node[from].__editor.has("choice_uuid"):
-		conditions_node[from].__editor["choice_uuid"] = ""
-	conditions_node[from].__editor.choice_uuid = to
+	if not conditions_node[from].__editor.has("child_is_choice"):
+		conditions_node[from].__editor["child_is_choice"] = true
+	conditions_node[from].__editor.child_is_choice = true
 
 	# keep track in choice too
-	if not choices_node[to].__editor.has("condition_uuid"):
-		choices_node[to].__editor["condition_uuid"] = ""
-	choices_node[to].__editor.condition_uuid = from
+	if not choices_node[to].__editor.has("parent_is_condition"):
+		choices_node[to].__editor["parent_is_condition"] = ""
+	choices_node[to].__editor.parent_is_condition = true
 
 	# sync choice to the dialogue node
 	var parent = conditions_node[from].__editor.get("parent")
@@ -191,7 +209,7 @@ func _on_Condition_to_choice_relation_created(from: String, to: String) -> void:
 
 func _on_Condition_to_choice_relation_deleted(from: String, to: String) -> void:
 	conditions_node[from].data.next = ""
-	conditions_node[from].__editor.erase("choice_uuid")
+	conditions_node[from].__editor.erase("child_is_choice")
 
 	var parent = conditions_node[from].__editor.get("parent")
 	if parent:
@@ -204,13 +222,13 @@ func _on_Signal_node_created(data: Dictionary) -> void:
 
 
 func _on_Dialogue_to_signal_relation_created(from: String, to: String) -> void:
-	if not json_raw[from].has("signals"):
-		json_raw[from]["signals"] = []
-	json_raw[from].signals = signals_node[to].data
+	if not json[from].has("signals"):
+		json[from]["signals"] = []
+	json[from].signals = signals_node[to].data
 
 
 func _on_Dialogue_to_signal_relation_deleted(from: String) -> void:
-	json_raw[from].erase("signals")
+	json[from].erase("signals")
 
 
 # Choices
@@ -219,15 +237,15 @@ func _on_Choice_node_created(data: Dictionary) -> void:
 
 
 func _on_Dialogue_to_choice_relation_created(from: String, to: String) -> void:
-	if not json_raw[from].has("choices"):
-		json_raw[from]["choices"] = []
-	json_raw[from].choices.append(choices_node[to].data)
+	if not json[from].has("choices"):
+		json[from]["choices"] = []
+	json[from].choices.append(choices_node[to].data)
 
 
 func _on_Dialogue_to_choice_relation_deleted(from: String, to: String) -> void:
-	json_raw[from]["choices"].erase(choices_node[to].data)
+	json[from]["choices"].erase(choices_node[to].data)
 	if choices_node.empty():
-		json_raw[from].erase("choices")
+		json[from].erase("choices")
 
 
 func _on_Choice_to_dialogue_relation_created(from: String, to: String) -> void:

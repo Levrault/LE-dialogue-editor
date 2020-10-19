@@ -128,4 +128,4 @@ func _on_Close_request() -> void:
 
 	._on_Close_request()
 	Store.dialogues_node.erase(uuid)
-	Store.json_raw.erase(uuid)
+	Store.json.erase(uuid)
