@@ -88,27 +88,25 @@ func _ready() -> void:
 	)
 
 
-# find a node in the tree
+# check if a choice, signal, condition is linked to a dialogue
+# Since choice next is a dialogue, only the conditions are checks for the following
+# case dialogue -> condition -> choice -> dialogue
+# @param {String} node_uuid - should be data "parent" saved inside __editor
+# @returns {bool}
 func has_node_in_json(node_uuid: String) -> bool:
+	if node_uuid == "root":
+		return true
 	for uuid in json:
 		var next = json[uuid].get("next")
-		if next and next == "uuid":
+		if next and next == node_uuid:
 			return true
-
-		var choices = json[uuid].get("choices")
-		if choices:
-			for key in choices:
-				if not choices[key].has("next"):
-					continue
-				if choices[key].next == uuid:
-					return true
 
 		var conditions = json[uuid].get("conditions")
 		if conditions:
-			for key in conditions:
-				if not conditions[key].has("next"):
+			for condition in conditions:
+				if not condition.has("next"):
 					continue
-				if conditions[key].next == uuid:
+				if condition.next == node_uuid:
 					return true
 
 	return false
@@ -166,7 +164,7 @@ func _on_Dialogue_to_condition_relation_created(from: String, to: String) -> voi
 	json[from].conditions.append(conditions_node[to].data)
 
 	# if is in "conditional choice" context, remove choice
-	if conditions_node[to].__editor.has("child_is_choice"):
+	if conditions_node[to].__editor.has("has_choice"):
 		_on_Dialogue_to_choice_relation_created(from, conditions_node[to].data.next)
 
 
@@ -176,7 +174,7 @@ func _on_Dialogue_to_condition_relation_deleted(from: String, to: String) -> voi
 		json[from].erase("conditions")
 
 	# if is in "conditional choice" context, remove choice
-	if conditions_node[to].__editor.has("child_is_choice"):
+	if conditions_node[to].__editor.has("has_choice"):
 		_on_Dialogue_to_choice_relation_deleted(from, conditions_node[to].data.next)
 
 
@@ -192,14 +190,9 @@ func _on_Condition_to_choice_relation_created(from: String, to: String) -> void:
 	conditions_node[from].data.next = to
 
 	# keep track of conditions/choice relation
-	if not conditions_node[from].__editor.has("child_is_choice"):
-		conditions_node[from].__editor["child_is_choice"] = true
-	conditions_node[from].__editor.child_is_choice = true
-
-	# keep track in choice too
-	if not choices_node[to].__editor.has("parent_is_condition"):
-		choices_node[to].__editor["parent_is_condition"] = ""
-	choices_node[to].__editor.parent_is_condition = true
+	if not conditions_node[from].__editor.has("has_choice"):
+		conditions_node[from].__editor["has_choice"] = true
+	conditions_node[from].__editor.has_choice = true
 
 	# sync choice to the dialogue node
 	var parent = conditions_node[from].__editor.get("parent")
@@ -209,7 +202,7 @@ func _on_Condition_to_choice_relation_created(from: String, to: String) -> void:
 
 func _on_Condition_to_choice_relation_deleted(from: String, to: String) -> void:
 	conditions_node[from].data.next = ""
-	conditions_node[from].__editor.erase("child_is_choice")
+	conditions_node[from].__editor.erase("has_choice")
 
 	var parent = conditions_node[from].__editor.get("parent")
 	if parent:

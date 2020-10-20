@@ -49,7 +49,7 @@ func load(path: String):
 		)
 		return
 
-	if not Editor.generate_graph(parsed_result.result):
+	if not FileReader.import(parsed_result.result):
 		Events.emit_signal(
 			"notification_displayed",
 			Editor.Notification.error,

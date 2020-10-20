@@ -311,6 +311,7 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.choice:
 		from_node.right_choice_connection = ""
 		to_node.left_conditions_connection.erase(from)
+		to_node.values.__editor.erase("parent")
 
 		disconnect_node(from, from_slot, to, to_slot)
 		return
