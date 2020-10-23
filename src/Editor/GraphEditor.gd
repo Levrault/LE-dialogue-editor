@@ -20,6 +20,7 @@ func _ready() -> void:
 func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: int) -> void:
 	Editor.current_state = Editor.FileState.unsaved
 	Events.emit_signal("preview_button_activated")
+	var wait_for_user_confirmation = false  # can be a GDScriptFunctionState
 	var from_node = get_node(from)
 	var to_node = get_node(to)
 
@@ -49,7 +50,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 	# ROOT -- CONDITIONS
 	if from_node.TYPE == Editor.Type.root and to_node.TYPE == Editor.Type.condition:
-		_check_node_connection(
+		wait_for_user_confirmation = _check_node_connection(
 			from,
 			from_slot,
 			Editor.type_to_string(from_node.TYPE),
@@ -59,6 +60,12 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 			from_node.right_dialogue_connection,
 			from_node.SLOT
 		)
+
+		# need user answer
+		if wait_for_user_confirmation is GDScriptFunctionState:
+			wait_for_user_confirmation = yield(wait_for_user_confirmation, "completed")
+		if not wait_for_user_confirmation:
+			return
 
 		from_node.right_dialogue_connection = ""
 		from_node.right_conditions_connection.append(to)
@@ -70,7 +77,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 	# ROOT -- DIALOGUE
 	if from_node.TYPE == Editor.Type.root and to_node.TYPE == Editor.Type.dialogue:
-		_check_node_connection(
+		wait_for_user_confirmation = _check_node_connection(
 			from,
 			from_slot,
 			Editor.type_to_string(from_node.TYPE),
@@ -81,8 +88,14 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 			from_node.SLOT
 		)
 
+		# need user answer
+		if wait_for_user_confirmation is GDScriptFunctionState:
+			wait_for_user_confirmation = yield(wait_for_user_confirmation, "completed")
+		if not wait_for_user_confirmation:
+			return
+
 		for condition in from_node.right_conditions_connection:
-			_check_node_connection(
+			wait_for_user_confirmation = _check_node_connection(
 				from,
 				from_slot,
 				Editor.type_to_string(from_node.TYPE),
@@ -92,6 +105,11 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 				condition,
 				from_node.SLOT
 			)
+			# need user answer
+			if wait_for_user_confirmation is GDScriptFunctionState:
+				wait_for_user_confirmation = yield(wait_for_user_confirmation, "completed")
+			if not wait_for_user_confirmation:
+				return
 
 		from_node.right_dialogue_connection = to
 		from_node.right_conditions_connection = []
@@ -104,7 +122,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 	# DIALOGUE -- DIALOGUE
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.dialogue:
-		_check_node_connection(
+		wait_for_user_confirmation = _check_node_connection(
 			from,
 			from_slot,
 			Editor.type_to_string(from_node.TYPE),
@@ -114,6 +132,48 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 			from_node.right_dialogue_connection,
 			from_node.SLOT
 		)
+
+		# need user answer
+		if wait_for_user_confirmation is GDScriptFunctionState:
+			wait_for_user_confirmation = yield(wait_for_user_confirmation, "completed")
+		if not wait_for_user_confirmation:
+			return
+
+		for condition in from_node.right_conditions_connection:
+			wait_for_user_confirmation = _check_node_connection(
+				from,
+				from_slot,
+				Editor.type_to_string(from_node.TYPE),
+				to,
+				to_slot,
+				Editor.type_to_string(to_node.TYPE),
+				condition,
+				from_node.SLOT
+			)
+
+			# need user answer
+			if wait_for_user_confirmation is GDScriptFunctionState:
+				wait_for_user_confirmation = yield(wait_for_user_confirmation, "completed")
+			if not wait_for_user_confirmation:
+				return
+
+		for choice in from_node.right_choices_connection:
+			wait_for_user_confirmation = _check_node_connection(
+				from,
+				from_slot,
+				Editor.type_to_string(from_node.TYPE),
+				to,
+				to_slot,
+				Editor.type_to_string(to_node.TYPE),
+				choice,
+				from_node.SLOT
+			)
+
+			# need user answer
+			if wait_for_user_confirmation is GDScriptFunctionState:
+				wait_for_user_confirmation = yield(wait_for_user_confirmation, "completed")
+			if not wait_for_user_confirmation:
+				return
 
 		# Multiple dialogues can point to a dialogue
 		to_node.left_dialogues_connection.append(from)
@@ -130,7 +190,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 	# DIALOGUE -- SIGNAL  
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.signal_node:
-		_check_node_connection(
+		wait_for_user_confirmation = _check_node_connection(
 			from,
 			from_slot,
 			Editor.type_to_string(from_node.TYPE),
@@ -140,6 +200,13 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 			from_node.right_signal_connection,
 			from_node.SLOT
 		)
+
+		# need user answer
+		if wait_for_user_confirmation is GDScriptFunctionState:
+			wait_for_user_confirmation = yield(wait_for_user_confirmation, "completed")
+		if not wait_for_user_confirmation:
+			return
+
 		from_node.right_signal_connection = to
 		to_node.values.__editor["parent"] = from_node.uuid
 
@@ -152,7 +219,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 	# DIALOGUE -- CHOICE
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.choice:
-		_check_node_connection(
+		wait_for_user_confirmation = _check_node_connection(
 			from,
 			from_slot,
 			Editor.type_to_string(from_node.TYPE),
@@ -162,6 +229,12 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 			from_node.right_dialogue_connection,
 			from_node.SLOT
 		)
+
+		# need user answer
+		if wait_for_user_confirmation is GDScriptFunctionState:
+			wait_for_user_confirmation = yield(wait_for_user_confirmation, "completed")
+		if not wait_for_user_confirmation:
+			return
 
 		connect_node(from, from_slot, to, to_slot)
 		to_node.values.__editor["parent"] = from_node.uuid
@@ -197,7 +270,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 	# CONDITIONS -- DIALOGUE 
 	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.dialogue:
-		_check_node_connection(
+		wait_for_user_confirmation = _check_node_connection(
 			from,
 			from_slot,
 			Editor.type_to_string(from_node.TYPE),
@@ -207,6 +280,13 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 			from_node.right_dialogue_connection,
 			from_node.SLOT
 		)
+
+		# need user answer
+		if wait_for_user_confirmation is GDScriptFunctionState:
+			wait_for_user_confirmation = yield(wait_for_user_confirmation, "completed")
+		if not wait_for_user_confirmation:
+			return
+
 		to_node.left_condition_connection = from
 		from_node.right_dialogue_connection = to
 		connect_node(from, from_slot, to, to_slot)
@@ -346,8 +426,18 @@ func _on_Preview_predicated_route_displayed(uuid_list: Array) -> void:
 		get_node(uuid).selected = true
 
 
-# is selected dialogue (from) is already connected to another dialogue
-# Can only be connected to ONE dialogue but can be connected to multiple conditions
+# Check if a relation exist between two nodes.
+# If that new relation can be conflicted with the other relations of the node
+# e.g. dialogue -> condition and we directly connect a new dialogue
+# A message is displayed to disconnect the other relation and create a new one
+# @param {String} 	from
+# @param {int} 		from_slot
+# @param {String} 	from_type
+# @param {String} 	to
+# @param {int} 		to_slot
+# @param {String} 	to_type
+# @param {String} 	node_connected	- a node contains his right/next connection if set there a connexion, so a conflict
+# @param {int} 	 	node_connected_slot
 func _check_node_connection(
 	from: String,
 	from_slot: int,
@@ -357,19 +447,27 @@ func _check_node_connection(
 	to_type: String,
 	node_connected: String,
 	node_connected_slot: int
-) -> void:
+) -> bool:
 	if node_connected.empty():
-		return
+		return true
 
 	Events.emit_signal(
-		"notification_displayed",
-		Editor.Notification.warning,
+		"confirmation_relation_pop_up_displayed",
 		(
-			"WARNING: %s node is already connected to a %s, first connection will be disconnected"
+			"%s has already a relation with an %s node. To you wish to disconnect that relation ?"
 			% [from_type, to_type]
 		)
 	)
+	var should_relation_be_deleted = yield(Events, "confirmation_relation_answered")
+	if not should_relation_be_deleted:
+		return false
+
+	Events.emit_signal(
+		"notification_displayed", Editor.Notification.success, "New connection has been created"
+	)
 	disconnect_node(from, from_slot, node_connected, node_connected_slot)
+
+	return true
 
 
 func _add_Graph_node(node: GraphNode) -> void:
