@@ -9,6 +9,67 @@
 #  * A dialogue can only be connected to one conditions node (One To One relationship)
 #  * Can have multiples choices (One to Many relationship)
 #
+# Generated json
+# Case linear
+#   "e26a5ccf-66fe-4319-a130-47652e1a63b4": {
+#     "name": "Hero",
+#     "portrait": "Hero",
+#     "text": { "en": "This is the default response", "fr": "" },
+#	  "next": "79b93840-045d-4df1-b03a-52e984e0b2c2" 
+#   },
+# Case Conditional linear
+#   "e26a5ccf-66fe-4319-a130-47652e1a63b4": {
+#     "name": "Hero",
+#     "portrait": "Hero",
+#     "text": { "en": "This is the default response", "fr": "" },
+#     "conditions": [
+#       {
+#         "has_kill_dragon": {
+#           "value": true,
+#           "operator": "equal",
+#           "type": "boolean"
+#         },
+#         "next": "0efd2476-c3f1-4d85-96b6-dfc1be38f0d0"
+#       }
+#     ]
+#   },
+#
+# Case Choices
+#   "e26a5ccf-66fe-4319-a130-47652e1a63b4": {
+#     "name": "Hero",
+#     "portrait": "Hero",
+#     "text": { "en": "This is the default response", "fr": "" },
+#     "choices": [
+#       {
+#         "text": { "en": "choice 1", "fr": "" },
+#         "next": "02517b8f-7def-4309-bef3-6231a201c232"
+#       },
+#       {
+#         "text": { "en": "choice 2", "fr": "" },
+#         "next": "72431c16-1816-4836-b957-d82e792db206"
+#       }
+#     ]
+#   },
+#
+# Case Conditional choices. Node needs to have conditions AND choices params
+#   "e26a5ccf-66fe-4319-a130-47652e1a63b4": {
+#     "name": "Hero",
+#     "portrait": "Hero",
+#     "text": { "en": "This is the default response", "fr": "" },
+#     "conditions": [
+#       { "next": "fd6200dc-6623-4e20-96a0-61ba6632be15" },
+#      ], 
+#     "choices": [
+#       {
+#         "text": { "en": "choice 1", "fr": "" },
+#         "next": "02517b8f-7def-4309-bef3-6231a201c232"
+#       },
+#       {
+#         "text": { "en": "choice 2", "fr": "" },
+#         "next": "72431c16-1816-4836-b957-d82e792db206"
+#       }
+#     ]
+#   },
 extends GraphEditorNode
 
 const TYPE = Editor.Type.dialogue
@@ -67,4 +128,4 @@ func _on_Close_request() -> void:
 
 	._on_Close_request()
 	Store.dialogues_node.erase(uuid)
-	Store.json_raw.erase(uuid)
+	Store.json.erase(uuid)

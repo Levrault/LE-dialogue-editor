@@ -1,3 +1,14 @@
+# Conditions will add the conditions params to the left connected node.
+# Conditions determines when the right node can be displayed
+#
+# Generated json
+#   "conditions": [
+#      { "next": "fd6200dc-6623-4e20-96a0-61ba6632be15" },
+#      {
+#        "live": { "value": 3, "operator": "equal", "type": "int" },
+#        "next": "7c7d4384-8bc4-487f-b560-98184ec06141"
+#      },
+#    ], 
 extends GraphEditorNode
 
 enum Type { boolean, number }
@@ -19,7 +30,10 @@ onready var number_field := $Container/NumberOptionsField
 onready var fold_container := $Container/FoldContainer
 onready var fold_button := $Container/FoldContainer/Fold
 onready var unfold_button := $Container/FoldContainer/UnFold
+
+var left_dialogues_connection := []
 var right_dialogue_connection := ""
+var right_choice_connection := ""
 
 
 func _ready() -> void:

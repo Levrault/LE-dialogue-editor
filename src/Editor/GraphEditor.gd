@@ -62,7 +62,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 		from_node.right_dialogue_connection = ""
 		from_node.right_conditions_connection.append(to)
-		to_node.values["__editor"]["parent"] = from_node.uuid
+		to_node.values.__editor["parent"] = from_node.uuid
 		Events.emit_signal("root_to_condition_relation_created", to_node.uuid)
 
 		connect_node(from, from_slot, to, to_slot)
@@ -95,7 +95,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 		from_node.right_dialogue_connection = to
 		from_node.right_conditions_connection = []
-		to_node.values["__editor"]["parent"] = from_node.uuid
+		to_node.values.__editor["parent"] = from_node.uuid
 
 		Events.emit_signal("root_to_dialogue_relation_created", to_node.uuid)
 
@@ -141,7 +141,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 			from_node.SLOT
 		)
 		from_node.right_signal_connection = to
-		to_node.values["__editor"]["parent"] = from_node.uuid
+		to_node.values.__editor["parent"] = from_node.uuid
 
 		connect_node(from, from_slot, to, to_slot)
 		# in loading mode, store has already the data
@@ -164,7 +164,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		)
 
 		connect_node(from, from_slot, to, to_slot)
-		to_node.values["__editor"]["parent"] = from_node.uuid
+		to_node.values.__editor["parent"] = from_node.uuid
 
 		from_node.right_dialogue_connection = ""
 		from_node.right_choices_connection.append(to)
@@ -211,6 +211,15 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		from_node.right_dialogue_connection = to
 		connect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("condition_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
+		return
+
+	# CONDITIONS -- CHOICES 
+	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.choice:
+		from_node.right_choice_connection = to
+		to_node.left_conditions_connection.append(from)
+		to_node.values.__editor["parent"] = from_node.uuid
+		connect_node(from, from_slot, to, to_slot)
+		Events.emit_signal("condition_to_choice_relation_created", from_node.uuid, to_node.uuid)
 		return
 
 	Events.emit_signal(
@@ -295,6 +304,15 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 		from_node.values.data.next = ""
 		from_node.right_dialogue_connection = ""
 		to_node.left_condition_connection = ""
+		disconnect_node(from, from_slot, to, to_slot)
+		return
+
+	# CONDITIONS -- CHOICE 
+	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.choice:
+		from_node.right_choice_connection = ""
+		to_node.left_conditions_connection.erase(from)
+		to_node.values.__editor.erase("parent")
+
 		disconnect_node(from, from_slot, to, to_slot)
 		return
 

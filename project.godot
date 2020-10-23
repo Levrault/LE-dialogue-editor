@@ -72,6 +72,7 @@ Events="*res://src/Autoload/Events.gd"
 Uuid="*res://src/Autoload/Uuid.gd"
 Config="*res://src/Autoload/Config.gd"
 Editor="*res://src/Autoload/Editor.gd"
+FileReader="*res://src/Autoload/FileReader.gd"
 Store="*res://src/Autoload/Store.gd"
 Serialize="*res://src/Autoload/Serialize.gd"
 Operator="*res://src/Autoload/Operator.gd"
@@ -158,6 +159,11 @@ left_click={
 
 test="en"
 locale_filter=[ 0, [  ] ]
+
+[logging]
+
+file_logging/enable_file_logging=true
+file_logging/log_path="user://logs/log.log"
 
 [rendering]
 

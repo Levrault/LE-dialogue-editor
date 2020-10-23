@@ -25,14 +25,14 @@ func _ready() -> void:
 
 
 # Preview predicated route based on selected conditions
+# @param {Dictionary} form_conditions
 func _on_Preview_started(form_conditions: Dictionary) -> void:
-	print(form_conditions)
 	_form_conditions = form_conditions
 	preview_list = []
 	uuid_list = []
 	for child in get_children():
 		child.queue_free()
-	_create_timeline(Store.json_raw.root.duplicate(), "root")
+	_create_timeline(Store.json.root.duplicate(), "root")
 
 	if preview_list.empty():
 		Events.emit_signal(
@@ -47,12 +47,12 @@ func _on_Preview_started(form_conditions: Dictionary) -> void:
 
 # Pressing on a choice need to clean the path created after that choice. Last choice is sended
 # to take all the data after the "choice" path
-# @param {dictionary} value
-# @param {int} index - dialogue index, to resize the list and uuid
-# @param {dictionary} last_choice - last available choice to clean the list after pressing
-# @param {string} uuid - current choice uuid
-# @param {string} parent_uuid - related dialogue uuid
-# @param {PreviewChoice} this_button - current pressed button
+# @param {dictionary} 		value
+# @param {int} 				index - dialogue index, to resize the list and uuid
+# @param {dictionary} 		last_choice - last available choice to clean the list after pressing
+# @param {string} 			uuid - current choice uuid
+# @param {string} 			parent_uuid - related dialogue uuid
+# @param {PreviewChoice} 	this_button - current pressed button
 func _on_Choice_pressed(
 	value: Dictionary,
 	index: int,
@@ -86,11 +86,14 @@ func _on_Choice_pressed(
 	uuid_list.append(uuid)
 
 	# display
-	_create_timeline(Store.json_raw[value.next].duplicate(), value.next)
+	_create_timeline(Store.json[value.next].duplicate(), value.next)
 	_display_timeline(preview_list, index)
 
 
 # Recursive function that get the correct dialogue
+# On every iteration, all dictionary are computed to predicate the next dialogue
+# @param {Dictionary} 	dialogue
+# @param {String} 		uuid - next dialogue, if empty stop function
 func _create_timeline(dialogue: Dictionary, uuid := "") -> void:
 	if uuid != "root":
 		if not uuid.empty():
@@ -105,13 +108,14 @@ func _create_timeline(dialogue: Dictionary, uuid := "") -> void:
 		_push_speaker(dialogue.name)
 
 	if dialogue.has("next"):
-		_create_timeline(Store.json_raw[dialogue.next].duplicate(), dialogue.next)
+		_create_timeline(Store.json[dialogue.next].duplicate(), dialogue.next)
 		return
 
 	var next := ""
 	var default_next := ""
 	var can_not_predicate := false
-	if dialogue.has("conditions"):
+
+	if dialogue.has("conditions") and not dialogue.has("choices"):
 		var conditions = dialogue.conditions.duplicate(true)
 		var matching_condition := 0
 
@@ -133,39 +137,11 @@ func _create_timeline(dialogue: Dictionary, uuid := "") -> void:
 					if condition.empty():
 						default_next = predicated_next
 
-					var operator: int = Operator.get_operator_enum(condition[key].operator)
-					var condition_matched := false
-
-					if operator == Operator.Type.different:
-						condition_matched = (
-							true
-							if _form_conditions[key] != condition[key].value
-							else false
-						)
-
-					if operator == Operator.Type.greater:
-						condition_matched = (
-							true
-							if _form_conditions[key] > condition[key].value
-							else false
-						)
-
-					if operator == Operator.Type.lower:
-						condition_matched = (
-							true
-							if _form_conditions[key] < condition[key].value
-							else false
-						)
-
-					if operator == Operator.Type.equal:
-						condition_matched = (
-							true
-							if _form_conditions[key] == condition[key].value
-							else false
-						)
-
-					if condition_matched:
+					if _is_operator_matching(
+						condition[key].operator, _form_conditions[key], condition[key].value
+					):
 						current_matching_condition += 1
+
 			if current_matching_condition > matching_condition:
 				matching_condition = current_matching_condition
 				next = predicated_next
@@ -179,14 +155,15 @@ func _create_timeline(dialogue: Dictionary, uuid := "") -> void:
 					"No route can be predicated with the current condition(s)"
 				)
 				return
-			_create_timeline(Store.json_raw[default_next].duplicate(), default_next)
+			_create_timeline(Store.json[default_next].duplicate(), default_next)
 			return
 
 		# take best matching branch
-		_create_timeline(Store.json_raw[next].duplicate(), next)
+		_create_timeline(Store.json[next].duplicate(), next)
 
 
 # Add speaker line to dialogue
+# @param {String} name
 func _push_speaker(name: String) -> void:
 	if should_add_speaker_to_left and not speakers.left.has(name):
 		speakers.left[name] = true
@@ -197,7 +174,10 @@ func _push_speaker(name: String) -> void:
 		speakers.right[name] = true
 
 
-# Add scene based on the start_at index
+# Add scene based on the start_at index. Start index
+# is use to re-render when a choice is made only at the choice position
+# @param {Array} 	list
+# @param {int} 		(start_at=0)
 func _display_timeline(list: Array, start_at: int = 0) -> void:
 	var index := start_at
 	var items := list.slice(start_at, list.size(), 1, true)
@@ -227,7 +207,8 @@ func _display_timeline(list: Array, start_at: int = 0) -> void:
 
 		# choices
 		if item.dialogue.has("choices"):
-			var choices = item.dialogue.choices.duplicate(true)
+			var choices = _filter_choice(item.uuid)
+
 			for i in range(0, choices.size()):
 				var timer_choice := get_tree().create_timer(TRANSITION_DURATION)
 				yield(timer_choice, "timeout")
@@ -236,9 +217,9 @@ func _display_timeline(list: Array, start_at: int = 0) -> void:
 				add_child(preview_choice)
 
 				preview_choice.value = choices[i]
-				preview_choice.name = Editor.graph_edit.get_node(item.uuid).right_choices_connection[i]
+				preview_choice.name = choices[i].uuid
+
 				# add uuid
-				choices[i]["uuid"] = preview_choice.name
 				preview_choice.button.connect(
 					"pressed",
 					self,
@@ -255,3 +236,74 @@ func _display_timeline(list: Array, start_at: int = 0) -> void:
 
 	Events.emit_signal("preview_predicated_route_displayed", uuid_list)
 	Events.emit_signal("preview_finished")
+
+
+# does the correct operation based on the operator, 
+# only does the operation on number type
+# @param {String} 	condition_operator - different, greater, lower, equal
+# @param {int} 		form_value
+# @param {int} 		condition_value
+# @returns {bool}
+func _is_operator_matching(condition_operator: String, form_value: int, condition_value: int) -> bool:
+	var operator: int = Operator.get_operator_enum(condition_operator)
+
+	if operator == Operator.Type.different:
+		if form_value != condition_value:
+			return true
+
+	if operator == Operator.Type.greater:
+		if form_value > condition_value:
+			return true
+
+	if operator == Operator.Type.lower:
+		if form_value < condition_value:
+			return true
+
+	if operator == Operator.Type.equal:
+		if form_value == condition_value:
+			return true
+
+	return false
+
+
+# Tricky way to get all the choice and filter them to get the one that match _form_condition value
+# @param {string} uuid - dialogue uuid, use to get the node
+# @returns {array}
+func _filter_choice(uuid: String) -> Array:
+	var result := []
+
+	# get non conditional choice
+	var choice_uuids: Array = Editor.graph_edit.get_node(uuid).right_choices_connection.duplicate(
+		true
+	)
+
+	for uuid in choice_uuids:
+		var choice_to_add = Editor.graph_edit.get_node(uuid).values.data.duplicate(true)
+		choice_to_add["uuid"] = uuid
+		result.append(choice_to_add)
+
+	# filter choice by condition
+	for condition_uuid in Editor.graph_edit.get_node(uuid).right_conditions_connection:
+		var condition_node = Editor.graph_edit.get_node(condition_uuid)
+		var condition_data = condition_node.values.data.duplicate(true)
+		condition_data.erase("next")
+
+		# conditions will never match
+		if _form_conditions.size() < condition_data.size():
+			continue
+
+		for key in condition_data:
+			if not condition_data.has(key):
+				continue
+			if not _form_conditions.has(key):
+				continue
+			if _is_operator_matching(
+				condition_data[key].operator, _form_conditions[key], condition_data[key].value
+			):
+				var choice_to_add = Editor.graph_edit.get_node(condition_node.right_choice_connection).values.data.duplicate(
+					true
+				)
+				choice_to_add["uuid"] = condition_node.right_choice_connection
+				result.append(choice_to_add)
+
+	return result
