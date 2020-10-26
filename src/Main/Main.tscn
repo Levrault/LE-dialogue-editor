@@ -128,7 +128,10 @@ margin_right = 400.0
 margin_bottom = 225.0
 popup_exclusive = true
 dialog_hide_on_ok = true
+access = 2
 filters = PoolStringArray( "*.json" )
+current_dir = "/home/luc/Devs/levrault-dialogue-editor"
+current_path = "/home/luc/Devs/levrault-dialogue-editor/"
 script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
