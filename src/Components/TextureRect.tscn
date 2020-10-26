@@ -1,0 +1,12 @@
+[gd_scene format=2]
+
+[node name="TextureRect" type="TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1552.0
+margin_bottom = -852.0
+rect_min_size = Vector2( 48, 48 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

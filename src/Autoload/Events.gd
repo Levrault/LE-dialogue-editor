@@ -15,6 +15,10 @@ signal preview_choices_displayed
 signal confirmation_relation_pop_up_displayed(text)
 signal confirmation_relation_answered(value)
 
+# portrait manager modal
+signal characters_pop_up_displayed
+signal characters_list_changed
+
 # creation
 signal graph_node_added(node)
 signal graph_node_loaded(node)

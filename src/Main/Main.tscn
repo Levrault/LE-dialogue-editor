@@ -13,37 +13,12 @@
 [ext_resource path="res://src/Popup/ExpandTextDialog.tscn" type="PackedScene" id=11]
 [ext_resource path="res://src/Popup/LocaleDialog.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/Popup/ConfirmRelationChangeDialog.gd" type="Script" id=13]
-
-[sub_resource type="StyleBoxFlat" id=1]
-content_margin_left = 16.0
-content_margin_right = 16.0
-content_margin_top = 16.0
-content_margin_bottom = 8.0
-bg_color = Color( 0.145098, 0.145098, 0.164706, 1 )
-border_width_top = 28
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-expand_margin_left = 4.0
-expand_margin_right = 4.0
-expand_margin_top = 24.0
-
-[sub_resource type="Theme" id=2]
-WindowDialog/colors/title_color = Color( 0, 0, 0, 1 )
-WindowDialog/constants/close_h_ofs = 18
-WindowDialog/constants/close_v_ofs = 18
-WindowDialog/constants/scaleborder_size = 4
-WindowDialog/constants/title_height = 20
-WindowDialog/fonts/title_font = null
-WindowDialog/icons/close = null
-WindowDialog/icons/close_highlight = null
-WindowDialog/styles/panel = SubResource( 1 )
+[ext_resource path="res://src/Popup/Characters/CharactersDialog.tscn" type="PackedScene" id=14]
+[ext_resource path="res://assets/themes/popup/popup.tres" type="Theme" id=15]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = SubResource( 2 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -73,7 +48,7 @@ __meta__ = {
 }
 
 [node name="Menu" parent="MarginContainer/VBoxContainer" instance=ExtResource( 2 )]
-margin_right = 183.0
+margin_right = 266.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 26.0
@@ -126,6 +101,7 @@ margin_left = -400.0
 margin_top = -225.0
 margin_right = 400.0
 margin_bottom = 225.0
+theme = ExtResource( 15 )
 popup_exclusive = true
 dialog_hide_on_ok = true
 access = 2
@@ -146,6 +122,7 @@ margin_left = -191.5
 margin_top = -35.0
 margin_right = 191.5
 margin_bottom = 35.0
+theme = ExtResource( 15 )
 popup_exclusive = true
 window_title = "Lost data"
 dialog_text = "Unsaved change will be lost, do you wish to continue?"
@@ -167,7 +144,10 @@ margin_left = -162.5
 margin_top = -75.0
 margin_right = 162.5
 margin_bottom = 75.0
+theme = ExtResource( 15 )
 popup_exclusive = true
 window_title = "Watch out a relation will be disconnected"
 dialog_autowrap = true
 script = ExtResource( 13 )
+
+[node name="CharactersDialog" parent="." instance=ExtResource( 14 )]

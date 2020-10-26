@@ -1,0 +1,248 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://src/Components/AnimatedToolButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/icons/user-plus.svg" type="Texture" id=2]
+[ext_resource path="res://src/Popup/Characters/AddPortraitButton.gd" type="Script" id=3]
+[ext_resource path="res://src/Popup/Characters/CharactersDialog.gd" type="Script" id=4]
+[ext_resource path="res://src/Popup/Characters/CharactersContainer.gd" type="Script" id=5]
+[ext_resource path="res://src/Popup/Characters/CharactersList.gd" type="Script" id=6]
+[ext_resource path="res://src/Popup/Characters/SaveCharacter.gd" type="Script" id=7]
+[ext_resource path="res://assets/themes/popup/popup_shadow.tres" type="Theme" id=8]
+[ext_resource path="res://src/Popup/Characters/NameEdit.gd" type="Script" id=9]
+[ext_resource path="res://assets/themes/popup/popup.tres" type="Theme" id=10]
+[ext_resource path="res://src/Popup/Characters/ImportContainer.gd" type="Script" id=11]
+[ext_resource path="res://src/Popup/Characters/DeleteCharacter.gd" type="Script" id=12]
+[ext_resource path="res://assets/icons/trash-2.svg" type="Texture" id=13]
+[ext_resource path="res://assets/icons/close_white.svg" type="Texture" id=14]
+[ext_resource path="res://assets/icons/save.svg" type="Texture" id=15]
+[ext_resource path="res://src/Popup/Characters/CancelCharacter.gd" type="Script" id=16]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.172549, 0.164706, 0.196078, 1 )
+
+[node name="CharactersDialog" type="WindowDialog"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -425.0
+margin_top = -325.0
+margin_right = 425.0
+margin_bottom = 325.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 10 )
+window_title = "Characters"
+resizable = true
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 15
+custom_constants/margin_top = 20
+custom_constants/margin_left = 15
+custom_constants/margin_bottom = 28
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="ContentContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 15.0
+margin_top = 20.0
+margin_right = 835.0
+margin_bottom = 622.0
+
+[node name="ListContainer" type="VBoxContainer" parent="MarginContainer/ContentContainer"]
+margin_right = 820.0
+margin_bottom = 268.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 24
+script = ExtResource( 6 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="TitleContainer" type="HBoxContainer" parent="MarginContainer/ContentContainer/ListContainer"]
+margin_right = 820.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Characters" type="Label" parent="MarginContainer/ContentContainer/ListContainer/TitleContainer"]
+margin_right = 820.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Characters"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/ContentContainer/ListContainer"]
+margin_top = 38.0
+margin_right = 820.0
+margin_bottom = 268.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/bg = SubResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/ContentContainer/ListContainer/ScrollContainer"]
+margin_right = 820.0
+margin_bottom = 230.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 12
+custom_constants/margin_top = 12
+custom_constants/margin_left = 12
+
+[node name="CharactersContainer" type="VBoxContainer" parent="MarginContainer/ContentContainer/ListContainer/ScrollContainer/MarginContainer"]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 808.0
+margin_bottom = 230.0
+rect_min_size = Vector2( 0, 64 )
+size_flags_horizontal = 3
+custom_constants/separation = 12
+script = ExtResource( 5 )
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/ContentContainer"]
+margin_top = 272.0
+margin_right = 820.0
+margin_bottom = 304.0
+custom_constants/separation = 32
+
+[node name="Label" type="Label" parent="MarginContainer/ContentContainer"]
+margin_top = 308.0
+margin_right = 820.0
+margin_bottom = 336.0
+rect_min_size = Vector2( 0, 28 )
+text = "Create a new character"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CharacterFormContainer" type="VBoxContainer" parent="MarginContainer/ContentContainer"]
+margin_top = 340.0
+margin_right = 820.0
+margin_bottom = 602.0
+rect_min_size = Vector2( 0, 262 )
+custom_constants/separation = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="MarginContainer/ContentContainer/CharacterFormContainer"]
+margin_right = 820.0
+margin_bottom = 14.0
+size_flags_vertical = 5
+text = "Name"
+
+[node name="NameEdit" type="LineEdit" parent="MarginContainer/ContentContainer/CharacterFormContainer"]
+margin_top = 30.0
+margin_right = 300.0
+margin_bottom = 54.0
+rect_min_size = Vector2( 300, 24 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+expand_to_text_length = true
+script = ExtResource( 9 )
+
+[node name="PortraitField" type="HBoxContainer" parent="MarginContainer/ContentContainer/CharacterFormContainer"]
+margin_top = 70.0
+margin_right = 820.0
+margin_bottom = 198.0
+rect_min_size = Vector2( 0, 128 )
+custom_constants/separation = 16
+
+[node name="AddPortrait" parent="MarginContainer/ContentContainer/CharacterFormContainer/PortraitField" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 116.0
+margin_bottom = 128.0
+icon = ExtResource( 2 )
+script = ExtResource( 3 )
+
+[node name="ImportContainer" type="HBoxContainer" parent="MarginContainer/ContentContainer/CharacterFormContainer/PortraitField"]
+margin_left = 132.0
+margin_right = 820.0
+margin_bottom = 128.0
+size_flags_horizontal = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/ContentContainer/CharacterFormContainer/PortraitField/ImportContainer"]
+margin_right = 688.0
+margin_bottom = 128.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_vertical_enabled = false
+
+[node name="ImportContainer" type="HBoxContainer" parent="MarginContainer/ContentContainer/CharacterFormContainer/PortraitField/ImportContainer/ScrollContainer"]
+margin_right = 688.0
+margin_bottom = 128.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 16
+script = ExtResource( 11 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ContentContainer/CharacterFormContainer"]
+margin_top = 214.0
+margin_right = 820.0
+margin_bottom = 262.0
+rect_min_size = Vector2( 0, 48 )
+custom_constants/separation = 16
+alignment = 2
+
+[node name="CancelCharacter" type="Button" parent="MarginContainer/ContentContainer/CharacterFormContainer/HBoxContainer"]
+visible = false
+margin_left = 708.0
+margin_right = 756.0
+margin_bottom = 48.0
+mouse_default_cursor_shape = 2
+size_flags_vertical = 3
+icon = ExtResource( 14 )
+script = ExtResource( 16 )
+
+[node name="DeleteCharacter" type="Button" parent="MarginContainer/ContentContainer/CharacterFormContainer/HBoxContainer"]
+visible = false
+margin_left = 708.0
+margin_right = 756.0
+margin_bottom = 48.0
+mouse_default_cursor_shape = 2
+size_flags_vertical = 3
+icon = ExtResource( 13 )
+script = ExtResource( 12 )
+
+[node name="SaveCharacter" type="Button" parent="MarginContainer/ContentContainer/CharacterFormContainer/HBoxContainer"]
+margin_left = 772.0
+margin_right = 820.0
+margin_bottom = 48.0
+mouse_default_cursor_shape = 2
+size_flags_vertical = 3
+disabled = true
+icon = ExtResource( 15 )
+script = ExtResource( 7 )
+
+[node name="PortraitFileDialog" type="FileDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -325.0
+margin_top = -225.0
+margin_right = 325.0
+margin_bottom = 225.0
+theme = ExtResource( 8 )
+window_title = "Open a File"
+dialog_hide_on_ok = true
+mode = 0
+filters = PoolStringArray( "*.jpg", "*.png" )
+__meta__ = {
+"_edit_use_anchors_": false
+}

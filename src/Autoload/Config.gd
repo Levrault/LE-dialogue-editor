@@ -10,6 +10,24 @@ const DEFAULT_VALUES := {
 		"selected": ["en", "fr"],
 		"custom": [{"locale": "fr_CA"}, {"locale": "js_PY", "language": "Javascript Python"}]
 	},
+	"variables":
+	{
+		"characters":
+		[
+			{
+				"name": "Godot",
+				"portraits":
+				[
+					{
+						"uuid": "godot_default",
+						"name": "Idle",
+						"path": "res://icon.png",
+						"default": true
+					}
+				]
+			}
+		],
+	}
 }
 
 var _config_file := ConfigFile.new()
@@ -34,7 +52,6 @@ func _init() -> void:
 # Save data
 # @param {Dictionary} new data - see DEFAULT_VALUES from struc
 func save(new_settings: Dictionary) -> void:
-	print_debug(new_settings)
 	for section in new_settings.keys():
 		for key in new_settings[section]:
 			_config_file.set_value(section, key, new_settings[section][key])

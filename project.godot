@@ -89,8 +89,6 @@ gdscript/warnings/return_value_discarded=false
 
 window/size/width=1600
 window/size/height=900
-window/size/test_width=1920
-window/size/test_height=1080
 
 [input]
 
