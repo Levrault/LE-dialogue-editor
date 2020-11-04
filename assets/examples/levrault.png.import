@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/levrault_idle.png-33d1ff6d83d8cdd625fb263c9341b854.stex"
+path="res://.import/levrault.png-70a8040eecd53d466e37e85664b9a109.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://levrault_idle.png"
-dest_files=[ "res://.import/levrault_idle.png-33d1ff6d83d8cdd625fb263c9341b854.stex" ]
+source_file="res://assets/examples/levrault.png"
+dest_files=[ "res://.import/levrault.png-70a8040eecd53d466e37e85664b9a109.stex" ]
 
 [params]
 
