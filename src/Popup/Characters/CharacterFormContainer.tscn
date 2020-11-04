@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/icons/user-plus.svg" type="Texture" id=1]
+[ext_resource path="res://src/Components/AnimatedToolButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Popup/Characters/AddPortraitButton.gd" type="Script" id=3]
+[ext_resource path="res://src/Popup/Characters/SaveCharacter.gd" type="Script" id=4]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends VBoxContainer
+
+"
+
+[node name="CharacterFormContainer" type="VBoxContainer"]
+margin_top = 396.0
+margin_right = 820.0
+margin_bottom = 602.0
+custom_constants/separation = 16
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="."]
+margin_right = 820.0
+margin_bottom = 14.0
+size_flags_vertical = 5
+text = "Name"
+
+[node name="NameEdit" type="LineEdit" parent="."]
+margin_top = 30.0
+margin_right = 300.0
+margin_bottom = 54.0
+rect_min_size = Vector2( 300, 24 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+expand_to_text_length = true
+
+[node name="PortraitGrid" type="GridContainer" parent="."]
+margin_top = 70.0
+margin_right = 820.0
+margin_bottom = 170.0
+columns = 7
+
+[node name="AddPortrait" parent="PortraitGrid" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 104.0
+margin_bottom = 100.0
+icon = ExtResource( 1 )
+script = ExtResource( 3 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_top = 186.0
+margin_right = 820.0
+margin_bottom = 214.0
+rect_min_size = Vector2( 0, 28 )
+alignment = 2
+
+[node name="SaveCharacter" type="Button" parent="HBoxContainer"]
+margin_left = 715.0
+margin_right = 820.0
+margin_bottom = 28.0
+mouse_default_cursor_shape = 2
+size_flags_vertical = 3
+text = "Save Character"
+script = ExtResource( 4 )

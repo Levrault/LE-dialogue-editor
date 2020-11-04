@@ -90,6 +90,9 @@ var right_choices_connection := []
 # Signal
 var right_signal_connection := ""
 
+onready var character_name_option := $Container/Character/FieldsContainer/CharacterNameContainer/CharacterNameOptions
+onready var portrait_preview := $Container/Character/PortraitPreview
+
 
 func _ready() -> void:
 	if not is_loading:
