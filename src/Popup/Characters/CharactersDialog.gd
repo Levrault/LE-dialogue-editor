@@ -29,7 +29,7 @@ func _ready() -> void:
 func reset_form() -> void:
 	name_edit.text = ""
 	import_container.clean()
-	form_values = initial_form_values.duplicate()
+	form_values = initial_form_values.duplicate(true)
 	is_edit_character_mode = false
 	delete_character.hide()
 	cancel_character.hide()
