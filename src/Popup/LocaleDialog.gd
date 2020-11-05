@@ -84,7 +84,8 @@ func _on_Create_locale_pressed() -> void:
 		)
 		return
 
-	if Config.values.locale.locale.has(code):
+	print(Config.values.locale)
+	if Config.values.locale.custom.has(code):
 		Events.emit_signal(
 			"notification_displayed",
 			Editor.Notification.error,
