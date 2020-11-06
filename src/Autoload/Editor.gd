@@ -97,3 +97,16 @@ func open_file() -> void:
 func open_folder() -> void:
 	current_state = Editor.FileState.opened
 	Events.emit_signal("file_dialog_opened", 2)  # FileDialog.Mode.MODE_OPEN_DIR
+
+
+func import_image(path: String, size: Vector2) -> ImageTexture:
+	var texture := ImageTexture.new()
+	var image := Image.new()
+
+	var err = image.load(ProjectSettings.globalize_path(path))
+	assert(err == OK)
+
+	texture.create_from_image(image, 0)
+	texture.set_size_override(size)
+
+	return texture

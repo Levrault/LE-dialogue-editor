@@ -1,5 +1,6 @@
 # Create the preview of the character portrait
 extends HBoxContainer
+const PREVIEW_IMG_SIZE := Vector2(92, 92)
 
 var imported_portrait_item_scene := preload("res://src/Popup/Characters/ImportedPortraitItem.tscn")
 
@@ -12,7 +13,7 @@ func clean() -> void:
 func add_item(portrait: Dictionary, is_edit_mode := false) -> void:
 	var imported_portrait_item := imported_portrait_item_scene.instance()
 	add_child(imported_portrait_item)
-	imported_portrait_item.portrait.texture = load(portrait.path)
+	imported_portrait_item.portrait.texture = Editor.import_image(portrait.path, PREVIEW_IMG_SIZE)
 	imported_portrait_item.portrait_name.text = portrait.name
 	imported_portrait_item.default.pressed = true if portrait.has("default") else false
 

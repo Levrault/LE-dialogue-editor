@@ -242,7 +242,10 @@ theme = ExtResource( 8 )
 window_title = "Open a File"
 dialog_hide_on_ok = true
 mode = 0
+access = 2
 filters = PoolStringArray( "*.jpg", "*.png" )
+current_dir = "/home/luc/Devs/levrault-dialogue-editor"
+current_path = "/home/luc/Devs/levrault-dialogue-editor/"
 __meta__ = {
 "_edit_use_anchors_": false
 }

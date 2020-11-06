@@ -1,5 +1,7 @@
 extends ToolButton
 
+const PREVIEW_IMG_SIZE := Vector2(48, 48)
+
 var texture_rect_scene := preload("res://src/Components/TextureRect.tscn")
 
 var default_portrait := "" setget set_default_portrait
@@ -25,14 +27,14 @@ func set_character_name(value: String) -> void:
 
 func set_default_portrait(value: String) -> void:
 	default_portrait = value
-	default_portrait_rect.texture = load(value)
+	default_portrait_rect.texture = Editor.import_image(value, PREVIEW_IMG_SIZE)
 
 
 func set_portraits_list(values: Array) -> void:
 	portraits_list = values
 	for value in values:
 		var portrait = texture_rect_scene.instance()
-		portrait.texture = load(value.path)
+		portrait.texture = Editor.import_image(value.path, PREVIEW_IMG_SIZE)
 		container.add_child(portrait)
 
 		if value.has("default"):

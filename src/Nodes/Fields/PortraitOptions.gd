@@ -45,7 +45,7 @@ func _on_Character_list_changed() -> void:
 
 	# display empty message if there is no character left
 	if Config.values.variables.characters.empty():
-		owner.portrait_preview.texture = _create_image_texture(
+		owner.portrait_preview.texture = Editor.import_image(
 			PLACEHOLDER_IMAGE_PATH, PREVIEW_IMG_SIZE
 		)
 		empty_msg.show()
@@ -75,7 +75,7 @@ func _on_Character_list_changed() -> void:
 		return
 
 	if get_selected_metadata().uuid != portrait_selected:
-		owner.portrait_preview.texture = _create_image_texture(
+		owner.portrait_preview.texture = Editor.import_image(
 			PLACEHOLDER_IMAGE_PATH, PREVIEW_IMG_SIZE
 		)
 
@@ -94,13 +94,13 @@ func _on_Character_selection_changed(name: String) -> void:
 		return
 
 	var character := _get_character(name)
-	
+
 	if character.empty():
 		return
 
 	# display empty message if there is no portraits left
 	if character.portraits.empty():
-		owner.portrait_preview.texture = _create_image_texture(
+		owner.portrait_preview.texture = Editor.import_image(
 			PLACEHOLDER_IMAGE_PATH, PREVIEW_IMG_SIZE
 		)
 
@@ -115,7 +115,7 @@ func _on_Character_selection_changed(name: String) -> void:
 	var has_default_img := false
 	var has_current_portrait := false
 	for portrait in character.portraits:
-		add_icon_item(_create_image_texture(portrait.path, OPTION_IMG_SIZE), portrait.name)
+		add_icon_item(Editor.import_image(portrait.path, OPTION_IMG_SIZE), portrait.name)
 		set_item_metadata(get_item_count() - 1, {uuid = portrait.uuid, path = portrait.path})
 		if portrait.has("default") and pristine:
 			selected = get_item_count() - 1
@@ -131,23 +131,10 @@ func _on_Portrait_selected(index: int, has_been_user_changed := false) -> void:
 		return
 	var path = get_item_metadata(index).path
 	portrait_selected = get_item_metadata(index).uuid
-	owner.portrait_preview.texture = _create_image_texture(path, PREVIEW_IMG_SIZE)
+	owner.portrait_preview.texture = Editor.import_image(path, PREVIEW_IMG_SIZE)
 	owner.values.data.portrait = path
 	if pristine:
 		pristine = not has_been_user_changed
-
-
-func _create_image_texture(path: String, size: Vector2) -> ImageTexture:
-	var texture := ImageTexture.new()
-	var image := Image.new()
-
-	var err = image.load(ProjectSettings.globalize_path(path))
-	assert(err == OK)
-
-	texture.create_from_image(image, 0)
-	texture.set_size_override(size)
-
-	return texture
 
 
 func _get_character(name: String) -> Dictionary:
