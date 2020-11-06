@@ -1,15 +1,16 @@
-# Singleton that manage values save
-# How to create a new config interface
+# Singleton that manage values to be saved
+# Should keep the list of project
+# Manage data per project
 extends Node
 
-const CONFIG_FILE_PATH := "user://config.cfg"
+const GLOBAL_CONFIG_FILE_PATH := "user://config.cfg"
 const DEFAULT_VALUES := {
-	"locale":
+	"path":
 	{
-		"current": "en",
-		"selected": ["en", "fr"],
-		"custom": [{"locale": "fr_CA"}, {"locale": "js_PY", "language": "Javascript Python"}]
+		"project": "",
+		"resource": "",
 	},
+	"locale": {"current": "en", "selected": ["en", "fr"], "custom": []},
 	"variables":
 	{
 		"characters":
@@ -27,44 +28,76 @@ const DEFAULT_VALUES := {
 				]
 			}
 		],
+		"files": []
 	}
 }
 
+const DEFAULT_GLOBALS := {"projects": {"list": []}}
+
 var _config_file := ConfigFile.new()
 var values := DEFAULT_VALUES.duplicate(true)
+var globals := DEFAULT_GLOBALS.duplicate(true)
 
 
 # Find and load config.cfg file
 # If not, create a new config file with default value
 func _init() -> void:
-	var err = _config_file.load(CONFIG_FILE_PATH)
+	var err = _config_file.load(GLOBAL_CONFIG_FILE_PATH)
 	if err == ERR_FILE_NOT_FOUND:
-		print_debug("%s was not found, create a new file with default values" % [CONFIG_FILE_PATH])
-		self.save(DEFAULT_VALUES)
-		self.load()
+		print_debug("%s was not found, default globals added" % [GLOBAL_CONFIG_FILE_PATH])
+		self.save(DEFAULT_GLOBALS)
+		self.load(globals)
 		return
 	if err != OK:
-		print_debug("%s has encounter an error: %s" % [CONFIG_FILE_PATH, err])
+		print_debug("%s has encounter an error: %s" % [GLOBAL_CONFIG_FILE_PATH, err])
 		return
-	self.load()
+	self.load(globals)
+
+
+func load_file(path: String) -> void:
+	var err = _config_file.load(path)
+	if err == ERR_FILE_NOT_FOUND:
+		print_debug("%s was not found, create a new file with default values" % [path])
+		self.save(DEFAULT_VALUES)
+		self.load(values, DEFAULT_VALUES)
+		return
+	if err != OK:
+		print_debug("%s has encounter an error: %s" % [path, err])
+		return
+	self.load(values, DEFAULT_VALUES)
+
+
+# Create a new project while updating the global config
+# @param {Dictionary}	new_settings 
+# @param {Dictionary}	path - where to save
+func new_project(new_settings: Dictionary, path: String) -> void:
+	# add project to global config
+	globals.projects.list.append(new_settings.path)
+	save(globals)
+
+	# save project
+	save(new_settings, path)
+	self.load(values, DEFAULT_VALUES)
 
 
 # Save data
-# @param {Dictionary} new data - see DEFAULT_VALUES from struc
-func save(new_settings: Dictionary) -> void:
+# @param {Dictionary}	new_settings 
+# @param {Dictionary}	[path=GLOBAL_CONFIG_FILE_PATH] - where to save
+func save(new_settings: Dictionary, path := GLOBAL_CONFIG_FILE_PATH) -> void:
 	for section in new_settings.keys():
 		for key in new_settings[section]:
 			_config_file.set_value(section, key, new_settings[section][key])
 
-	_config_file.save(CONFIG_FILE_PATH)
+	print_debug("%s has been saved" % [path])
+	_config_file.save(path)
 
 
 # Load data from config.cfg
-func load() -> void:
-	for section in values.keys():
-		for key in values[section]:
-			values[section][key] = _config_file.get_value(
-				section, key, DEFAULT_VALUES[section][key]
-			)
+# @param {Dictionary}	new_settings 
+# @param {Dictionary}	[template=DEFAULT_GLOBALS] - default template struc
+func load(settings: Dictionary, template := DEFAULT_GLOBALS) -> void:
+	for section in settings.keys():
+		for key in settings[section]:
+			settings[section][key] = _config_file.get_value(section, key, template[section][key])
 
-	print_debug("%s has been loaded" % [CONFIG_FILE_PATH])
+	print_debug("%s has been loaded" % [GLOBAL_CONFIG_FILE_PATH])

@@ -26,7 +26,9 @@ func _on_File_confirmed() -> void:
 		{
 			uuid = Uuid.v4(),
 			name = owner.portrait_file_dialog.current_file,
-			path = owner.portrait_file_dialog.current_path
+			path = owner.portrait_file_dialog.current_path.replace(
+				Config.values.path.resource, Constant.RESOURCE
+			)
 		}
 	)
 

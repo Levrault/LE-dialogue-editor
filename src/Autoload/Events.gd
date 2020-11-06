@@ -1,7 +1,12 @@
 extends Node
 
+# project creation
+signal new_project_dialog_displayed
+signal project_file_dialog_displayed(node)
+signal projects_list_changed
+
 # layout
-signal layout_folder_view_toggled
+signal layout_workspace_view_toggled
 signal layout_preview_toggled
 
 # preview
@@ -83,6 +88,9 @@ signal condition_value_deleted(value)
 signal menu_popup_displayed(name)
 signal file_dialog_opened(mode)
 signal file_dialog_export_opened
+
+# workspace
+signal workspace_files_updated
 
 # expand text
 signal expand_text_dialogued_opened(owner)

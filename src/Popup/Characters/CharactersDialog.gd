@@ -24,6 +24,7 @@ onready var characters_container := $MarginContainer/ContentContainer/ListContai
 func _ready() -> void:
 	Events.connect("characters_list_changed", characters_container, "_on_Config_changed")
 	Events.connect("characters_pop_up_displayed", self, "popup")
+	portrait_file_dialog.current_dir = Config.values.path.resource
 
 
 func reset_form() -> void:

@@ -8,6 +8,7 @@ enum FileState { new, opened, unsaved, saved, export_file }
 enum Notification { idle, warning, error, success }
 
 var current_state = FileState.new setget set_current_state
+var project := {}
 var previous_state = current_state
 var locale := "en" setget set_locale
 var graph_edit: GraphEdit = null
@@ -25,19 +26,23 @@ func _ready() -> void:
 
 func reset() -> void:
 	current_state = FileState.new
-	self.locale = "en"
+
+	for child in graph_edit.get_children():
+		if not child is GraphEditorNode:
+			continue
+
+		if child != Store.root_node:
+			child._on_Close_request()
+		child.call_deferred("queue_free")
 
 	Serialize.current_path = ""
 	Store.json = {}
+	Store.root_node = null
 	Store.choices_node = {}
 	Store.conditions_node = {}
 	Store.signals_node = {}
 	Store.dialogues_node = {}
 	Store.dialogues_uuid = []
-
-	for child in graph_edit.get_children():
-		if child is GraphEditorNode:
-			child.queue_free()
 
 	yield(get_tree(), "idle_frame")
 	self.call_deferred("emit_signal", "scene_cleared")
@@ -63,7 +68,7 @@ func set_locale(value: String) -> void:
 	locale = value
 	Events.emit_signal("locale_changed", value)
 	Config.values.locale.current = value
-	Config.save(Config.values)
+	Config.save(Config.values, Editor.project.project)
 
 
 func set_current_state(new_state: int) -> void:
@@ -79,9 +84,9 @@ func save_file() -> void:
 	):
 		Events.emit_signal("file_dialog_opened", 4)  # FileDialog.Mode.MODE_SAVE_FILE
 		return
+
 	if current_state == FileState.saved or current_state == FileState.unsaved:
 		Serialize.save()
-	return
 
 
 func new_file() -> void:
@@ -94,7 +99,7 @@ func open_file() -> void:
 	Events.emit_signal("file_dialog_opened", 0)  # FileDialog.Mode.MODE_OPEN_FILE
 
 
-func open_folder() -> void:
+func open_workspace() -> void:
 	current_state = Editor.FileState.opened
 	Events.emit_signal("file_dialog_opened", 2)  # FileDialog.Mode.MODE_OPEN_DIR
 
@@ -103,7 +108,7 @@ func import_image(path: String, size: Vector2) -> ImageTexture:
 	var texture := ImageTexture.new()
 	var image := Image.new()
 
-	var err = image.load(ProjectSettings.globalize_path(path))
+	var err = image.load(path.replace(Constant.RESOURCE, Config.values.path.resource))
 	assert(err == OK)
 
 	texture.create_from_image(image, 0)

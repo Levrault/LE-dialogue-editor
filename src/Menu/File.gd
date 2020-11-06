@@ -60,7 +60,7 @@ func _on_Item_pressed(id: int) -> void:
 			Editor.current_state = Editor.FileState.opened
 			Events.emit_signal("unsaved_file_displayed")
 			return
-		Editor.open_folder()
+		Editor.open_workspace()
 		return
 
 	if id == Menu.export_file:

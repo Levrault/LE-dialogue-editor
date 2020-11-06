@@ -1,6 +1,6 @@
 extends MenuButton
 
-enum Menu { preview, folder_view }
+enum Menu { preview, workspace_view }
 var check_icon: Texture = preload("res://assets/icons/check.svg")
 
 
@@ -9,7 +9,7 @@ func _ready():
 
 	# add items
 	get_popup().add_item("Preview", Menu.preview)
-	get_popup().add_item("Folder View", Menu.folder_view)
+	get_popup().add_item("Workspace View", Menu.workspace_view)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -18,16 +18,16 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		_set_icon(Menu.preview)
 		return
 
-	if event.is_action_pressed("folder_view"):
-		Events.emit_signal("layout_folder_view_toggled")
-		_set_icon(Menu.folder_view)
+	if event.is_action_pressed("workspace_view"):
+		Events.emit_signal("layout_workspace_view_toggled")
+		_set_icon(Menu.workspace_view)
 		return
 
 
 func _on_Item_pressed(id: int) -> void:
 	_set_icon(id)
-	if id == Menu.folder_view:
-		Events.emit_signal("layout_folder_view_toggled")
+	if id == Menu.workspace_view:
+		Events.emit_signal("layout_workspace_view_toggled")
 		return
 
 	if id == Menu.preview:

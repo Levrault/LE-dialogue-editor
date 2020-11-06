@@ -30,7 +30,7 @@ func _on_Locale_pop_up_displayed() -> void:
 
 
 func _on_Close_pressed() -> void:
-	Config.save(Config.values)
+	Config.save(Config.values, Editor.project.project)
 
 
 func _on_Checkbox_toggled(button_pressed: bool, value: String) -> void:
@@ -84,7 +84,6 @@ func _on_Create_locale_pressed() -> void:
 		)
 		return
 
-	print(Config.values.locale)
 	if Config.values.locale.custom.has(code):
 		Events.emit_signal(
 			"notification_displayed",

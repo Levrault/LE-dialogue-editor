@@ -21,6 +21,10 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 	Editor.current_state = Editor.FileState.unsaved
 	Events.emit_signal("preview_button_activated")
 	var wait_for_user_confirmation = false  # can be a GDScriptFunctionState
+
+	assert(has_node(from))
+	assert(has_node(to))
+
 	var from_node = get_node(from)
 	var to_node = get_node(to)
 
