@@ -78,7 +78,7 @@ func _on_Choice_pressed(
 		for child in children_to_delete:
 			child.queue_free()
 
-	# clean preview list 
+	# clean preview list
 	preview_list.resize(index)
 
 	# clean uuid list
@@ -238,7 +238,7 @@ func _display_timeline(list: Array, start_at: int = 0) -> void:
 	Events.emit_signal("preview_finished")
 
 
-# does the correct operation based on the operator, 
+# does the correct operation based on the operator,
 # only does the operation on number type
 # @param {String} 	condition_operator - different, greater, lower, equal
 # @param {int} 		form_value

@@ -15,13 +15,13 @@ func import(json: Dictionary) -> bool:
 		)
 		return false
 
-	var editor_data = json["__editor"].duplicate()
+	var editor_data = json["__editor"].duplicate(true)
 	var dialogue_list := []
 	var choices_list := []
 	var conditions_list := []
 	json.erase("__editor")
 
-	var root = json["root"].duplicate()
+	var root = json["root"].duplicate(true)
 	json.erase("root")
 
 	# construct all connected nodes from dialogue node

@@ -1,0 +1,41 @@
+[gd_resource type="Theme" load_steps=8 format=2]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/fonts/droid-sans/DroidSans.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+use_filter = true
+font_data = SubResource( 1 )
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[resource]
+Label/colors/font_color = Color( 0.458824, 0.458824, 0.458824, 1 )
+Label/colors/font_color_shadow = Color( 0, 0, 0, 0 )
+Label/colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+Label/constants/line_spacing = 3
+Label/constants/shadow_as_outline = 0
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/fonts/font = SubResource( 2 )
+Label/styles/normal = null
+ToolButton/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+ToolButton/colors/font_color_disabled = Color( 0.9, 0.95, 1, 0.3 )
+ToolButton/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+ToolButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+ToolButton/constants/hseparation = 3
+ToolButton/fonts/font = null
+ToolButton/styles/disabled = SubResource( 3 )
+ToolButton/styles/focus = SubResource( 4 )
+ToolButton/styles/hover = SubResource( 5 )
+ToolButton/styles/normal = SubResource( 6 )
+ToolButton/styles/pressed = SubResource( 7 )

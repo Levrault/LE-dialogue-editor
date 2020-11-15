@@ -14,12 +14,13 @@ func _ready():
 
 func _on_Dialog_opened(new_mode: int) -> void:
 	mode = new_mode
+	current_dir = Config.values.path.resource
 
 	if mode == 0:
 		window_title = "Open a file"
 
 	if mode == 2:
-		window_title = "Open folder"
+		window_title = "Open Workspace"
 
 	if mode == 4:
 		window_title = "Save a file"
@@ -51,6 +52,10 @@ func _on_Confirmed() -> void:
 			return
 
 		Serialize.save_as(current_path)
+		if not Config.values.variables.files.has(current_path):
+			Config.values.variables.files.append({path = current_path, name = current_file})
+			Config.save(Config.values, Editor.project.project)
+			Events.emit_signal("workspace_files_updated")
 
 
 func _on_File_selected(path: String) -> void:
