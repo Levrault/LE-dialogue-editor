@@ -1,18 +1,17 @@
 extends MenuButton
 
-enum Menu { new, open, folder, save, save_as, export_file, quit }
+enum Menu { new, open, workspace, save, export_file, quit }
 
 
 func _ready():
 	get_popup().connect("id_pressed", self, "_on_Item_pressed")
 
 	# add items
-	get_popup().add_item("New Scene", Menu.new)
+	get_popup().add_item("New Dialogue", Menu.new)
 	get_popup().add_item("Open File", Menu.open)
-	get_popup().add_item("Open Folder...", Menu.folder)
 	get_popup().add_item("Save", Menu.save)
-	get_popup().add_item("Save as", Menu.save_as)
 	get_popup().add_item("Export", Menu.export_file)
+	get_popup().add_item("Workspaces List", Menu.workspace)
 	get_popup().add_item("Quit", Menu.quit)
 
 
@@ -55,11 +54,7 @@ func _on_Item_pressed(id: int) -> void:
 		Editor.open_file()
 		return
 
-	if id == Menu.folder:
-		if Editor.current_state == Editor.FileState.unsaved:
-			Editor.current_state = Editor.FileState.opened
-			Events.emit_signal("unsaved_file_displayed")
-			return
+	if id == Menu.workspace:
 		Editor.open_workspace()
 		return
 

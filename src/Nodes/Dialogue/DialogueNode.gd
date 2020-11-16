@@ -102,7 +102,7 @@ func _ready() -> void:
 		}
 
 
-func _on_Close_request() -> void:
+func on_Close_request() -> void:
 	# left connection, remove CHOICES - DIALOGUE relation
 	# prevent array to clean itself with node_deleted signal and stop cleaning all the relation
 	for choice_uuid in left_choices_connection.duplicate():
@@ -129,6 +129,6 @@ func _on_Close_request() -> void:
 		Events.emit_signal("node_deleted", uuid, 0, right_signal_connection, SLOT)
 		right_signal_connection = ""
 
-	._on_Close_request()
+	.on_Close_request()
 	Store.dialogues_node.erase(uuid)
 	Store.json.erase(uuid)

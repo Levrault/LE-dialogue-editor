@@ -11,7 +11,7 @@ onready var container := $Container
 
 func _ready() -> void:
 	Events.connect("file_loaded", self, "_on_File_loaded")
-	connect("close_request", self, "_on_Close_request")
+	connect("close_request", self, "on_Close_request")
 	connect("offset_changed", self, "_on_Offset_changed")
 
 	if not is_loading:
@@ -37,7 +37,7 @@ func _on_Deleted(value_to_delete: String, field_rect_size: Vector2) -> void:
 	rect_size = Vector2(rect_size.x, rect_size.y - (field_rect_size.y * 4))
 
 
-func _on_Close_request() -> void:
+func on_Close_request() -> void:
 	if values.__editor.has("parent"):
 		Events.emit_signal("node_deleted", values.__editor.parent, 0, uuid, 0)
 	if values.data.has("next") and not values.data.next.empty():

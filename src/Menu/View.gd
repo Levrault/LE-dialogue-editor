@@ -9,7 +9,7 @@ func _ready():
 
 	# add items
 	get_popup().add_item("Preview", Menu.preview)
-	get_popup().add_item("Workspace View", Menu.workspace_view)
+	get_popup().add_item("Workspace", Menu.workspace_view)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:

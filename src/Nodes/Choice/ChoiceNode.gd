@@ -28,8 +28,8 @@ func _ready() -> void:
 		}
 
 
-func _on_Close_request() -> void:
-	._on_Close_request()
+func on_Close_request() -> void:
+	.on_Close_request()
 	for condition_uuid in left_conditions_connection.duplicate():
 		Events.emit_signal("node_deleted", condition_uuid, 0, uuid, 0)
 	Store.choices_node.erase(uuid)

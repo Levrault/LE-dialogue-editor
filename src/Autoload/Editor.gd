@@ -32,7 +32,7 @@ func reset() -> void:
 			continue
 
 		if child != Store.root_node:
-			child._on_Close_request()
+			child.on_Close_request()
 		child.call_deferred("queue_free")
 
 	Serialize.current_path = ""
@@ -100,8 +100,7 @@ func open_file() -> void:
 
 
 func open_workspace() -> void:
-	current_state = Editor.FileState.opened
-	Events.emit_signal("file_dialog_opened", 2)  # FileDialog.Mode.MODE_OPEN_DIR
+	get_tree().change_scene("res://src/Projects/MainProjectList.tscn")
 
 
 func import_image(path: String, size: Vector2) -> ImageTexture:

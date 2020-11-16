@@ -116,8 +116,8 @@ func reset_type() -> void:
 	string_field.hide()
 
 
-func _on_Close_request() -> void:
-	._on_Close_request()
+func on_Close_request() -> void:
+	.on_Close_request()
 	Store.signals_node.erase(uuid)
 
 
