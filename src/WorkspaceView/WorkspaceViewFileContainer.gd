@@ -18,6 +18,7 @@ func _on_File_updated() -> void:
 		button.align = ToolButton.ALIGN_LEFT
 		button.connect("pressed", self, "_on_File_pressed", [file])
 		add_child(button)
+		button.selected = Config.values.cache.last_opened_file == file.path
 
 
 func _on_File_pressed(file: Dictionary) -> void:
@@ -28,3 +29,6 @@ func _on_File_pressed(file: Dictionary) -> void:
 	Editor.reset()
 	yield(Editor, "scene_cleared")
 	Serialize.call_deferred("load", file.path)
+	Config.values.cache.last_opened_file = file.path
+	Config.save(Config.values, Editor.workspace.folder)
+	_on_File_updated()

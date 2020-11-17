@@ -1,1 +1,0 @@
-{"dc8b1e17-c35c-4fe1-83aa-0b6a042a5756":{"name":"Charles","portrait":"res://icon.png","text":{"en":"","fr":""}},"root":{"next":"dc8b1e17-c35c-4fe1-83aa-0b6a042a5756"},"__editor":{"root":{"uuid":"root","offset":[40,100]},"dialogues":[{"uuid":"dc8b1e17-c35c-4fe1-83aa-0b6a042a5756","offset":[320,120],"parent":"root"}],"conditions":[],"signals":[],"choices":[]}}

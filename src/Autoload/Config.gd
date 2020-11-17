@@ -29,10 +29,13 @@ const DEFAULT_VALUES := {
 			}
 		],
 		"files": []
-	}
+	},
+	"cache": {"last_opened_file": ""}
 }
 
-const DEFAULT_GLOBALS := {"workspaces": {"list": []}}
+const DEFAULT_GLOBALS := {
+	"workspaces": {"list": []}, "views": {"preview": false, "workspace": false}
+}
 
 var _config_file := ConfigFile.new()
 var values := DEFAULT_VALUES.duplicate(true)
