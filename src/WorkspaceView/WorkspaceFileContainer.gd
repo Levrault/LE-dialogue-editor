@@ -21,6 +21,10 @@ func _on_File_updated() -> void:
 
 
 func _on_File_pressed(file: Dictionary) -> void:
+	# if Editor.current_state == Editor.FileState.new:
+	# 	print(Editor.workspace)
+	# 	Temp.create(Editor.workspace.name)
+	# 	yield(Temp, "temp_file_created")
 	Editor.reset()
 	yield(Editor, "scene_cleared")
 	Serialize.call_deferred("load", file.path)

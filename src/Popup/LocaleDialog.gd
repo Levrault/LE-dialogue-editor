@@ -30,7 +30,7 @@ func _on_Locale_pop_up_displayed() -> void:
 
 
 func _on_Close_pressed() -> void:
-	Config.save(Config.values, Editor.project.project)
+	Config.save(Config.values, Editor.workspace.folder)
 
 
 func _on_Checkbox_toggled(button_pressed: bool, value: String) -> void:

@@ -8,7 +8,7 @@ enum FileState { new, opened, unsaved, saved, export_file }
 enum Notification { idle, warning, error, success }
 
 var current_state = FileState.new setget set_current_state
-var project := {}
+var workspace := {}
 var previous_state = current_state
 var locale := "en" setget set_locale
 var graph_edit: GraphEdit = null
@@ -68,7 +68,7 @@ func set_locale(value: String) -> void:
 	locale = value
 	Events.emit_signal("locale_changed", value)
 	Config.values.locale.current = value
-	Config.save(Config.values, Editor.project.project)
+	Config.save(Config.values, Editor.workspace.folder)
 
 
 func set_current_state(new_state: int) -> void:
@@ -100,7 +100,7 @@ func open_file() -> void:
 
 
 func open_workspace() -> void:
-	get_tree().change_scene("res://src/Projects/MainProjectList.tscn")
+	get_tree().change_scene("res://src/Workspaces/MainWorkspacesList.tscn")
 
 
 func import_image(path: String, size: Vector2) -> ImageTexture:

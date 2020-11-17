@@ -7,6 +7,6 @@ func _ready() -> void:
 
 func _on_Pressed() -> void:
 	Config.values.variables.characters.erase(owner.form_values)
-	Config.save(Config.values, Editor.project.project)
+	Config.save(Config.values, Editor.workspace.folder)
 	owner.reset_form()
 	Events.emit_signal("characters_list_changed")

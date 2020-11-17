@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://src/Popup/NewProject/NewProjectDialog.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Popup/NewWorkspace/NewWorkspaceDialog.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/themes/MainProjectList.tres" type="Theme" id=2]
 [ext_resource path="res://src/Components/AnimatedToolButton.tscn" type="PackedScene" id=3]
-[ext_resource path="res://src/Projects/ProjectItemList.gd" type="Script" id=4]
-[ext_resource path="res://src/Projects/NewProject.gd" type="Script" id=5]
+[ext_resource path="res://src/Workspaces/WorkspacetItemList.gd" type="Script" id=4]
+[ext_resource path="res://src/Workspaces/NewWorkspace.gd" type="Script" id=5]
 [ext_resource path="res://assets/themes/popup/popup_shadow.tres" type="Theme" id=6]
-[ext_resource path="res://src/Projects/ProjectFileDialog.gd" type="Script" id=7]
-[ext_resource path="res://src/Projects/HelpContainer.gd" type="Script" id=8]
+[ext_resource path="res://src/Workspaces/WorkspaceFileDialog.gd" type="Script" id=7]
+[ext_resource path="res://src/Workspaces/HelpContainer.gd" type="Script" id=8]
 
 [node name="ProjectList" type="Control"]
 anchor_right = 1.0
@@ -46,45 +46,45 @@ size_flags_vertical = 3
 custom_constants/separation = 48
 
 [node name="Project" type="VBoxContainer" parent="CenterContainer/HBoxContainer"]
-margin_right = 84.0
+margin_right = 109.0
 margin_bottom = 250.0
 custom_constants/separation = 32
 
 [node name="StartContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/Project"]
-margin_right = 84.0
+margin_right = 109.0
 margin_bottom = 109.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
 custom_constants/separation = 10
 
 [node name="Label" type="Label" parent="CenterContainer/HBoxContainer/Project/StartContainer"]
-margin_right = 84.0
+margin_right = 109.0
 margin_bottom = 24.0
 text = "Start"
 
-[node name="NewProject" parent="CenterContainer/HBoxContainer/Project/StartContainer" instance=ExtResource( 3 )]
+[node name="NewWorkspace" parent="CenterContainer/HBoxContainer/Project/StartContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 34.0
-margin_right = 84.0
+margin_right = 109.0
 margin_bottom = 48.0
-text = "New Project"
+text = "New Workspace"
 align = 0
 script = ExtResource( 5 )
 
-[node name="OpenProject" parent="CenterContainer/HBoxContainer/Project/StartContainer" instance=ExtResource( 3 )]
+[node name="OpenWorkspace" parent="CenterContainer/HBoxContainer/Project/StartContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 58.0
-margin_right = 84.0
+margin_right = 109.0
 margin_bottom = 72.0
 disabled = true
-text = "Open Project"
+text = "Open Workspace"
 align = 0
 
 [node name="HelpContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/Project"]
 margin_top = 141.0
-margin_right = 84.0
+margin_right = 109.0
 margin_bottom = 250.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
@@ -92,7 +92,7 @@ custom_constants/separation = 10
 script = ExtResource( 8 )
 
 [node name="Label" type="Label" parent="CenterContainer/HBoxContainer/Project/HelpContainer"]
-margin_right = 84.0
+margin_right = 109.0
 margin_bottom = 24.0
 text = "Help"
 
@@ -100,7 +100,7 @@ text = "Help"
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 34.0
-margin_right = 84.0
+margin_right = 109.0
 margin_bottom = 48.0
 text = "Wiki"
 align = 0
@@ -109,7 +109,7 @@ align = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 58.0
-margin_right = 84.0
+margin_right = 109.0
 margin_bottom = 72.0
 text = "Github"
 align = 0
@@ -118,26 +118,26 @@ align = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 82.0
-margin_right = 84.0
+margin_right = 109.0
 margin_bottom = 96.0
 text = "Twitter"
 align = 0
 
 [node name="RecentContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer"]
-margin_left = 132.0
+margin_left = 157.0
 margin_right = 400.0
 margin_bottom = 250.0
 size_flags_horizontal = 3
 custom_constants/separation = 9
 
 [node name="Label" type="Label" parent="CenterContainer/HBoxContainer/RecentContainer"]
-margin_right = 268.0
+margin_right = 243.0
 margin_bottom = 24.0
 text = "Recent"
 
 [node name="ProjectItemList" type="VBoxContainer" parent="CenterContainer/HBoxContainer/RecentContainer"]
 margin_top = 33.0
-margin_right = 268.0
+margin_right = 243.0
 margin_bottom = 250.0
 size_flags_horizontal = 3
 size_flags_vertical = 3

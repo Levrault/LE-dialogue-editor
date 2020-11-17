@@ -1,9 +1,9 @@
 extends Node
 
-# project creation
-signal new_project_dialog_displayed
-signal project_file_dialog_displayed(node)
-signal projects_list_changed
+# workspace creation
+signal new_workspace_dialog_displayed
+signal workspace_file_dialog_displayed(node)
+signal workspaces_list_changed
 
 # layout
 signal layout_workspace_view_toggled

@@ -54,7 +54,7 @@ func _on_Confirmed() -> void:
 		Serialize.save_as(current_path)
 		if not Config.values.variables.files.has(current_path):
 			Config.values.variables.files.append({path = current_path, name = current_file})
-			Config.save(Config.values, Editor.project.project)
+			Config.save(Config.values, Editor.workspace.folder)
 			Events.emit_signal("workspace_files_updated")
 
 

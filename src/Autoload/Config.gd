@@ -1,13 +1,13 @@
 # Singleton that manage values to be saved
-# Should keep the list of project
-# Manage data per project
+# Should keep the list of workspaces
+# Manage data per workspaces
 extends Node
 
 const GLOBAL_CONFIG_FILE_PATH := "user://config.cfg"
 const DEFAULT_VALUES := {
 	"path":
 	{
-		"project": "",
+		"file": "",
 		"resource": "",
 	},
 	"locale": {"current": "en", "selected": ["en", "fr"], "custom": []},
@@ -32,7 +32,7 @@ const DEFAULT_VALUES := {
 	}
 }
 
-const DEFAULT_GLOBALS := {"projects": {"list": []}}
+const DEFAULT_GLOBALS := {"workspaces": {"list": []}}
 
 var _config_file := ConfigFile.new()
 var values := DEFAULT_VALUES.duplicate(true)
@@ -67,15 +67,15 @@ func load_file(path: String) -> void:
 	self.load(values, DEFAULT_VALUES)
 
 
-# Create a new project while updating the global config
+# Create a new workspace while updating the global config
 # @param {Dictionary}	new_settings 
 # @param {Dictionary}	path - where to save
-func new_project(new_settings: Dictionary, path: String) -> void:
-	# add project to global config
-	globals.projects.list.append(new_settings.path)
+func new_workspace(new_settings: Dictionary, path: String) -> void:
+	# add workspace to global config
+	globals.workspaces.list.append(new_settings.path)
 	save(globals)
 
-	# save project
+	# save workspace
 	save(new_settings, path)
 	self.load(values, DEFAULT_VALUES)
 

@@ -63,7 +63,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Levrault-dialogue-editor"
-run/main_scene="res://src/Projects/MainProjectList.tscn"
+run/main_scene="res://src/Workspaces/MainWorkspacesList.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -77,6 +77,7 @@ FileReader="*res://src/Autoload/FileReader.gd"
 Store="*res://src/Autoload/Store.gd"
 Serialize="*res://src/Autoload/Serialize.gd"
 Operator="*res://src/Autoload/Operator.gd"
+Temp="*res://src/Autoload/Temp.gd"
 
 [debug]
 
