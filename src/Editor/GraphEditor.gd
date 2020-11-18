@@ -18,7 +18,6 @@ func _ready() -> void:
 
 
 func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: int) -> void:
-	Editor.current_state = Editor.FileState.unsaved
 	Events.emit_signal("preview_button_activated")
 	var wait_for_user_confirmation = false  # can be a GDScriptFunctionState
 
@@ -27,6 +26,9 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 	var from_node = get_node(from)
 	var to_node = get_node(to)
+
+	if not Editor.is_loading:
+		FileManager.dirty()
 
 	if from_node == null:
 		Events.emit_signal(
@@ -317,7 +319,8 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 
 
 func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot: int) -> void:
-	Editor.current_state = Editor.FileState.unsaved
+	if not Editor.is_loading:
+		FileManager.dirty()
 	Events.emit_signal("preview_button_activated")
 	var from_node = get_node(from)
 	var to_node = get_node(to)
@@ -405,7 +408,7 @@ func _on_Graph_node_added(node: GraphNode) -> void:
 	node.offset += scroll_offset + NODE_OFFSET
 	node.uuid = Uuid.v4()
 	_add_Graph_node(node)
-	Editor.current_state = Editor.FileState.unsaved
+	FileManager.dirty()
 
 
 func _on_Graph_node_loaded(node: GraphNode) -> void:

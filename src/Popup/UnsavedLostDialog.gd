@@ -8,12 +8,9 @@ func _ready() -> void:
 
 
 func _on_Confirmed() -> void:
-	if Editor.current_state == Editor.FileState.opened:
-		Editor.open_file()
-		return
-
-	Editor.new_file()
+	# TODO: to code
+	pass
 
 
 func _on_Cancel_pressed() -> void:
-	Editor.current_state = Editor.FileState.unsaved
+	FileManager.state = FileManager.previous_state

@@ -72,12 +72,12 @@ Constant="*res://src/Autoload/Constant.gd"
 Events="*res://src/Autoload/Events.gd"
 Uuid="*res://src/Autoload/Uuid.gd"
 Config="*res://src/Autoload/Config.gd"
+FileManager="*res://src/Autoload/FileManager.gd"
 Editor="*res://src/Autoload/Editor.gd"
 FileReader="*res://src/Autoload/FileReader.gd"
 Store="*res://src/Autoload/Store.gd"
 Serialize="*res://src/Autoload/Serialize.gd"
 Operator="*res://src/Autoload/Operator.gd"
-Temp="*res://src/Autoload/Temp.gd"
 
 [debug]
 

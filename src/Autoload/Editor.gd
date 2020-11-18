@@ -4,14 +4,13 @@ extends Node
 signal scene_cleared
 
 enum Type { root, dialogue, choice, condition, signal_node }
-enum FileState { new, opened, unsaved, saved, export_file }
 enum Notification { idle, warning, error, success }
 
-var current_state = FileState.new setget set_current_state
 var workspace := {}
-var previous_state = current_state
 var locale := "en" setget set_locale
 var graph_edit: GraphEdit = null
+var load_last_opened_file := true
+var is_loading := false
 
 onready var root_node := load("res://src/Nodes/Root/RootNode.tscn")
 onready var dialogue_node := load("res://src/Nodes/Dialogue/DialogueNode.tscn")
@@ -25,8 +24,7 @@ func _ready() -> void:
 
 
 func reset() -> void:
-	current_state = FileState.new
-
+	self.is_loading = true
 	for child in graph_edit.get_children():
 		if not child is GraphEditorNode:
 			continue
@@ -45,6 +43,7 @@ func reset() -> void:
 	Store.dialogues_uuid = []
 
 	yield(get_tree(), "idle_frame")
+	self.is_loading = false
 	self.call_deferred("emit_signal", "scene_cleared")
 
 
@@ -71,35 +70,34 @@ func set_locale(value: String) -> void:
 	Config.save(Config.values, Editor.workspace.folder)
 
 
-func set_current_state(new_state: int) -> void:
-	previous_state = current_state
-	current_state = new_state
-
-
 func save_file() -> void:
-	if (
-		current_state == FileState.new
-		or current_state == FileState.export_file
-		or (current_state == FileState.unsaved and Serialize.current_path.empty())
-	):
+	if FileManager.should_be_registred():
 		Events.emit_signal("file_dialog_opened", 4)  # FileDialog.Mode.MODE_SAVE_FILE
 		return
 
-	if current_state == FileState.saved or current_state == FileState.unsaved:
-		Serialize.save()
+	Serialize.current_path = FileManager.edited_file.path
+	Serialize.save()
+	FileManager.pristine()
 
 
 func new_file() -> void:
+	FileManager.cache_file()
 	reset()
+	load_last_opened_file = false
 	get_tree().reload_current_scene()
+	yield(get_tree(), "idle_frame")
+	Events.emit_signal("workspace_unsaved_file_added")
+	FileManager.state = FileManager.State.unregistred_pristine
 
 
 func open_file() -> void:
-	current_state = Editor.FileState.opened
+	# TODO: should open and add the file to workspace
+	FileManager.state = FileManager.State.registred_pristine
 	Events.emit_signal("file_dialog_opened", 0)  # FileDialog.Mode.MODE_OPEN_FILE
 
 
 func open_workspace() -> void:
+	load_last_opened_file = true
 	get_tree().change_scene("res://src/Workspaces/MainWorkspacesList.tscn")
 
 

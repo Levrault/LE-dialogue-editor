@@ -4,6 +4,9 @@ extends Node
 signal new_workspace_dialog_displayed
 signal workspace_file_dialog_displayed(node)
 signal workspaces_list_changed
+signal workspace_unsaved_file_added(file)
+signal workspace_files_updated
+signal workspace_file_selection_changed(button)
 
 # layout
 signal layout_workspace_view_toggled
@@ -89,8 +92,6 @@ signal menu_popup_displayed(name)
 signal file_dialog_opened(mode)
 signal file_dialog_export_opened
 
-# workspace
-signal workspace_files_updated
 
 # expand text
 signal expand_text_dialogued_opened(owner)

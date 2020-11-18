@@ -6,7 +6,7 @@ var current_path := ""
 onready var parser = Parser.new()
 
 
-func save_as(path: String, editor_compatible := true) -> void:
+func save_as(path: String, editor_compatible := true, silent := false) -> void:
 	var file = File.new()
 	file.open(path, File.WRITE)
 	file.store_string(
@@ -16,25 +16,28 @@ func save_as(path: String, editor_compatible := true) -> void:
 
 	if editor_compatible:
 		current_path = path
-		Editor.current_state = Editor.FileState.saved
-		Events.emit_signal(
-			"notification_displayed", Editor.Notification.success, "%s has been saved" % path
-		)
-		return
+		FileManager.state = FileManager.State.registred_pristine
 
-	Editor.current_state = Editor.FileState.unsaved
-	Events.emit_signal(
-		"notification_displayed", Editor.Notification.success, "%s has been exported" % path
-	)
+		if not silent:
+			Events.emit_signal(
+				"notification_displayed", Editor.Notification.success, "%s has been saved" % path
+			)
+			return
+
+	if not silent:
+		Events.emit_signal(
+			"notification_displayed", Editor.Notification.success, "%s has been exported" % path
+		)
 
 
 func save() -> void:
 	save_as(current_path)
 
 
-func load(path: String):
+func load(path: String, silent := false):
 	print_debug("load %s" % path)
 
+	Editor.is_loading = true
 	var file = File.new()
 	file.open(path, File.READ)
 	var content = file.get_as_text()
@@ -58,6 +61,9 @@ func load(path: String):
 		return
 
 	current_path = path
-	Events.emit_signal(
-		"notification_displayed", Editor.Notification.success, "%s has been loaded" % path
-	)
+	if not silent:
+		Events.emit_signal(
+			"notification_displayed", Editor.Notification.success, "%s has been loaded" % path
+		)
+
+	Editor.is_loading = false

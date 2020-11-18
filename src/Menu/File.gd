@@ -17,17 +17,14 @@ func _ready():
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("new_scene"):
-		if Editor.current_state == Editor.FileState.unsaved:
-			Events.emit_signal("unsaved_file_displayed")
-			return
 		Editor.new_file()
 		return
 	if event.is_action_pressed("save_file"):
 		Editor.save_file()
 		return
 	if event.is_action_pressed("export_file"):
-		Editor.current_state = Editor.FileState.export_file
-		Editor.save_file()
+		# TODO: TO code
+		assert(true == false)
 		return
 	if event.is_action_pressed("open_file"):
 		Editor.open_file()
@@ -36,9 +33,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 func _on_Item_pressed(id: int) -> void:
 	if id == Menu.new:
-		if Editor.current_state == Editor.FileState.unsaved:
-			Events.emit_signal("unsaved_file_displayed")
-			return
 		Editor.new_file()
 		return
 
@@ -47,10 +41,6 @@ func _on_Item_pressed(id: int) -> void:
 		return
 
 	if id == Menu.open:
-		if Editor.current_state == Editor.FileState.unsaved:
-			Editor.current_state = Editor.FileState.opened
-			Events.emit_signal("unsaved_file_displayed")
-			return
 		Editor.open_file()
 		return
 
@@ -59,8 +49,8 @@ func _on_Item_pressed(id: int) -> void:
 		return
 
 	if id == Menu.export_file:
-		Editor.current_state = Editor.FileState.export_file
-		Editor.save_file()
+		# TODO: TO code
+		assert(true == false)
 		return
 
 	if id == Menu.quit:

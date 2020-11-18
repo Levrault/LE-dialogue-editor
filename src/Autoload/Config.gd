@@ -30,7 +30,7 @@ const DEFAULT_VALUES := {
 		],
 		"files": []
 	},
-	"cache": {"last_opened_file": ""}
+	"cache": {"last_opened_file": {}}
 }
 
 const DEFAULT_GLOBALS := {

@@ -25,8 +25,7 @@ func set_uuid(id: String) -> void:
 
 
 func _on_Offset_changed() -> void:
-	if Editor.current_state != Editor.FileState.unsaved:
-		Editor.current_state = Editor.FileState.unsaved
+	FileManager.dirty()
 
 	values["__editor"]["offset"] = [offset.x, offset.y]
 
@@ -43,6 +42,8 @@ func on_Close_request() -> void:
 	if values.data.has("next") and not values.data.next.empty():
 		Events.emit_signal("node_deleted", uuid, 0, values.data.next, 0)
 
+	if not Editor.is_loading:
+		FileManager.dirty()
 	# clean editor data 
 	queue_free()
 
