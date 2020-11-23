@@ -25,12 +25,11 @@ func _ready() -> void:
 	yield(owner, "ready")
 
 	Events.connect("characters_list_changed", self, "_on_Character_list_changed")
-
+	connect("item_selected", self, "_on_Portrait_selected")
 	owner.character_name_option.connect(
 		"character_selection_changed", self, "_on_Character_selection_changed"
 	)
 
-	connect("item_selected", self, "_on_Portrait_selected", [true])
 	if owner.character_name_option.get_item_count() > 0:
 		_on_Character_selection_changed(
 			owner.character_name_option.get_item_text(owner.character_name_option.selected)
@@ -83,9 +82,10 @@ func _on_Character_list_changed() -> void:
 # Clean the list and create all the portrait selection
 # @param {String} name
 func _on_Character_selection_changed(name: String) -> void:
-	name_selected = name
-
+	if not owner.is_loading:
+		FileManager.dirty()
 	clear()
+	name_selected = name
 
 	# display empty message if there is no character left
 	if Config.values.variables.characters.empty():
@@ -114,27 +114,45 @@ func _on_Character_selection_changed(name: String) -> void:
 
 	var has_default_img := false
 	var has_current_portrait := false
+	var default_portait_index := 0
 	for portrait in character.portraits:
 		add_icon_item(Editor.import_image(portrait.path, OPTION_IMG_SIZE), portrait.name)
 		set_item_metadata(get_item_count() - 1, {uuid = portrait.uuid, path = portrait.path})
-		if portrait.has("default") and pristine:
+
+		print(owner.values.data.portrait)
+		if portrait.path == owner.values.data.portrait:
 			selected = get_item_count() - 1
 			_on_Portrait_selected(selected)
+			continue
+
+		if portrait.has("default") and pristine:
+			default_portait_index = get_item_count() - 1
 			has_default_img = true
 
 	if not has_default_img and pristine:
 		_on_Portrait_selected(0)
 
+	# no saved data, load default
+	if pristine:
+		_on_Portrait_selected(default_portait_index)
 
-func _on_Portrait_selected(index: int, has_been_user_changed := false) -> void:
+
+func _on_Portrait_selected(index: int) -> void:
 	if get_item_count() == 0:
 		return
+
+	if not owner.is_loading:
+		FileManager.dirty()
+
 	var path = get_item_metadata(index).path
 	portrait_selected = get_item_metadata(index).uuid
 	owner.portrait_preview.texture = Editor.import_image(path, PREVIEW_IMG_SIZE)
-	owner.values.data.portrait = path
+
+	# Pristine set the default image if not the saved value is loaded
 	if pristine:
-		pristine = not has_been_user_changed
+		pristine = false
+		return
+	owner.values.data.portrait = path
 
 
 func _get_character(name: String) -> Dictionary:

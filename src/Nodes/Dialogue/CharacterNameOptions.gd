@@ -2,8 +2,6 @@ extends OptionButton
 
 signal character_selection_changed(name)
 
-var selected_item := 0
-
 onready var empty_msg := get_parent().get_node("Empty")
 
 
@@ -29,12 +27,13 @@ func _on_Characters_list_changed() -> void:
 	empty_msg.hide()
 	for character in Config.values.variables.characters:
 		add_item(character.name)
+		if character.name == owner.values.data.name:
+			selected = get_item_count() - 1
 
-	owner.values.data.name = get_item_text(selected_item)
-	selected = selected_item
+	owner.values.data.name = get_item_text(selected)
 
 
 func _on_Character_selected(index: int) -> void:
 	owner.values.data.name = get_item_text(index)
 	emit_signal("character_selection_changed", get_item_text(index))
-	selected_item = index
+	selected = index

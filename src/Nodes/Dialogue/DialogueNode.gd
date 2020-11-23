@@ -13,14 +13,14 @@
 # Case linear
 #   "e26a5ccf-66fe-4319-a130-47652e1a63b4": {
 #     "name": "Hero",
-#     "portrait": "Hero",
+#     "portrait": "res://assets/examples/hero.png",
 #     "text": { "en": "This is the default response", "fr": "" },
 #	  "next": "79b93840-045d-4df1-b03a-52e984e0b2c2"
 #   },
 # Case Conditional linear
 #   "e26a5ccf-66fe-4319-a130-47652e1a63b4": {
 #     "name": "Hero",
-#     "portrait": "Hero",
+#     "portrait": "res://assets/examples/hero.png",
 #     "text": { "en": "This is the default response", "fr": "" },
 #     "conditions": [
 #       {
@@ -37,7 +37,7 @@
 # Case Choices
 #   "e26a5ccf-66fe-4319-a130-47652e1a63b4": {
 #     "name": "Hero",
-#     "portrait": "Hero",
+#     "portrait": "res://assets/examples/hero.png",
 #     "text": { "en": "This is the default response", "fr": "" },
 #     "choices": [
 #       {
@@ -54,7 +54,7 @@
 # Case Conditional choices. Node needs to have conditions AND choices params
 #   "e26a5ccf-66fe-4319-a130-47652e1a63b4": {
 #     "name": "Hero",
-#     "portrait": "Hero",
+#     "portrait": "res://assets/examples/hero.png",
 #     "text": { "en": "This is the default response", "fr": "" },
 #     "conditions": [
 #       { "next": "fd6200dc-6623-4e20-96a0-61ba6632be15" },
