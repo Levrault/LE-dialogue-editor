@@ -105,7 +105,7 @@ func import_image(path: String, size: Vector2) -> ImageTexture:
 	var texture := ImageTexture.new()
 	var image := Image.new()
 
-	var err = image.load(path.replace(Constant.RESOURCE, Config.values.path.resource))
+	var err = image.load(path.replace(Constant.RESOURCE, Editor.workspace.resource))
 	assert(err == OK)
 
 	texture.create_from_image(image, 0)

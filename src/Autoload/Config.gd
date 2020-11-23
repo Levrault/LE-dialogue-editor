@@ -87,6 +87,10 @@ func new_workspace(new_settings: Dictionary, path: String) -> void:
 # @param {Dictionary}	new_settings 
 # @param {Dictionary}	[path=GLOBAL_CONFIG_FILE_PATH] - where to save
 func save(new_settings: Dictionary, path := GLOBAL_CONFIG_FILE_PATH) -> void:
+	# clean file
+	for section in _config_file.get_sections():
+		_config_file.erase_section(section)
+
 	for section in new_settings.keys():
 		for key in new_settings[section]:
 			_config_file.set_value(section, key, new_settings[section][key])

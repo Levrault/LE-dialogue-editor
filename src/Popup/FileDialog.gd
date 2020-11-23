@@ -14,7 +14,7 @@ func _ready():
 
 func _on_Dialog_opened(new_mode: int) -> void:
 	mode = new_mode
-	current_dir = Config.values.path.resource
+	current_dir = Editor.workspace.resource
 
 	if mode == 0:
 		window_title = "Open a file"
