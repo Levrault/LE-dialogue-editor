@@ -30,6 +30,7 @@ script = ExtResource( 3 )
 margin_left = 74.0
 margin_right = 116.0
 margin_bottom = 22.0
+mouse_default_cursor_shape = 2
 text = "View"
 script = ExtResource( 4 )
 
@@ -37,6 +38,7 @@ script = ExtResource( 4 )
 margin_left = 120.0
 margin_right = 183.0
 margin_bottom = 22.0
+mouse_default_cursor_shape = 2
 text = "Settings"
 script = ExtResource( 1 )
 
