@@ -16,7 +16,6 @@ func save_as(path: String, editor_compatible := true, silent := false) -> void:
 
 	if editor_compatible:
 		current_path = path
-		FileManager.state = FileManager.State.registred_pristine
 
 		if not silent:
 			Events.emit_signal(

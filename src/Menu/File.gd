@@ -1,6 +1,6 @@
 extends MenuButton
 
-enum Menu { new, open, workspace, save, export_file, quit }
+enum Menu { new, open, save, export_file, workspace, quit }
 
 
 func _ready():

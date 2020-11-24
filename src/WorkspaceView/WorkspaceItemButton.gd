@@ -1,19 +1,24 @@
 extends AnimatedToolButton
 
-var values := {}
+signal values_changed
+
+var values := {} setget set_values
 
 
 func _ready() -> void:
 	Events.connect("workspace_file_selection_changed", self, "_on_Workspace_file_selection_changed")
 	connect("pressed", self, "_on_Pressed")
 
+
+func set_values(new_values: Dictionary) -> void:
+	values = new_values
 	if Serialize.current_path == values.path:
 		self.selected = true
 		FileManager.edited_file = {path = values.path, name = values.name, button_ref = self}
-
+	emit_signal("values_changed")
 
 func _on_Workspace_file_selection_changed(ref: AnimatedToolButton) -> void:
-	self.selected = self == ref
+	self.selected = (self == ref)
 
 
 func _on_Pressed() -> void:
