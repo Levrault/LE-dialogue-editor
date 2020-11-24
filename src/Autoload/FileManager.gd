@@ -17,12 +17,26 @@ var state = State.unregistred_pristine setget set_state
 var previous_state = -1
 var dirty_registred_files := {}
 var dirty_unregistred_files := {}
-var edited_file := {"path": ""}
+var edited_file := {"path": ""} setget set_edited_file
+
+
+func set_edited_file(values: Dictionary) -> void:
+	edited_file = values
+	
+	if self.state == State.registred_pristine:
+		Events.emit_signal("file_title_changed", values.name)
+		return
+	Events.emit_signal("file_title_changed", "%s *" % [values.name])
 
 
 func set_state(new_state: int) -> void:
 	previous_state = state
 	state = new_state
+	if new_state == State.registred_pristine:
+		Events.emit_signal("file_title_changed", edited_file.name)
+		return
+
+	Events.emit_signal("file_title_changed", "%s *" % [edited_file.name])
 
 
 func create_file() -> void:
@@ -30,7 +44,7 @@ func create_file() -> void:
 	var path = TEMP_PATH % [Editor.workspace.name, new_file]
 	var value = {name = new_file, path = path, cache_path = path, unregistred = true}
 
-	FileManager.state = FileManager.State.unregistred_pristine
+	self.state = State.unregistred_pristine
 
 	dirty_unregistred_files[path] = value
 	edited_file = value
@@ -41,7 +55,7 @@ func create_file() -> void:
 
 
 func cache_file() -> void:
-	if state != State.registred_dirty:
+	if self.state != State.registred_dirty:
 		return
 
 	var path = TEMP_PATH % [Editor.workspace.name, edited_file.name]
@@ -55,14 +69,14 @@ func cache_file() -> void:
 
 
 func dirty() -> void:
-	if state == State.registred_pristine:
-		state = State.registred_dirty
-		edited_file.button_ref.text = "%s *" % [edited_file.name]
-
+	if self.state == State.registred_pristine:
+		self.state = State.registred_dirty
+		var text := "%s *" % [edited_file.name]
+		edited_file.button_ref.text = text
 		return
 
-	if state == State.unregistred_pristine:
-		state = State.unregistred_dirty
+	if self.state == State.unregistred_pristine:
+		self.state = State.unregistred_dirty
 		if not dirty_unregistred_files.has(edited_file.path):
 			var values = edited_file.duplicate(true)
 			if values.has("button_ref"):
@@ -76,11 +90,11 @@ func pristine() -> void:
 	edited_file.button_ref.values.erase("cache_path")
 	edited_file.button_ref.values.erase("unregistred")
 
-	if state == State.registred_dirty:
-		state = State.registred_pristine
+	if self.state == State.registred_dirty:
+		self.state = State.registred_pristine
 		return
 
-	state = State.registred_pristine
+	self.state = State.registred_pristine
 
 
 func is_file_dirty(file_path: String) -> bool:
@@ -88,11 +102,11 @@ func is_file_dirty(file_path: String) -> bool:
 
 
 func should_be_registred() -> bool:
-	return state == State.unregistred_pristine or state == State.unregistred_dirty
+	return self.state == State.unregistred_pristine or self.state == State.unregistred_dirty
 
 
 func should_be_cached() -> bool:
-	return state == State.unregistred_dirty
+	return self.state == State.unregistred_dirty
 
 
 func delete_cache(path: String) -> void:

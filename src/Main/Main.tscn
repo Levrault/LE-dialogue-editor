@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://src/Menu/Menu.tscn" type="PackedScene" id=2]
@@ -15,6 +15,16 @@
 [ext_resource path="res://src/Popup/ConfirmRelationChangeDialog.gd" type="Script" id=13]
 [ext_resource path="res://src/Popup/Characters/CharactersDialog.tscn" type="PackedScene" id=14]
 [ext_resource path="res://assets/themes/popup/popup.tres" type="Theme" id=15]
+[ext_resource path="res://src/Main/EditedFileTitle.gd" type="Script" id=16]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/fonts/droid-sans/DroidSans.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 18
+use_mipmaps = true
+use_filter = true
+font_data = SubResource( 1 )
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -32,7 +42,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MainWrapper" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 5.0
@@ -40,47 +50,60 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="AppContainer" type="VBoxContainer" parent="MainWrapper"]
 margin_right = 1600.0
 margin_bottom = 895.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Menu" parent="MarginContainer/VBoxContainer" instance=ExtResource( 2 )]
+[node name="Menu" parent="MainWrapper/AppContainer" instance=ExtResource( 2 )]
 margin_right = 266.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="ViewsContainer" type="HBoxContainer" parent="MainWrapper/AppContainer"]
 margin_top = 26.0
 margin_right = 1600.0
 margin_bottom = 895.0
 size_flags_vertical = 3
 
-[node name="WorkspaceView" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
+[node name="WorkspaceView" parent="MainWrapper/AppContainer/ViewsContainer" instance=ExtResource( 3 )]
 visible = false
 
-[node name="Editor" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Editor" type="Control" parent="MainWrapper/AppContainer/ViewsContainer"]
 margin_right = 1600.0
 margin_bottom = 869.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="GraphEditor" parent="MarginContainer/VBoxContainer/HBoxContainer/Editor" instance=ExtResource( 4 )]
+[node name="GraphEditor" parent="MainWrapper/AppContainer/ViewsContainer/Editor" instance=ExtResource( 4 )]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 0.0
 margin_bottom = 0.0
 size_flags_horizontal = 3
 
-[node name="ActionsBar" parent="MarginContainer/VBoxContainer/HBoxContainer/Editor" instance=ExtResource( 5 )]
+[node name="ActionsBar" parent="MainWrapper/AppContainer/ViewsContainer/Editor" instance=ExtResource( 5 )]
 margin_top = -170.5
 margin_bottom = 170.5
 
-[node name="i18nBar" parent="MarginContainer/VBoxContainer/HBoxContainer/Editor" instance=ExtResource( 6 )]
+[node name="i18nBar" parent="MainWrapper/AppContainer/ViewsContainer/Editor" instance=ExtResource( 6 )]
 margin_top = 17.0
 margin_bottom = 57.0
 
-[node name="Preview" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 7 )]
+[node name="EditedFileTitle" type="Label" parent="MainWrapper/AppContainer/ViewsContainer/Editor"]
+anchor_right = 1.0
+margin_top = 10.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 2 )
+text = "Title Placeholder.json"
+align = 1
+valign = 1
+script = ExtResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Preview" parent="MainWrapper/AppContainer/ViewsContainer" instance=ExtResource( 7 )]
 margin_left = 1300.0
 margin_right = 1600.0
 

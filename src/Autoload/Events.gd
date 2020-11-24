@@ -92,15 +92,15 @@ signal menu_popup_displayed(name)
 signal file_dialog_opened(mode)
 signal file_dialog_export_opened
 
-
 # expand text
 signal expand_text_dialogued_opened(owner)
 
 # file
+signal file_title_changed(title)
 signal file_loaded
+signal unsaved_file_displayed
 signal offset_changed(uuid, type, offset)
 signal connection_request_loaded(from, from_slot, to, to_slot)
-signal unsaved_file_displayed
 
 # notification
 signal notification_displayed(type, message)
