@@ -18,7 +18,6 @@ func _ready() -> void:
 	elif Config.values.variables.files.empty():
 		Editor.load_last_opened_file = false
 		Events.emit_signal("workspace_unsaved_file_added")
-		FileManager.state = FileManager.State.unregistred_pristine
 
 
 func _notification(what):

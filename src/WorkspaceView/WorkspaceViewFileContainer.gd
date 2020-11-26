@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-var workspace_view_button_scene := preload("res://src/WorkspaceView/WorkspaceItemButton.tscn")
+var workspace_item_scene := preload("res://src/WorkspaceView/WorkspaceItem.tscn")
 
 
 func _ready() -> void:
@@ -31,9 +31,13 @@ func _on_File_updated() -> void:
 
 	var files = merged_files + FileManager.dirty_unregistred_files.values()
 	for file in files:
-		var button := workspace_view_button_scene.instance()
-		button.values = file
-		button.text = "%s *" % [file.name] if FileManager.is_file_dirty(file.path) else file.name
-		button.name = file.name
-		button.align = ToolButton.ALIGN_LEFT
-		add_child(button)
+		var item := workspace_item_scene.instance()
+		add_child(item)
+		item.button.values = file
+		item.button.text = (
+			"%s *" % [file.name]
+			if FileManager.is_file_dirty(file.path)
+			else file.name
+		)
+		item.button.name = file.name
+		item.button.align = ToolButton.ALIGN_LEFT

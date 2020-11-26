@@ -1,8 +1,11 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/icons/trash-2.svg" type="Texture" id=1]
+[ext_resource path="res://assets/icons/trash.svg" type="Texture" id=1]
 [ext_resource path="res://src/Nodes/Fields/SignalItem.gd" type="Script" id=2]
 [ext_resource path="res://src/Nodes/Fields/DeleteButton.gd" type="Script" id=3]
+
+
+
 
 [node name="Signal" type="HBoxContainer"]
 margin_right = 201.0

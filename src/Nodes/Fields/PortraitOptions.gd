@@ -119,7 +119,6 @@ func _on_Character_selection_changed(name: String) -> void:
 		add_icon_item(Editor.import_image(portrait.path, OPTION_IMG_SIZE), portrait.name)
 		set_item_metadata(get_item_count() - 1, {uuid = portrait.uuid, path = portrait.path})
 
-		print(owner.values.data.portrait)
 		if portrait.path == owner.values.data.portrait:
 			selected = get_item_count() - 1
 			_on_Portrait_selected(selected)
