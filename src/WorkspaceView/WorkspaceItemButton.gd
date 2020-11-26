@@ -17,6 +17,7 @@ func set_values(new_values: Dictionary) -> void:
 		FileManager.edited_file = {path = values.path, name = values.name, button_ref = self}
 	emit_signal("values_changed")
 
+
 func _on_Workspace_file_selection_changed(ref: AnimatedToolButton) -> void:
 	self.selected = (self == ref)
 

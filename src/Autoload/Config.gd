@@ -108,3 +108,10 @@ func load(settings: Dictionary, template := DEFAULT_GLOBALS) -> void:
 			settings[section][key] = _config_file.get_value(section, key, template[section][key])
 
 	print_debug("%s has been loaded" % [GLOBAL_CONFIG_FILE_PATH])
+
+
+func has_file_path(path: String) -> bool:
+	for file in values.variables.files:
+		if file.path == path:
+			return true
+	return false
