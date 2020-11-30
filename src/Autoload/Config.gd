@@ -83,6 +83,20 @@ func new_workspace(new_settings: Dictionary, path: String) -> void:
 	self.load(values, DEFAULT_VALUES)
 
 
+func get_workspace_resource(path: String) -> String:
+	var file := ConfigFile.new()
+	var err = file.load(path)
+
+	if err == ERR_FILE_NOT_FOUND:
+		print_debug("%s was not found when loadding workspace data" % [path])
+		return ""
+	if err != OK:
+		print_debug("%s has encounter an error when loadding workspace data" % [path])
+		return ""
+
+	return file.get_value("path", "resource")
+
+
 # Save data
 # @param {Dictionary}	new_settings 
 # @param {Dictionary}	[path=GLOBAL_CONFIG_FILE_PATH] - where to save

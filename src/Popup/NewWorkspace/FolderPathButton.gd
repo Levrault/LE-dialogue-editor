@@ -8,5 +8,5 @@ func _ready() -> void:
 		"pressed",
 		Events,
 		"emit_signal",
-		["workspace_file_dialog_displayed", get_parent().get_node(line_edit_field_name)]
+		["workspace_new_file_dialog_displayed", get_parent().get_node(line_edit_field_name)]
 	)

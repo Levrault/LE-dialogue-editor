@@ -98,7 +98,7 @@ func open_file() -> void:
 
 func open_workspace() -> void:
 	load_last_opened_file = true
-	get_tree().change_scene("res://src/Workspaces/MainWorkspacesList.tscn")
+	get_tree().change_scene("res://src/WelcomePage/WelcomePage.tscn")
 
 
 func import_image(path: String, size: Vector2) -> ImageTexture:

@@ -19,7 +19,7 @@ margin_bottom = 188.0
 rect_min_size = Vector2( 450, 300 )
 theme = ExtResource( 2 )
 popup_exclusive = true
-window_title = "Create a new project"
+window_title = "Create a new workspace"
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
