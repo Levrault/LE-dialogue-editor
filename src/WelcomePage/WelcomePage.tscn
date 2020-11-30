@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/themes/MainProjectList.tres" type="Theme" id=1]
 [ext_resource path="res://src/Components/AnimatedToolButton.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://src/Popup/NewWorkspace/NewWorkspaceDialog.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/WelcomePage/OpenWorkspace.gd" type="Script" id=9]
 [ext_resource path="res://src/WelcomePage/OpenWorkspaceFileDialog.gd" type="Script" id=10]
+[ext_resource path="res://src/Notifications/NotificationsContainer.tscn" type="PackedScene" id=11]
 
 [node name="WelcomePage" type="Control"]
 anchor_right = 1.0
@@ -180,7 +181,7 @@ margin_top = -226.587
 margin_right = 400.0
 margin_bottom = 223.413
 theme = ExtResource( 3 )
-window_title = "Open an existing Workspace"
+window_title = "Open a File"
 mode = 0
 access = 2
 filters = PoolStringArray( "*.cfg" )
@@ -190,3 +191,5 @@ script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="NotificationsContainer" parent="." instance=ExtResource( 11 )]

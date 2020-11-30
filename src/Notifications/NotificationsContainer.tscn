@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/Notifications/NotificationsContainer.gd" type="Script" id=1]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/fonts/droid-sans/DroidSans.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 14
+use_filter = true
+font_data = SubResource( 1 )
+
+[sub_resource type="Theme" id=3]
+default_font = SubResource( 2 )
 
 [node name="NotificationsContainer" type="Control"]
 anchor_left = 1.0
@@ -12,6 +23,7 @@ margin_right = -30.0
 margin_bottom = -42.0
 grow_vertical = 0
 mouse_filter = 2
+theme = SubResource( 3 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
