@@ -17,9 +17,6 @@
 [ext_resource path="res://assets/icons/save.svg" type="Texture" id=15]
 [ext_resource path="res://src/Popup/Characters/CancelCharacter.gd" type="Script" id=16]
 
-
-
-
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.172549, 0.164706, 0.196078, 1 )
 

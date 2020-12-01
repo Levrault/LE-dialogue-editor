@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://src/Menu/Menu.tscn" type="PackedScene" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://src/Popup/Characters/CharactersDialog.tscn" type="PackedScene" id=14]
 [ext_resource path="res://assets/themes/popup/popup.tres" type="Theme" id=15]
 [ext_resource path="res://src/Main/EditedFileTitle.gd" type="Script" id=16]
+[ext_resource path="res://src/Popup/HelpDialog.tscn" type="PackedScene" id=17]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://assets/fonts/droid-sans/DroidSans.ttf"
@@ -58,7 +59,7 @@ __meta__ = {
 }
 
 [node name="Menu" parent="MainWrapper/AppContainer" instance=ExtResource( 2 )]
-margin_right = 266.0
+margin_right = 229.0
 
 [node name="ViewsContainer" type="HBoxContainer" parent="MainWrapper/AppContainer"]
 margin_top = 26.0
@@ -196,3 +197,5 @@ dialog_autowrap = true
 script = ExtResource( 13 )
 
 [node name="CharactersDialog" parent="." instance=ExtResource( 14 )]
+
+[node name="HelpDialog" parent="." instance=ExtResource( 17 )]

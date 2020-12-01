@@ -1,0 +1,90 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Popup/HelpDialog.gd" type="Script" id=1]
+[ext_resource path="res://assets/themes/popup/popup.tres" type="Theme" id=2]
+
+[node name="HelpDialog" type="AcceptDialog"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -75.0
+margin_right = 150.0
+margin_bottom = 27.0
+theme = ExtResource( 2 )
+window_title = "About"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -30.0
+custom_constants/margin_top = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Help" type="VBoxContainer" parent="MarginContainer"]
+margin_top = 8.0
+margin_right = 284.0
+margin_bottom = 64.0
+
+[node name="Version" type="HBoxContainer" parent="MarginContainer/Help"]
+margin_right = 284.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="MarginContainer/Help/Version"]
+margin_right = 48.0
+margin_bottom = 14.0
+text = "Version"
+
+[node name="Text" type="Label" parent="MarginContainer/Help/Version"]
+margin_left = 52.0
+margin_right = 284.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "v1.0.0"
+align = 2
+
+[node name="License" type="HBoxContainer" parent="MarginContainer/Help"]
+margin_top = 18.0
+margin_right = 284.0
+margin_bottom = 32.0
+
+[node name="Label" type="Label" parent="MarginContainer/Help/License"]
+margin_right = 49.0
+margin_bottom = 14.0
+text = "License"
+
+[node name="Text" type="Label" parent="MarginContainer/Help/License"]
+margin_left = 53.0
+margin_right = 284.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = " GPL-3.0 License"
+align = 2
+
+[node name="Creator" type="HBoxContainer" parent="MarginContainer/Help"]
+margin_top = 36.0
+margin_right = 284.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="MarginContainer/Help/Creator"]
+margin_right = 46.0
+margin_bottom = 14.0
+text = "Creator"
+
+[node name="Text" type="Label" parent="MarginContainer/Help/Creator"]
+margin_left = 50.0
+margin_right = 284.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Luc-Frédéric Langis (Levrault)"
+align = 2

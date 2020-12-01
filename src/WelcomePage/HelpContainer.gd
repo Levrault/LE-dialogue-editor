@@ -2,9 +2,9 @@ extends VBoxContainer
 
 
 func _ready() -> void:
-	$Wiki.connect("pressed", self, "_on_Browser_action_pressed", ["https://github.com/Levrault/levrault-dialogue-editor/wiki"])
-	$Github.connect("pressed", self, "_on_Browser_action_pressed", ["https://github.com/Levrault/levrault-dialogue-editor"])
-	$Twitter.connect("pressed", self, "_on_Browser_action_pressed", ["https://twitter.com/LFLangis"])
+	$Wiki.connect("pressed", self, "_on_Browser_action_pressed", [ProjectSettings.get_setting("Info/wiki")])
+	$Github.connect("pressed", self, "_on_Browser_action_pressed", [ProjectSettings.get_setting("Info/github")])
+	$Twitter.connect("pressed", self, "_on_Browser_action_pressed", [ProjectSettings.get_setting("Info/twitter")])
 	
 
 func  _on_Browser_action_pressed(url: String) -> void:

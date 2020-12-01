@@ -105,3 +105,6 @@ signal connection_request_loaded(from, from_slot, to, to_slot)
 
 # notification
 signal notification_displayed(type, message)
+
+# help
+signal about_pop_up_displayed

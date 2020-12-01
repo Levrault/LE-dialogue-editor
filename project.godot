@@ -66,6 +66,15 @@ _global_script_class_icons={
 "TimelineField": ""
 }
 
+[Info]
+
+version="v1.0.0-beta"
+wiki="https://github.com/Levrault/levrault-dialogue-editor/wiki"
+github="https://github.com/Levrault/levrault-dialogue-editor"
+twitter="https://twitter.com/LFLangis"
+license=" GPL-3.0 License"
+creator="Luc-Frédéric Langis (Levrault)"
+
 [application]
 
 config/name="Levrault-dialogue-editor"
