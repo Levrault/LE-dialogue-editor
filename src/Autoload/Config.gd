@@ -58,6 +58,9 @@ func _init() -> void:
 
 
 func load_file(path: String) -> void:
+	for section in _config_file.get_sections():
+		_config_file.erase_section(section)
+
 	var err = _config_file.load(path)
 	if err == ERR_FILE_NOT_FOUND:
 		print_debug("%s was not found, create a new file with default values" % [path])

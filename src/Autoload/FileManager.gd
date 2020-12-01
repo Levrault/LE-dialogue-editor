@@ -180,8 +180,10 @@ func clear() -> void:
 
 	for key in dirty_unregistred_files:
 		dir.remove(dirty_unregistred_files[key].cache_path)
+	dirty_registred_files.clear()
 
 	for key in dirty_registred_files:
 		dir.remove(dirty_registred_files[key].cache_path)
+	dirty_unregistred_files.clear()
 
 	emit_signal("cache_cleared")

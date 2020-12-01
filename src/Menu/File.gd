@@ -1,6 +1,6 @@
 extends MenuButton
 
-enum Menu { new, open, save, export_file, workspace, quit }
+enum Menu { new, open, save, export_file, welcome_screen, quit }
 
 
 func _ready():
@@ -11,7 +11,7 @@ func _ready():
 	get_popup().add_item("Open File", Menu.open)
 	get_popup().add_item("Save", Menu.save)
 	get_popup().add_item("Export", Menu.export_file)
-	get_popup().add_item("Workspaces List", Menu.workspace)
+	get_popup().add_item("Close Workspace", Menu.welcome_screen)
 	get_popup().add_item("Quit", Menu.quit)
 
 
@@ -44,8 +44,8 @@ func _on_Item_pressed(id: int) -> void:
 		Editor.open_file()
 		return
 
-	if id == Menu.workspace:
-		Editor.open_workspace()
+	if id == Menu.welcome_screen:
+		Editor.load_welcome_screen()
 		return
 
 	if id == Menu.export_file:

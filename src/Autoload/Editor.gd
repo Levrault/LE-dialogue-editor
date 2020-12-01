@@ -96,7 +96,10 @@ func open_file() -> void:
 	Events.emit_signal("file_dialog_opened", 0)  # FileDialog.Mode.MODE_OPEN_FILE
 
 
-func open_workspace() -> void:
+func load_welcome_screen() -> void:
+	reset()
+	FileManager.clear()
+	yield(FileManager, "cache_cleared")
 	load_last_opened_file = true
 	get_tree().change_scene("res://src/WelcomePage/WelcomePage.tscn")
 

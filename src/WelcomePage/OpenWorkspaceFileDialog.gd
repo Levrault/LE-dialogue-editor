@@ -21,4 +21,4 @@ func _on_File_selected(path: String) -> void:
 		{folder = path, name = current_file, resource = Config.get_workspace_resource(path)}
 	)
 	Config.save(Config.globals)
-	Events.emit_signal("workspaces_list_changed")
+	Events.emit_signal("recents_list_changed")

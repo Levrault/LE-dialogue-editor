@@ -47,7 +47,7 @@ func _on_Save() -> void:
 		}
 	}
 	Config.new_workspace(values, values.path.folder)
-	Events.emit_signal("workspaces_list_changed")
+	Events.emit_signal("recents_list_changed")
 	_on_Cancel()
 
 

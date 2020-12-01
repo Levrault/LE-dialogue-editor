@@ -4,11 +4,11 @@ var button := preload("res://src/Components/AnimatedToolButton.tscn")
 
 
 func _ready() -> void:
-	Events.connect("workspaces_list_changed", self, "_on_workspaces_list_changed")
-	_on_workspaces_list_changed()
+	Events.connect("recents_list_changed", self, "_on_Recents_list_changed")
+	_on_Recents_list_changed()
 
 
-func _on_workspaces_list_changed() -> void:
+func _on_Recents_list_changed() -> void:
 	for child in get_children():
 		child.queue_free()
 

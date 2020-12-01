@@ -6,7 +6,7 @@
 [ext_resource path="res://src/WelcomePage/HelpContainer.gd" type="Script" id=4]
 [ext_resource path="res://src/WelcomePage/NewWorkspaceFileDialog.gd" type="Script" id=5]
 [ext_resource path="res://src/WelcomePage/NewWorkspace.gd" type="Script" id=6]
-[ext_resource path="res://src/WelcomePage/WorkspacetItemList.gd" type="Script" id=7]
+[ext_resource path="res://src/WelcomePage/RecentsList.gd" type="Script" id=7]
 [ext_resource path="res://src/Popup/NewWorkspace/NewWorkspaceDialog.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/WelcomePage/OpenWorkspace.gd" type="Script" id=9]
 [ext_resource path="res://src/WelcomePage/OpenWorkspaceFileDialog.gd" type="Script" id=10]
@@ -138,7 +138,7 @@ margin_right = 243.0
 margin_bottom = 24.0
 text = "Recent"
 
-[node name="WorkspaceItemList" type="VBoxContainer" parent="CenterContainer/HBoxContainer/RecentContainer"]
+[node name="RecentList" type="VBoxContainer" parent="CenterContainer/HBoxContainer/RecentContainer"]
 margin_top = 33.0
 margin_right = 243.0
 margin_bottom = 250.0

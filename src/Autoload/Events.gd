@@ -4,7 +4,7 @@ extends Node
 signal new_workspace_dialog_displayed
 signal workspace_new_file_dialog_displayed(node)
 signal workspace_open_file_dialog_displayed
-signal workspaces_list_changed
+signal recents_list_changed
 signal workspace_unsaved_file_added(file)
 signal workspace_files_updated
 signal workspace_file_selection_changed(button)
