@@ -5,11 +5,18 @@ var check_icon: Texture = preload("res://assets/icons/check.svg")
 
 
 func _ready():
+	Events.connect("layout_workspace_view_closed", self, "_set_icon", [Menu.workspace_view])
+	Events.connect("layout_preview_closed", self, "_set_icon", [Menu.preview])
 	get_popup().connect("id_pressed", self, "_on_Item_pressed")
 
 	# add items
 	get_popup().add_item("Preview", Menu.preview)
+	if Config.globals.views.preview:
+		_set_icon(Menu.preview)
+
 	get_popup().add_item("Workspace", Menu.workspace_view)
+	if Config.globals.views.workspace:
+		_set_icon(Menu.workspace_view)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:

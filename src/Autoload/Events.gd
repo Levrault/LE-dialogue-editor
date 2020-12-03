@@ -11,7 +11,9 @@ signal workspace_file_selection_changed(button)
 
 # layout
 signal layout_workspace_view_toggled
+signal layout_workspace_view_closed
 signal layout_preview_toggled
+signal layout_preview_closed
 
 # preview
 signal preview_started(conditions)
