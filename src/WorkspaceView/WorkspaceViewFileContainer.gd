@@ -1,5 +1,7 @@
 extends VBoxContainer
 
+const MAX_NAME_SIZE := 25
+
 var workspace_item_scene := preload("res://src/WorkspaceView/WorkspaceItem.tscn")
 
 
@@ -8,6 +10,12 @@ func _ready() -> void:
 	Events.connect("workspace_files_updated", self, "_on_File_updated")
 	Events.connect("workspace_unsaved_file_added", self, "_on_Unsaved_file_added")
 	_on_File_updated()
+
+
+static func format_file_name(file_name: String, limit: int) -> String:
+	if file_name.length() <= limit:
+		return file_name
+	return file_name.substr(0, limit) + "[...].json"
 
 
 func _on_Unsaved_file_added() -> void:
@@ -35,9 +43,9 @@ func _on_File_updated() -> void:
 		add_child(item)
 		item.button.values = file
 		item.button.text = (
-			"%s *" % [file.name]
+			"%s *" % [format_file_name(file.name, MAX_NAME_SIZE)]
 			if FileManager.is_file_dirty(file.path)
-			else file.name
+			else format_file_name(file.name, MAX_NAME_SIZE)
 		)
 		item.button.name = file.name
 		item.button.align = ToolButton.ALIGN_LEFT
