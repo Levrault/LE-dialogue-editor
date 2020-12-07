@@ -10,7 +10,8 @@ func _ready():
 	get_popup().add_item("New Dialogue", Menu.new)
 	get_popup().add_item("Open File", Menu.open)
 	get_popup().add_item("Save", Menu.save)
-	get_popup().add_item("Export", Menu.export_file)
+	get_popup().add_item("Export (Unavailable)", Menu.export_file)
+	get_popup().set_item_disabled(Menu.export_file, true)
 	get_popup().add_item("Close Workspace", Menu.welcome_screen)
 	get_popup().add_item("Quit", Menu.quit)
 
@@ -22,10 +23,10 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("save_file"):
 		Editor.save_file()
 		return
-	if event.is_action_pressed("export_file"):
-		# TODO: TO code
-		assert(true == false)
-		return
+	# if event.is_action_pressed("export_file"):
+	# 	# TODO: TO code
+	# 	assert(true == false)
+	# 	return
 	if event.is_action_pressed("open_file"):
 		Editor.open_file()
 		return
