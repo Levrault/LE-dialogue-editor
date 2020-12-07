@@ -59,7 +59,7 @@ __meta__ = {
 }
 
 [node name="Menu" parent="MainWrapper/AppContainer" instance=ExtResource( 2 )]
-margin_right = 229.0
+margin_right = 315.0
 
 [node name="ViewsContainer" type="HBoxContainer" parent="MainWrapper/AppContainer"]
 margin_top = 26.0
@@ -68,9 +68,10 @@ margin_bottom = 895.0
 size_flags_vertical = 3
 
 [node name="WorkspaceView" parent="MainWrapper/AppContainer/ViewsContainer" instance=ExtResource( 3 )]
+margin_right = 300.0
 
 [node name="Editor" type="Control" parent="MainWrapper/AppContainer/ViewsContainer"]
-margin_left = 224.0
+margin_left = 304.0
 margin_right = 1600.0
 margin_bottom = 869.0
 size_flags_horizontal = 3
@@ -82,7 +83,6 @@ anchor_bottom = 1.0
 margin_right = 0.0
 margin_bottom = 0.0
 size_flags_horizontal = 3
-scroll_offset = Vector2( -45, 0 )
 
 [node name="ActionsBar" parent="MainWrapper/AppContainer/ViewsContainer/Editor" instance=ExtResource( 5 )]
 margin_top = -170.5

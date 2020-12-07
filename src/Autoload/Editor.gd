@@ -86,6 +86,12 @@ func new_file() -> void:
 	load_last_opened_file = false
 	get_tree().reload_current_scene()
 	yield(get_tree(), "idle_frame")
+
+	var root_instance = root_node.instance()
+	root_instance.uuid = "root"
+	root_instance.name = "root"
+	graph_edit.add_child(root_instance)
+
 	Events.emit_signal("workspace_unsaved_file_added")
 	FileManager.state = FileManager.State.unregistred_pristine
 
