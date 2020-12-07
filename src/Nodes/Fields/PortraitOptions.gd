@@ -86,6 +86,7 @@ func _on_Character_selection_changed(name: String) -> void:
 		FileManager.dirty()
 	clear()
 	name_selected = name
+	pristine = true
 
 	# display empty message if there is no character left
 	if Config.values.variables.characters.empty():
