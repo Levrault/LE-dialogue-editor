@@ -91,7 +91,6 @@ func new_file() -> void:
 
 
 func open_file() -> void:
-	# TODO: should open and add the file to workspace
 	FileManager.state = FileManager.State.registred_pristine
 	Events.emit_signal("file_dialog_opened", 0)  # FileDialog.Mode.MODE_OPEN_FILE
 

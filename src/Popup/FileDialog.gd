@@ -21,6 +21,7 @@ func _open_file() -> void:
 
 	Editor.reset()
 	yield(Editor, "scene_cleared")
+	yield(get_tree(), "idle_frame")
 
 	Config.values.variables.files.append({path = current_path, name = current_file})
 	Config.values.cache.last_opened_file = {name = current_file, path = current_path}
@@ -69,8 +70,3 @@ func _on_Confirmed() -> void:
 func _on_File_selected(path: String) -> void:
 	if mode == 0:
 		_open_file()
-
-	if mode == 0:
-		Editor.reset()
-		yield(Editor, "scene_cleared")
-		Serialize.call_deferred("load", current_path)
