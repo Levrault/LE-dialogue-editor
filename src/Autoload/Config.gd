@@ -132,3 +132,13 @@ func has_file_path(path: String) -> bool:
 		if file.path == path:
 			return true
 	return false
+
+
+func get_character(name: String) -> Dictionary:
+	var character := {}
+	for c in values.variables.characters:
+		if c.name == name:
+			character = c
+			break
+
+	return character

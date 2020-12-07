@@ -19,6 +19,11 @@ func _process(delta: float) -> void:
 
 func set_value(value: Dictionary) -> void:
 	speaker_name.text = value.name
-	portrait.text = value.portrait
+	print(value)
+	var character: Dictionary = Config.get_character(value.name)
+	for c_portrait in character.portraits:
+		if c_portrait.path == value.portrait:
+			portrait.text = c_portrait.name
+			break
 	message_text.message = value.text[Editor.locale]
 	message_text.call_deferred("pop_in_animation")

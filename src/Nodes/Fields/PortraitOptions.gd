@@ -8,6 +8,7 @@
 #	is hidden
 # - If the portrait is deleted but there is still other portrait, the first one is taken
 extends OptionButton
+class_name PortraitOptions
 
 const OPTION_IMG_SIZE := Vector2(32, 32)
 const PREVIEW_IMG_SIZE := Vector2(108, 108)
@@ -53,7 +54,7 @@ func _on_Character_list_changed() -> void:
 
 	# Portrait was deleted 
 	var portrait_has_been_deleted := true
-	var character := _get_character(name_selected)
+	var character: Dictionary = Config.get_character(name_selected)
 
 	if character.empty():
 		hide()
@@ -94,7 +95,7 @@ func _on_Character_selection_changed(name: String) -> void:
 		hide()
 		return
 
-	var character := _get_character(name)
+	var character: Dictionary = Config.get_character(name)
 
 	if character.empty():
 		return
@@ -153,13 +154,3 @@ func _on_Portrait_selected(index: int) -> void:
 		pristine = false
 		return
 	owner.values.data.portrait = path
-
-
-func _get_character(name: String) -> Dictionary:
-	var character := {}
-	for c in Config.values.variables.characters:
-		if c.name == name:
-			character = c
-			break
-
-	return character

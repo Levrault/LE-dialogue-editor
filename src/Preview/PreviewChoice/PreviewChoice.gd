@@ -9,7 +9,11 @@ onready var anim := $AnimationPlayer
 
 func set_value(new_value: Dictionary) -> void:
 	value = new_value
-	button.text = value.text[Editor.locale]
+	button.text = (
+		value.text[Editor.locale]
+		if value.text[Editor.locale].length() < 30
+		else value.text[Editor.locale].substr(0, 30) + "..."
+	)
 
 
 func has_error() -> void:
