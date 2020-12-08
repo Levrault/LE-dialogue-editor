@@ -34,7 +34,7 @@ const DEFAULT_VALUES := {
 }
 
 const DEFAULT_GLOBALS := {
-	"workspaces": {"list": []}, "views": {"preview": false, "workspace": false}
+	"workspaces": {"list": []}, "views": {"preview": false, "workspace": true}
 }
 
 var _config_file := ConfigFile.new()
