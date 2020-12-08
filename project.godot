@@ -83,9 +83,14 @@ creator="Luc-Frédéric Langis (Levrault)"
 
 [application]
 
-config/name="Levrault-dialogue-editor"
+config/name="LE-dialogue-editor"
+config/description="LE Dialogue Editor is an standalone application, made with the Godot Engine, created with the main purpose to manage tiny but complex dialogues."
 run/main_scene="res://src/WelcomePage/WelcomePage.tscn"
+boot_splash/image="res://icon.png"
+boot_splash/bg_color=Color( 0.141176, 0.141176, 0.141176, 0 )
 config/icon="res://icon.png"
+config/macos_native_icon="res://icon.icns"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 

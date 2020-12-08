@@ -1,7 +1,33 @@
-# levrault-dialogue-editor
+![banner](./packages/banner.jpg)
 
-A custom dialogue editor to create json file compatible with my own dialogue system (https://github.com/Levrault/Levrault-s-2D-platformer-starter)
-So it may not be you useful to create your own json file but you can take the project and customize it to made it you own (just repect the GPL-3.0 License)
+The *LE Dialogue Editor* is an standalone application, made with the [Godot Engine](https://godotengine.org/), created with the main purpose to manage tiny but complex dialogues.
+
+Learn more in the [WIKI](https://github.com/Levrault/levrault-dialogue-editor/wiki)
+
+
+
+## If this application is what you need?
+
+If you want to create **visual novel** or a **story driven game with non-linear story**, this application **shouldn't** be your first choice. Why? Because managing heavy dialogue in a tree view will be simply to hard to maintain.  That why you should those applications instead
+
+- [Dialogic](https://github.com/coppolaemilio/dialogic) a plug-in for Godot Engine by Emilio Coppola
+- [Twinejs](https://github.com/klembot/twinejs) a port of Twine
+- [Renpy](https://www.renpy.org/) a visual novel engine
+- [Visual Novel Maker](http://visualnovelmaker.com/) a visual novel engine
+
+
+
+But if you want to create small conversations between multiples characters, LE Dialogue Editor should do the job. It support
+
+- Localization
+- Character name and portrait
+- Choices
+- Conditional branching for both dialogue and choices
+- Preview of the dialogue based on the condition
+- Emitting custom signals at certain dialogue
+- Editing multiple JSON file at once
+
+
 
 ## Credits
 
