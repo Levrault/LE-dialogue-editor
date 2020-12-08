@@ -1,6 +1,6 @@
 ![banner](./packages/banner.jpg)
 
-The *LE Dialogue Editor* is an standalone application, made with the [Godot Engine](https://godotengine.org/), created with the main purpose to manage tiny but complex dialogues.
+*LE Dialogue Editor* is an standalone application, made with the [Godot Engine](https://godotengine.org/), created with the main purpose to manage tiny but complex dialogues.
 
 Learn more in the [WIKI](https://github.com/Levrault/levrault-dialogue-editor/wiki)
 
