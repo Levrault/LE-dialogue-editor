@@ -6,7 +6,7 @@ Learn more in the [WIKI](https://github.com/Levrault/levrault-dialogue-editor/wi
 
 
 
-## If this application is what you need?
+## Is this application is what you need?
 
 If you want to create **visual novel** or a **story driven game with non-linear story**, this application **shouldn't** be your first choice. Why? Because managing heavy dialogue in a tree view will be simply to hard to maintain.  That why you should those applications instead
 
