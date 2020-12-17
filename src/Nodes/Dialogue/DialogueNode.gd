@@ -92,6 +92,7 @@ var right_signal_connection := ""
 
 onready var character_name_option := $Container/Character/FieldsContainer/CharacterNameContainer/CharacterNameOptions
 onready var portrait_preview := $Container/Character/PortraitPreview
+onready var portrait_placeholder := $Container/Character/PortraitPlaceholder
 
 
 func _ready() -> void:

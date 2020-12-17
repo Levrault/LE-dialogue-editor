@@ -74,6 +74,15 @@ rect_min_size = Vector2( 92, 92 )
 texture = ExtResource( 7 )
 stretch_mode = 4
 
+[node name="PortraitPlaceholder" type="TextureRect" parent="Container/Character"]
+visible = false
+margin_left = 96.0
+margin_right = 188.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 92, 92 )
+texture = ExtResource( 7 )
+stretch_mode = 4
+
 [node name="FieldsContainer" type="VBoxContainer" parent="Container/Character"]
 margin_left = 96.0
 margin_right = 313.0
