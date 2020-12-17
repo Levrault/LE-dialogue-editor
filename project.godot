@@ -94,6 +94,7 @@ config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
+Os="*res://src/Autoload/OS.gd"
 Constant="*res://src/Autoload/Constant.gd"
 Events="*res://src/Autoload/Events.gd"
 Uuid="*res://src/Autoload/Uuid.gd"
