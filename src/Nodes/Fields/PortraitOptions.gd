@@ -45,8 +45,7 @@ func _on_Character_list_changed() -> void:
 
 	# display empty message if there is no character left
 	if Config.values.variables.characters.empty():
-		owner.portrait_placeholder.show()
-		owner.portrait_preview.hide()
+		_display_placeholder()
 		empty_msg.show()
 		hide()
 		return
@@ -74,8 +73,7 @@ func _on_Character_list_changed() -> void:
 		return
 
 	if get_selected_metadata().uuid != portrait_selected:
-		owner.portrait_placeholder.show()
-		owner.portrait_preview.hide()
+		_display_placeholder()
 
 
 # Clean the list and create all the portrait selection
@@ -100,8 +98,7 @@ func _on_Character_selection_changed(name: String) -> void:
 
 	# display empty message if there is no portraits left
 	if character.portraits.empty():
-		owner.portrait_placeholder.show()
-		owner.portrait_preview.hide()
+		_display_placeholder()
 
 		hide()
 		empty_msg.show()
@@ -147,9 +144,14 @@ func _on_Portrait_selected(index: int) -> void:
 	owner.portrait_preview.texture = Editor.import_image(path, PREVIEW_IMG_SIZE)
 	owner.portrait_preview.show()
 	owner.portrait_placeholder.hide()
+	owner.values.data.portrait = path
 
 	# Pristine set the default image if not the saved value is loaded
 	if pristine:
 		pristine = false
-		return
-	owner.values.data.portrait = path
+
+
+func _display_placeholder() -> void:
+	owner.portrait_placeholder.show()
+	owner.portrait_preview.hide()
+	owner.values.data.portrait = ""
