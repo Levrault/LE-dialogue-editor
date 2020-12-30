@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-const MAX_NAME_SIZE := 25
+const MAX_NAME_SIZE := 23
 
 var workspace_item_scene := preload("res://src/WorkspaceView/WorkspaceItem.tscn")
 

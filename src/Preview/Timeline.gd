@@ -113,7 +113,6 @@ func _create_timeline(dialogue: Dictionary, uuid := "") -> void:
 
 	var next := ""
 	var default_next := ""
-	var can_not_predicate := false
 
 	if dialogue.has("conditions") and not dialogue.has("choices"):
 		var conditions = dialogue.conditions.duplicate(true)

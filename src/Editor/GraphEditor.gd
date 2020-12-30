@@ -304,6 +304,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		from_node.right_choice_connection = to
 		to_node.left_conditions_connection.append(from)
 		to_node.values.__editor["parent"] = from_node.uuid
+		to_node.values.data["uuid"] = to
 		connect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("condition_to_choice_relation_created", from_node.uuid, to_node.uuid)
 		return
@@ -392,15 +393,20 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 		from_node.right_dialogue_connection = ""
 		to_node.left_condition_connection = ""
 		disconnect_node(from, from_slot, to, to_slot)
+		Events.emit_signal("condition_to_dialogue_relation_deleted", from)
 		return
 
 	# CONDITIONS -- CHOICE 
 	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.choice:
+		# remove choice from linked dialogue
 		from_node.right_choice_connection = ""
+		# clear choice
 		to_node.left_conditions_connection.erase(from)
 		to_node.values.__editor.erase("parent")
+		to_node.values.data.erase("uuid")
 
 		disconnect_node(from, from_slot, to, to_slot)
+		Events.emit_signal("condition_to_choice_relation_deleted", from, to)
 		return
 
 
