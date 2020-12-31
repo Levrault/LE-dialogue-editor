@@ -11,12 +11,14 @@ func _ready() -> void:
 	Editor.graph_edit = graph_edit
 
 	if not Config.values.cache.last_opened_file.empty() and Editor.load_last_opened_file:
+		Editor.workspace_pristine = false
 		Serialize.load(Config.values.cache.last_opened_file.path)
 		FileManager.edited_file = Config.values.cache.last_opened_file.duplicate(true)
 		FileManager.state = FileManager.State.registred_pristine
 		Events.call_deferred("emit_signal", "workspace_files_updated")
-	elif Config.values.variables.files.empty():
-		Editor.load_last_opened_file = false
+	elif Config.values.variables.files.empty() and Editor.workspace_pristine:
+		Editor.workspace_pristine = false
+		Editor.new_root_node()
 		Events.emit_signal("workspace_unsaved_file_added")
 
 

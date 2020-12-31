@@ -7,6 +7,7 @@ enum Type { root, dialogue, choice, condition, signal_node }
 enum Notification { idle, warning, error, success }
 
 var workspace := {}
+var workspace_pristine := true
 var locale := "en" setget set_locale
 var graph_edit: GraphEdit = null
 var load_last_opened_file := true
@@ -87,6 +88,7 @@ func new_file() -> void:
 	get_tree().reload_current_scene()
 	yield(get_tree(), "idle_frame")
 
+	# force new root on creation
 	var root_instance = root_node.instance()
 	root_instance.uuid = "root"
 	root_instance.name = "root"
@@ -120,3 +122,13 @@ func import_image(path: String, size: Vector2) -> ImageTexture:
 	texture.set_size_override(size)
 
 	return texture
+
+
+func new_root_node() -> void:
+	if graph_edit.get_node_or_null("root") != null:
+		return
+
+	var root_instance = root_node.instance()
+	root_instance.uuid = "root"
+	root_instance.name = "root"
+	graph_edit.add_child(root_instance)
