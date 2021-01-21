@@ -6,6 +6,7 @@ signal scene_cleared
 enum Type { root, dialogue, choice, condition, signal_node }
 enum Notification { idle, warning, error, success }
 
+var active_fullscreen := true
 var workspace := {}
 var workspace_pristine := true
 var locale := "en" setget set_locale
@@ -18,6 +19,9 @@ onready var dialogue_node := load("res://src/Nodes/Dialogue/DialogueNode.tscn")
 onready var choice_node := load("res://src/Nodes/Choice/ChoiceNode.tscn")
 onready var condition_node := load("res://src/Nodes/Conditions/ConditionNode.tscn")
 onready var signal_node := load("res://src/Nodes/Signal/SignalNode.tscn")
+
+static func absolute_path(path: String) -> String:
+	return path.replace(Constant.RESOURCE, Editor.workspace.resource)
 
 
 func _ready() -> void:
@@ -115,7 +119,7 @@ func import_image(path: String, size: Vector2) -> ImageTexture:
 	var texture := ImageTexture.new()
 	var image := Image.new()
 
-	var err = image.load(path.replace(Constant.RESOURCE, Editor.workspace.resource))
+	var err = image.load(absolute_path(path))
 	assert(err == OK)
 
 	texture.create_from_image(image, 0)

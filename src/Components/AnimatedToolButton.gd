@@ -27,6 +27,8 @@ func set_selected(value: bool) -> void:
 
 
 func _on_Mouse_entered() -> void:
+	if disabled:
+		return
 	tween.interpolate_property(
 		self, "modulate", modulate, COLOR_HOVER, DURATION, Tween.EASE_IN, Tween.EASE_OUT
 	)
@@ -34,7 +36,7 @@ func _on_Mouse_entered() -> void:
 
 
 func _on_Mouse_exited() -> void:
-	if selected:
+	if selected or disabled:
 		return
 	tween.interpolate_property(
 		self, "modulate", modulate, COLOR, DURATION, Tween.EASE_IN, Tween.EASE_OUT
