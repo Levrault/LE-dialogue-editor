@@ -12,7 +12,7 @@ func _ready() -> void:
 
 	if not Config.values.cache.last_opened_file.empty() and Editor.load_last_opened_file:
 		Editor.workspace_pristine = false
-		Serialize.load(Config.values.cache.last_opened_file.path)
+		Serialize.load(Editor.absolute_path(Config.values.cache.last_opened_file.path))
 		FileManager.edited_file = Config.values.cache.last_opened_file.duplicate(true)
 		FileManager.state = FileManager.State.registred_pristine
 		Events.call_deferred("emit_signal", "workspace_files_updated")

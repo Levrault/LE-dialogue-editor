@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "MenuButton",
 "class": "AnimatedMenuButton",
 "language": "GDScript",
-"path": "res://AnimatedMenuButton.gd"
+"path": "res://src/Components/AnimatedMenuButton.gd"
 }, {
 "base": "ToolButton",
 "class": "AnimatedToolButton",
@@ -94,7 +94,6 @@ config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
-Os="*res://src/Autoload/OS.gd"
 Constant="*res://src/Autoload/Constant.gd"
 Events="*res://src/Autoload/Events.gd"
 Uuid="*res://src/Autoload/Uuid.gd"
@@ -118,6 +117,7 @@ gdscript/warnings/return_value_discarded=false
 
 window/size/width=512
 window/size/height=512
+window/per_pixel_transparency/allowed=true
 
 [input]
 

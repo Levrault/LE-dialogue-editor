@@ -43,7 +43,7 @@ func _on_Save() -> void:
 		{
 			"name": form_values.name,
 			"folder": "%s/%s.cfg" % [form_values.folder, form_values.name],
-			"resource": form_values.resource,
+			OS.get_name(): form_values.resource,
 		}
 	}
 	Config.new_workspace(values, values.path.folder)

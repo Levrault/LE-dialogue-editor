@@ -9,28 +9,17 @@ const DEFAULT_VALUES := {
 	{
 		"file": "",
 		"resource": "",
+		"OSX": "",
+		"Windows": "",
+		"UWP": "",
+		"X11": "",
 	},
 	"locale": {"current": "en", "selected": ["en", "fr"], "custom": []},
-	"variables":
-	{
-		"characters":
-		[
-			{
-				"name": "Godot",
-				"portraits":
-				[
-					{
-						"uuid": "godot_default",
-						"name": "Idle",
-						"path": "res://icon.png",
-						"default": true
-					}
-				]
-			}
-		],
-		"files": []
+	"variables": {"characters": [{"name": "Godot", "portraits": []}], "files": []},
+	"cache": {"last_opened_file": {}},
+	"info": {
+		"version": ''
 	},
-	"cache": {"last_opened_file": {}}
 }
 
 const DEFAULT_GLOBALS := {
@@ -82,6 +71,8 @@ func new_workspace(new_settings: Dictionary, path: String) -> void:
 	save(globals)
 
 	# save workspace
+	new_settings["info"] = {}
+	new_settings["info"]["version"] = ProjectSettings.get_setting("Info/version")
 	save(new_settings, path)
 	self.load(values, DEFAULT_VALUES)
 

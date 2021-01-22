@@ -36,16 +36,18 @@ func _on_Pressed() -> void:
 	yield(Editor, "scene_cleared")
 
 	if values.has("unregistred"):
-		Serialize.load(values.path, true)
+		Serialize.load(Editor.absolute_path(values.path), true)
 		FileManager.state = FileManager.State.unregistred_dirty
 	elif values.has("cache_path"):
 		Serialize.load(values.cache_path, true)
 		FileManager.state = FileManager.State.registred_dirty
 	else:
-		Config.values.cache.last_opened_file = {name = values.name, path = values.path}
+		Config.values.cache.last_opened_file = {
+			name = values.name, path = Editor.absolute_path(values.path)
+		}
 		Config.save(Config.values, Editor.workspace.folder)
 		FileManager.state = FileManager.State.registred_pristine
-		Serialize.load(values.path, false)
+		Serialize.load(Editor.absolute_path(values.path), false)
 
 	FileManager.edited_file = {path = values.path, name = values.name, button_ref = self}
 	Events.emit_signal("workspace_file_selection_changed", self)
