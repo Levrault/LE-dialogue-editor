@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://src/Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://src/Menu/Menu.tscn" type="PackedScene" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://assets/themes/popup/popup.tres" type="Theme" id=15]
 [ext_resource path="res://src/Main/EditedFileTitle.gd" type="Script" id=16]
 [ext_resource path="res://src/Popup/HelpDialog.tscn" type="PackedScene" id=17]
+[ext_resource path="res://src/Components/Spinner.tscn" type="PackedScene" id=18]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://assets/fonts/droid-sans/DroidSans.ttf"
@@ -30,6 +31,7 @@ font_data = SubResource( 1 )
 [node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 512.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -53,7 +55,7 @@ __meta__ = {
 
 [node name="AppContainer" type="VBoxContainer" parent="MainWrapper"]
 margin_right = 1024.0
-margin_bottom = 595.0
+margin_bottom = 507.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -64,17 +66,17 @@ margin_right = 315.0
 [node name="ViewsContainer" type="HBoxContainer" parent="MainWrapper/AppContainer"]
 margin_top = 26.0
 margin_right = 1024.0
-margin_bottom = 595.0
+margin_bottom = 507.0
 size_flags_vertical = 3
 
 [node name="WorkspaceView" parent="MainWrapper/AppContainer/ViewsContainer" instance=ExtResource( 3 )]
 margin_right = 300.0
-margin_bottom = 569.0
+margin_bottom = 481.0
 
 [node name="Editor" type="Control" parent="MainWrapper/AppContainer/ViewsContainer"]
 margin_left = 304.0
 margin_right = 1024.0
-margin_bottom = 569.0
+margin_bottom = 481.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -84,7 +86,7 @@ anchor_bottom = 1.0
 margin_right = 0.0
 margin_bottom = 0.0
 size_flags_horizontal = 3
-scroll_offset = Vector2( -720, -481 )
+scroll_offset = Vector2( -208, -481 )
 
 [node name="ActionsBar" parent="MainWrapper/AppContainer/ViewsContainer/Editor" instance=ExtResource( 5 )]
 margin_top = -170.5
@@ -133,8 +135,8 @@ popup_exclusive = true
 dialog_hide_on_ok = true
 access = 2
 filters = PoolStringArray( "*.json" )
-current_dir = "/home/luc/Devs/levrault-dialogue-editor"
-current_path = "/home/luc/Devs/levrault-dialogue-editor/"
+current_dir = "/Users/Luc/Devs/LE-dialogue-editor"
+current_path = "/Users/Luc/Devs/LE-dialogue-editor/"
 script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -155,8 +157,8 @@ window_title = "Open Workspace"
 dialog_hide_on_ok = true
 access = 2
 filters = PoolStringArray( "*.json" )
-current_dir = "/home/luc/Devs/levrault-dialogue-editor"
-current_path = "/home/luc/Devs/levrault-dialogue-editor/"
+current_dir = "/Users/Luc/Devs/LE-dialogue-editor"
+current_path = "/Users/Luc/Devs/LE-dialogue-editor/"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -202,3 +204,6 @@ script = ExtResource( 13 )
 [node name="CharactersDialog" parent="." instance=ExtResource( 14 )]
 
 [node name="HelpDialog" parent="." instance=ExtResource( 17 )]
+
+[node name="Spinner" parent="." instance=ExtResource( 18 )]
+visible = false

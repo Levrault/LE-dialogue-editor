@@ -1,5 +1,5 @@
 # Main container
-# Create node and send 
+# Create node and send
 extends Control
 
 onready var graph_edit := $MainWrapper/AppContainer/ViewsContainer/Editor/GraphEditor

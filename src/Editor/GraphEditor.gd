@@ -194,7 +194,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		Events.emit_signal("dialogue_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
 		return
 
-	# DIALOGUE -- SIGNAL  
+	# DIALOGUE -- SIGNAL
 	if from_node.TYPE == Editor.Type.dialogue and to_node.TYPE == Editor.Type.signal_node:
 		wait_for_user_confirmation = _check_node_connection(
 			from,
@@ -274,7 +274,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		Events.emit_signal("choice_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
 		return
 
-	# CONDITIONS -- DIALOGUE 
+	# CONDITIONS -- DIALOGUE
 	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.dialogue:
 		wait_for_user_confirmation = _check_node_connection(
 			from,
@@ -299,7 +299,7 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		Events.emit_signal("condition_to_dialogue_relation_created", from_node.uuid, to_node.uuid)
 		return
 
-	# CONDITIONS -- CHOICES 
+	# CONDITIONS -- CHOICES
 	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.choice:
 		from_node.right_choice_connection = to
 		to_node.left_conditions_connection.append(from)
@@ -326,7 +326,7 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 	var from_node = get_node(from)
 	var to_node = get_node(to)
 
-	# ROOT -- DIALOGUE 
+	# ROOT -- DIALOGUE
 	if from_node.TYPE == Editor.Type.root and to_node.TYPE == Editor.Type.dialogue:
 		Events.emit_signal("root_to_dialogue_relation_deleted")
 		from_node.right_dialogue_connection = ""
@@ -334,7 +334,7 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 		disconnect_node(from, from_slot, to, to_slot)
 		return
 
-	# ROOT -- CONDITION 
+	# ROOT -- CONDITION
 	if from_node.TYPE == Editor.Type.root and to_node.TYPE == Editor.Type.condition:
 		Events.emit_signal("root_to_condition_relation_deleted", to)
 
@@ -380,14 +380,14 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 		Events.emit_signal("dialogue_to_signal_relation_deleted", from)
 		return
 
-	# CHOICE -- DIALOGUE 
+	# CHOICE -- DIALOGUE
 	if from_node.TYPE == Editor.Type.choice and to_node.TYPE == Editor.Type.dialogue:
 		to_node.left_choices_connection.erase(from)
 		disconnect_node(from, from_slot, to, to_slot)
 		Events.emit_signal("choice_to_dialogue_relation_deleted", from)
 		return
 
-	# CONDITIONS -- DIALOGUE 
+	# CONDITIONS -- DIALOGUE
 	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.dialogue:
 		from_node.values.data.next = ""
 		from_node.right_dialogue_connection = ""
@@ -396,7 +396,7 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 		Events.emit_signal("condition_to_dialogue_relation_deleted", from)
 		return
 
-	# CONDITIONS -- CHOICE 
+	# CONDITIONS -- CHOICE
 	if from_node.TYPE == Editor.Type.condition and to_node.TYPE == Editor.Type.choice:
 		# remove choice from linked dialogue
 		from_node.right_choice_connection = ""

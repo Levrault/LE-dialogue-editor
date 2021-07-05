@@ -23,6 +23,7 @@ func _on_Workspace_file_selection_changed(ref: AnimatedToolButton) -> void:
 
 
 func _on_Pressed() -> void:
+	Events.emit_signal("spinner_displayed")
 	if FileManager.state == FileManager.State.unregistred_dirty:
 		Serialize.save()
 		print_debug(
@@ -34,6 +35,8 @@ func _on_Pressed() -> void:
 	# load an existing file
 	Editor.reset()
 	yield(Editor, "scene_cleared")
+	yield(get_tree(), "idle_frame")
+	print(Store.root_node)
 
 	if values.has("unregistred"):
 		Serialize.load(Editor.absolute_path(values.path), true)
@@ -51,3 +54,4 @@ func _on_Pressed() -> void:
 
 	FileManager.edited_file = {path = values.path, name = values.name, button_ref = self}
 	Events.emit_signal("workspace_file_selection_changed", self)
+	Events.call_deferred("emit_signal", "spinner_hidden")

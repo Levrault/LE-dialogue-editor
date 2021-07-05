@@ -63,7 +63,7 @@ func import(json: Dictionary) -> bool:
 	root_instance.values["__editor"] = editor_data.root
 	Events.emit_signal("graph_node_loaded", root_instance)
 
-	# import node non connected to a dialogue node 
+	# import node non connected to a dialogue node
 	_import_unconnected_node(editor_data)
 
 	# connect nodes, data are stocked inside the dialogue object
@@ -151,7 +151,7 @@ func _find_by_uuid(data: Array, uuid: String) -> Dictionary:
 
 
 # Some kind of factory that create and add node to GraphEditor scene
-# @param {String} uuid 
+# @param {String} uuid
 # @param {GraphEditorNode} node_instance - choice_node, condition_node, dialogue_node, signal_node
 # @param {Dictionary} data - data from dialogue or the itself (if isn't connected to any dialogue)
 # @param {Dictionary} editor_data - data from __editor
