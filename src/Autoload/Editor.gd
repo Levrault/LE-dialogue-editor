@@ -21,7 +21,7 @@ onready var condition_node := load("res://src/Nodes/Conditions/ConditionNode.tsc
 onready var signal_node := load("res://src/Nodes/Signal/SignalNode.tscn")
 
 static func absolute_path(path: String) -> String:
-	return path.replace(Constant.RESOURCE, Editor.workspace.resource)
+	return path.replace(Constant.RESOURCE, Editor.workspace.resource).replace("//", "/")
 
 
 func _ready() -> void:
