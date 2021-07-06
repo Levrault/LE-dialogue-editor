@@ -86,7 +86,6 @@ anchor_bottom = 1.0
 margin_right = 0.0
 margin_bottom = 0.0
 size_flags_horizontal = 3
-scroll_offset = Vector2( -208, -481 )
 
 [node name="ActionsBar" parent="MainWrapper/AppContainer/ViewsContainer/Editor" instance=ExtResource( 5 )]
 margin_top = -170.5

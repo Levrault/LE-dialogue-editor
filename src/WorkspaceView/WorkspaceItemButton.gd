@@ -12,7 +12,7 @@ func _ready() -> void:
 
 func set_values(new_values: Dictionary) -> void:
 	values = new_values
-	if Serialize.current_path == values.path:
+	if Serialize.current_path == Editor.absolute_path(values.path):
 		self.selected = true
 		FileManager.edited_file = {path = values.path, name = values.name, button_ref = self}
 	emit_signal("values_changed")
