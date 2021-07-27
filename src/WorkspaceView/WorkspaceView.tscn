@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/WorkspaceView/WorkspaceView.gd" type="Script" id=1]
-[ext_resource path="res://src/Components/AnimatedToolButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Generic/AnimatedToolButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/WorkspaceView/WorkspaceViewFileContainer.gd" type="Script" id=3]
 [ext_resource path="res://assets/icons/close_white.svg" type="Texture" id=4]
 

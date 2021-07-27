@@ -1,7 +1,7 @@
 extends WindowDialog
 
-var label_scene := preload("res://src/Components/Label.tscn")
-var checkbox_scene := preload("res://src/Components/Checkbox.tscn")
+var label_scene := preload("res://src/Generic/Label.tscn")
+var checkbox_scene := preload("res://src/Generic/Checkbox.tscn")
 var selected_locale_list_code := []
 
 onready var locale_list := $MarginContainer/VBoxContainer/HBoxContainer/LocaleList/VBoxContainer

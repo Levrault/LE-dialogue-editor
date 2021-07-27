@@ -2,7 +2,7 @@ extends Control
 
 const TRIGGER_SWITCH := 3
 
-var locale_button_scene := preload("res://src/Components/LocaleButton.tscn")
+var locale_button_scene := preload("res://src/Generic/LocaleButton.tscn")
 
 onready var container := $Container
 onready var locale_drop_down_switcher := $LocaleDropDownSwitcher

@@ -1,12 +1,13 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/WorkspaceView/WorkspaceItemButton.gd" type="Script" id=1]
-[ext_resource path="res://src/Components/AnimatedToolButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Generic/AnimatedToolButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/WorkspaceView/WorkspaceItem.gd" type="Script" id=3]
 [ext_resource path="res://assets/icons/file-text.svg" type="Texture" id=4]
-[ext_resource path="res://src/Components/AnimatedMenuButton.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/Components/WorkspaceItemMenuButton.gd" type="Script" id=7]
+[ext_resource path="res://src/Generic/AnimatedMenuButton.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/Generic/WorkspaceItemMenuButton.gd" type="Script" id=7]
 [ext_resource path="res://assets/themes/menu/workspace_item.tres" type="Theme" id=9]
+
 
 [node name="WorkspaceItem" type="HBoxContainer"]
 anchor_right = 0.141

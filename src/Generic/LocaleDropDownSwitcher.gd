@@ -1,6 +1,6 @@
 extends Control
 
-var animated_button_scene := preload("res://src/Components/AnimatedToolButton.tscn")
+var animated_button_scene := preload("res://src/Generic/AnimatedToolButton.tscn")
 var is_open := false
 var current_locale: String = Config.values.locale.current setget set_current_locale
 var previous_locale: String = current_locale

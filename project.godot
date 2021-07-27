@@ -17,12 +17,12 @@ _global_script_classes=[ {
 "base": "MenuButton",
 "class": "AnimatedMenuButton",
 "language": "GDScript",
-"path": "res://src/Components/AnimatedMenuButton.gd"
+"path": "res://src/Generic/AnimatedMenuButton.gd"
 }, {
 "base": "ToolButton",
 "class": "AnimatedToolButton",
 "language": "GDScript",
-"path": "res://src/Components/AnimatedToolButton.gd"
+"path": "res://src/Generic/AnimatedToolButton.gd"
 }, {
 "base": "LineEdit",
 "class": "FieldInput",
@@ -87,6 +87,7 @@ config/name="LE-dialogue-editor"
 config/description="LE Dialogue Editor is an standalone application, made with the Godot Engine, created with the main purpose to manage tiny but complex dialogues."
 run/main_scene="res://src/WelcomePage/WelcomePage.tscn"
 boot_splash/image="res://icon.png"
+boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0.141176, 0.141176, 0.141176, 0 )
 config/icon="res://icon.png"
 config/macos_native_icon="res://icon.icns"

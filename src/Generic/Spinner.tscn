@@ -21,7 +21,7 @@
 [ext_resource path="res://assets/icons/spinner/frame-26.png" type="Texture" id=19]
 [ext_resource path="res://assets/icons/spinner/frame-11.png" type="Texture" id=20]
 [ext_resource path="res://assets/icons/spinner/frame-10.png" type="Texture" id=21]
-[ext_resource path="res://src/Components/Spinner.gd" type="Script" id=22]
+[ext_resource path="res://src/Generic/Spinner.gd" type="Script" id=22]
 [ext_resource path="res://assets/icons/spinner/frame-8.png" type="Texture" id=23]
 [ext_resource path="res://assets/icons/spinner/frame-3.png" type="Texture" id=24]
 [ext_resource path="res://assets/icons/spinner/frame-5.png" type="Texture" id=25]
@@ -31,6 +31,7 @@
 [ext_resource path="res://assets/icons/spinner/frame-1.png" type="Texture" id=29]
 [ext_resource path="res://assets/icons/spinner/frame-4.png" type="Texture" id=30]
 [ext_resource path="res://assets/icons/spinner/frame-6.png" type="Texture" id=31]
+
 
 [sub_resource type="AnimatedTexture" id=3]
 flags = 4

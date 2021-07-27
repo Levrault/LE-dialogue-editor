@@ -17,7 +17,7 @@
 [ext_resource path="res://assets/themes/popup/popup.tres" type="Theme" id=15]
 [ext_resource path="res://src/Main/EditedFileTitle.gd" type="Script" id=16]
 [ext_resource path="res://src/Popup/HelpDialog.tscn" type="PackedScene" id=17]
-[ext_resource path="res://src/Components/Spinner.tscn" type="PackedScene" id=18]
+[ext_resource path="res://src/Generic/Spinner.tscn" type="PackedScene" id=18]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://assets/fonts/droid-sans/DroidSans.ttf"

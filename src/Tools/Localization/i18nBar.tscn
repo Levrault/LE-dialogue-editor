@@ -2,8 +2,9 @@
 
 [ext_resource path="res://assets/themes/button/round_button.tres" type="Theme" id=1]
 [ext_resource path="res://src/Tools/Localization/i18nBar.gd" type="Script" id=2]
-[ext_resource path="res://src/Components/LocaleDropDownSwitcher.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/Components/LocaleButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/Generic/LocaleDropDownSwitcher.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Generic/LocaleButton.tscn" type="PackedScene" id=5]
+
 
 [node name="i18nBar" type="Control"]
 anchor_left = 1.0

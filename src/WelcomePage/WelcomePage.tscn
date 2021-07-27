@@ -1,14 +1,12 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/themes/MainProjectList.tres" type="Theme" id=1]
-[ext_resource path="res://src/Components/AnimatedToolButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Generic/AnimatedToolButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/themes/popup/popup_shadow.tres" type="Theme" id=3]
-[ext_resource path="res://src/WelcomePage/HelpContainer.gd" type="Script" id=4]
+[ext_resource path="res://src/WelcomePage/HelpView.gd" type="Script" id=4]
 [ext_resource path="res://src/WelcomePage/NewWorkspaceFileDialog.gd" type="Script" id=5]
-[ext_resource path="res://src/WelcomePage/NewWorkspace.gd" type="Script" id=6]
 [ext_resource path="res://src/WelcomePage/RecentsList.gd" type="Script" id=7]
 [ext_resource path="res://src/Popup/NewWorkspace/NewWorkspaceDialog.tscn" type="PackedScene" id=8]
-[ext_resource path="res://src/WelcomePage/OpenWorkspace.gd" type="Script" id=9]
 [ext_resource path="res://src/WelcomePage/OpenWorkspaceFileDialog.gd" type="Script" id=10]
 [ext_resource path="res://src/Notifications/NotificationsContainer.tscn" type="PackedScene" id=11]
 [ext_resource path="res://src/WelcomePage/WelcomePage.gd" type="Script" id=12]
@@ -50,44 +48,46 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 48
 
-[node name="Project" type="VBoxContainer" parent="CenterContainer/HBoxContainer"]
+[node name="RightLayout" type="VBoxContainer" parent="CenterContainer/HBoxContainer"]
 margin_right = 109.0
 margin_bottom = 250.0
 custom_constants/separation = 32
 
-[node name="StartContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/Project"]
+[node name="StartContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/RightLayout"]
 margin_right = 109.0
 margin_bottom = 109.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
 custom_constants/separation = 10
 
-[node name="Label" type="Label" parent="CenterContainer/HBoxContainer/Project/StartContainer"]
+[node name="Label" type="Label" parent="CenterContainer/HBoxContainer/RightLayout/StartContainer"]
 margin_right = 109.0
 margin_bottom = 24.0
 text = "Start"
 
-[node name="NewWorkspace" parent="CenterContainer/HBoxContainer/Project/StartContainer" instance=ExtResource( 2 )]
+[node name="NewWorkspace" parent="CenterContainer/HBoxContainer/RightLayout/StartContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 34.0
 margin_right = 109.0
 margin_bottom = 48.0
+size_flags_horizontal = 3
 text = "New Workspace"
 align = 0
-script = ExtResource( 6 )
+signal_on_pressed = "new_workspace_dialog_displayed"
 
-[node name="OpenWorkspace" parent="CenterContainer/HBoxContainer/Project/StartContainer" instance=ExtResource( 2 )]
+[node name="OpenWorkspace" parent="CenterContainer/HBoxContainer/RightLayout/StartContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 58.0
 margin_right = 109.0
 margin_bottom = 72.0
+size_flags_horizontal = 3
 text = "Open Workspace"
 align = 0
-script = ExtResource( 9 )
+signal_on_pressed = "workspace_open_file_dialog_displayed"
 
-[node name="HelpContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/Project"]
+[node name="HelpView" type="VBoxContainer" parent="CenterContainer/HBoxContainer/RightLayout"]
 margin_top = 141.0
 margin_right = 109.0
 margin_bottom = 250.0
@@ -96,12 +96,12 @@ size_flags_vertical = 7
 custom_constants/separation = 10
 script = ExtResource( 4 )
 
-[node name="Label" type="Label" parent="CenterContainer/HBoxContainer/Project/HelpContainer"]
+[node name="Label" type="Label" parent="CenterContainer/HBoxContainer/RightLayout/HelpView"]
 margin_right = 109.0
 margin_bottom = 24.0
 text = "Help"
 
-[node name="Wiki" parent="CenterContainer/HBoxContainer/Project/HelpContainer" instance=ExtResource( 2 )]
+[node name="Wiki" parent="CenterContainer/HBoxContainer/RightLayout/HelpView" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 34.0
@@ -110,7 +110,7 @@ margin_bottom = 48.0
 text = "Wiki"
 align = 0
 
-[node name="Github" parent="CenterContainer/HBoxContainer/Project/HelpContainer" instance=ExtResource( 2 )]
+[node name="Github" parent="CenterContainer/HBoxContainer/RightLayout/HelpView" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 58.0
@@ -119,7 +119,7 @@ margin_bottom = 72.0
 text = "Github"
 align = 0
 
-[node name="Twitter" parent="CenterContainer/HBoxContainer/Project/HelpContainer" instance=ExtResource( 2 )]
+[node name="Twitter" parent="CenterContainer/HBoxContainer/RightLayout/HelpView" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 82.0
@@ -163,11 +163,11 @@ margin_top = -226.587
 margin_right = 400.0
 margin_bottom = 223.413
 theme = ExtResource( 3 )
-window_title = "Open a Directory"
+window_title = "Ouvrir un répertoire"
 mode = 2
 access = 2
-current_dir = "/Users/Luc/Devs/LE-dialogue-editor"
-current_path = "/Users/Luc/Devs/LE-dialogue-editor/"
+current_dir = "/Users/LucF_/Devs/LE-dialogue-editor"
+current_path = "/Users/LucF_/Devs/LE-dialogue-editor/"
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -183,12 +183,12 @@ margin_top = -226.587
 margin_right = 400.0
 margin_bottom = 223.413
 theme = ExtResource( 3 )
-window_title = "Open a File"
+window_title = "Ouvrir un fichier"
 mode = 0
 access = 2
 filters = PoolStringArray( "*.cfg" )
-current_dir = "/Users/Luc/Devs/LE-dialogue-editor"
-current_path = "/Users/Luc/Devs/LE-dialogue-editor/"
+current_dir = "/Users/LucF_/Devs/LE-dialogue-editor"
+current_path = "/Users/LucF_/Devs/LE-dialogue-editor/"
 script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
