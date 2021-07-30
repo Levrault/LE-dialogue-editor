@@ -5,7 +5,7 @@
 # and I can directly edit the dictionary (will also update in Config autoload)
 extends WindowDialog
 
-var label_scene := preload("res://src/Components/Label.tscn")
+var label_scene := preload("res://src/Generic/Label.tscn")
 
 var initial_form_values := {"name": "", "portraits": []}
 var form_values := initial_form_values.duplicate()

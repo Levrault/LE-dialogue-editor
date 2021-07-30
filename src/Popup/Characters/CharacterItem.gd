@@ -2,7 +2,7 @@ extends ToolButton
 
 const PREVIEW_IMG_SIZE := Vector2(48, 48)
 
-var texture_rect_scene := preload("res://src/Components/TextureRect.tscn")
+var texture_rect_scene := preload("res://src/Generic/TextureRect.tscn")
 
 var default_portrait := "" setget set_default_portrait
 var character_name := "" setget set_character_name

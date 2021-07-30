@@ -17,9 +17,7 @@ const DEFAULT_VALUES := {
 	"locale": {"current": "en", "selected": ["en", "fr"], "custom": []},
 	"variables": {"characters": [{"name": "Godot", "portraits": []}], "files": []},
 	"cache": {"last_opened_file": {}},
-	"info": {
-		"version": ''
-	},
+	"info": {"version": ''},
 }
 
 const DEFAULT_GLOBALS := {

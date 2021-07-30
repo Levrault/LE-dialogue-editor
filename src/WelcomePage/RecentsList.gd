@@ -2,7 +2,7 @@
 # If the file's os path doesn't exist, it will be updated
 extends VBoxContainer
 
-var button := preload("res://src/Components/AnimatedToolButton.tscn")
+var button := preload("res://src/Generic/AnimatedToolButton.tscn")
 
 var file := File.new()
 
