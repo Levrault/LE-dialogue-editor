@@ -1,11 +1,11 @@
 extends MenuButton
 
-enum Menu { preview, workspace_view }
+enum Menu { preview, workspace_explorer_drawer }
 var check_icon: Texture = preload("res://assets/icons/check.svg")
 
 
 func _ready():
-	Events.connect("layout_workspace_view_closed", self, "_set_icon", [Menu.workspace_view])
+	Events.connect("layout_workspace_explorer_drawer_closed", self, "_set_icon", [Menu.workspace_explorer_drawer])
 	Events.connect("layout_preview_closed", self, "_set_icon", [Menu.preview])
 	get_popup().connect("id_pressed", self, "_on_Item_pressed")
 
@@ -14,9 +14,9 @@ func _ready():
 	if Config.globals.views.preview:
 		_set_icon(Menu.preview)
 
-	get_popup().add_item("Workspace", Menu.workspace_view)
+	get_popup().add_item("Workspace", Menu.workspace_explorer_drawer)
 	if Config.globals.views.workspace:
-		_set_icon(Menu.workspace_view)
+		_set_icon(Menu.workspace_explorer_drawer)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -25,16 +25,16 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		_set_icon(Menu.preview)
 		return
 
-	if event.is_action_pressed("workspace_view"):
-		Events.emit_signal("layout_workspace_view_toggled")
-		_set_icon(Menu.workspace_view)
+	if event.is_action_pressed("workspace_explorer_drawer"):
+		Events.emit_signal("layout_workspace_explorer_drawer_toggled")
+		_set_icon(Menu.workspace_explorer_drawer)
 		return
 
 
 func _on_Item_pressed(id: int) -> void:
 	_set_icon(id)
-	if id == Menu.workspace_view:
-		Events.emit_signal("layout_workspace_view_toggled")
+	if id == Menu.workspace_explorer_drawer:
+		Events.emit_signal("layout_workspace_explorer_drawer_toggled")
 		return
 
 	if id == Menu.preview:

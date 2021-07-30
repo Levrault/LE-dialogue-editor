@@ -2,6 +2,7 @@ extends MenuButton
 
 enum Menu { wiki, github, twitter, about }
 
+
 func _ready():
 	get_popup().connect("id_pressed", self, "_on_Item_pressed")
 

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://src/Menu/Menu.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/WorkspaceView/WorkspaceView.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/WorkspaceExplorerDrawer/WorkspaceExplorerDrawer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/Editor/GraphEditor.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Tools/Actions/ActionsBar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/Tools/Localization/i18nBar.tscn" type="PackedScene" id=6]

@@ -2,7 +2,7 @@ extends VBoxContainer
 
 const MAX_NAME_SIZE := 23
 
-var workspace_item_scene := preload("res://src/WorkspaceView/WorkspaceItem.tscn")
+var file_item_scene := preload("res://src/WorkspaceExplorerDrawer/FilesTable/FileItem.tscn")
 
 
 func _ready() -> void:
@@ -39,7 +39,7 @@ func _on_File_updated() -> void:
 
 	var files = merged_files + FileManager.dirty_unregistred_files.values()
 	for file in files:
-		var item := workspace_item_scene.instance()
+		var item := file_item_scene.instance()
 		add_child(item)
 		item.button.values = file
 		item.button.text = (
