@@ -14,10 +14,11 @@ const DEFAULT_VALUES := {
 		"UWP": "",
 		"X11": "",
 	},
+	"node_configuration": {"dialogue": {"has_portrait": true, "has_name": true}},
 	"locale": {"current": "en", "selected": ["en", "fr"], "custom": []},
 	"variables": {"characters": [{"name": "Godot", "portraits": []}], "files": []},
 	"cache": {"last_opened_file": {}},
-	"info": {"version": ''},
+	"info": {"version": "", "window_height": 1920, "window_width": "1080", "full_screen": false},
 }
 
 const DEFAULT_GLOBALS := {

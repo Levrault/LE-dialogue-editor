@@ -10,12 +10,22 @@ func _ready() -> void:
 	connect("pressed", self, "_on_Pressed")
 
 
-func set_values(new_values: Dictionary) -> void:
+func set_values(new_values: Dictionary, force_as_last_edited := false) -> void:
 	values = new_values
-	if Serialize.current_path == Editor.absolute_path(values.path):
+	if Serialize.current_path == Editor.absolute_path(values.path) or force_as_last_edited:
 		self.selected = true
 		FileManager.edited_file = {path = values.path, name = values.name, button_ref = self}
 	emit_signal("values_changed")
+
+
+func on_new_workspace_pristisne() -> void:
+	Config.values.cache.last_opened_file = {
+		name = values.name, path = Editor.absolute_path(values.path)
+	}
+	Config.save(Config.values, Editor.workspace.folder)
+	FileManager.edited_file = {path = values.path, name = values.name, button_ref = self}
+	self.selected = true
+	# _on_Pressed()
 
 
 func _on_Workspace_file_selection_changed(ref: AnimatedToolButton) -> void:
@@ -23,6 +33,10 @@ func _on_Workspace_file_selection_changed(ref: AnimatedToolButton) -> void:
 
 
 func _on_Pressed() -> void:
+	if selected:
+		return
+
+	selected = true
 	Events.emit_signal("spinner_displayed")
 	if FileManager.state == FileManager.State.unregistred_dirty:
 		Serialize.save()
@@ -36,7 +50,6 @@ func _on_Pressed() -> void:
 	Editor.reset()
 	yield(Editor, "scene_cleared")
 	yield(get_tree(), "idle_frame")
-	print(Store.root_node)
 
 	if values.has("unregistred"):
 		Serialize.load(Editor.absolute_path(values.path), true)

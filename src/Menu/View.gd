@@ -5,7 +5,12 @@ var check_icon: Texture = preload("res://assets/icons/check.svg")
 
 
 func _ready():
-	Events.connect("layout_workspace_explorer_drawer_closed", self, "_set_icon", [Menu.workspace_explorer_drawer])
+	Events.connect(
+		"layout_workspace_explorer_drawer_closed",
+		self,
+		"_set_icon",
+		[Menu.workspace_explorer_drawer]
+	)
 	Events.connect("layout_preview_closed", self, "_set_icon", [Menu.preview])
 	get_popup().connect("id_pressed", self, "_on_Item_pressed")
 

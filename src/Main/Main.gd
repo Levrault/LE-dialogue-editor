@@ -17,7 +17,6 @@ func _ready() -> void:
 		FileManager.state = FileManager.State.registred_pristine
 		Events.call_deferred("emit_signal", "workspace_files_updated")
 	elif Config.values.variables.files.empty() and Editor.workspace_pristine:
-		Editor.workspace_pristine = false
 		Editor.new_root_node()
 		Events.emit_signal("workspace_unsaved_file_added")
 

@@ -9,7 +9,7 @@ func _ready() -> void:
 	yield(owner, "ready")
 	Events.connect("workspace_files_updated", self, "_on_File_updated")
 	Events.connect("workspace_unsaved_file_added", self, "_on_Unsaved_file_added")
-	_on_File_updated()
+	# _on_File_updated()
 
 
 static func format_file_name(file_name: String, limit: int) -> String:
@@ -49,3 +49,8 @@ func _on_File_updated() -> void:
 		)
 		item.button.name = file.name
 		item.button.align = ToolButton.ALIGN_LEFT
+
+	# when creating a new workspace, it should select the first "unregistred" temp file
+	if Editor.workspace_pristine:
+		get_child(get_child_count() - 1).button.on_new_workspace_pristisne()
+		Editor.workspace_pristine = false
