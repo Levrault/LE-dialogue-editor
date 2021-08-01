@@ -116,8 +116,8 @@ gdscript/warnings/return_value_discarded=false
 
 [display]
 
-window/size/width=512
-window/size/height=512
+window/size/width=1280
+window/size/height=720
 window/per_pixel_transparency/allowed=true
 
 [input]
@@ -172,7 +172,7 @@ preview={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777248,"unicode":0,"echo":false,"script":null)
  ]
 }
-workspace_view={
+workspace_explorer_drawer={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777249,"unicode":0,"echo":false,"script":null)
  ]

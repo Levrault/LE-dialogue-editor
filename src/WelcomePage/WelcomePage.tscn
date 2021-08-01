@@ -14,7 +14,6 @@
 [node name="WelcomePage" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 1 )
 script = ExtResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -34,15 +33,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
-margin_left = 56.0
-margin_top = 131.0
-margin_right = 456.0
-margin_bottom = 381.0
+margin_left = 440.0
+margin_top = 235.0
+margin_right = 840.0
+margin_bottom = 485.0
 rect_min_size = Vector2( 400, 250 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -150,8 +150,6 @@ custom_constants/separation = 10
 script = ExtResource( 7 )
 
 [node name="NewWorkspaceDialog" parent="." instance=ExtResource( 8 )]
-margin_top = -114.087
-margin_bottom = 115.913
 
 [node name="NewWorkspaceFileDialog" type="FileDialog" parent="."]
 anchor_left = 0.5
@@ -166,8 +164,8 @@ theme = ExtResource( 3 )
 window_title = "Open a Directory"
 mode = 2
 access = 2
-current_dir = "/home/levrault/Devs/LE-dialogue-editor"
-current_path = "/home/levrault/Devs/LE-dialogue-editor/"
+current_dir = "/Users/LucF_/Devs/LE-dialogue-editor"
+current_path = "/Users/LucF_/Devs/LE-dialogue-editor/"
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -187,8 +185,8 @@ window_title = "Open a File"
 mode = 0
 access = 2
 filters = PoolStringArray( "*.cfg" )
-current_dir = "/home/levrault/Devs/LE-dialogue-editor"
-current_path = "/home/levrault/Devs/LE-dialogue-editor/"
+current_dir = "/Users/LucF_/Devs/LE-dialogue-editor"
+current_path = "/Users/LucF_/Devs/LE-dialogue-editor/"
 script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false

@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Generic/AnimatedToolButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Nodes/Fields/LocaleFieldset.gd" type="Script" id=2]
 [ext_resource path="res://assets/icons/maximize-2.svg" type="Texture" id=3]
 [ext_resource path="res://src/Generic/ExpandButton.gd" type="Script" id=4]
-[ext_resource path="res://src/Nodes/Dialogue/CharacterCounter.gd" type="Script" id=5]
 [ext_resource path="res://src/Nodes/Dialogue/CharacterCounter.tscn" type="PackedScene" id=6]
 
 [node name="Text" type="VBoxContainer"]
@@ -37,7 +36,9 @@ margin_bottom = 266.0
 alignment = 2
 
 [node name="CharacterCounter" parent="Options" instance=ExtResource( 6 )]
-script = ExtResource( 5 )
+margin_right = 274.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
 
 [node name="ExpandButton" parent="Options" instance=ExtResource( 1 )]
 anchor_right = 0.0

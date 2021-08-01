@@ -14,7 +14,7 @@ const DEFAULT_VALUES := {
 		"UWP": "",
 		"X11": "",
 	},
-	"node_configuration": {"dialogue": {"has_portrait": true, "has_name": true}},
+	"configuration": {"has_portrait": true, "has_name": true, "dialogue_character_limit": 0, "choice_character_limit": 0},
 	"locale": {"current": "en", "selected": ["en", "fr"], "custom": []},
 	"variables": {"characters": [{"name": "Godot", "portraits": []}], "files": []},
 	"cache": {"last_opened_file": {}},
@@ -132,3 +132,4 @@ func get_character(name: String) -> Dictionary:
 			break
 
 	return character
+

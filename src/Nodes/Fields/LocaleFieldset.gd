@@ -28,3 +28,4 @@ func _on_Localization_changed(new_lang: String) -> void:
 
 func _on_File_loaded() -> void:
 	locale.text = owner.values.data.text[Editor.locale]
+	locale.emit_signal("text_changed")

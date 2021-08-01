@@ -1,26 +1,30 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Nodes/Dialogue/CharacterCounter.gd" type="Script" id=1]
 
 [node name="CharacterCounter" type="HBoxContainer"]
-margin_left = 245.0
-margin_right = 274.0
-margin_bottom = 32.0
+margin_right = 29.0
+margin_bottom = 14.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Current" type="Label" parent="."]
-margin_top = 9.0
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Counter" type="Label" parent="."]
 margin_right = 8.0
-margin_bottom = 23.0
+margin_bottom = 14.0
 text = "0"
 
 [node name="Dash" type="Label" parent="."]
 margin_left = 12.0
-margin_top = 9.0
 margin_right = 17.0
-margin_bottom = 23.0
+margin_bottom = 14.0
 text = "/"
 
-[node name="MaxValue" type="Label" parent="."]
+[node name="Limit" type="Label" parent="."]
 margin_left = 21.0
-margin_top = 9.0
 margin_right = 29.0
-margin_bottom = 23.0
+margin_bottom = 14.0
 text = "0"
