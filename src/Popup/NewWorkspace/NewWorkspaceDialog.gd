@@ -91,7 +91,7 @@ func _on_Text_changed(new_text: String) -> void:
 
 
 func _on_Dialogue_portrait_toggled(button_pressed: bool) -> void:
-	form_values.configuration.has_portait = button_pressed
+	form_values.configuration.has_portrait = button_pressed
 
 
 func _on_Dialogue_name_toggled(button_pressed: bool) -> void:
