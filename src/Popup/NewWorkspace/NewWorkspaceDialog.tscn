@@ -7,16 +7,16 @@
 [ext_resource path="res://src/Popup/NewWorkspace/NewWorkspaceDialog.gd" type="Script" id=5]
 [ext_resource path="res://src/Popup/NewWorkspace/FolderPathButton.gd" type="Script" id=6]
 
-
 [node name="NewWorkspaceDialog" type="WindowDialog"]
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -225.0
-margin_top = -112.0
+margin_top = -252.5
 margin_right = 225.0
-margin_bottom = 188.0
+margin_bottom = 252.5
 rect_min_size = Vector2( 450, 300 )
 theme = ExtResource( 2 )
 popup_exclusive = true
@@ -41,26 +41,26 @@ __meta__ = {
 [node name="Content" type="VBoxContainer" parent="MarginContainer"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 430.0
-margin_bottom = 282.0
+margin_right = 440.0
+margin_bottom = 487.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 12
 
 [node name="Name" type="Label" parent="MarginContainer/Content"]
-margin_right = 410.0
+margin_right = 420.0
 margin_bottom = 14.0
 text = "Workspace Name"
 
 [node name="NameField" type="LineEdit" parent="MarginContainer/Content"]
 margin_top = 26.0
-margin_right = 410.0
+margin_right = 420.0
 margin_bottom = 48.0
 placeholder_text = "My_workspace..."
 
 [node name="Path" type="Label" parent="MarginContainer/Content"]
 margin_top = 60.0
-margin_right = 410.0
+margin_right = 420.0
 margin_bottom = 74.0
 text = "Where to save the .cfg file"
 __meta__ = {
@@ -69,12 +69,12 @@ __meta__ = {
 
 [node name="FolderPathFieldContainer" type="HBoxContainer" parent="MarginContainer/Content"]
 margin_top = 86.0
-margin_right = 410.0
+margin_right = 420.0
 margin_bottom = 114.0
 rect_min_size = Vector2( 0, 28 )
 
 [node name="FolderPathField" type="LineEdit" parent="MarginContainer/Content/FolderPathFieldContainer"]
-margin_right = 358.0
+margin_right = 368.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 editable = false
@@ -85,8 +85,8 @@ key = "folder"
 [node name="FolderPathButton" parent="MarginContainer/Content/FolderPathFieldContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 362.0
-margin_right = 410.0
+margin_left = 372.0
+margin_right = 420.0
 margin_bottom = 28.0
 icon = ExtResource( 4 )
 script = ExtResource( 6 )
@@ -94,7 +94,7 @@ line_edit_field_name = "FolderPathField"
 
 [node name="ResourcePath" type="Label" parent="MarginContainer/Content"]
 margin_top = 126.0
-margin_right = 410.0
+margin_right = 420.0
 margin_bottom = 140.0
 text = "Root folder of the game"
 __meta__ = {
@@ -103,12 +103,12 @@ __meta__ = {
 
 [node name="ResourcePathFieldContainer" type="HBoxContainer" parent="MarginContainer/Content"]
 margin_top = 152.0
-margin_right = 410.0
+margin_right = 420.0
 margin_bottom = 180.0
 rect_min_size = Vector2( 0, 28 )
 
 [node name="ResourcePathField" type="LineEdit" parent="MarginContainer/Content/ResourcePathFieldContainer"]
-margin_right = 358.0
+margin_right = 368.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 editable = false
@@ -119,23 +119,124 @@ key = "resource"
 [node name="ResourcePathButton" parent="MarginContainer/Content/ResourcePathFieldContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 362.0
-margin_right = 410.0
+margin_left = 372.0
+margin_right = 420.0
 margin_bottom = 28.0
 icon = ExtResource( 4 )
 script = ExtResource( 6 )
 line_edit_field_name = "ResourcePathField"
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Content"]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/Content"]
 margin_top = 192.0
-margin_right = 410.0
-margin_bottom = 235.0
+margin_right = 420.0
+margin_bottom = 196.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DialogueSetting" type="Label" parent="MarginContainer/Content"]
+margin_top = 208.0
+margin_right = 420.0
+margin_bottom = 222.0
+text = "Dialogue Settings"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DialogueSettingsContainer" type="VBoxContainer" parent="MarginContainer/Content"]
+margin_top = 234.0
+margin_right = 420.0
+margin_bottom = 304.0
+rect_min_size = Vector2( 0, 28 )
+custom_constants/separation = 16
+
+[node name="CheckboxContainer" type="HBoxContainer" parent="MarginContainer/Content/DialogueSettingsContainer"]
+margin_right = 420.0
+margin_bottom = 32.0
+custom_constants/separation = 48
+
+[node name="PortaitCheckButton" type="CheckButton" parent="MarginContainer/Content/DialogueSettingsContainer/CheckboxContainer"]
+margin_right = 186.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+pressed = true
+text = "Portait"
+
+[node name="NameCheckButton" type="CheckButton" parent="MarginContainer/Content/DialogueSettingsContainer/CheckboxContainer"]
+margin_left = 234.0
+margin_right = 420.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+pressed = true
+text = "Name"
+
+[node name="CharacterLimit" type="HBoxContainer" parent="MarginContainer/Content/DialogueSettingsContainer"]
+margin_top = 48.0
+margin_right = 420.0
+margin_bottom = 70.0
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/Content/DialogueSettingsContainer/CharacterLimit"]
+margin_top = 4.0
+margin_right = 336.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+text = "Expected max characters per dialogue"
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/Content/DialogueSettingsContainer/CharacterLimit"]
+margin_left = 340.0
+margin_right = 420.0
+margin_bottom = 22.0
+rounded = true
+allow_greater = true
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/Content"]
+margin_top = 316.0
+margin_right = 420.0
+margin_bottom = 320.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChoiceSetting" type="Label" parent="MarginContainer/Content"]
+margin_top = 332.0
+margin_right = 420.0
+margin_bottom = 346.0
+text = "Choice Settings"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChoiceSettingsContainer" type="HBoxContainer" parent="MarginContainer/Content"]
+margin_top = 358.0
+margin_right = 420.0
+margin_bottom = 386.0
+rect_min_size = Vector2( 0, 28 )
+
+[node name="Label" type="Label" parent="MarginContainer/Content/ChoiceSettingsContainer"]
+margin_top = 7.0
+margin_right = 336.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+text = "Expected max characters per choice"
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/Content/ChoiceSettingsContainer"]
+margin_left = 340.0
+margin_right = 420.0
+margin_bottom = 28.0
+rounded = true
+allow_greater = true
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Content"]
+margin_top = 398.0
+margin_right = 420.0
+margin_bottom = 441.0
 size_flags_horizontal = 3
 custom_constants/margin_top = 15
 
 [node name="ActionsField" type="HBoxContainer" parent="MarginContainer/Content/MarginContainer"]
 margin_top = 15.0
-margin_right = 410.0
+margin_right = 420.0
 margin_bottom = 43.0
 rect_min_size = Vector2( 0, 28 )
 size_flags_horizontal = 3
@@ -144,16 +245,16 @@ custom_constants/separation = 20
 alignment = 2
 
 [node name="CancelWorkspaceButton" type="Button" parent="MarginContainer/Content/MarginContainer/ActionsField"]
-margin_left = 258.0
-margin_right = 324.0
+margin_left = 268.0
+margin_right = 334.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 66, 28 )
 size_flags_horizontal = 0
 text = "Cancel"
 
 [node name="SaveNewWorkspaceButton" type="Button" parent="MarginContainer/Content/MarginContainer/ActionsField"]
-margin_left = 344.0
-margin_right = 410.0
+margin_left = 354.0
+margin_right = 420.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 66, 28 )
 size_flags_horizontal = 0

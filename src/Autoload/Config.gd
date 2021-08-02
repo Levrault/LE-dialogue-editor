@@ -7,17 +7,22 @@ const GLOBAL_CONFIG_FILE_PATH := "user://config.cfg"
 const DEFAULT_VALUES := {
 	"path":
 	{
-		"file": "",
-		"resource": "",
 		"OSX": "",
 		"Windows": "",
 		"UWP": "",
 		"X11": "",
 	},
+	"configuration":
+	{
+		"has_portrait": true,
+		"has_name": true,
+		"dialogue_character_limit": 0,
+		"choice_character_limit": 0
+	},
 	"locale": {"current": "en", "selected": ["en", "fr"], "custom": []},
 	"variables": {"characters": [{"name": "Godot", "portraits": []}], "files": []},
 	"cache": {"last_opened_file": {}},
-	"info": {"version": ''},
+	"info": {"version": "", "window_height": 1920, "window_width": "1080", "full_screen": false},
 }
 
 const DEFAULT_GLOBALS := {
@@ -44,6 +49,8 @@ func _init() -> void:
 	self.load(globals)
 
 
+# load workspace file only
+# @param {String} path
 func load_file(path: String) -> void:
 	for section in _config_file.get_sections():
 		_config_file.erase_section(section)
@@ -57,11 +64,13 @@ func load_file(path: String) -> void:
 	if err != OK:
 		print_debug("%s has encounter an error: %s" % [path, err])
 		return
+
 	self.load(values, DEFAULT_VALUES)
+	validate(values, path)
 
 
 # Create a new workspace while updating the global config
-# @param {Dictionary}	new_settings 
+# @param {Dictionary}	new_settings
 # @param {Dictionary}	path - where to save
 func new_workspace(new_settings: Dictionary, path: String) -> void:
 	# add workspace to global config
@@ -90,7 +99,8 @@ func get_workspace_resource(path: String) -> String:
 
 
 # Save data
-# @param {Dictionary}	new_settings 
+# @see load_file and _init
+# @param {Dictionary}	new_settings - values or global of this file
 # @param {Dictionary}	[path=GLOBAL_CONFIG_FILE_PATH] - where to save
 func save(new_settings: Dictionary, path := GLOBAL_CONFIG_FILE_PATH) -> void:
 	# clean file
@@ -106,7 +116,7 @@ func save(new_settings: Dictionary, path := GLOBAL_CONFIG_FILE_PATH) -> void:
 
 
 # Load data from config.cfg
-# @param {Dictionary}	new_settings 
+# @param {Dictionary}	new_settings
 # @param {Dictionary}	[template=DEFAULT_GLOBALS] - default template struc
 func load(settings: Dictionary, template := DEFAULT_GLOBALS) -> void:
 	for section in settings.keys():
@@ -131,3 +141,27 @@ func get_character(name: String) -> Dictionary:
 			break
 
 	return character
+
+
+# Called everytime a workspace is loaded to be sure
+# his structure is up to date
+# @param {Dictionary) loaded_settings - data of the workspace file
+# @param {String} path - file path to save it after update
+func validate(loaded_settings: Dictionary, path: String) -> void:
+	var has_been_updated := false
+
+	# from 1.0.0-beta to 1.0.3-beta, file didn't have a version info and use path.resource and path.file
+	if (
+		not loaded_settings.has("info")
+		or loaded_settings.info.version.empty()
+		or loaded_settings.path.has("resource")
+		or loaded_settings.path.has("path")
+	):
+		UpdateTool.migrate_v1_x_x_to_v1_0_3_beta(loaded_settings)
+		has_been_updated = true
+		print_debug("%s workspace file has been update to 1.0.3-beta" % path)
+
+	if not has_been_updated:
+		print_debug("%s is synched with the latest file structure " % path)
+		return
+	self.save(loaded_settings, path)

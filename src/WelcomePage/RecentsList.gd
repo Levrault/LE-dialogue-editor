@@ -17,15 +17,11 @@ func _on_Recents_list_changed() -> void:
 		child.queue_free()
 
 	for workspace in Config.globals.workspaces.list:
-		var workspace_button := button.instance()
-		add_child(workspace_button)
-
 		if not file.file_exists(workspace.folder):
-			workspace_button.text = "%s was not found" % workspace.folder
-			workspace_button.disabled = true
-			workspace_button.mouse_default_cursor_shape = Input.CURSOR_ARROW
 			continue
 
+		var workspace_button := button.instance()
+		add_child(workspace_button)
 		workspace_button.align = Button.ALIGN_LEFT
 		workspace_button.text = workspace.folder
 		workspace_button.connect("pressed", self, "_on_Pressed", [workspace])

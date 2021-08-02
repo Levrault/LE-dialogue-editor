@@ -31,7 +31,6 @@ font_data = SubResource( 1 )
 [node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 512.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -54,8 +53,8 @@ __meta__ = {
 }
 
 [node name="AppContainer" type="VBoxContainer" parent="MainWrapper"]
-margin_right = 1024.0
-margin_bottom = 507.0
+margin_right = 1280.0
+margin_bottom = 715.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -65,18 +64,18 @@ margin_right = 315.0
 
 [node name="ViewsContainer" type="HBoxContainer" parent="MainWrapper/AppContainer"]
 margin_top = 26.0
-margin_right = 1024.0
-margin_bottom = 507.0
+margin_right = 1280.0
+margin_bottom = 715.0
 size_flags_vertical = 3
 
 [node name="WorkspaceView" parent="MainWrapper/AppContainer/ViewsContainer" instance=ExtResource( 3 )]
 margin_right = 300.0
-margin_bottom = 481.0
+margin_bottom = 689.0
 
 [node name="Editor" type="Control" parent="MainWrapper/AppContainer/ViewsContainer"]
 margin_left = 304.0
-margin_right = 1024.0
-margin_bottom = 481.0
+margin_right = 1280.0
+margin_bottom = 689.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -86,6 +85,7 @@ anchor_bottom = 1.0
 margin_right = 0.0
 margin_bottom = 0.0
 size_flags_horizontal = 3
+scroll_offset = Vector2( -208, -481 )
 
 [node name="ActionsBar" parent="MainWrapper/AppContainer/ViewsContainer/Editor" instance=ExtResource( 5 )]
 margin_top = -170.5
@@ -134,8 +134,8 @@ popup_exclusive = true
 dialog_hide_on_ok = true
 access = 2
 filters = PoolStringArray( "*.json" )
-current_dir = "/Users/Luc/Devs/LE-dialogue-editor"
-current_path = "/Users/Luc/Devs/LE-dialogue-editor/"
+current_dir = "/Users/LucF_/Devs/LE-dialogue-editor"
+current_path = "/Users/LucF_/Devs/LE-dialogue-editor/"
 script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -156,8 +156,8 @@ window_title = "Open Workspace"
 dialog_hide_on_ok = true
 access = 2
 filters = PoolStringArray( "*.json" )
-current_dir = "/Users/Luc/Devs/LE-dialogue-editor"
-current_path = "/Users/Luc/Devs/LE-dialogue-editor/"
+current_dir = "/Users/LucF_/Devs/LE-dialogue-editor"
+current_path = "/Users/LucF_/Devs/LE-dialogue-editor/"
 __meta__ = {
 "_edit_use_anchors_": false
 }
