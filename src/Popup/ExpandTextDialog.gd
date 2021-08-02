@@ -21,3 +21,4 @@ func _on_Expand_text_dialogued_opened(field_owner) -> void:
 func _on_Text_changed() -> void:
 	graph_node_owner.values.data.text[Editor.locale] = text_edit.text
 	locale_field_owner.locale.text = text_edit.text
+	locale_field_owner.locale.emit_signal("text_changed")

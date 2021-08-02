@@ -44,7 +44,7 @@ func on_Close_request() -> void:
 
 	if not Editor.is_loading:
 		FileManager.dirty()
-	# clean editor data 
+	# clean editor data
 	queue_free()
 
 

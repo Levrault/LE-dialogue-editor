@@ -1,6 +1,17 @@
 extends WindowDialog
 
-const INITIAL_VALUE := {"name": "", "folder": "", "resource": "", "configuration": {"has_portrait": true, "has_name": true, "dialogue_character_limit": 0, "choice_character_limit": 0}}
+const INITIAL_VALUE := {
+	"name": "",
+	"folder": "",
+	"resource": "",
+	"configuration":
+	{
+		"has_portrait": true,
+		"has_name": true,
+		"dialogue_character_limit": 0,
+		"choice_character_limit": 0
+	}
+}
 
 var form_values := INITIAL_VALUE.duplicate(true)
 var folder_valid := false setget set_folder_valid
@@ -24,8 +35,12 @@ func _ready() -> void:
 	save_button.connect("pressed", self, "_on_Save")
 	portait_checkbox.connect("toggled", self, "_on_Dialogue_portrait_toggled")
 	name_checkbox.connect("toggled", self, "_on_Dialogue_name_toggled")
-	dialogue_character_limit_field.connect("value_changed", self, "_on_Dialogue_character_limit_value_changed")
-	choice_character_limit_field.connect("value_changed", self, "_on_Choice_character_limit_value_changed")
+	dialogue_character_limit_field.connect(
+		"value_changed", self, "_on_Dialogue_character_limit_value_changed"
+	)
+	choice_character_limit_field.connect(
+		"value_changed", self, "_on_Choice_character_limit_value_changed"
+	)
 
 
 func set_folder_valid(value: bool) -> void:

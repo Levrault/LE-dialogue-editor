@@ -19,7 +19,6 @@ func _process(delta: float) -> void:
 
 func set_value(value: Dictionary) -> void:
 	speaker_name.text = value.name
-	print(value)
 	var character: Dictionary = Config.get_character(value.name)
 	for c_portrait in character.portraits:
 		if c_portrait.path == value.portrait:

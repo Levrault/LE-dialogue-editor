@@ -150,6 +150,7 @@ custom_constants/separation = 10
 script = ExtResource( 7 )
 
 [node name="NewWorkspaceDialog" parent="." instance=ExtResource( 8 )]
+visible = false
 
 [node name="NewWorkspaceFileDialog" type="FileDialog" parent="."]
 anchor_left = 0.5
@@ -164,8 +165,8 @@ theme = ExtResource( 3 )
 window_title = "Open a Directory"
 mode = 2
 access = 2
-current_dir = "/Users/LucF_/Devs/LE-dialogue-editor"
-current_path = "/Users/LucF_/Devs/LE-dialogue-editor/"
+current_dir = "/Users/lflangis/Devs/LE-dialogue-editor"
+current_path = "/Users/lflangis/Devs/LE-dialogue-editor/"
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -185,8 +186,8 @@ window_title = "Open a File"
 mode = 0
 access = 2
 filters = PoolStringArray( "*.cfg" )
-current_dir = "/Users/LucF_/Devs/LE-dialogue-editor"
-current_path = "/Users/LucF_/Devs/LE-dialogue-editor/"
+current_dir = "/Users/lflangis/Devs/LE-dialogue-editor"
+current_path = "/Users/lflangis/Devs/LE-dialogue-editor/"
 script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
