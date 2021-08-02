@@ -16,8 +16,16 @@ func _on_File_selected(path: String) -> void:
 			)
 			return
 
+	var file = Config.read_workspace_file(path)
+
 	Config.globals.workspaces.list.append(
-		{folder = path, name = current_file, resource = Config.get_workspace_resource(path)}
+		{
+			folder = path,
+			name = current_file,
+			resource = file.get_value("path", "resource", path),
+			has_portrait = file.get_value("configuration", "has_portrait", true),
+			has_name = file.get_value("configuration", "has_name", true)
+		}
 	)
 	Config.save(Config.globals)
-	Events.emit_signal("recents_list_changed")
+	Events.emit_signal("recents_table_changed")

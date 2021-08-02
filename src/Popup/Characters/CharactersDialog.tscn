@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/Generic/AnimatedToolButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/icons/user-plus.svg" type="Texture" id=2]
@@ -16,7 +16,7 @@
 [ext_resource path="res://assets/icons/close_white.svg" type="Texture" id=14]
 [ext_resource path="res://assets/icons/save.svg" type="Texture" id=15]
 [ext_resource path="res://src/Popup/Characters/CancelCharacter.gd" type="Script" id=16]
-
+[ext_resource path="res://src/Popup/Characters/PortraitField.gd" type="Script" id=17]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.172549, 0.164706, 0.196078, 1 )
@@ -162,6 +162,7 @@ margin_right = 820.0
 margin_bottom = 198.0
 rect_min_size = Vector2( 0, 128 )
 custom_constants/separation = 16
+script = ExtResource( 17 )
 
 [node name="AddPortrait" parent="MarginContainer/ContentContainer/CharacterFormContainer/PortraitField" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -239,14 +240,15 @@ margin_left = -325.0
 margin_top = -225.0
 margin_right = 325.0
 margin_bottom = 225.0
+rect_min_size = Vector2( 400, 140 )
 theme = ExtResource( 8 )
 window_title = "Open a File"
 dialog_hide_on_ok = true
 mode = 0
 access = 2
 filters = PoolStringArray( "*.jpg", "*.png" )
-current_dir = "/home/luc/Devs/levrault-dialogue-editor"
-current_path = "/home/luc/Devs/levrault-dialogue-editor/"
+current_dir = "/Users/lflangis/Devs/LE-dialogue-editor"
+current_path = "/Users/lflangis/Devs/LE-dialogue-editor/"
 __meta__ = {
 "_edit_use_anchors_": false
 }

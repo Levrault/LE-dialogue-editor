@@ -90,17 +90,19 @@ var right_choices_connection := []
 # Signal
 var right_signal_connection := ""
 
-onready var character_name_option := $Container/Character/FieldsContainer/CharacterNameContainer/CharacterNameOptions
-onready var portrait_preview := $Container/Character/PortraitPreview
-onready var portrait_placeholder := $Container/Character/PortraitPlaceholder
+onready var character_name_option := $Container/CharacterContainer/FieldsContainer/CharacterNameContainer/CharacterNameOptions
+onready var portrait_preview := $Container/CharacterContainer/PortraitPreview
+onready var portrait_placeholder := $Container/CharacterContainer/PortraitPlaceholder
 
 
 func _ready() -> void:
-	if not is_loading:
-		values = {
-			"__editor": {"uuid": uuid, "offset": [offset.x, offset.y]},
-			"data": {"name": "", "portrait": "", "text": {"en": "", "fr": ""}}
-		}
+	if is_loading:
+		return
+
+	values = {
+		"__editor": {"uuid": uuid, "offset": [offset.x, offset.y]},
+		"data": {"name": "", "portrait": "", "text": {"en": "", "fr": ""}}
+	}
 
 
 func on_Close_request() -> void:

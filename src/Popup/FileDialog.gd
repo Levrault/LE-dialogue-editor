@@ -23,8 +23,12 @@ func _open_file() -> void:
 	yield(Editor, "scene_cleared")
 	yield(get_tree(), "idle_frame")
 
-	Config.values.variables.files.append({path = current_path, name = current_file})
-	Config.values.cache.last_opened_file = {name = current_file, path = current_path}
+	Config.values.variables.files.append(
+		{name = current_file, path = Editor.resource_path(current_path)}
+	)
+	Config.values.cache.last_opened_file = {
+		name = current_file, path = Editor.resource_path(current_path)
+	}
 	Config.save(Config.values, Editor.workspace.folder)
 
 	FileManager.state = FileManager.State.registred_pristine
@@ -42,14 +46,6 @@ func _on_Dialog_opened(new_mode: int) -> void:
 	if mode == 4:
 		window_title = "Save a file"
 
-	# TODO: export file
-	# 	window_title = "Export a file"
-	# 	initial_file = current_file
-	# 	if not current_file.empty():
-	# 		current_file = current_file.replace(".json", ".min.json")
-	# 	else:
-	# 		current_file = "new_dialogue.min.json"
-
 	popup()
 
 
@@ -62,8 +58,13 @@ func _on_Confirmed() -> void:
 
 		# Set has last opened
 		if not Config.has_file_path(current_path):
-			Config.values.variables.files.append({path = current_path, name = current_file})
-			Config.values.cache.last_opened_file = {name = current_file, path = current_path}
+			Config.values.variables.files.append(
+				{name = current_file, path = Editor.resource_path(current_path)}
+			)
+			print(Config.values.variables.files)
+			Config.values.cache.last_opened_file = {
+				name = current_file, path = Editor.resource_path(current_path)
+			}
 			Config.save(Config.values, Editor.workspace.folder)
 			Events.emit_signal("workspace_files_updated")
 

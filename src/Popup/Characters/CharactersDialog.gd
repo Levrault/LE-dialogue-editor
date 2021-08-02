@@ -55,12 +55,17 @@ func _on_Character_toggled(button_pressed: bool, ref: ToolButton) -> void:
 		btn.pressed = false
 
 	name_edit.text = ref.values.name
-	import_container.clean()
 
-	for portrait in ref.values.portraits:
-		import_container.add_item(portrait, true)
 	form_values = ref.values
 	delete_character.show()
 	cancel_character.show()
 	save_character.disabled = false
 	is_edit_character_mode = true
+
+	if not Config.values.configuration.has_portrait:
+		return
+
+	import_container.clean()
+
+	for portrait in ref.values.portraits:
+		import_container.add_item(portrait, true)

@@ -20,7 +20,7 @@ var resource_valid := false setget set_resource_valid
 onready var name_field := $MarginContainer/Content/NameField
 onready var folder_path_field = $MarginContainer/Content/FolderPathFieldContainer/FolderPathField
 onready var resource_path_field = $MarginContainer/Content/ResourcePathFieldContainer/ResourcePathField
-onready var portait_checkbox = $MarginContainer/Content/DialogueSettingsContainer/CheckboxContainer/PortaitCheckButton
+onready var portrait_checkbox = $MarginContainer/Content/DialogueSettingsContainer/CheckboxContainer/portraitCheckButton
 onready var name_checkbox = $MarginContainer/Content/DialogueSettingsContainer/CheckboxContainer/NameCheckButton
 onready var dialogue_character_limit_field = $MarginContainer/Content/DialogueSettingsContainer/CharacterLimit/SpinBox
 onready var choice_character_limit_field = $MarginContainer/Content/ChoiceSettingsContainer/SpinBox
@@ -33,7 +33,7 @@ func _ready() -> void:
 	name_field.connect("text_changed", self, "_on_Text_changed")
 	cancel_button.connect("pressed", self, "_on_Cancel")
 	save_button.connect("pressed", self, "_on_Save")
-	portait_checkbox.connect("toggled", self, "_on_Dialogue_portrait_toggled")
+	portrait_checkbox.connect("toggled", self, "_on_Dialogue_portrait_toggled")
 	name_checkbox.connect("toggled", self, "_on_Dialogue_name_toggled")
 	dialogue_character_limit_field.connect(
 		"value_changed", self, "_on_Dialogue_character_limit_value_changed"
@@ -66,12 +66,16 @@ func _on_Save() -> void:
 		{
 			"name": form_values.name,
 			"folder": "%s/%s.cfg" % [form_values.folder, form_values.name],
+			"resource": form_values.resource,
 			OS.get_name(): form_values.resource,
+			"has_portrait": form_values.configuration.has_portrait,
+			"has_name": form_values.configuration.has_name
 		},
 		"configuration": form_values.configuration.duplicate(true)
 	}
+
 	Config.new_workspace(values, values.path.folder)
-	Events.emit_signal("recents_list_changed")
+	Events.emit_signal("recents_table_changed")
 	_on_Cancel()
 
 

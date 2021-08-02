@@ -20,9 +20,6 @@ onready var choice_node := load("res://src/Nodes/Choice/ChoiceNode.tscn")
 onready var condition_node := load("res://src/Nodes/Conditions/ConditionNode.tscn")
 onready var signal_node := load("res://src/Nodes/Signal/SignalNode.tscn")
 
-static func absolute_path(path: String) -> String:
-	return path.replace(Constant.RESOURCE, Editor.workspace.resource).replace("//", "/")
-
 
 func _ready() -> void:
 	locale = Config.values.locale.current
@@ -86,7 +83,9 @@ func save_file() -> void:
 
 
 func new_file() -> void:
+	# Cache prevous file
 	FileManager.cache_file()
+
 	reset()
 	load_last_opened_file = false
 	get_tree().reload_current_scene()
@@ -117,6 +116,16 @@ func load_welcome_screen() -> void:
 	get_tree().change_scene("res://src/WelcomePage/WelcomePage.tscn")
 	FileManager.clear()
 	yield(FileManager, "cache_cleared")
+
+
+func absolute_path(path: String) -> String:
+	return path.replace(Constant.RESOURCE, workspace.resource).replace("//", "/")
+
+
+func resource_path(path: String) -> String:
+	print(workspace.resource)
+	print(path.replace(workspace.resource, Constant.RESOURCE))
+	return path.replace(workspace.resource, Constant.RESOURCE)
 
 
 func import_image(path: String, size: Vector2) -> ImageTexture:

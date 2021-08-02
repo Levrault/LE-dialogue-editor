@@ -1,10 +1,10 @@
 # Choose the portrait for a character
 # Rules
-# - If the portrait is pristine default portrait will change when 
+# - If the portrait is pristine default portrait will change when
 #   the character's default portrait is changed
 # - If the portrait is not pristine, default portrait will not change when
 #   the character's default portrait is changed
-# - If all the portrait are deleted from the character, a placeholder image is set and the option 
+# - If all the portrait are deleted from the character, a placeholder image is set and the option
 #	is hidden
 # - If the portrait is deleted but there is still other portrait, the first one is taken
 extends OptionButton
@@ -30,7 +30,6 @@ func _ready() -> void:
 	owner.character_name_option.connect(
 		"character_selection_changed", self, "_on_Character_selection_changed"
 	)
-
 	if owner.character_name_option.get_item_count() > 0:
 		_on_Character_selection_changed(
 			owner.character_name_option.get_item_text(owner.character_name_option.selected)
@@ -50,7 +49,7 @@ func _on_Character_list_changed() -> void:
 		hide()
 		return
 
-	# Portrait was deleted 
+	# Portrait was deleted
 	var portrait_has_been_deleted := true
 	var character: Dictionary = Config.get_character(name_selected)
 
@@ -110,7 +109,7 @@ func _on_Character_selection_changed(name: String) -> void:
 
 	var has_default_img := false
 	var has_current_portrait := false
-	var default_portait_index := 0
+	var default_portrait_index := 0
 	for portrait in character.portraits:
 		add_icon_item(Editor.import_image(portrait.path, OPTION_IMG_SIZE), portrait.name)
 		set_item_metadata(get_item_count() - 1, {uuid = portrait.uuid, path = portrait.path})
@@ -121,7 +120,7 @@ func _on_Character_selection_changed(name: String) -> void:
 			continue
 
 		if portrait.has("default") and pristine:
-			default_portait_index = get_item_count() - 1
+			default_portrait_index = get_item_count() - 1
 			has_default_img = true
 
 	if not has_default_img and pristine:
@@ -129,7 +128,7 @@ func _on_Character_selection_changed(name: String) -> void:
 
 	# no saved data, load default
 	if pristine:
-		_on_Portrait_selected(default_portait_index)
+		_on_Portrait_selected(default_portrait_index)
 
 
 func _on_Portrait_selected(index: int) -> void:

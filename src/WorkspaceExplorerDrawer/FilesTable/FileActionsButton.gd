@@ -19,14 +19,11 @@ func set_values(new_values: Dictionary, force_as_last_edited := false) -> void:
 
 
 func on_new_workspace_pristisne() -> void:
-	print(values)
 	Config.values.cache.last_opened_file = {
 		name = values.name, path = Editor.absolute_path(values.path)
 	}
-	# Config.save(Config.values, Editor.workspace.folder)
 	FileManager.edited_file = {path = values.path, name = values.name, button_ref = self}
 	self.selected = true
-	# _on_Pressed()
 
 
 func _on_Workspace_file_selection_changed(ref: AnimatedToolButton) -> void:
@@ -53,15 +50,13 @@ func _on_Pressed() -> void:
 	yield(get_tree(), "idle_frame")
 
 	if values.has("unregistred"):
-		Serialize.load(Editor.absolute_path(values.path), true)
+		Serialize.load(values.path, true)
 		FileManager.state = FileManager.State.unregistred_dirty
 	elif values.has("cache_path"):
 		Serialize.load(values.cache_path, true)
 		FileManager.state = FileManager.State.registred_dirty
 	else:
-		Config.values.cache.last_opened_file = {
-			name = values.name, path = Editor.absolute_path(values.path)
-		}
+		Config.values.cache.last_opened_file = {name = values.name, path = values.path}
 		Config.save(Config.values, Editor.workspace.folder)
 		FileManager.state = FileManager.State.registred_pristine
 		Serialize.load(Editor.absolute_path(values.path), false)

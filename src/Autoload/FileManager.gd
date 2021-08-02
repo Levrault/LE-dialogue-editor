@@ -65,6 +65,7 @@ func cache_file() -> void:
 		edited_file.button_ref.values = values
 		dirty_registred_files[edited_file.path] = values
 
+	print(path)
 	Serialize.save_as(path, true, true)
 
 
@@ -149,7 +150,7 @@ func delete_file(file_to_delete: Dictionary, delete_from_disk: bool) -> void:
 		yield(Editor, "scene_cleared")
 
 		if not Config.values.cache.last_opened_file.empty():
-			Serialize.load(Config.values.cache.last_opened_file.path)
+			Serialize.load(Editor.absolute_path(Config.values.cache.last_opened_file.path))
 			self.edited_file = Config.values.cache.last_opened_file.duplicate(true)
 			self.state = State.registred_pristine
 			Events.call_deferred("emit_signal", "workspace_files_updated")

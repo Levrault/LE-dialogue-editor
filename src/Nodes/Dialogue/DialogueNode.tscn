@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/Nodes/Dialogue/DialogueNode.gd" type="Script" id=1]
 [ext_resource path="res://assets/themes/grap_node/graph_node.tres" type="StyleBox" id=2]
@@ -6,7 +6,8 @@
 [ext_resource path="res://src/Nodes/Fields/Text.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Nodes/Dialogue/CharacterNameOptions.gd" type="Script" id=5]
 [ext_resource path="res://assets/themes/grap_node/graph_content.tres" type="Theme" id=6]
-[ext_resource path="res://assets/icons/user.svg" type="Texture" id=7]
+[ext_resource path="res://assets/icons/user_24x24.svg" type="Texture" id=7]
+[ext_resource path="res://src/Nodes/Dialogue/CharacterContainer.gd" type="Script" id=8]
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 16.0
@@ -56,6 +57,7 @@ margin_left = 16.0
 margin_top = 36.0
 margin_right = 329.0
 margin_bottom = 305.0
+rect_min_size = Vector2( 0, 269 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 11
@@ -63,18 +65,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Character" type="HBoxContainer" parent="Container"]
+[node name="CharacterContainer" type="HBoxContainer" parent="Container"]
 margin_right = 313.0
 margin_bottom = 92.0
+script = ExtResource( 8 )
 
-[node name="PortraitPreview" type="TextureRect" parent="Container/Character"]
+[node name="PortraitPreview" type="TextureRect" parent="Container/CharacterContainer"]
 margin_right = 92.0
 margin_bottom = 92.0
 rect_min_size = Vector2( 92, 92 )
 texture = ExtResource( 7 )
 stretch_mode = 4
 
-[node name="PortraitPlaceholder" type="TextureRect" parent="Container/Character"]
+[node name="PortraitPlaceholder" type="TextureRect" parent="Container/CharacterContainer"]
 visible = false
 margin_left = 96.0
 margin_right = 188.0
@@ -83,23 +86,23 @@ rect_min_size = Vector2( 92, 92 )
 texture = ExtResource( 7 )
 stretch_mode = 4
 
-[node name="FieldsContainer" type="VBoxContainer" parent="Container/Character"]
+[node name="FieldsContainer" type="VBoxContainer" parent="Container/CharacterContainer"]
 margin_left = 96.0
 margin_right = 313.0
 margin_bottom = 92.0
 size_flags_horizontal = 3
 custom_constants/separation = 11
 
-[node name="CharacterNameContainer" type="VBoxContainer" parent="Container/Character/FieldsContainer"]
+[node name="CharacterNameContainer" type="VBoxContainer" parent="Container/CharacterContainer/FieldsContainer"]
 margin_right = 217.0
 margin_bottom = 38.0
 
-[node name="Label" type="Label" parent="Container/Character/FieldsContainer/CharacterNameContainer"]
+[node name="Label" type="Label" parent="Container/CharacterContainer/FieldsContainer/CharacterNameContainer"]
 margin_right = 217.0
 margin_bottom = 14.0
 text = "Character"
 
-[node name="Empty" type="Label" parent="Container/Character/FieldsContainer/CharacterNameContainer"]
+[node name="Empty" type="Label" parent="Container/CharacterContainer/FieldsContainer/CharacterNameContainer"]
 visible = false
 margin_top = 18.0
 margin_right = 217.0
@@ -107,30 +110,30 @@ margin_bottom = 32.0
 custom_colors/font_color = Color( 0.501961, 0.478431, 0.478431, 1 )
 text = "No character has been created"
 
-[node name="CharacterNameOptions" type="OptionButton" parent="Container/Character/FieldsContainer/CharacterNameContainer"]
+[node name="CharacterNameOptions" type="OptionButton" parent="Container/CharacterContainer/FieldsContainer/CharacterNameContainer"]
 margin_top = 18.0
 margin_right = 217.0
 margin_bottom = 38.0
 script = ExtResource( 5 )
 
-[node name="PortraitContainer" type="VBoxContainer" parent="Container/Character/FieldsContainer"]
+[node name="PortraitContainer" type="VBoxContainer" parent="Container/CharacterContainer/FieldsContainer"]
 margin_top = 49.0
 margin_right = 217.0
 margin_bottom = 81.0
 
-[node name="Label" type="Label" parent="Container/Character/FieldsContainer/PortraitContainer"]
+[node name="Label" type="Label" parent="Container/CharacterContainer/FieldsContainer/PortraitContainer"]
 margin_right = 217.0
 margin_bottom = 14.0
-text = "Portait"
+text = "Portrait"
 
-[node name="Empty" type="Label" parent="Container/Character/FieldsContainer/PortraitContainer"]
+[node name="Empty" type="Label" parent="Container/CharacterContainer/FieldsContainer/PortraitContainer"]
 margin_top = 18.0
 margin_right = 217.0
 margin_bottom = 32.0
 custom_colors/font_color = Color( 0.501961, 0.478431, 0.478431, 1 )
 text = "No character has been created"
 
-[node name="PortraitsOptions" type="OptionButton" parent="Container/Character/FieldsContainer/PortraitContainer"]
+[node name="PortraitsOptions" type="OptionButton" parent="Container/CharacterContainer/FieldsContainer/PortraitContainer"]
 visible = false
 margin_top = 36.0
 margin_right = 217.0
@@ -141,3 +144,4 @@ script = ExtResource( 3 )
 margin_top = 103.0
 margin_right = 313.0
 margin_bottom = 269.0
+rect_min_size = Vector2( 313, 166 )

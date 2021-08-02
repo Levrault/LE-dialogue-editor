@@ -1,0 +1,1 @@
+{"root":{"next":"a8b157cb-92d2-4ec8-9265-73f7c1d01316"},"__editor":{"root":{"uuid":"root","offset":[40,100]},"dialogues":[{"uuid":"a8b157cb-92d2-4ec8-9265-73f7c1d01316","offset":[260,100],"parent":"root"}],"conditions":[],"signals":[],"choices":[]},"a8b157cb-92d2-4ec8-9265-73f7c1d01316":{"name":"Godot","portrait":"","text":{"en":"this file was created on OSX","fr":""}}}
