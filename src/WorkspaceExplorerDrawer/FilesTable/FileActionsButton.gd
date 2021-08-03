@@ -19,10 +19,11 @@ func set_values(new_values: Dictionary, force_as_last_edited := false) -> void:
 
 
 func on_new_workspace_pristisne() -> void:
+	print(values)
 	Config.values.cache.last_opened_file = {
 		name = values.name, path = Editor.absolute_path(values.path)
 	}
-	Config.save(Config.values, Editor.workspace.folder)
+	# Config.save(Config.values, Editor.workspace.folder)
 	FileManager.edited_file = {path = values.path, name = values.name, button_ref = self}
 	self.selected = true
 	# _on_Pressed()

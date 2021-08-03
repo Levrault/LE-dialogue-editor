@@ -63,6 +63,7 @@ func _on_Confirmed() -> void:
 		# Set has last opened
 		if not Config.has_file_path(current_path):
 			Config.values.variables.files.append({path = current_path, name = current_file})
+			Config.values.cache.last_opened_file = {name = current_file, path = current_path}
 			Config.save(Config.values, Editor.workspace.folder)
 			Events.emit_signal("workspace_files_updated")
 

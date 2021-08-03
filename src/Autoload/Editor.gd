@@ -109,10 +109,14 @@ func open_file() -> void:
 
 func load_welcome_screen() -> void:
 	reset()
+
+	workspace_pristine = true
+	graph_edit = null
+	load_last_opened_file = true
+
 	get_tree().change_scene("res://src/WelcomePage/WelcomePage.tscn")
 	FileManager.clear()
 	yield(FileManager, "cache_cleared")
-	load_last_opened_file = true
 
 
 func import_image(path: String, size: Vector2) -> ImageTexture:
