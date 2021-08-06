@@ -1,11 +1,12 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/themes/MainProjectList.tres" type="Theme" id=1]
 [ext_resource path="res://src/Generic/AnimatedToolButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/themes/popup/popup_shadow.tres" type="Theme" id=3]
 [ext_resource path="res://src/WelcomePage/HelpView.gd" type="Script" id=4]
 [ext_resource path="res://src/WelcomePage/NewWorkspaceFileDialog.gd" type="Script" id=5]
-[ext_resource path="res://src/WelcomePage/RecentsList.gd" type="Script" id=7]
+[ext_resource path="res://src/WelcomePage/RecentView/RecentItem.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/WelcomePage/RecentView/RecentTable.gd" type="Script" id=7]
 [ext_resource path="res://src/Popup/NewWorkspace/NewWorkspaceDialog.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/WelcomePage/OpenWorkspaceFileDialog.gd" type="Script" id=10]
 [ext_resource path="res://src/Notifications/NotificationsContainer.tscn" type="PackedScene" id=11]
@@ -39,9 +40,9 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
-margin_left = 440.0
+margin_left = 397.0
 margin_top = 235.0
-margin_right = 840.0
+margin_right = 882.0
 margin_bottom = 485.0
 rect_min_size = Vector2( 400, 250 )
 size_flags_horizontal = 3
@@ -130,24 +131,28 @@ align = 0
 
 [node name="RecentContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer"]
 margin_left = 157.0
-margin_right = 400.0
+margin_right = 485.0
 margin_bottom = 250.0
 size_flags_horizontal = 3
 custom_constants/separation = 9
 
 [node name="Label" type="Label" parent="CenterContainer/HBoxContainer/RecentContainer"]
-margin_right = 243.0
+margin_right = 328.0
 margin_bottom = 24.0
 text = "Recent"
 
-[node name="RecentList" type="VBoxContainer" parent="CenterContainer/HBoxContainer/RecentContainer"]
+[node name="RecentsTable" type="VBoxContainer" parent="CenterContainer/HBoxContainer/RecentContainer"]
 margin_top = 33.0
-margin_right = 243.0
+margin_right = 328.0
 margin_bottom = 250.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
 script = ExtResource( 7 )
+
+[node name="RecentItem" parent="CenterContainer/HBoxContainer/RecentContainer/RecentsTable" instance=ExtResource( 6 )]
+margin_right = 328.0
+margin_bottom = 16.0
 
 [node name="NewWorkspaceDialog" parent="." instance=ExtResource( 8 )]
 visible = false
@@ -166,8 +171,8 @@ theme = ExtResource( 3 )
 window_title = "Open a Directory"
 mode = 2
 access = 2
-current_dir = "/Users/lflangis/Devs/LE-dialogue-editor"
-current_path = "/Users/lflangis/Devs/LE-dialogue-editor/"
+current_dir = "/Users/LucF_/Devs/LE-dialogue-editor"
+current_path = "/Users/LucF_/Devs/LE-dialogue-editor/"
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -188,8 +193,8 @@ window_title = "Open a File"
 mode = 0
 access = 2
 filters = PoolStringArray( "*.cfg" )
-current_dir = "/Users/lflangis/Devs/LE-dialogue-editor"
-current_path = "/Users/lflangis/Devs/LE-dialogue-editor/"
+current_dir = "/Users/LucF_/Devs/LE-dialogue-editor"
+current_path = "/Users/LucF_/Devs/LE-dialogue-editor/"
 script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false

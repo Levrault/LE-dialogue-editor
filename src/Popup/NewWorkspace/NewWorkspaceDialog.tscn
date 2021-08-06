@@ -155,12 +155,12 @@ margin_right = 420.0
 margin_bottom = 32.0
 custom_constants/separation = 48
 
-[node name="PortaitCheckButton" type="CheckButton" parent="MarginContainer/Content/DialogueSettingsContainer/CheckboxContainer"]
+[node name="portraitCheckButton" type="CheckButton" parent="MarginContainer/Content/DialogueSettingsContainer/CheckboxContainer"]
 margin_right = 186.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 pressed = true
-text = "Portait"
+text = "portrait"
 
 [node name="NameCheckButton" type="CheckButton" parent="MarginContainer/Content/DialogueSettingsContainer/CheckboxContainer"]
 margin_left = 234.0

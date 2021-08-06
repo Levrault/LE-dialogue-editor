@@ -7,6 +7,7 @@ const GLOBAL_CONFIG_FILE_PATH := "user://config.cfg"
 const DEFAULT_VALUES := {
 	"path":
 	{
+		"resource": "",
 		"OSX": "",
 		"Windows": "",
 		"UWP": "",
@@ -26,7 +27,9 @@ const DEFAULT_VALUES := {
 }
 
 const DEFAULT_GLOBALS := {
-	"workspaces": {"list": []}, "views": {"preview": false, "workspace": true}
+	"workspaces": {"list": []},
+	"views": {"preview": false, "workspace": true},
+	"info": {"version": ""}
 }
 
 var _config_file := ConfigFile.new()
@@ -40,13 +43,16 @@ func _init() -> void:
 	var err = _config_file.load(GLOBAL_CONFIG_FILE_PATH)
 	if err == ERR_FILE_NOT_FOUND:
 		print_debug("%s was not found, default globals added" % [GLOBAL_CONFIG_FILE_PATH])
-		self.save(DEFAULT_GLOBALS)
+		globals["info"]["version"] = ProjectSettings.get_setting("Info/version")
+		self.save(globals)
 		self.load(globals)
 		return
 	if err != OK:
 		print_debug("%s has encounter an error: %s" % [GLOBAL_CONFIG_FILE_PATH, err])
 		return
 	self.load(globals)
+	sync_workspace_list_to_existing_file(globals)
+	update_editor_config_if_needed(globals)
 
 
 # load workspace file only
@@ -66,36 +72,18 @@ func load_file(path: String) -> void:
 		return
 
 	self.load(values, DEFAULT_VALUES)
-	validate(values, path)
+	update_workspace_file_if_needed(values, path)
 
 
-# Create a new workspace while updating the global config
+# Load data from config.cfg
 # @param {Dictionary}	new_settings
-# @param {Dictionary}	path - where to save
-func new_workspace(new_settings: Dictionary, path: String) -> void:
-	# add workspace to global config
-	globals.workspaces.list.append(new_settings.path)
-	save(globals)
+# @param {Dictionary}	[template=DEFAULT_GLOBALS] - default template struc
+func load(settings: Dictionary, template := DEFAULT_GLOBALS) -> void:
+	for section in settings.keys():
+		for key in settings[section]:
+			settings[section][key] = _config_file.get_value(section, key, template[section][key])
 
-	# save workspace
-	new_settings["info"] = {}
-	new_settings["info"]["version"] = ProjectSettings.get_setting("Info/version")
-	save(new_settings, path)
-	self.load(values, DEFAULT_VALUES)
-
-
-func get_workspace_resource(path: String) -> String:
-	var file := ConfigFile.new()
-	var err = file.load(path)
-
-	if err == ERR_FILE_NOT_FOUND:
-		print_debug("%s was not found when loadding workspace data" % [path])
-		return ""
-	if err != OK:
-		print_debug("%s has encounter an error when loadding workspace data" % [path])
-		return ""
-
-	return file.get_value("path", "resource")
+	print_debug("%s has been loaded" % [GLOBAL_CONFIG_FILE_PATH])
 
 
 # Save data
@@ -115,15 +103,33 @@ func save(new_settings: Dictionary, path := GLOBAL_CONFIG_FILE_PATH) -> void:
 	_config_file.save(path)
 
 
-# Load data from config.cfg
+# Create a new workspace while updating the global config
 # @param {Dictionary}	new_settings
-# @param {Dictionary}	[template=DEFAULT_GLOBALS] - default template struc
-func load(settings: Dictionary, template := DEFAULT_GLOBALS) -> void:
-	for section in settings.keys():
-		for key in settings[section]:
-			settings[section][key] = _config_file.get_value(section, key, template[section][key])
+# @param {Dictionary}	path - where to save
+func new_workspace(new_settings: Dictionary, path: String) -> void:
+	# add workspace to global config
+	globals.workspaces.list.append(new_settings.path)
+	save(globals)
 
-	print_debug("%s has been loaded" % [GLOBAL_CONFIG_FILE_PATH])
+	# save workspace
+	new_settings["info"] = {}
+	new_settings["info"]["version"] = ProjectSettings.get_setting("Info/version")
+	save(new_settings, path)
+	self.load(values, DEFAULT_VALUES)
+
+
+func read_workspace_file(path: String):
+	var file := ConfigFile.new()
+	var err = file.load(path)
+
+	if err == ERR_FILE_NOT_FOUND:
+		print_debug("%s was not found when loadding workspace data" % [path])
+		return ""
+	if err != OK:
+		print_debug("%s has encounter an error when loadding workspace data" % [path])
+		return ""
+
+	return file
 
 
 func has_file_path(path: String) -> bool:
@@ -143,21 +149,32 @@ func get_character(name: String) -> Dictionary:
 	return character
 
 
+# check if a file has been deleted, if yes, clean the config file
+func sync_workspace_list_to_existing_file(loaded_settings) -> void:
+	var file := File.new()
+	for workspace in loaded_settings.workspaces.list:
+		if file.file_exists(workspace.folder):
+			continue
+		loaded_settings.workspaces.list.erase(workspace)
+
+	self.save(loaded_settings)
+
+
 # Called everytime a workspace is loaded to be sure
 # his structure is up to date
 # @param {Dictionary) loaded_settings - data of the workspace file
 # @param {String} path - file path to save it after update
-func validate(loaded_settings: Dictionary, path: String) -> void:
+func update_workspace_file_if_needed(loaded_settings: Dictionary, path: String) -> void:
 	var has_been_updated := false
 
-	# from 1.0.0-beta to 1.0.3-beta, file didn't have a version info and use path.resource and path.file
+	# from 1.0.0-beta to 1.0.3-beta
 	if (
 		not loaded_settings.has("info")
 		or loaded_settings.info.version.empty()
 		or loaded_settings.path.has("resource")
 		or loaded_settings.path.has("path")
 	):
-		UpdateTool.migrate_v1_x_x_to_v1_0_3_beta(loaded_settings)
+		UpdateTool.migrate_workspace_v1_x_x_to_v1_0_3_beta(loaded_settings, DEFAULT_VALUES)
 		has_been_updated = true
 		print_debug("%s workspace file has been update to 1.0.3-beta" % path)
 
@@ -165,3 +182,21 @@ func validate(loaded_settings: Dictionary, path: String) -> void:
 		print_debug("%s is synched with the latest file structure " % path)
 		return
 	self.save(loaded_settings, path)
+
+
+# Called everytime LE-dialogue-editor is opened to update his config file if needed
+# @param {Dictionary) loaded_settings - data of the workspace file
+# @param {String} path - file path to save it after update
+func update_editor_config_if_needed(loaded_settings: Dictionary) -> void:
+	var has_been_updated := false
+
+	# from 1.0.0-beta to 1.0.3-beta
+	if not loaded_settings.has("info") or loaded_settings.info.version.empty():
+		UpdateTool.migrate_editor_config_v1_x_x_to_v1_0_3_beta(loaded_settings, DEFAULT_GLOBALS)
+		has_been_updated = true
+		print_debug("Editor file has been update to 1.0.3-beta")
+
+	if not has_been_updated:
+		print_debug("Editor file is synched with the latest file structure ")
+		return
+	self.save(loaded_settings)

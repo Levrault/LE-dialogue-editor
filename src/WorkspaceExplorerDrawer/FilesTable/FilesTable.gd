@@ -9,7 +9,6 @@ func _ready() -> void:
 	yield(owner, "ready")
 	Events.connect("workspace_files_updated", self, "_on_File_updated")
 	Events.connect("workspace_unsaved_file_added", self, "_on_Unsaved_file_added")
-	# _on_File_updated()
 
 
 static func format_file_name(file_name: String, limit: int) -> String:
@@ -21,6 +20,7 @@ static func format_file_name(file_name: String, limit: int) -> String:
 func _on_Unsaved_file_added() -> void:
 	FileManager.create_file()
 	_on_File_updated()
+	get_child(get_child_count() - 1).button.on_new_workspace_pristisne()
 
 
 func _on_File_updated() -> void:

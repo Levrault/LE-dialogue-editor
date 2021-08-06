@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/icons/users_16x16.svg" type="Texture" id=1]
+[ext_resource path="res://src/Generic/AnimatedToolButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/icons/tag_16x16.svg" type="Texture" id=3]
+[ext_resource path="res://src/WelcomePage/RecentView/RecentItem.gd" type="Script" id=4]
+
+[node name="RecentItem" type="HBoxContainer"]
+margin_right = 318.0
+margin_bottom = 22.0
+custom_constants/separation = 15
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedToolButton" parent="." instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 278.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "/Users/Name/Devs/project/workspace.cfg"
+align = 0
+
+[node name="Portrait" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.447059 )
+margin_left = 293.0
+margin_right = 309.0
+margin_bottom = 16.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 1 )
+stretch_mode = 1
+
+[node name="Name" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.458824 )
+margin_left = 324.0
+margin_right = 340.0
+margin_bottom = 16.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 3 )
