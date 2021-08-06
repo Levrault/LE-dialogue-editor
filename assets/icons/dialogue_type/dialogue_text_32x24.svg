@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="32"
+   height="24"
+   viewBox="0 0 8.4666664 6.3500002"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="dialogue_text_32x24.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#000000"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="24.886869"
+     inkscape:cx="15.972279"
+     inkscape:cy="13.320278"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     units="px" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#3f3942;fill-opacity:1;stroke:#000000;stroke-width:0.0702093;stroke-linejoin:round"
+       id="rect850"
+       width="8.3964567"
+       height="6.2797909"
+       x="0.051445421"
+       y="0.051445354"
+       rx="0.27047133" />
+    <path
+       id="rect39408"
+       style="fill:#01579b;fill-opacity:1;fill-rule:evenodd;stroke-width:0.0597828"
+       d="m 0.34371477,0.07353884 c -0.14897341,0 -0.26909796,0.10906441 -0.26933648,0.24462343 -2.4e-7,1.3494e-4 0,2.6849e-4 0,4.0274e-4 v 0.11922668 0.366801 H 8.4190575 v -0.366801 H 8.419197 V 0.3185646 c 0,-0.13574687 -0.1200748,-0.24502576 -0.2691967,-0.24502576 z" />
+    <rect
+       style="fill:#2c2a32;fill-opacity:1;fill-rule:evenodd;stroke-width:0.108994"
+       id="rect82779"
+       width="7.4662213"
+       height="4.6789556"
+       x="0.50574511"
+       y="1.1985286"
+       rx="0.27047133" />
+  </g>
+</svg>

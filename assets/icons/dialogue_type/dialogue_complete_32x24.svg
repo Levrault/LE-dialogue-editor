@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="32"
+   height="24"
+   viewBox="0 0 8.4666664 6.3500002"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="dialogue_complete_32x24.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#000000"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="35.195347"
+     inkscape:cx="12.686336"
+     inkscape:cy="10.356483"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     units="px" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#3f3942;fill-opacity:1;stroke:#000000;stroke-width:0.0702093;stroke-linejoin:round"
+       id="rect850"
+       width="8.3964567"
+       height="6.2797909"
+       x="0.042195454"
+       y="0.036593545"
+       rx="0.27047133" />
+    <path
+       id="rect39408"
+       style="fill:#01579b;fill-opacity:1;fill-rule:evenodd;stroke-width:0.0597828"
+       d="m 0.3344648,0.05868704 c -0.14897341,0 -0.26909796,0.10906441 -0.26933648,0.24462343 -2.4e-7,1.3494e-4 0,2.6849e-4 0,4.0274e-4 v 0.11922668 0.366801 H 8.4098075 v -0.366801 H 8.409947 V 0.3037128 c 0,-0.13574687 -0.1200748,-0.24502576 -0.2691967,-0.24502576 z" />
+    <rect
+       style="fill:#2c2a32;fill-opacity:1;fill-rule:evenodd;stroke-width:0.0700992"
+       id="rect39991"
+       width="4.3822603"
+       height="0.52975386"
+       x="3.5576198"
+       y="1.5109186"
+       rx="0.27047116" />
+    <rect
+       style="fill:#2c2a32;fill-opacity:1;fill-rule:evenodd;stroke-width:0.0700992"
+       id="rect39991-0"
+       width="4.3822603"
+       height="0.52975386"
+       x="3.5330513"
+       y="2.8067648"
+       rx="0.27047116" />
+    <text
+       xml:space="preserve"
+       style="font-size:0.560796px;line-height:1.25;font-family:sans-serif;fill:#2c2a32;fill-opacity:1;stroke-width:0.0700992"
+       x="3.5622282"
+       y="0.61760068"
+       id="text48875"
+       transform="scale(1.0208693,0.97955733)"><tspan
+         sodipodi:role="line"
+         id="tspan48873"
+         style="font-size:0.560796px;fill:#2c2a32;fill-opacity:1;stroke-width:0.0700992"
+         x="3.5622282"
+         y="0.61760068" /><tspan
+         sodipodi:role="line"
+         style="font-size:0.373862px;fill:#2c2a32;fill-opacity:1;stroke-width:0.0700992"
+         id="tspan48877"
+         x="3.5622282"
+         y="1.3185956">Name</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:0.373862px;line-height:1.25;font-family:sans-serif;fill:#2c2a32;fill-opacity:1;stroke-width:0.0700992"
+       x="3.5115268"
+       y="2.6512692"
+       id="text59271"
+       transform="scale(1.0208693,0.97955733)"><tspan
+         sodipodi:role="line"
+         id="tspan59269"
+         style="font-size:0.373862px;fill:#2c2a32;fill-opacity:1;stroke-width:0.0700992"
+         x="3.5115268"
+         y="2.6512692">Portrait</tspan></text>
+    <rect
+       style="fill:#2c2a32;fill-opacity:1;fill-rule:evenodd;stroke-width:0.0700992"
+       id="rect82779"
+       width="7.4662213"
+       height="1.9353948"
+       x="0.49649516"
+       y="3.927238"
+       rx="0.27047133" />
+    <g
+       style="fill:none;stroke:#2c2a32;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+       id="g83021"
+       transform="matrix(0.13581395,0,0,0.13031792,0.19324271,0.76360069)">
+      <path
+         d="M 20,21 V 19 A 4,4 0 0 0 16,15 H 8 a 4,4 0 0 0 -4,4 v 2"
+         id="path83009" />
+      <circle
+         cx="12"
+         cy="7"
+         r="4"
+         id="circle83011" />
+    </g>
+  </g>
+</svg>

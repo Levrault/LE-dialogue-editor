@@ -1,13 +1,18 @@
 extends Node
 
 # workspace creation
-signal new_workspace_dialog_displayed
+signal workspace_new_form_displayed
 signal workspace_new_file_dialog_displayed(node)
 signal workspace_open_file_dialog_displayed
-signal recents_table_changed
+signal workspace_import_form_displayed
+signal workspace_import_file_dialog_displayed
+signal workspace_open_resource_folder_dialog_displayed
 signal workspace_unsaved_file_added
 signal workspace_files_updated
 signal workspace_file_selection_changed(button)
+
+# recent list
+signal recents_table_changed
 
 # layout
 signal layout_workspace_explorer_drawer_toggled
