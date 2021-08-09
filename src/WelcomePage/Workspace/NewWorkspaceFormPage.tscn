@@ -1,0 +1,399 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://src/Generic/AnimatedToolButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/WelcomePage/Workspace/WorkspaceField.gd" type="Script" id=2]
+[ext_resource path="res://src/Generic/FolderPathButton.gd" type="Script" id=3]
+[ext_resource path="res://assets/icons/folder-plus.svg" type="Texture" id=4]
+[ext_resource path="res://assets/themes/form/form.tres" type="Theme" id=5]
+[ext_resource path="res://assets/themes/label/title.tres" type="Theme" id=6]
+[ext_resource path="res://assets/icons/arrow-left.svg" type="Texture" id=7]
+[ext_resource path="res://assets/themes/form/field_name.tres" type="Theme" id=8]
+[ext_resource path="res://src/WelcomePage/Workspace/NewWorkspaceFormPage.gd" type="Script" id=9]
+[ext_resource path="res://src/WelcomePage/Workspace/DialogueTypeCheckbox.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/themes/popup/popup_shadow.tres" type="Theme" id=11]
+[ext_resource path="res://src/WelcomePage/Workspace/Dialog/NewWorkspaceFileDialog.gd" type="Script" id=12]
+[ext_resource path="res://assets/icons/dialogue_type/dialogue_name_120x96.svg" type="Texture" id=13]
+[ext_resource path="res://assets/icons/dialogue_type/dialogue_text_120x96.svg" type="Texture" id=14]
+[ext_resource path="res://src/Generic/RadioButtonFieldset.gd" type="Script" id=15]
+
+[node name="NewWorkspaceForm" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 5 )
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.145098, 0.145098, 0.164706, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 3
+custom_constants/margin_right = 50
+custom_constants/margin_top = 48
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Content" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 50.0
+margin_top = 48.0
+margin_right = 1230.0
+margin_bottom = 670.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Navigation" type="HBoxContainer" parent="MarginContainer/Content"]
+margin_right = 1180.0
+margin_bottom = 33.0
+
+[node name="GoBackButton" parent="MarginContainer/Content/Navigation" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 48.0
+margin_bottom = 33.0
+icon = ExtResource( 7 )
+
+[node name="Label" type="Label" parent="MarginContainer/Content/Navigation"]
+margin_left = 52.0
+margin_right = 268.0
+margin_bottom = 33.0
+theme = ExtResource( 6 )
+text = "New Workspace"
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/Content"]
+margin_top = 53.0
+margin_right = 1180.0
+margin_bottom = 622.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FormStep1" type="VBoxContainer" parent="MarginContainer/Content/CenterContainer"]
+margin_left = 290.0
+margin_top = 79.0
+margin_right = 890.0
+margin_bottom = 490.0
+rect_min_size = Vector2( 600, 411 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 26
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="MarginContainer/Content/CenterContainer/FormStep1"]
+margin_right = 600.0
+margin_bottom = 22.0
+theme = ExtResource( 8 )
+text = "Workspace settings"
+
+[node name="Name" type="Label" parent="MarginContainer/Content/CenterContainer/FormStep1"]
+margin_top = 48.0
+margin_right = 600.0
+margin_bottom = 65.0
+text = "Name"
+
+[node name="NameField" type="LineEdit" parent="MarginContainer/Content/CenterContainer/FormStep1"]
+margin_top = 91.0
+margin_right = 600.0
+margin_bottom = 113.0
+placeholder_text = "My_workspace..."
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Path" type="Label" parent="MarginContainer/Content/CenterContainer/FormStep1"]
+margin_top = 139.0
+margin_right = 600.0
+margin_bottom = 156.0
+text = "Where to save the .cfg file"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FolderPathFieldContainer" type="HBoxContainer" parent="MarginContainer/Content/CenterContainer/FormStep1"]
+margin_top = 182.0
+margin_right = 600.0
+margin_bottom = 210.0
+rect_min_size = Vector2( 0, 28 )
+
+[node name="FolderPathField" type="LineEdit" parent="MarginContainer/Content/CenterContainer/FormStep1/FolderPathFieldContainer"]
+margin_right = 548.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+editable = false
+placeholder_text = "Choose a folder..."
+caret_blink = true
+caret_blink_speed = 0.5
+script = ExtResource( 2 )
+key = "folder"
+
+[node name="FolderPathButton" parent="MarginContainer/Content/CenterContainer/FormStep1/FolderPathFieldContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 552.0
+margin_right = 600.0
+margin_bottom = 28.0
+icon = ExtResource( 4 )
+script = ExtResource( 3 )
+signal_on_pressed = "workspace_new_file_dialog_displayed"
+line_edit_field_name = "FolderPathField"
+
+[node name="ResourcePath" type="Label" parent="MarginContainer/Content/CenterContainer/FormStep1"]
+margin_top = 236.0
+margin_right = 600.0
+margin_bottom = 253.0
+text = "Your project folder"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResourcePathFieldContainer" type="HBoxContainer" parent="MarginContainer/Content/CenterContainer/FormStep1"]
+margin_top = 279.0
+margin_right = 600.0
+margin_bottom = 307.0
+rect_min_size = Vector2( 0, 28 )
+
+[node name="ResourcePathField" type="LineEdit" parent="MarginContainer/Content/CenterContainer/FormStep1/ResourcePathFieldContainer"]
+margin_right = 548.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+editable = false
+placeholder_text = "Choose a folder..."
+caret_blink = true
+caret_blink_speed = 0.5
+script = ExtResource( 2 )
+key = "resource"
+
+[node name="ResourcePathButton" parent="MarginContainer/Content/CenterContainer/FormStep1/ResourcePathFieldContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 552.0
+margin_right = 600.0
+margin_bottom = 28.0
+icon = ExtResource( 4 )
+script = ExtResource( 3 )
+signal_on_pressed = "workspace_new_file_dialog_displayed"
+line_edit_field_name = "ResourcePathField"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Content/CenterContainer/FormStep1"]
+margin_top = 333.0
+margin_right = 600.0
+margin_bottom = 411.0
+custom_constants/margin_top = 50
+
+[node name="ActionsField" type="HBoxContainer" parent="MarginContainer/Content/CenterContainer/FormStep1/MarginContainer"]
+margin_top = 50.0
+margin_right = 600.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 0, 28 )
+size_flags_horizontal = 3
+custom_constants/separation = 20
+alignment = 2
+
+[node name="ToStep2Button" type="Button" parent="MarginContainer/Content/CenterContainer/FormStep1/MarginContainer/ActionsField"]
+margin_left = 534.0
+margin_right = 600.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 66, 28 )
+size_flags_horizontal = 0
+disabled = true
+text = "Next"
+
+[node name="FormStep2" type="VBoxContainer" parent="MarginContainer/Content/CenterContainer"]
+visible = false
+margin_left = 290.0
+margin_top = 79.0
+margin_right = 890.0
+margin_bottom = 490.0
+rect_min_size = Vector2( 600, 411 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 12
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DialogueSetting" type="Label" parent="MarginContainer/Content/CenterContainer/FormStep2"]
+margin_right = 600.0
+margin_bottom = 22.0
+theme = ExtResource( 8 )
+text = "Dialogue Settings"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CharacterLimit" type="HBoxContainer" parent="MarginContainer/Content/CenterContainer/FormStep2"]
+margin_top = 34.0
+margin_right = 600.0
+margin_bottom = 56.0
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/Content/CenterContainer/FormStep2/CharacterLimit"]
+margin_top = 2.0
+margin_right = 516.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Expected max characters per dialogue (0 = unlimited)"
+
+[node name="CharacterLimitField" type="SpinBox" parent="MarginContainer/Content/CenterContainer/FormStep2/CharacterLimit"]
+margin_left = 520.0
+margin_right = 600.0
+margin_bottom = 22.0
+rounded = true
+allow_greater = true
+
+[node name="Label2" type="Label" parent="MarginContainer/Content/CenterContainer/FormStep2"]
+margin_top = 68.0
+margin_right = 600.0
+margin_bottom = 85.0
+size_flags_horizontal = 3
+text = "Type of dialogue (cannot be changed)*"
+
+[node name="DialogueType" type="HBoxContainer" parent="MarginContainer/Content/CenterContainer/FormStep2"]
+margin_top = 97.0
+margin_right = 600.0
+margin_bottom = 193.0
+rect_min_size = Vector2( 0, 96 )
+custom_constants/separation = 69
+script = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Complete" parent="MarginContainer/Content/CenterContainer/FormStep2/DialogueType" instance=ExtResource( 10 )]
+pressed = true
+
+[node name="Basic" parent="MarginContainer/Content/CenterContainer/FormStep2/DialogueType" instance=ExtResource( 10 )]
+margin_left = 223.0
+margin_right = 377.0
+
+[node name="TextureRect" parent="MarginContainer/Content/CenterContainer/FormStep2/DialogueType/Basic/VBoxContainer/HBoxContainer" index="0"]
+texture = ExtResource( 13 )
+
+[node name="Label" parent="MarginContainer/Content/CenterContainer/FormStep2/DialogueType/Basic/VBoxContainer" index="1"]
+margin_bottom = 117.0
+text = "Name+Text"
+
+[node name="Simple" parent="MarginContainer/Content/CenterContainer/FormStep2/DialogueType" instance=ExtResource( 10 )]
+margin_left = 446.0
+margin_right = 600.0
+
+[node name="TextureRect" parent="MarginContainer/Content/CenterContainer/FormStep2/DialogueType/Simple/VBoxContainer/HBoxContainer" index="0"]
+texture = ExtResource( 14 )
+
+[node name="Label" parent="MarginContainer/Content/CenterContainer/FormStep2/DialogueType/Simple/VBoxContainer" index="1"]
+margin_bottom = 117.0
+text = "Text Only"
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/Content/CenterContainer/FormStep2"]
+margin_top = 205.0
+margin_right = 600.0
+margin_bottom = 265.0
+custom_constants/separation = 60
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChoiceSetting" type="Label" parent="MarginContainer/Content/CenterContainer/FormStep2"]
+margin_top = 277.0
+margin_right = 600.0
+margin_bottom = 299.0
+theme = ExtResource( 8 )
+text = "Choice Settings"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChoiceSettingsContainer" type="HBoxContainer" parent="MarginContainer/Content/CenterContainer/FormStep2"]
+margin_top = 311.0
+margin_right = 600.0
+margin_bottom = 339.0
+rect_min_size = Vector2( 0, 28 )
+
+[node name="Label" type="Label" parent="MarginContainer/Content/CenterContainer/FormStep2/ChoiceSettingsContainer"]
+margin_top = 5.0
+margin_right = 516.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "Expected max characters per choice (0 = unlimited)"
+
+[node name="CharacterLimitField" type="SpinBox" parent="MarginContainer/Content/CenterContainer/FormStep2/ChoiceSettingsContainer"]
+margin_left = 520.0
+margin_right = 600.0
+margin_bottom = 28.0
+rounded = true
+allow_greater = true
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Content/CenterContainer/FormStep2"]
+margin_top = 351.0
+margin_right = 600.0
+margin_bottom = 411.0
+custom_constants/margin_top = 32
+
+[node name="ActionsField" type="HBoxContainer" parent="MarginContainer/Content/CenterContainer/FormStep2/MarginContainer"]
+margin_top = 32.0
+margin_right = 600.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 28 )
+size_flags_horizontal = 3
+custom_constants/separation = 20
+alignment = 2
+
+[node name="ToStep1Button" type="Button" parent="MarginContainer/Content/CenterContainer/FormStep2/MarginContainer/ActionsField"]
+margin_left = 407.0
+margin_right = 514.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 66, 28 )
+size_flags_horizontal = 0
+text = "PreviousStep"
+
+[node name="SaveNewWorkspaceButton" type="Button" parent="MarginContainer/Content/CenterContainer/FormStep2/MarginContainer/ActionsField"]
+margin_left = 534.0
+margin_right = 600.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 66, 28 )
+size_flags_horizontal = 0
+text = "Save"
+
+[node name="NewWorkspaceFileDialog" type="FileDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -400.0
+margin_top = -226.587
+margin_right = 400.0
+margin_bottom = 223.413
+rect_min_size = Vector2( 400, 140 )
+theme = ExtResource( 11 )
+window_title = "Open a Directory"
+mode = 2
+access = 2
+filters = PoolStringArray( "*.cfg" )
+current_dir = "/Users/lflangis/Devs/LE-dialogue-editor"
+current_path = "/Users/lflangis/Devs/LE-dialogue-editor/"
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+connected_signal = "workspace_new_file_dialog_displayed"
+
+[editable path="MarginContainer/Content/CenterContainer/FormStep2/DialogueType/Basic"]
+[editable path="MarginContainer/Content/CenterContainer/FormStep2/DialogueType/Simple"]

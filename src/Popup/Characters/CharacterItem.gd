@@ -13,6 +13,7 @@ onready var name_label := $Container/Name
 onready var default_portrait_rect := $Container/DefaultPortrait
 onready var container := $Container
 
+
 func _ready() -> void:
 	if not Config.values.configuration.has_portrait:
 		default_portrait_rect.hide()

@@ -9,7 +9,6 @@ func _ready() -> void:
 		queue_free()
 		return
 
-
 	if not Config.values.configuration.has_portrait:
 		owner.values.data.erase("portrait")
 		$PortraitPreview.queue_free()

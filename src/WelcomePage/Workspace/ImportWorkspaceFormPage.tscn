@@ -1,0 +1,248 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://src/WelcomePage/Workspace/Dialog/ImportWorkspaceFileDialog.gd" type="Script" id=1]
+[ext_resource path="res://src/WelcomePage/Workspace/ImportWorkspaceFormPage.gd" type="Script" id=2]
+[ext_resource path="res://src/WelcomePage/Workspace/Dialog/ImportWorkspaceResourceFolderDialog.gd" type="Script" id=3]
+[ext_resource path="res://src/Generic/AnimatedToolButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/themes/popup/popup_shadow.tres" type="Theme" id=5]
+[ext_resource path="res://assets/icons/folder-plus.svg" type="Texture" id=8]
+[ext_resource path="res://assets/themes/form/form.tres" type="Theme" id=9]
+[ext_resource path="res://assets/themes/label/title.tres" type="Theme" id=10]
+[ext_resource path="res://assets/icons/arrow-left.svg" type="Texture" id=11]
+[ext_resource path="res://assets/themes/form/field_name.tres" type="Theme" id=12]
+[ext_resource path="res://src/WelcomePage/Workspace/WorkspaceField.gd" type="Script" id=13]
+[ext_resource path="res://src/Generic/FolderPathButton.gd" type="Script" id=14]
+
+[node name="ImportWorkspaceFormPage" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 9 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.145098, 0.145098, 0.164706, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 3
+custom_constants/margin_right = 50
+custom_constants/margin_top = 48
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Content" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 50.0
+margin_top = 48.0
+margin_right = 1230.0
+margin_bottom = 670.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Navigation" type="HBoxContainer" parent="MarginContainer/Content"]
+margin_right = 1180.0
+margin_bottom = 33.0
+
+[node name="GoBackButton" parent="MarginContainer/Content/Navigation" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 48.0
+margin_bottom = 33.0
+icon = ExtResource( 11 )
+
+[node name="Label" type="Label" parent="MarginContainer/Content/Navigation"]
+margin_left = 52.0
+margin_right = 302.0
+margin_bottom = 33.0
+theme = ExtResource( 10 )
+text = "Import Workspace"
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/Content"]
+margin_top = 53.0
+margin_right = 1180.0
+margin_bottom = 622.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Form" type="VBoxContainer" parent="MarginContainer/Content/CenterContainer"]
+margin_left = 290.0
+margin_top = 79.0
+margin_right = 890.0
+margin_bottom = 490.0
+rect_min_size = Vector2( 600, 411 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 26
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="MarginContainer/Content/CenterContainer/Form"]
+margin_right = 600.0
+margin_bottom = 22.0
+theme = ExtResource( 12 )
+text = "Workspace import settings"
+
+[node name="Path" type="Label" parent="MarginContainer/Content/CenterContainer/Form"]
+margin_top = 48.0
+margin_right = 600.0
+margin_bottom = 65.0
+text = "Locate the cfg file"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FolderPathFieldContainer" type="HBoxContainer" parent="MarginContainer/Content/CenterContainer/Form"]
+margin_top = 91.0
+margin_right = 600.0
+margin_bottom = 119.0
+rect_min_size = Vector2( 0, 28 )
+
+[node name="FolderPathField" type="LineEdit" parent="MarginContainer/Content/CenterContainer/Form/FolderPathFieldContainer"]
+margin_right = 548.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+editable = false
+placeholder_text = "Choose a folder..."
+caret_blink = true
+caret_blink_speed = 0.5
+script = ExtResource( 13 )
+key = "folder"
+
+[node name="FolderPathButton" parent="MarginContainer/Content/CenterContainer/Form/FolderPathFieldContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 552.0
+margin_right = 600.0
+margin_bottom = 28.0
+icon = ExtResource( 8 )
+script = ExtResource( 14 )
+signal_on_pressed = "workspace_import_file_dialog_displayed"
+line_edit_field_name = "FolderPathField"
+
+[node name="ResourcePath" type="Label" parent="MarginContainer/Content/CenterContainer/Form"]
+margin_top = 145.0
+margin_right = 600.0
+margin_bottom = 162.0
+text = "Your project folder"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResourcePathFieldContainer" type="HBoxContainer" parent="MarginContainer/Content/CenterContainer/Form"]
+margin_top = 188.0
+margin_right = 600.0
+margin_bottom = 216.0
+rect_min_size = Vector2( 0, 28 )
+
+[node name="ResourcePathField" type="LineEdit" parent="MarginContainer/Content/CenterContainer/Form/ResourcePathFieldContainer"]
+margin_right = 548.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+editable = false
+placeholder_text = "Choose a folder..."
+caret_blink = true
+caret_blink_speed = 0.5
+script = ExtResource( 13 )
+key = "resource"
+
+[node name="ResourcePathButton" parent="MarginContainer/Content/CenterContainer/Form/ResourcePathFieldContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 552.0
+margin_right = 600.0
+margin_bottom = 28.0
+icon = ExtResource( 8 )
+script = ExtResource( 14 )
+signal_on_pressed = "workspace_open_resource_folder_dialog_displayed"
+line_edit_field_name = "ResourcePathField"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Content/CenterContainer/Form"]
+margin_top = 242.0
+margin_right = 600.0
+margin_bottom = 320.0
+custom_constants/margin_top = 50
+
+[node name="ActionsField" type="HBoxContainer" parent="MarginContainer/Content/CenterContainer/Form/MarginContainer"]
+margin_top = 50.0
+margin_right = 600.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 0, 28 )
+size_flags_horizontal = 3
+custom_constants/separation = 20
+alignment = 2
+
+[node name="Import" type="Button" parent="MarginContainer/Content/CenterContainer/Form/MarginContainer/ActionsField"]
+margin_left = 532.0
+margin_right = 600.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 66, 28 )
+size_flags_horizontal = 0
+disabled = true
+text = "Import"
+
+[node name="ImportWorkspaceFileDialog" type="FileDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -400.0
+margin_top = -226.587
+margin_right = 400.0
+margin_bottom = 223.413
+rect_min_size = Vector2( 400, 140 )
+theme = ExtResource( 5 )
+window_title = "Open a workspace"
+mode_overrides_title = false
+mode = 0
+access = 2
+filters = PoolStringArray( "*.cfg" )
+current_dir = "/Users/lflangis/Devs/LE-dialogue-editor"
+current_path = "/Users/lflangis/Devs/LE-dialogue-editor/"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+connected_signal = "workspace_import_file_dialog_displayed"
+
+[node name="ImportWorkspaceResourceFolderDialog" type="FileDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -400.0
+margin_top = -228.174
+margin_right = 400.0
+margin_bottom = 221.826
+rect_min_size = Vector2( 400, 140 )
+theme = ExtResource( 5 )
+window_title = "Open your project directory"
+mode_overrides_title = false
+mode = 2
+access = 2
+filters = PoolStringArray( "*.cfg" )
+current_dir = "/Users/lflangis/Devs/LE-dialogue-editor"
+current_path = "/Users/lflangis/Devs/LE-dialogue-editor/"
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+connected_signal = "workspace_open_resource_folder_dialog_displayed"
