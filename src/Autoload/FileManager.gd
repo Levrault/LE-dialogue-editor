@@ -155,9 +155,12 @@ func delete_file(file_to_delete: Dictionary, delete_from_disk: bool) -> void:
 			self.state = State.registred_pristine
 			Events.call_deferred("emit_signal", "workspace_files_updated")
 		else:
+			# All file are deleted
+			Editor.new_root_node()
 			Editor.load_last_opened_file = false
 			Events.emit_signal("workspace_unsaved_file_added")
 			self.state = State.unregistred_pristine
+			Editor.workspace_pristine = true
 
 
 func delete_cache(path: String) -> void:

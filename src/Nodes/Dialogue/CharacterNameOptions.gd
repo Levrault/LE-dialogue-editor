@@ -6,6 +6,9 @@ onready var empty_msg := get_parent().get_node("Empty")
 
 
 func _ready() -> void:
+	if not Config.values.configuration.has_name:
+		return
+
 	yield(owner, "ready")
 	Events.connect("characters_list_changed", self, "_on_Characters_list_changed")
 	connect("item_selected", self, "_on_Character_selected")

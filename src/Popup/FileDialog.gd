@@ -52,6 +52,7 @@ func _on_Dialog_opened(new_mode: int) -> void:
 func _on_Confirmed() -> void:
 	if mode == 4:
 		# Save file with new path
+		print(current_path)
 		Serialize.save_as(current_path)
 
 		FileManager.pristine()

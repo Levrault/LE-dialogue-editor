@@ -4,7 +4,7 @@
 [ext_resource path="res://src/WorkspaceExplorerDrawer/FilesTable/FileItem.gd" type="Script" id=2]
 [ext_resource path="res://assets/icons/file-text.svg" type="Texture" id=3]
 [ext_resource path="res://assets/themes/menu/workspace_item.tres" type="Theme" id=4]
-[ext_resource path="res://src/WorkspaceExplorerDrawer/FilesTable/FileActionsButton.gd" type="Script" id=5]
+[ext_resource path="res://src/WorkspaceExplorerDrawer/FilesTable/FileItemActionsButton.gd" type="Script" id=5]
 [ext_resource path="res://src/WorkspaceExplorerDrawer/FilesTable/FileItemContextualMenu.gd" type="Script" id=6]
 [ext_resource path="res://src/Generic/AnimatedMenuButton.tscn" type="PackedScene" id=7]
 
