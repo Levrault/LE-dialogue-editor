@@ -41,6 +41,11 @@ func set_state(new_state: int) -> void:
 
 func create_file() -> void:
 	var new_file = UNREGISTRED_NAME_TEMPLATE % [dirty_unregistred_files.size()]
+
+	# if new file already exist
+	if dirty_unregistred_files.has(TEMP_PATH % [Editor.workspace.name, new_file]):
+		new_file = UNREGISTRED_NAME_TEMPLATE % [dirty_unregistred_files.size() + 1]
+
 	var path = TEMP_PATH % [Editor.workspace.name, new_file]
 	var value = {name = new_file, path = path, cache_path = path, unregistred = true}
 
@@ -65,7 +70,6 @@ func cache_file() -> void:
 		edited_file.button_ref.values = values
 		dirty_registred_files[edited_file.path] = values
 
-	print(path)
 	Serialize.save_as(path, true, true)
 
 
@@ -132,24 +136,36 @@ func delete_file(file_to_delete: Dictionary, delete_from_disk: bool) -> void:
 			if file.path == file_to_delete.path:
 				Config.values.variables.files.erase(file)
 
-		# Set last opened file
-		if Config.values.variables.files.empty():
-			Config.values.cache.last_opened_file = {}
-		else:
-			var last_file: Dictionary = Config.values.variables.files[(
-				Config.values.variables.files.size()
-				- 1
-			)]
-			Config.values.cache.last_opened_file = {name = last_file.name, path = last_file.path}
+	# Set last opened file
+	if Config.values.variables.files.empty():
+		Config.values.cache.last_opened_file = {}
+	else:
+		var last_file: Dictionary = Config.values.variables.files[(
+			Config.values.variables.files.size()
+			- 1
+		)]
+		Config.values.cache.last_opened_file = {name = last_file.name, path = last_file.path}
 
-		Config.save(Config.values, Editor.workspace.folder)
+	Config.save(Config.values, Editor.workspace.folder)
 
 	# in reset mode
 	if file_to_delete.path == edited_file.path:
 		Editor.reset()
 		yield(Editor, "scene_cleared")
 
-		if not Config.values.cache.last_opened_file.empty():
+		# case where these is only unregistred file
+		if Config.values.variables.files.empty() and dirty_unregistred_files.size() > 0:
+			var last_dirty_unregistred_files: Dictionary = dirty_unregistred_files[dirty_unregistred_files.keys()[(
+				dirty_unregistred_files.size()
+				- 1
+			)]]
+			Serialize.load(last_dirty_unregistred_files.path)
+			self.edited_file = last_dirty_unregistred_files.duplicate(true)
+			Editor.load_last_opened_file = false
+			self.state = State.unregistred_pristine
+			Editor.workspace_pristine = true
+			Events.call_deferred("emit_signal", "workspace_files_updated")
+		elif not Config.values.cache.last_opened_file.empty():
 			Serialize.load(Editor.absolute_path(Config.values.cache.last_opened_file.path))
 			self.edited_file = Config.values.cache.last_opened_file.duplicate(true)
 			self.state = State.registred_pristine
