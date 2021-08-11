@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/help-circle.svg-62fa4328b6edc484c9924735f600b99e.stex"
+path="res://.import/dialogue_white_24x24.svg-a629701a1f37179fa30711fe66e494e0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/help-circle.svg"
-dest_files=[ "res://.import/help-circle.svg-62fa4328b6edc484c9924735f600b99e.stex" ]
+source_file="res://assets/icons/dialogue_white_24x24.svg"
+dest_files=[ "res://.import/dialogue_white_24x24.svg-a629701a1f37179fa30711fe66e494e0.stex" ]
 
 [params]
 

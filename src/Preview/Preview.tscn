@@ -3,7 +3,7 @@
 [ext_resource path="res://src/Preview/Preview.gd" type="Script" id=1]
 [ext_resource path="res://src/Preview/Timeline.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Preview/Form/TimelineForm.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/icons/close_white.svg" type="Texture" id=4]
+[ext_resource path="res://assets/icons/close_white_24x24.svg" type="Texture" id=4]
 [ext_resource path="res://src/Generic/AnimatedToolButton.tscn" type="PackedScene" id=6]
 
 

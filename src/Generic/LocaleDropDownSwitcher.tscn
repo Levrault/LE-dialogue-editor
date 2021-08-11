@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://assets/icons/chevron-down.svg" type="Texture" id=1]
+[ext_resource path="res://assets/icons/chevron-down_white_24x24.svg" type="Texture" id=1]
 [ext_resource path="res://src/Generic/LocaleDropDownSwitcher.gd" type="Script" id=2]
 
 

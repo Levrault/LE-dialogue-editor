@@ -2,7 +2,7 @@ extends MenuButton
 
 enum Menu { Delete }
 
-var trash_icon: Texture = preload("res://assets/icons/trash.svg")
+var trash_icon: Texture = preload("res://assets/icons/trash_gray_24x24.svg")
 
 
 func _ready():

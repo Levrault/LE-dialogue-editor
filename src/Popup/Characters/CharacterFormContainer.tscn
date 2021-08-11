@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://assets/icons/user-plus.svg" type="Texture" id=1]
+[ext_resource path="res://assets/icons/user-plus_gray_92x92.svg" type="Texture" id=1]
 [ext_resource path="res://src/Generic/AnimatedToolButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Popup/Characters/AddPortraitButton.gd" type="Script" id=3]
 [ext_resource path="res://src/Popup/Characters/SaveCharacter.gd" type="Script" id=4]

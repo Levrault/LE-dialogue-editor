@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/git-merge.svg-e574671efa6f4aaabbcabc8533c54414.stex"
+path="res://.import/arrow-left_white_24x24.svg-a2bef3e041de375480bf744991707429.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/git-merge.svg"
-dest_files=[ "res://.import/git-merge.svg-e574671efa6f4aaabbcabc8533c54414.stex" ]
+source_file="res://assets/icons/arrow-left_white_24x24.svg"
+dest_files=[ "res://.import/arrow-left_white_24x24.svg-a2bef3e041de375480bf744991707429.stex" ]
 
 [params]
 

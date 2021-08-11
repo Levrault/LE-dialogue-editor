@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/folder-plus.svg-c9edfc87613e4bd708bf608d1115be50.stex"
+path="res://.import/tag_white_16x16.svg-7af8af1baf81e96abca03565115df53d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/folder-plus.svg"
-dest_files=[ "res://.import/folder-plus.svg-c9edfc87613e4bd708bf608d1115be50.stex" ]
+source_file="res://assets/icons/tag_white_16x16.svg"
+dest_files=[ "res://.import/tag_white_16x16.svg-7af8af1baf81e96abca03565115df53d.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/chevron-right.svg-32bfb9ea8a85a16b719917b37f2eaf41.stex"
+path="res://.import/plus_gray_24x24.svg-17aeff115d3525a8de549f42e66a1600.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/chevron-right.svg"
-dest_files=[ "res://.import/chevron-right.svg-32bfb9ea8a85a16b719917b37f2eaf41.stex" ]
+source_file="res://assets/icons/plus_gray_24x24.svg"
+dest_files=[ "res://.import/plus_gray_24x24.svg-17aeff115d3525a8de549f42e66a1600.stex" ]
 
 [params]
 

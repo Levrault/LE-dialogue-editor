@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/dialogue.svg-f0cfc50f1de5e0ab34a6214ef9cbcc86.stex"
+path="res://.import/chevron-right_white_24x24.svg-fe825ee314abfff596385b5150b1f9b5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/dialogue.svg"
-dest_files=[ "res://.import/dialogue.svg-f0cfc50f1de5e0ab34a6214ef9cbcc86.stex" ]
+source_file="res://assets/icons/chevron-right_white_24x24.svg"
+dest_files=[ "res://.import/chevron-right_white_24x24.svg-fe825ee314abfff596385b5150b1f9b5.stex" ]
 
 [params]
 

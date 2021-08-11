@@ -1,8 +1,8 @@
 extends AnimatedMenuButton
 
 enum Menu { remove, delete }
-var file_minus_svg: Texture = load("res://assets/icons/file-minus.svg")
-var trash_svg: Texture = load("res://assets/icons/trash.svg")
+var file_minus_svg: Texture = load("res://assets/icons/file-minus_gray_24x24.svg")
+var trash_svg: Texture = load("res://assets/icons/trash_gray_24x24.svg")
 
 
 func _ready() -> void:

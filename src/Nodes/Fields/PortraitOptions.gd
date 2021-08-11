@@ -13,7 +13,7 @@ class_name PortraitOptions
 const OPTION_IMG_SIZE := Vector2(32, 32)
 const PREVIEW_IMG_SIZE := Vector2(108, 108)
 
-var PLACEHOLDER_IMAGE_PATH := "res://assets/icons/user.svg"
+var PLACEHOLDER_IMAGE_PATH := "res://assets/icons/user-plus_gray_92x92.svg"
 
 var name_selected := ''
 var portrait_selected := ''

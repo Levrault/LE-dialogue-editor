@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/Nodes/Fields/DeleteButton.gd" type="Script" id=1]
 [ext_resource path="res://src/Nodes/Fields/ConditionItem.gd" type="Script" id=2]
-[ext_resource path="res://assets/icons/trash.svg" type="Texture" id=3]
+[ext_resource path="res://assets/icons/trash_gray_24x24.svg" type="Texture" id=3]
 
 
 

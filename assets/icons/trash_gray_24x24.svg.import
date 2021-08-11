@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/file-minus.svg-bfc3a3f37637cd4a91e651b2f5939248.stex"
+path="res://.import/trash_gray_24x24.svg-e6892414e5fe1e0e7e49d2557b202e76.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/file-minus.svg"
-dest_files=[ "res://.import/file-minus.svg-bfc3a3f37637cd4a91e651b2f5939248.stex" ]
+source_file="res://assets/icons/trash_gray_24x24.svg"
+dest_files=[ "res://.import/trash_gray_24x24.svg-e6892414e5fe1e0e7e49d2557b202e76.stex" ]
 
 [params]
 

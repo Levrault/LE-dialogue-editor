@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/Generic/AnimatedToolButton.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/icons/user-plus.svg" type="Texture" id=2]
+[ext_resource path="res://assets/icons/user-plus_gray_92x92.svg" type="Texture" id=2]
 [ext_resource path="res://src/Popup/Characters/AddPortraitButton.gd" type="Script" id=3]
 [ext_resource path="res://src/Popup/Characters/CharactersDialog.gd" type="Script" id=4]
 [ext_resource path="res://src/Popup/Characters/CharactersContainer.gd" type="Script" id=5]
@@ -12,9 +12,9 @@
 [ext_resource path="res://assets/themes/popup/popup.tres" type="Theme" id=10]
 [ext_resource path="res://src/Popup/Characters/ImportContainer.gd" type="Script" id=11]
 [ext_resource path="res://src/Popup/Characters/DeleteCharacter.gd" type="Script" id=12]
-[ext_resource path="res://assets/icons/trash.svg" type="Texture" id=13]
-[ext_resource path="res://assets/icons/close_white.svg" type="Texture" id=14]
-[ext_resource path="res://assets/icons/save.svg" type="Texture" id=15]
+[ext_resource path="res://assets/icons/trash_gray_24x24.svg" type="Texture" id=13]
+[ext_resource path="res://assets/icons/close_white_24x24.svg" type="Texture" id=14]
+[ext_resource path="res://assets/icons/save_white_24x24.svg" type="Texture" id=15]
 [ext_resource path="res://src/Popup/Characters/CancelCharacter.gd" type="Script" id=16]
 [ext_resource path="res://src/Popup/Characters/PortraitField.gd" type="Script" id=17]
 

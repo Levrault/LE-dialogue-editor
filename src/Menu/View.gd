@@ -1,7 +1,7 @@
 extends MenuButton
 
 enum Menu { preview, workspace_explorer_drawer }
-var check_icon: Texture = preload("res://assets/icons/check.svg")
+var check_icon: Texture = preload("res://assets/icons/check_gray_24x24.svg")
 
 
 func _ready():

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/folder.svg-faf38980413b7388024599b28de02701.stex"
+path="res://.import/radio_white_24x24.svg-33eb7e63f1d355c0be4776e6293e52ea.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/folder.svg"
-dest_files=[ "res://.import/folder.svg-faf38980413b7388024599b28de02701.stex" ]
+source_file="res://assets/icons/radio_white_24x24.svg"
+dest_files=[ "res://.import/radio_white_24x24.svg-33eb7e63f1d355c0be4776e6293e52ea.stex" ]
 
 [params]
 
