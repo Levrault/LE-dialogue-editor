@@ -24,7 +24,7 @@ func _on_Condition_value_added() -> void:
 	for key in Store.conditions_node:
 		for data in Store.conditions_node[key].data:
 			# prevent adding editor data
-			if data == "next":
+			if data == "next" or data == "parent":
 				continue
 			if not conditions.has(data):
 				var values = Store.conditions_node[key].data[data].duplicate(true)

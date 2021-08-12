@@ -183,6 +183,8 @@ func _on_Condition_to_dialogue_relation_created(from: String, to: String) -> voi
 
 
 func _on_Condition_to_dialogue_relation_deleted(from: String) -> void:
+	if not conditions_node.has(from):
+		return
 	conditions_node[from].data.next = ""
 
 

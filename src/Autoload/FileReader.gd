@@ -63,9 +63,6 @@ func import(json: Dictionary) -> bool:
 	root_instance.values["__editor"] = editor_data.root
 	Events.emit_signal("graph_node_loaded", root_instance)
 
-	# import node non connected to a dialogue node
-	_import_unconnected_node(editor_data)
-
 	# connect nodes, data are stocked inside the dialogue object
 	if root.has("conditions"):
 		for condition in root.conditions:
@@ -77,6 +74,9 @@ func import(json: Dictionary) -> bool:
 				conditions_list.append(condition_instance)
 	elif root.has("next") and not root.next.empty():
 		Events.emit_signal("connection_request_loaded", root_instance.uuid, 0, root.next, 0)
+
+	# import node non connected to a dialogue node
+	_import_unconnected_node(editor_data)
 
 	for dialogue in dialogue_list:
 		var values = dialogue.values.data

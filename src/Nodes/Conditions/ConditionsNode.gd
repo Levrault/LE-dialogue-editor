@@ -8,7 +8,7 @@
 #        "live": { "value": 3, "operator": "equal", "type": "int" },
 #        "next": "7c7d4384-8bc4-487f-b560-98184ec06141"
 #      },
-#    ], 
+#    ],
 extends GraphEditorNode
 
 enum Type { boolean, number }
@@ -151,7 +151,7 @@ func _on_Deleted(value_to_delete: String, field_rect_size: Vector2) -> void:
 func _on_File_loaded() -> void:
 	for name in values.data:
 		# do not add editor data
-		if name == "next":
+		if name == "next" or name == "parent":
 			continue
 		var new_condition = condition_field.instance()
 		container.add_child(new_condition)
