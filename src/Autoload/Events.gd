@@ -119,3 +119,6 @@ signal about_pop_up_displayed
 # spinner
 signal spinner_displayed
 signal spinner_hidden
+
+# debug
+signal debug_json_displayed(values)

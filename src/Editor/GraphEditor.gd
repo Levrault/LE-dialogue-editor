@@ -7,6 +7,7 @@ const NODE_OFFSET := Vector2(120, 120)
 func _ready() -> void:
 	connect("connection_request", self, "_on_Connection_request")
 	connect("disconnection_request", self, "_on_Disconnection_request")
+	connect("node_selected", self, "_on_Node_selected")
 	Events.connect("node_deleted", self, "_on_Disconnection_request")
 	Events.connect("connection_request_loaded", self, "_on_Connection_request")
 	Events.connect("graph_node_added", self, "_on_Graph_node_added")
@@ -53,6 +54,11 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 			"ERROR: A node can't be connected to itself"
 		)
 		return
+
+
+	# keep track of parent based on user's feedback
+	to_node.values.data["parent"] = from_node.uuid
+
 
 	# ROOT -- CONDITIONS
 	if from_node.TYPE == Editor.Type.root and to_node.TYPE == Editor.Type.condition:
@@ -326,6 +332,9 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 	var from_node = get_node(from)
 	var to_node = get_node(to)
 
+	# remove parent value
+	to_node.values.data.erase("parent")
+
 	# ROOT -- DIALOGUE
 	if from_node.TYPE == Editor.Type.root and to_node.TYPE == Editor.Type.dialogue:
 		Events.emit_signal("root_to_dialogue_relation_deleted")
@@ -343,7 +352,6 @@ func _on_Disconnection_request(from: String, from_slot: int, to: String, to_slot
 		if from_node.right_conditions_connection.empty():
 			from_node.values.data.erase("conditions")
 			from_node.values.__editor.erase("conditions")
-
 		disconnect_node(from, from_slot, to, to_slot)
 		return
 
@@ -425,6 +433,10 @@ func _on_Graph_node_loaded(node: GraphNode) -> void:
 
 func _on_Graph_node_selected(uuid: String) -> void:
 	set_selected(get_node(uuid))
+
+
+func _on_Node_selected(node: Node) -> void:
+	Events.emit_signal("debug_json_displayed", node.values)
 
 
 func _on_Preview_predicated_route_displayed(uuid_list: Array) -> void:
