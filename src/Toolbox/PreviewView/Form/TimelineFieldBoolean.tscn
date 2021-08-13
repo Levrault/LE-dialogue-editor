@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Toolbox/PreviewView/Form/TimelineFieldBoolean.gd" type="Script" id=1]
+
+[node name="TimelineFieldBoolean" type="HBoxContainer"]
+margin_right = 284.0
+margin_bottom = 24.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBox" type="CheckBox" parent="."]
+margin_right = 204.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+text = "placeholder"
+
+[node name="CheckButton" type="CheckButton" parent="."]
+margin_left = 208.0
+margin_right = 284.0
+margin_bottom = 40.0

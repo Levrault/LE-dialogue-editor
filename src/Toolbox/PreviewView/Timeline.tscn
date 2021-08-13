@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Toolbox/PreviewView/Timeline.gd" type="Script" id=4]
+
+[node name="Timeline" type="VBoxContainer"]
+margin_right = 284.0
+margin_bottom = 899.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 16
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

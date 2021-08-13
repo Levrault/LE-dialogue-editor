@@ -55,10 +55,8 @@ func _on_Connection_request(from: String, from_slot: int, to: String, to_slot: i
 		)
 		return
 
-
 	# keep track of parent based on user's feedback
 	to_node.values.data["parent"] = from_node.uuid
-
 
 	# ROOT -- CONDITIONS
 	if from_node.TYPE == Editor.Type.root and to_node.TYPE == Editor.Type.condition:
@@ -436,7 +434,7 @@ func _on_Graph_node_selected(uuid: String) -> void:
 
 
 func _on_Node_selected(node: Node) -> void:
-	Events.emit_signal("debug_json_displayed", node.values)
+	Events.emit_signal("toolbox_json_displayed", node.values)
 
 
 func _on_Preview_predicated_route_displayed(uuid_list: Array) -> void:

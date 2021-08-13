@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Toolbox/PreviewView/PreviewDialogue/PreviewDialogueRight.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/themes/preview/preview_dialogue_right_stylebox_alt3.tres" type="StyleBox" id=2]
+
+
+[sub_resource type="Theme" id=1]
+Button/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+Button/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/constants/hseparation = 2
+Button/fonts/font = null
+Button/styles/disabled = null
+Button/styles/focus = ExtResource( 2 )
+Button/styles/hover = ExtResource( 2 )
+Button/styles/normal = ExtResource( 2 )
+Button/styles/pressed = ExtResource( 2 )
+
+[node name="PreviewDialogueRightAlt3" instance=ExtResource( 1 )]
+theme = SubResource( 1 )

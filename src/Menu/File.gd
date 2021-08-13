@@ -43,11 +43,6 @@ func _on_Item_pressed(id: int) -> void:
 		Editor.load_welcome_screen()
 		return
 
-	if id == Menu.export_file:
-		# TODO: TO code
-		assert(true == false)
-		return
-
 	if id == Menu.quit:
 		get_tree().quit()
 		return
