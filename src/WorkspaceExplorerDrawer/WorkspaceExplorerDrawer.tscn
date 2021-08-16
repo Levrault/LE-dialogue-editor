@@ -1,15 +1,21 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Generic/AnimatedToolButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/icons/close_white_24x24.svg" type="Texture" id=2]
 [ext_resource path="res://src/WorkspaceExplorerDrawer/FilesTable/FilesTable.gd" type="Script" id=3]
 [ext_resource path="res://src/WorkspaceExplorerDrawer/WorkspaceExplorerDrawer.gd" type="Script" id=4]
 
-[node name="WorkspaceExplorerDrawer" type="Control"]
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.145098, 0.145098, 0.164706, 1 )
+border_width_left = 1
+border_color = Color( 0.101961, 0.101961, 0.113725, 1 )
+
+[node name="WorkspaceExplorerDrawer" type="Panel"]
 margin_right = 220.0
 margin_bottom = 869.0
 rect_min_size = Vector2( 300, 0 )
 size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false

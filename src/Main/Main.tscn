@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://src/Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://src/Menu/Menu.tscn" type="PackedScene" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://src/Editor/GraphEditor.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Tools/Actions/ActionsBar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/Tools/Localization/i18nBar.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/Preview/Preview.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/Toolbox/ToolsboxDrawer.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/Notifications/NotificationsContainer.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/Popup/FileDialog.gd" type="Script" id=9]
 [ext_resource path="res://src/Popup/UnsavedLostDialog.gd" type="Script" id=10]
@@ -18,7 +18,8 @@
 [ext_resource path="res://src/Main/EditedFileTitle.gd" type="Script" id=16]
 [ext_resource path="res://src/Popup/HelpDialog.tscn" type="PackedScene" id=17]
 [ext_resource path="res://src/Generic/Spinner.tscn" type="PackedScene" id=18]
-[ext_resource path="res://src/DebugView/DebugOverlay.tscn" type="PackedScene" id=19]
+[ext_resource path="res://src/WorkspaceExplorerDrawer/WorkspaceBar.tscn" type="PackedScene" id=19]
+[ext_resource path="res://src/Toolbox/ToolboxBar.tscn" type="PackedScene" id=20]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://assets/fonts/droid-sans/DroidSans.ttf"
@@ -69,13 +70,16 @@ margin_right = 1280.0
 margin_bottom = 715.0
 size_flags_vertical = 3
 
+[node name="WorkspaceBar" parent="MainWrapper/AppContainer/ViewsContainer" instance=ExtResource( 19 )]
+
 [node name="WorkspaceView" parent="MainWrapper/AppContainer/ViewsContainer" instance=ExtResource( 3 )]
-margin_right = 300.0
+margin_left = 32.0
+margin_right = 332.0
 margin_bottom = 689.0
 
 [node name="Editor" type="Control" parent="MainWrapper/AppContainer/ViewsContainer"]
-margin_left = 304.0
-margin_right = 1280.0
+margin_left = 336.0
+margin_right = 922.0
 margin_bottom = 689.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -108,17 +112,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Preview" parent="MainWrapper/AppContainer/ViewsContainer" instance=ExtResource( 7 )]
-margin_left = 1300.0
-margin_right = 1600.0
+[node name="ToolsboxDrawer" parent="MainWrapper/AppContainer/ViewsContainer" instance=ExtResource( 7 )]
+margin_left = 926.0
+margin_right = 1226.0
+
+[node name="RightToolBoxbar" parent="MainWrapper/AppContainer/ViewsContainer" instance=ExtResource( 20 )]
+margin_left = 1230.0
+margin_right = 1280.0
 
 [node name="NotificationsContainer" parent="." instance=ExtResource( 8 )]
 anchor_top = 0.11
 anchor_bottom = 0.957
 margin_left = -304.0
-margin_top = -7.62939e-06
+margin_top = -0.351387
 margin_right = -33.0
-margin_bottom = -0.299988
+margin_bottom = -0.651367
 
 [node name="FileDialog" type="FileDialog" parent="."]
 anchor_left = 0.5
@@ -210,11 +218,3 @@ script = ExtResource( 13 )
 
 [node name="Spinner" parent="." instance=ExtResource( 18 )]
 visible = false
-
-[node name="DebugOverlay" parent="." instance=ExtResource( 19 )]
-visible = false
-anchor_bottom = 1.0
-margin_left = -319.0
-margin_top = 106.0
-margin_right = -23.0
-margin_bottom = -25.0

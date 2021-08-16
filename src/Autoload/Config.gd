@@ -23,12 +23,12 @@ const DEFAULT_VALUES := {
 	"locale": {"current": "en", "selected": ["en", "fr"], "custom": []},
 	"variables": {"characters": [{"name": "Godot", "portraits": []}], "files": []},
 	"cache": {"last_opened_file": {}},
-	"info": {"version": "", "window_height": 1920, "window_width": "1080", "full_screen": false},
+	"info": {"version": "", "window_height": 1920, "window_width": 1080, "full_screen": false},
 }
 
 const DEFAULT_GLOBALS := {
 	"workspaces": {"list": []},
-	"views": {"preview": false, "workspace": true},
+	"views": {"preview": false, "json": false, "workspace": true},
 	"info": {"version": ""}
 }
 
@@ -195,6 +195,10 @@ func update_editor_config_if_needed(loaded_settings: Dictionary) -> void:
 		UpdateTool.migrate_editor_config_v1_x_x_to_v1_0_3_beta(loaded_settings, DEFAULT_GLOBALS)
 		has_been_updated = true
 		print_debug("Editor file has been update to 1.0.3-beta")
+
+	if loaded_settings.info.version == "v1.0.3-beta":
+		UpdateTool.migrate_to_last_version_only(loaded_settings)
+		has_been_updated = true
 
 	if not has_been_updated:
 		print_debug("Editor file is synched with the latest file structure ")

@@ -22,6 +22,9 @@ onready var signal_node := load("res://src/Nodes/Signal/SignalNode.tscn")
 
 
 func _ready() -> void:
+	Events.connect("save_file_button_pressed", self, "save_file")
+	Events.connect("new_file_button_pressed", self, "new_file")
+	Events.connect("quit_workspace_button_pressed", self, "load_welcome_screen")
 	locale = Config.values.locale.current
 
 

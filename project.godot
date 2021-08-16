@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "PanelContainer",
 "class": "PopInPanel",
 "language": "GDScript",
-"path": "res://src/Preview/PopInPanel.gd"
+"path": "res://src/Toolbox/PreviewView/PopInPanel.gd"
 }, {
 "base": "OptionButton",
 "class": "PortraitOptions",
@@ -52,7 +52,7 @@ _global_script_classes=[ {
 "base": "MarginContainer",
 "class": "PreviewChoice",
 "language": "GDScript",
-"path": "res://src/Preview/PreviewChoice/PreviewChoice.gd"
+"path": "res://src/Toolbox/PreviewView/PreviewChoice/PreviewChoice.gd"
 }, {
 "base": "CheckBox",
 "class": "RadioButton",
@@ -62,7 +62,7 @@ _global_script_classes=[ {
 "base": "HBoxContainer",
 "class": "TimelineField",
 "language": "GDScript",
-"path": "res://src/Preview/Form/TimelineField.gd"
+"path": "res://src/Toolbox/PreviewView/Form/TimelineField.gd"
 }, {
 "base": "Node",
 "class": "UpdateTool",
