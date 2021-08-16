@@ -23,6 +23,7 @@ func _ready() -> void:
 
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		Editor.reset()
 		FileManager.clear()
 		yield(FileManager, "cache_cleared")
 		get_tree().quit()

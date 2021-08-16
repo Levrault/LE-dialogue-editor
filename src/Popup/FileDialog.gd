@@ -52,7 +52,6 @@ func _on_Dialog_opened(new_mode: int) -> void:
 func _on_Confirmed() -> void:
 	if mode == 4:
 		# Save file with new path
-		print(current_path)
 		Serialize.save_as(current_path)
 
 		FileManager.pristine()
@@ -62,7 +61,6 @@ func _on_Confirmed() -> void:
 			Config.values.variables.files.append(
 				{name = current_file, path = Editor.resource_path(current_path)}
 			)
-			print(Config.values.variables.files)
 			Config.values.cache.last_opened_file = {
 				name = current_file, path = Editor.resource_path(current_path)
 			}

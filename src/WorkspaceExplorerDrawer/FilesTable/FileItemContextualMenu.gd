@@ -40,7 +40,6 @@ func _on_Toggled(pressed: bool) -> void:
 
 
 func _on_Item_pressed(id: int) -> void:
-	print(owner.button.values)
 	if id == Menu.remove:
 		FileManager.delete_file(owner.button.values, false)
 		owner.queue_free()

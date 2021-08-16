@@ -55,7 +55,6 @@ func _on_Save() -> void:
 			return
 
 	var file = Config.read_workspace_file(form_values.folder)
-	print(form_values)
 
 	Config.globals.workspaces.list.append(
 		{

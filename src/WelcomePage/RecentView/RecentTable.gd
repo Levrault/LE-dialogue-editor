@@ -30,8 +30,6 @@ func _on_Pressed(workspace: Dictionary) -> void:
 	if os_resource != null:
 		workspace.resource = os_resource
 	else:
-		# workspace has been created from another os
-		print(OS.get_name())
 		# On OSX file extension aren't saved
 		if OS.get_name() == "OSX":
 			workspace.resource = workspace.folder.rstrip("%s.cfg" % workspace.name)

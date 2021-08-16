@@ -31,7 +31,6 @@ func _ready() -> void:
 # Preview predicated route based on selected conditions
 # @param {Dictionary} form_conditions
 func _on_Preview_started(form_conditions: Dictionary) -> void:
-	print(form_conditions)
 	_form_conditions = form_conditions
 	preview_list = []
 	uuid_list = []
@@ -193,7 +192,6 @@ func _display_timeline(list: Array, start_at: int = 0) -> void:
 
 		# dialogue
 		var preview_dialogue = null
-		print(speakers)
 		if speakers.left.has(item.dialogue.get("name")):
 			preview_dialogue = dialogue_left_scene.instance()
 		elif speakers.right.has(item.dialogue.get("name")):
