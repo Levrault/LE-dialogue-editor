@@ -1,6 +1,13 @@
-[gd_resource type="Theme" load_steps=3 format=2]
+[gd_resource type="Theme" load_steps=4 format=2]
 
 [ext_resource path="res://assets/themes/line_edit/line_edit.tres" type="StyleBox" id=1]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.101961, 0.101961, 0.113725, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 8.0
@@ -61,6 +68,6 @@ TextEdit/icons/folded = null
 TextEdit/icons/space = null
 TextEdit/icons/tab = null
 TextEdit/styles/completion = null
-TextEdit/styles/focus = null
+TextEdit/styles/focus = SubResource( 2 )
 TextEdit/styles/normal = SubResource( 1 )
 TextEdit/styles/read_only = null
