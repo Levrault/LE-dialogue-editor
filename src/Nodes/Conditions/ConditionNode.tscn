@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://src/Nodes/Conditions/AddCondition.gd" type="Script" id=1]
 [ext_resource path="res://src/Nodes/Conditions/ConditionsNode.gd" type="Script" id=2]
@@ -9,8 +9,10 @@
 [ext_resource path="res://assets/icons/chevron-up_white_24x24.svg" type="Texture" id=7]
 [ext_resource path="res://src/Nodes/Fields/TypeOptions.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/Nodes/Fields/NumberOptionsField.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/textures/CheckButton/GuiToggleOn.svg" type="Texture" id=10]
 [ext_resource path="res://src/Nodes/Fields/BooleanField.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/icons/chevron-down_white_24x24.svg" type="Texture" id=12]
+[ext_resource path="res://assets/textures/CheckButton/GuiToggleOff.svg" type="Texture" id=13]
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 16.0
@@ -80,7 +82,7 @@ __meta__ = {
 margin_left = 16.0
 margin_top = 32.0
 margin_right = 278.0
-margin_bottom = 300.0
+margin_bottom = 268.0
 size_flags_vertical = 0
 custom_constants/separation = 16
 
@@ -148,14 +150,16 @@ margin_left = 40.0
 margin_right = 262.0
 
 [node name="BooleanField" parent="Container" instance=ExtResource( 11 )]
+margin_top = 124.0
+margin_bottom = 148.0
 
 [node name="NumberOptionsField" parent="Container" instance=ExtResource( 9 )]
 visible = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Container"]
-margin_top = 180.0
+margin_top = 164.0
 margin_right = 262.0
-margin_bottom = 212.0
+margin_bottom = 196.0
 alignment = 2
 
 [node name="AddCondition" type="ToolButton" parent="Container/HBoxContainer"]
@@ -171,10 +175,12 @@ script = ExtResource( 1 )
 [node name="Tween" type="Tween" parent="Container/HBoxContainer/AddCondition"]
 
 [node name="IsEmpty" type="CheckButton" parent="Container"]
-margin_top = 228.0
+margin_top = 212.0
 margin_right = 262.0
-margin_bottom = 268.0
+margin_bottom = 236.0
 mouse_default_cursor_shape = 2
+custom_icons/off = ExtResource( 13 )
+custom_icons/on = ExtResource( 10 )
 text = "Empty condition"
 
 [editable path="Container/TypeContainer"]
