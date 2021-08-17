@@ -23,13 +23,13 @@ const DEFAULT_VALUES := {
 	"locale": {"current": "en", "selected": ["en", "fr"], "custom": []},
 	"variables": {"characters": [{"name": "Godot", "portraits": []}], "files": []},
 	"cache": {"last_opened_file": {}},
-	"info": {"version": "", "window_height": 1920, "window_width": 1080, "full_screen": false},
+	"info": {"version": ""},
 }
 
 const DEFAULT_GLOBALS := {
 	"workspaces": {"list": []},
 	"views": {"preview": false, "json": false, "workspace": true},
-	"info": {"version": ""}
+	"info": {"version": "", "window_height": 1920, "window_width": 1080}
 }
 
 var _config_file := ConfigFile.new()
@@ -178,6 +178,14 @@ func update_workspace_file_if_needed(loaded_settings: Dictionary, path: String) 
 		has_been_updated = true
 		print_debug("%s workspace file has been update to 1.0.3-beta" % path)
 
+	# 1.0.3-beta to 1.0,3 
+	if loaded_settings.info.version == "v1.0.3-beta":
+		UpdateTool.migrate_workspace_v1_0_3_beta_to_v1_0_3(loaded_settings)
+		has_been_updated = true
+
+	if loaded_settings.info.version != ProjectSettings.get_setting("Info/version"):
+		UpdateTool.migrate_to_last_version_only(loaded_settings)
+
 	if not has_been_updated:
 		print_debug("%s is synched with the latest file structure " % path)
 		return
@@ -196,9 +204,13 @@ func update_editor_config_if_needed(loaded_settings: Dictionary) -> void:
 		has_been_updated = true
 		print_debug("Editor file has been update to 1.0.3-beta")
 
+	# 1.0.3-beta to 1.0,3 
 	if loaded_settings.info.version == "v1.0.3-beta":
-		UpdateTool.migrate_to_last_version_only(loaded_settings)
+		UpdateTool.migrate_editor_v1_0_3_beta_to_v1_0_3(loaded_settings, DEFAULT_GLOBALS)
 		has_been_updated = true
+
+	if loaded_settings.info.version != ProjectSettings.get_setting("Info/version"):
+		UpdateTool.migrate_to_last_version_only(loaded_settings)
 
 	if not has_been_updated:
 		print_debug("Editor file is synched with the latest file structure ")

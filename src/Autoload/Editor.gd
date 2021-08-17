@@ -6,7 +6,6 @@ signal scene_cleared
 enum Type { root, dialogue, choice, condition, signal_node }
 enum Notification { idle, warning, error, success }
 
-var active_fullscreen := true
 var workspace := {}
 var workspace_pristine := true
 var locale := "en" setget set_locale

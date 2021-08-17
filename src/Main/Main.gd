@@ -1,6 +1,6 @@
 # Main container
 # Create node and send
-extends Control
+extends ResizableWindow
 
 onready var graph_edit := $MainWrapper/AppContainer/ViewsContainer/Editor/GraphEditor
 

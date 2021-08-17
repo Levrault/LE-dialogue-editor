@@ -62,7 +62,7 @@ __meta__ = {
 }
 
 [node name="Menu" parent="MainWrapper/AppContainer" instance=ExtResource( 2 )]
-margin_right = 315.0
+margin_right = 202.0
 
 [node name="ViewsContainer" type="HBoxContainer" parent="MainWrapper/AppContainer"]
 margin_top = 26.0

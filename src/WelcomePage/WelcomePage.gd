@@ -1,9 +1,6 @@
-extends Control
+extends ResizableWindow
 
 
 func _ready():
-	if not Editor.active_fullscreen:
-		return
+	OS.window_size = Vector2(Config.globals.info.window_width, Config.globals.info.window_height)
 	OS.center_window()
-	# OS.set_window_maximized(true)
-	# Editor.active_fullscreen = false
