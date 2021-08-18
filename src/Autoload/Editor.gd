@@ -85,8 +85,14 @@ func save_file() -> void:
 
 
 func new_file() -> void:
-	# Cache prevous file
-	FileManager.cache_file()
+	if FileManager.state == FileManager.State.unregistred_dirty:
+		Serialize.save()
+		print_debug(
+			"%s has been cached inside %s" % [FileManager.edited_file.path, Serialize.current_path]
+		)
+	else:
+		# Cache prevous file
+		FileManager.cache_file()
 
 	reset()
 	load_last_opened_file = false
