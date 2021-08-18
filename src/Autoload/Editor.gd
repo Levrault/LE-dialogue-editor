@@ -90,7 +90,6 @@ func new_file() -> void:
 
 	reset()
 	load_last_opened_file = false
-	get_tree().reload_current_scene()
 	yield(get_tree(), "idle_frame")
 
 	# force new root on creation

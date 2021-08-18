@@ -14,6 +14,11 @@ signal confirmation_relation_answered(value)
 # expand text
 signal expand_text_dialogued_opened(owner)
 
+# debug
+signal debug_mode_activated
+signal debug_button_pressed
+signal debug_view_displayed
+
 # graph
 signal graph_node_added(node)
 signal graph_node_loaded(node)

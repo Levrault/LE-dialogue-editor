@@ -1,0 +1,4 @@
+extends AnimatedToolButton
+
+var data := {
+}

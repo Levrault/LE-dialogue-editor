@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/Generic/AnimatedToolButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/icons/code_white_24x24.svg" type="Texture" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://src/Toolbox/ToolboxBar.gd" type="Script" id=7]
 [ext_resource path="res://assets/icons/save_white_24x24.svg" type="Texture" id=8]
 [ext_resource path="res://assets/icons/file-plus_white_24x24.svg" type="Texture" id=9]
+[ext_resource path="res://assets/icons/tool_white_24x24.svg" type="Texture" id=10]
+[ext_resource path="res://src/Toolbox/DebugView/DebugButton.gd" type="Script" id=11]
 
 [node name="ToolboxBar" type="Control"]
 margin_right = 50.0
@@ -94,6 +96,18 @@ margin_bottom = 673.0
 size_flags_vertical = 3
 custom_constants/separation = 8
 alignment = 2
+
+[node name="DebugButton" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 305.0
+margin_right = 36.0
+margin_bottom = 337.0
+size_flags_horizontal = 0
+keep_pressed_outside = true
+icon = ExtResource( 10 )
+script = ExtResource( 11 )
+signal_on_pressed = "debug_button_pressed"
 
 [node name="NewDialogueButton" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0

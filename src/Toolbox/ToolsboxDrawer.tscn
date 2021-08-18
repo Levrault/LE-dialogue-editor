@@ -1,10 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/Toolbox/ToolsboxDrawer.gd" type="Script" id=1]
 [ext_resource path="res://src/Toolbox/PreviewView/PreviewView.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/icons/close_white_24x24.svg" type="Texture" id=3]
+[ext_resource path="res://src/Toolbox/DebugView/ConfigView/DebugConfigView.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Generic/AnimatedToolButton.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/Toolbox/Json.gd" type="Script" id=6]
+[ext_resource path="res://src/Toolbox/DebugView/EditorView/DebugEditorView.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/Toolbox/DebugView/DebugView.gd" type="Script" id=9]
+[ext_resource path="res://src/Toolbox/DebugView/FileView/DebugFileView.tscn" type="PackedScene" id=13]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.145098, 0.145098, 0.164706, 1 )
@@ -81,3 +85,54 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 selection_enabled = true
 script = ExtResource( 6 )
+
+[node name="DebugView" type="VBoxContainer" parent="MarginContainer/Container"]
+margin_top = 48.0
+margin_right = 284.0
+margin_bottom = 673.0
+size_flags_vertical = 3
+custom_constants/separation = 32
+script = ExtResource( 9 )
+
+[node name="MenuContainer" type="VBoxContainer" parent="MarginContainer/Container/DebugView"]
+visible = false
+margin_right = 284.0
+margin_bottom = 112.0
+custom_constants/separation = 8
+
+[node name="ConfigButton" parent="MarginContainer/Container/DebugView/MenuContainer" instance=ExtResource( 5 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 284.0
+margin_bottom = 22.0
+text = "Config"
+flat = false
+script = null
+
+[node name="EditorButton" parent="MarginContainer/Container/DebugView/MenuContainer" instance=ExtResource( 5 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 30.0
+margin_right = 284.0
+margin_bottom = 52.0
+text = "Editor"
+flat = false
+script = null
+
+[node name="FileButton" parent="MarginContainer/Container/DebugView/MenuContainer" instance=ExtResource( 5 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 90.0
+margin_right = 284.0
+margin_bottom = 112.0
+text = "File"
+flat = false
+script = null
+
+[node name="DebugConfigView" parent="MarginContainer/Container/DebugView" instance=ExtResource( 4 )]
+visible = false
+
+[node name="DebugEditorView" parent="MarginContainer/Container/DebugView" instance=ExtResource( 7 )]
+
+[node name="DebugFileView" parent="MarginContainer/Container/DebugView" instance=ExtResource( 13 )]
+visible = false
