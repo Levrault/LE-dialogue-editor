@@ -9,6 +9,7 @@ onready var label := $Empty
 
 
 func _ready() -> void:
+	Events.connect("preview_conditions_updated", self, "_on_Preview_condition_updated")
 	Events.connect("condition_value_added", self, "_on_Condition_value_added")
 	Events.connect("condition_value_deleted", self, "_on_Condition_value_deleted")
 
@@ -73,3 +74,7 @@ func _on_Condition_value_deleted(value: String) -> void:
 	# since queue_free only set on the next frame
 	if get_child_count() == 2:
 		label.show()
+
+
+func _on_Preview_condition_updated() -> void:
+	conditions = {}

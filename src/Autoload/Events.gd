@@ -6,6 +6,7 @@ signal preview_finished
 signal preview_button_activated
 signal preview_predicated_route_displayed(uuid_list)
 signal preview_choices_displayed
+signal preview_conditions_updated
 
 # confirmation modal
 signal confirmation_relation_pop_up_displayed(text)

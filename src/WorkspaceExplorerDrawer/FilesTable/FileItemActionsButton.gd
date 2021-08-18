@@ -45,6 +45,7 @@ func _on_Pressed() -> void:
 		FileManager.cache_file()
 
 	# load an existing file
+	Events.emit_signal("preview_conditions_updated")
 	Editor.reset()
 	yield(Editor, "scene_cleared")
 	yield(get_tree(), "idle_frame")
