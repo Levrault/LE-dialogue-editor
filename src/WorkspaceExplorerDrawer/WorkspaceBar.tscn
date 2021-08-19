@@ -41,8 +41,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 28.0
 margin_bottom = 24.0
-hint_tooltip = "ctrl+b (win & linux)
-ctrl+command+b (mac)"
+hint_tooltip = "ctrl+b (win & linux)"
 size_flags_horizontal = 0
 keep_pressed_outside = true
 shortcut = SubResource( 2 )

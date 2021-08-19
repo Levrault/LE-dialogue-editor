@@ -66,8 +66,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 36.0
 margin_bottom = 32.0
-hint_tooltip = "ctrl+p (win & linux)
-ctrl+command+p (mac)"
+hint_tooltip = "ctrl+p (win & linux)"
 size_flags_horizontal = 0
 keep_pressed_outside = true
 shortcut = SubResource( 2 )
@@ -137,8 +136,7 @@ anchor_bottom = 0.0
 margin_top = 345.0
 margin_right = 36.0
 margin_bottom = 377.0
-hint_tooltip = "ctrl+n (win & linux)
-ctrl+command+n (mac)"
+hint_tooltip = "ctrl+n (win & linux)"
 size_flags_horizontal = 0
 keep_pressed_outside = true
 shortcut = SubResource( 4 )
@@ -152,8 +150,7 @@ anchor_bottom = 0.0
 margin_top = 385.0
 margin_right = 36.0
 margin_bottom = 417.0
-hint_tooltip = "ctrl+s (win & linux)
-ctrl+command+s (mac)"
+hint_tooltip = "ctrl+s (win & linux)"
 size_flags_horizontal = 0
 keep_pressed_outside = true
 shortcut = SubResource( 6 )
