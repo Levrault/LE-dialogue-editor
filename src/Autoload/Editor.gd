@@ -79,7 +79,7 @@ func save_file() -> void:
 		Events.emit_signal("file_dialog_opened", 4)  # FileDialog.Mode.MODE_SAVE_FILE
 		return
 
-	Serialize.current_path = FileManager.edited_file.path
+	Serialize.current_path = absolute_path(FileManager.edited_file.path)
 	Serialize.save()
 	FileManager.pristine()
 
