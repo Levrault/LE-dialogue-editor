@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Generic/AnimatedToolButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/icons/log-out_white_16x16.svg" type="Texture" id=2]
 [ext_resource path="res://assets/icons/file-text_white_16x16.svg" type="Texture" id=3]
+
+[sub_resource type="InputEventAction" id=1]
+action = "workspace_explorer_drawer"
+
+[sub_resource type="ShortCut" id=2]
+shortcut = SubResource( 1 )
 
 [node name="WorkspaceBar" type="Control"]
 margin_right = 28.0
@@ -35,8 +41,11 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 28.0
 margin_bottom = 24.0
+hint_tooltip = "ctrl+b (win & linux)
+ctrl+command+b (mac)"
 size_flags_horizontal = 0
 keep_pressed_outside = true
+shortcut = SubResource( 2 )
 icon = ExtResource( 3 )
 signal_on_pressed = "layout_workspace_explorer_drawer_toggled"
 
