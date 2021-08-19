@@ -1,8 +1,8 @@
 # Manage creation/deletion of the condition's timeline field
 extends VBoxContainer
 
-var timeline_field_boolean_scene := preload("res://src/ToolBox/PreviewView/Form/TimelineFieldBoolean.tscn")
-var timeline_field_input_scene := preload("res://src/ToolBox/PreviewView/Form/TimelineFieldInput.tscn")
+var timeline_field_boolean_scene := preload("res://src/Toolbox/PreviewView/Form/TimelineFieldBoolean.tscn")
+var timeline_field_input_scene := preload("res://src/Toolbox/PreviewView/Form/TimelineFieldInput.tscn")
 var conditions := {}
 
 onready var label := $Empty

@@ -8,7 +8,7 @@ enum State { dialogue, signals, choices }
 const TRANSITION_DURATION := .1
 
 var dialogue_left_scene = preload("res://src/Toolbox/PreviewView/PreviewDialogue/PreviewDialogueLeft.tscn")
-var dialogue_right_scene = preload("res://src/ToolBox/PreviewView/PreviewDialogue/PreviewDialogueRight.tscn")
+var dialogue_right_scene = preload("res://src/Toolbox/PreviewView/PreviewDialogue/PreviewDialogueRight.tscn")
 var choice_scene = preload("res://src/Toolbox/PreviewView/PreviewChoice/PreviewChoice.tscn")
 var signal_scene = preload("res://src/Toolbox/PreviewView/PreviewSignal/PreviewSignal.tscn")
 

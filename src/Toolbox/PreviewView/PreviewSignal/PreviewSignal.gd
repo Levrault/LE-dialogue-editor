@@ -1,6 +1,6 @@
 extends MarginContainer
 
-var preview_signal_label_scene = preload("res://src/ToolBox/PreviewView/PreviewSignal/PreviewSignalLabel.tscn")
+var preview_signal_label_scene = preload("res://src/Toolbox/PreviewView/PreviewSignal/PreviewSignalLabel.tscn")
 var values := {} setget set_values
 
 onready var list_container := $Wrapper/Container/MarginContainer/ListContainer
