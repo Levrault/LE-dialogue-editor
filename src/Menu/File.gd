@@ -14,18 +14,6 @@ func _ready():
 	get_popup().add_item("Quit", Menu.quit)
 
 
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("new_scene"):
-		Editor.new_file()
-		return
-	if event.is_action_pressed("save_file"):
-		Editor.save_file()
-		return
-	if event.is_action_pressed("open_file"):
-		Editor.open_file()
-		return
-
-
 func _on_Item_pressed(id: int) -> void:
 	if id == Menu.new:
 		Editor.new_file()

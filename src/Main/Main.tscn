@@ -143,8 +143,8 @@ popup_exclusive = true
 dialog_hide_on_ok = true
 access = 2
 filters = PoolStringArray( "*.json" )
-current_dir = "/Users/lflangis/Devs/LE-dialogue-editor"
-current_path = "/Users/lflangis/Devs/LE-dialogue-editor/"
+current_dir = "/home/levrault/Devs/LE-dialogue-editor"
+current_path = "/home/levrault/Devs/LE-dialogue-editor/"
 script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -166,8 +166,8 @@ window_title = "Open Workspace"
 dialog_hide_on_ok = true
 access = 2
 filters = PoolStringArray( "*.json" )
-current_dir = "/Users/lflangis/Devs/LE-dialogue-editor"
-current_path = "/Users/lflangis/Devs/LE-dialogue-editor/"
+current_dir = "/home/levrault/Devs/LE-dialogue-editor"
+current_path = "/home/levrault/Devs/LE-dialogue-editor/"
 __meta__ = {
 "_edit_use_anchors_": false
 }

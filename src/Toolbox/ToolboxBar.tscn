@@ -26,6 +26,7 @@ shortcut = SubResource( 3 )
 
 [sub_resource type="InputEventAction" id=5]
 action = "save_file"
+pressed = true
 
 [sub_resource type="ShortCut" id=6]
 shortcut = SubResource( 5 )
