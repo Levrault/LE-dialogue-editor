@@ -35,8 +35,10 @@ func _on_View_updated(view) -> void:
 		return
 	show()
 	
+	json.set_process(false)
 	for child in view_container.get_children():
 		child.hide()
+
 	header.show()
 	var should_update_config := false
 	Config.globals.views.preview = false
@@ -68,6 +70,7 @@ func _show_preview() -> void:
 func _show_json() -> void:
 	current_view = View.json
 	title.text = "Json"
+	json.set_process(true)
 	json.show()
 
 

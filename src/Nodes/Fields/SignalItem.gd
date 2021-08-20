@@ -8,7 +8,7 @@ onready var type := $Type
 
 
 func _exit_tree() -> void:
-	emit_signal("field_deleted", value.text, self.rect_size)
+	emit_signal("field_deleted", signal_name.text, self.rect_size)
 
 
 func delete() -> void:

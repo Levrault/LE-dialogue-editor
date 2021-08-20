@@ -4,9 +4,6 @@
 [ext_resource path="res://src/Nodes/Fields/SignalItem.gd" type="Script" id=2]
 [ext_resource path="res://src/Nodes/Fields/DeleteButton.gd" type="Script" id=3]
 
-
-
-
 [node name="Signal" type="HBoxContainer"]
 margin_right = 201.0
 margin_bottom = 32.0
@@ -28,33 +25,33 @@ uppercase = true
 [node name="Name" type="Label" parent="."]
 margin_left = 35.0
 margin_top = 9.0
-margin_right = 95.0
+margin_right = 110.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
-text = "plaholder"
+text = "placeholder"
 align = 1
 
 [node name="Type" type="Label" parent="."]
-margin_left = 99.0
+margin_left = 114.0
 margin_top = 9.0
-margin_right = 128.0
+margin_right = 143.0
 margin_bottom = 23.0
 custom_colors/font_color = Color( 0.458824, 0.458824, 0.458824, 1 )
 text = "Type"
 uppercase = true
 
 [node name="Value" type="Label" parent="."]
-margin_left = 132.0
+margin_left = 147.0
 margin_top = 9.0
-margin_right = 173.0
+margin_right = 188.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 text = "empty"
 align = 1
 
 [node name="Delete" type="ToolButton" parent="."]
-margin_left = 177.0
-margin_right = 213.0
+margin_left = 192.0
+margin_right = 228.0
 margin_bottom = 32.0
 mouse_default_cursor_shape = 2
 icon = ExtResource( 1 )
