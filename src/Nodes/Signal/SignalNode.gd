@@ -1,5 +1,5 @@
 # SignalNode
-# Directly related to godot's signal pattern. 
+# Directly related to godot's signal pattern.
 # When readed by the dialogue system, he should emit a signal with the params
 # 4 types are managed for the moment
 #  Empty, String, Vector2, Number
@@ -152,9 +152,27 @@ func _on_Type_selected(index: int) -> void:
 
 
 func _on_File_loaded() -> void:
-	for value in values.data:
+	for key in values.data:
+		var signal_values = values.data[key]
+
+		# invalid signal (like parent)
+		if key == "parent":
+			continue
+
 		var new_signal = signal_field.instance()
 		container.add_child(new_signal)
-		new_signal.value.text = value
+		new_signal.signal_name.text = key
+
+		if signal_values.has("Vector2"):
+			new_signal.value.text = "(%s,%s)" % [signal_values.Vector2.x, signal_values.Vector2.y]
+			new_signal.type.text = "Vector2"
+		elif signal_values.has("Number"):
+			new_signal.value.text = "%s" % signal_values.Number
+			new_signal.type.text = "Number"
+		elif signal_values.has("String"):
+			new_signal.value.text = signal_values.String
+			new_signal.type.text = "String"
+		else:
+			new_signal.type.text = "empty"
+			new_signal.value.text = "null"
 		new_signal.connect("field_deleted", self, "_on_Deleted")
-	is_loading = false
