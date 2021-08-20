@@ -10,18 +10,23 @@ margin_top = 48.0
 margin_right = 284.0
 margin_bottom = 657.0
 size_flags_vertical = 3
+custom_constants/separation = 32
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TimelineForm" parent="." instance=ExtResource( 3 )]
+margin_top = 0.0
 margin_bottom = 108.0
 
 [node name="TimelineContainer" type="ScrollContainer" parent="."]
-margin_top = 112.0
+margin_top = 140.0
 margin_right = 284.0
 margin_bottom = 609.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Timeline" parent="TimelineContainer" instance=ExtResource( 5 )]
-margin_bottom = 497.0
+margin_bottom = 469.0
 rect_clip_content = true

@@ -2,6 +2,8 @@ extends Control
 
 enum View { preview, json, locale, characters, debug }
 
+var current_view := -1
+
 onready var close_button := $MarginContainer/Container/Header/CloseButton
 onready var view_container := $MarginContainer/Container
 onready var header := $MarginContainer/Container/Header
@@ -27,7 +29,12 @@ func _ready() -> void:
 
 
 func _on_View_updated(view) -> void:
+	if current_view == view:
+		current_view = -1
+		hide()
+		return
 	show()
+	
 	for child in view_container.get_children():
 		child.hide()
 	header.show()
@@ -53,15 +60,18 @@ func _on_View_updated(view) -> void:
 
 
 func _show_preview() -> void:
+	current_view = View.preview
 	title.text = "Preview"
 	preview_view.show()
 
 
 func _show_json() -> void:
+	current_view = View.json
 	title.text = "Json"
 	json.show()
 
 
 func _show_debug() -> void:
+	current_view = View.debug
 	title.text = "Debug"
 	debug.show()
