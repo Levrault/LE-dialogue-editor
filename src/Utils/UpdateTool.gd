@@ -12,10 +12,10 @@ static func migrate_to_last_version_only(legacy: Dictionary) -> void:
 # remove depreciated path.file
 # remove depreciated path.resource
 # remove window height, width and fullscreen
-static func migrate_workspace_v1_x_x_to_v1_2_0(legacy: Dictionary, default_values: Dictionary) -> void:
+static func migrate_workspace_v1_x_x_to_v1_1_0(legacy: Dictionary, default_values: Dictionary) -> void:
 	if not legacy.has("info"):
 		legacy["info"] = default_values.info.duplicate(true)
-	legacy["info"]["version"] = "v1.2.0"
+	legacy["info"]["version"] = "v1.1.0"
 
 	if legacy.path.has("file"):
 		legacy.path.erase("file")
@@ -29,10 +29,10 @@ static func migrate_workspace_v1_x_x_to_v1_2_0(legacy: Dictionary, default_value
 # Save editor version inside the config file
 # Add version editor
 # Add has_name and has_portrait inside each link to workspace
-static func migrate_editor_config_v1_x_x_to_v1_2_0(legacy: Dictionary, global_default: Dictionary) -> void:
+static func migrate_editor_config_v1_x_x_to_v1_1_0(legacy: Dictionary, global_default: Dictionary) -> void:
 	if not legacy.has("info"):
 		legacy["info"] = global_default.info.duplicate(true)
-	legacy["info"]["version"] = "v1.2.0"
+	legacy["info"]["version"] = "v1.1.0"
 
 	for workspace in legacy.workspaces.list:
 		if workspace.get("has_portrait") == null:
