@@ -167,21 +167,16 @@ func sync_workspace_list_to_existing_file(loaded_settings) -> void:
 func update_workspace_file_if_needed(loaded_settings: Dictionary, path: String) -> void:
 	var has_been_updated := false
 
-	# from 1.0.0-beta to 1.0.3-beta
+	# from 1.0.0-beta to 1.2.0
 	if (
 		not loaded_settings.has("info")
 		or loaded_settings.info.version.empty()
 		or loaded_settings.path.has("resource")
 		or loaded_settings.path.has("path")
 	):
-		UpdateTool.migrate_workspace_v1_x_x_to_v1_0_3_beta(loaded_settings, DEFAULT_VALUES)
+		UpdateTool.migrate_workspace_v1_x_x_to_v1_2_0(loaded_settings, DEFAULT_VALUES)
 		has_been_updated = true
-		print_debug("%s workspace file has been update to 1.0.3-beta" % path)
-
-	# 1.0.3-beta to 1.0,3 
-	if loaded_settings.info.version == "v1.0.3-beta":
-		UpdateTool.migrate_workspace_v1_0_3_beta_to_v1_0_3(loaded_settings)
-		has_been_updated = true
+		print_debug("%s workspace file has been update to 1.2.0" % path)
 
 	if loaded_settings.info.version != ProjectSettings.get_setting("Info/version"):
 		UpdateTool.migrate_to_last_version_only(loaded_settings)
@@ -198,17 +193,13 @@ func update_workspace_file_if_needed(loaded_settings: Dictionary, path: String) 
 func update_editor_config_if_needed(loaded_settings: Dictionary) -> void:
 	var has_been_updated := false
 
-	# from 1.0.0-beta to 1.0.3-beta
+	# from 1.0.0-beta to 1.2.0
 	if not loaded_settings.has("info") or loaded_settings.info.version.empty():
-		UpdateTool.migrate_editor_config_v1_x_x_to_v1_0_3_beta(loaded_settings, DEFAULT_GLOBALS)
+		UpdateTool.migrate_editor_config_v1_x_x_to_v1_2_0(loaded_settings, DEFAULT_GLOBALS)
 		has_been_updated = true
-		print_debug("Editor file has been update to 1.0.3-beta")
+		print_debug("Editor file has been update to 1.2.0")
 
-	# 1.0.3-beta to 1.0,3 
-	if loaded_settings.info.version == "v1.0.3-beta":
-		UpdateTool.migrate_editor_v1_0_3_beta_to_v1_0_3(loaded_settings, DEFAULT_GLOBALS)
-		has_been_updated = true
-
+	# > 1.2.0 
 	if loaded_settings.info.version != ProjectSettings.get_setting("Info/version"):
 		UpdateTool.migrate_to_last_version_only(loaded_settings)
 
