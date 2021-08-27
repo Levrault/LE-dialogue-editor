@@ -26,7 +26,7 @@ jobs:
           echo ::set-output name=TAG_VERSION::${GITHUB_REF#refs/tags/v}
       - name: export game
         # Use latest version (see releases for all versions)
-        uses: firebelley/godot-export@v2.6.1
+        uses: firebelley/godot-export@v2.8.1
         with:
           # Defining all the required inputs
           # I used the mono version of Godot in this example
