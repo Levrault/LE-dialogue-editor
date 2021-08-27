@@ -16,6 +16,7 @@ border_width_right = 1
 border_color = Color( 0.101961, 0.101961, 0.113725, 1 )
 
 [node name="ToolsboxDrawer" type="Panel"]
+visible = false
 margin_right = 300.0
 margin_bottom = 689.0
 rect_min_size = Vector2( 300, 0 )

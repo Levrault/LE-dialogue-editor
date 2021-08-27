@@ -22,10 +22,14 @@ func _ready() -> void:
 	close_button.connect("pressed", self, "hide")
 
 	if Config.globals.views.preview:
+		show()
 		_show_preview()
+		return
 
 	if Config.globals.views.json:
+		show()
 		_show_json()
+		return
 
 
 func _on_View_updated(view) -> void:
@@ -34,7 +38,7 @@ func _on_View_updated(view) -> void:
 		hide()
 		return
 	show()
-	
+
 	json.set_process(false)
 	for child in view_container.get_children():
 		child.hide()

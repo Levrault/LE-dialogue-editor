@@ -139,6 +139,7 @@ func import_image(path: String, size: Vector2) -> ImageTexture:
 	var texture := ImageTexture.new()
 	var image := Image.new()
 
+	print(absolute_path(path))
 	var err = image.load(absolute_path(path))
 	assert(err == OK)
 
