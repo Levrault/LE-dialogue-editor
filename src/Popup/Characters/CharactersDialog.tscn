@@ -247,8 +247,8 @@ dialog_hide_on_ok = true
 mode = 0
 access = 2
 filters = PoolStringArray( "*.jpg", "*.png" )
-current_dir = "/Users/lflangis/Devs/LE-dialogue-editor"
-current_path = "/Users/lflangis/Devs/LE-dialogue-editor/"
+current_dir = "/Users/Luc-Frédéric/Devs/LE-dialogue-editor"
+current_path = "/Users/Luc-Frédéric/Devs/LE-dialogue-editor/"
 __meta__ = {
 "_edit_use_anchors_": false
 }
