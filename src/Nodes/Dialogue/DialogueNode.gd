@@ -12,6 +12,7 @@
 # Generated json
 # Case linear
 #   "e26a5ccf-66fe-4319-a130-47652e1a63b4": {
+# 	  "uuid": "e26a5ccf-66fe-4319-a130-47652e177777",
 #     "name": "Hero",
 #     "portrait": "res://assets/examples/hero.png",
 #     "text": { "en": "This is the default response", "fr": "" },
@@ -19,6 +20,7 @@
 #   },
 # Case Conditional linear
 #   "e26a5ccf-66fe-4319-a130-47652e1a63b4": {
+# 	  "uuid": "e26a5ccf-66fe-4319-a130-47652e177777",
 #     "name": "Hero",
 #     "portrait": "res://assets/examples/hero.png",
 #     "text": { "en": "This is the default response", "fr": "" },
@@ -36,6 +38,7 @@
 #
 # Case Choices
 #   "e26a5ccf-66fe-4319-a130-47652e1a63b4": {
+# 	  "uuid": "e26a5ccf-66fe-4319-a130-47652e177777",
 #     "name": "Hero",
 #     "portrait": "res://assets/examples/hero.png",
 #     "text": { "en": "This is the default response", "fr": "" },
@@ -53,6 +56,7 @@
 #
 # Case Conditional choices. Node needs to have conditions AND choices params
 #   "e26a5ccf-66fe-4319-a130-47652e1a63b4": {
+# 	  "uuid": "e26a5ccf-66fe-4319-a130-47652e177777",
 #     "name": "Hero",
 #     "portrait": "res://assets/examples/hero.png",
 #     "text": { "en": "This is the default response", "fr": "" },
@@ -101,7 +105,7 @@ func _ready() -> void:
 
 	values = {
 		"__editor": {"uuid": uuid, "offset": [offset.x, offset.y]},
-		"data": {"name": "", "portrait": "", "text": {"en": "", "fr": ""}}
+		"data": {"name": "", "character_uuid": "", "portrait": "", "text": {"en": "", "fr": ""}}
 	}
 
 

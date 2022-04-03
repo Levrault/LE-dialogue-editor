@@ -28,12 +28,15 @@ func _on_Characters_list_changed() -> void:
 
 	show()
 	empty_msg.hide()
+	var index := 0
 	for character in Config.values.variables.characters:
 		add_item(character.name)
-		if character.name == owner.values.data.name:
+		set_item_metadata(get_item_count() - 1, { uuid = character.uuid })
+		if character.uuid == owner.values.data.get("character_uuid") or character.name == owner.values.data.name:
 			selected = get_item_count() - 1
 
 	owner.values.data.name = get_item_text(selected)
+	owner.values.data["character_uuid"] = get_item_metadata(selected).uuid
 
 
 func _on_Character_selected(index: int) -> void:

@@ -178,6 +178,9 @@ func update_workspace_file_if_needed(loaded_settings: Dictionary, path: String) 
 		has_been_updated = true
 		print_debug("%s workspace file has been update to 1.1.0" % path)
 
+	if loaded_settings.info.version == "v1.1.0":
+		UpdateTool.migrate_workspace_v1_1_0_to_v1_1_3(loaded_settings, DEFAULT_VALUES)
+
 	if loaded_settings.info.version != ProjectSettings.get_setting("Info/version"):
 		UpdateTool.migrate_to_last_version_only(loaded_settings)
 

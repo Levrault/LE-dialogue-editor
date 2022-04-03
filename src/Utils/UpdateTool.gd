@@ -25,6 +25,15 @@ static func migrate_workspace_v1_x_x_to_v1_1_0(legacy: Dictionary, default_value
 	legacy.info.erase("full_screen")
 
 
+static func migrate_workspace_v1_1_0_to_v1_1_3(legacy: Dictionary, default_values: Dictionary) -> void:
+	for i in range(legacy.variables.characters.size()):
+		if legacy.variables.characters[i].has("uuid"):
+			continue
+		legacy.variables.characters[i]["uuid"] = Uuid.v4()
+	
+	legacy["info"]["version"] = "v1.1.3"
+
+
 # EDITOR
 # Save editor version inside the config file
 # Add version editor

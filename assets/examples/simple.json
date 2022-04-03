@@ -1,0 +1,1 @@
+{"root":{"next":"e5b7a6cd-0e5b-48eb-919e-3249e16e83ce"},"__editor":{"root":{"uuid":"root","offset":[40,100]},"dialogues":[{"uuid":"e5b7a6cd-0e5b-48eb-919e-3249e16e83ce","offset":[340,80],"parent":"root"}],"conditions":[],"signals":[],"choices":[]},"e5b7a6cd-0e5b-48eb-919e-3249e16e83ce":{"character_uuid":"","text":{"en":"hello","fr":""},"parent":"root"}}

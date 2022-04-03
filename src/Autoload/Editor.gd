@@ -130,8 +130,6 @@ func absolute_path(path: String) -> String:
 
 
 func resource_path(path: String) -> String:
-	print(workspace.resource)
-	print(path.replace(workspace.resource, Constant.RESOURCE))
 	return path.replace(workspace.resource, Constant.RESOURCE)
 
 
@@ -139,7 +137,6 @@ func import_image(path: String, size: Vector2) -> ImageTexture:
 	var texture := ImageTexture.new()
 	var image := Image.new()
 
-	print(absolute_path(path))
 	var err = image.load(absolute_path(path))
 	assert(err == OK)
 
